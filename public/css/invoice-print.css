@@ -1,0 +1,46 @@
+.page {
+    color: black;
+    font-family: "verdana", "sans-serif";
+    margin: 0;
+    padding-top: 0;
+}
+
+hr.divider {
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+}
+
+@media print {
+
+    /* Adjust Modal and remove any items that don't need to be printed */
+    .modal {
+        width: 700px !important;
+        border: none !important;
+    }
+
+    .modal-dialog {
+        border: none !important;
+        top: 0 !important;
+    }
+
+    .modal-content {
+        width: 700px !important;
+        border: none;
+        border-radius: 0;
+    }
+
+    .modal-header, .modal-footer, .container, .navbar, #footer {
+        display: none !important;
+    }
+
+    .modal-header {
+        min-height: 0 !important;
+        padding: 0 !important;
+    }
+
+    .page {
+        width: 100%;
+        font-size: 14px;
+    }
+
+}

@@ -1,0 +1,201 @@
+/* Sticky footer styles
+-------------------------------------------------- */
+@import url(http://fonts.googleapis.com/css?family=Economica|Unica+One|Baumans|Roboto+Condensed:400,700|Didact+Gothic|Open+Sans+Condensed:300);
+@import url(responsive-table.css);
+
+input[type="text"] {
+    margin-bottom: 0 !important;
+}
+
+/* Set the fixed height of the footer here */
+#push,
+#footer {
+    height: 60px;
+}
+
+html,
+body {
+    height: 100%;
+    /* The html and body elements cannot have any padding or margin. */
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    /* Negative indent footer by its height */
+    margin: 0 auto -60px;
+    /* Pad bottom by footer height */
+    padding: 0 0 60px;
+}
+
+#footer {
+    background-color: #f5f5f5;
+}
+
+/* Lastly, apply responsive CSS fixes as necessary */
+@media (max-width: 700px) {
+
+    #footer {
+        margin-left: -20px;
+        margin-right: -20px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .logo {
+        font-size: 10px;
+    }
+
+    .input-sm {
+        padding: 1px 5px;
+    }
+
+    .notes, .logoContainer, .companyInfo {
+        display: none;
+    }
+
+    .table-condensed tbody > tr > td {
+        padding: 2px;
+    }
+
+    hr {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .input-group-addon {
+        display: none;
+    }
+
+}
+
+/* Custom page CSS - Override Bootstrap CSS
+-------------------------------------------------- */
+
+.invTotal {
+    text-align: right;
+    font-weight: bold;
+}
+
+.page-header {
+    padding-top: 15px !important;
+}
+
+.companyInfo div {
+    /* padding-top: 4px; */
+}
+
+div.inline {
+    display: inline;
+}
+
+#invGrandTotalTop > h4 {
+    margin: 0;
+    padding-top: 10px;
+}
+
+.container {
+    /* max-width: 1015px; */
+}
+
+.container .credit {
+    margin: 20px 0;
+}
+
+#deleteRow {
+    cursor: pointer;
+}
+
+.logoContainer {
+    text-align: right;
+}
+
+.logo {
+    font-size: 35px;
+    line-height: 30px;
+    font-family: 'Economica', sans-serif;
+}
+
+.companyInfo {
+    text-align: right;
+}
+
+#deleteRow {
+    font-size: 25px;
+    color: #d43f3a;
+}
+
+/*Inline editing styles*/
+.edit {
+    width: 300px;
+    height: 25px;
+    padding-left: 5px;
+    padding-right: 20px;
+    margin: 0;
+    border-left: 3px solid #428bca;
+    border-bottom: 1px #ccc solid;
+}
+
+.edit:hover {
+    border: 1px solid #ecf0f1;
+    background: #ecf0f1;
+    border-left: 3px solid #e74c3c;
+    cursor: pointer;
+}
+
+.required {
+    border-left: 3px solid #e74c3c;
+    background: #f2dede;
+}
+
+/* Autocomplete - Additional Information Box */
+
+.additionalInfo h4 {
+    margin: 0 0 4px 0 !important;
+}
+
+.additionalInfo {
+    cursor: pointer;
+    text-decoration: none;
+    position: relative;
+}
+
+.additionalInfo span {
+    margin-left: -999em;
+    position: absolute;
+    font-size: 0.9em;
+}
+
+.additionalInfo:hover span {
+    /*opacity:0.9;*/
+    /*filter:alpha(opacity=90);*/
+    border-radius: 5px 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 2px 2px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 2px 2px rgba(0, 0, 0, 0.2);
+    font-family: Calibri, Tahoma, Geneva, sans-serif;
+    color: #000;
+    position: absolute;
+    left: 100px;
+    top: 10px;
+    z-index: 99;
+    margin-left: 0;
+    width: 200px;
+}
+
+.additionalInfo:hover img {
+    border: 0;
+    margin: -10px 0 0 -55px;
+    float: left;
+    position: absolute;
+}
+
+.additionalInfoColor {
+    padding: 10px;
+    background: #fcf8e3;
+    border: 1px solid #fbeed5;
+}
