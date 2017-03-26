@@ -18,12 +18,14 @@ class CreateAddressesTable extends Migration
             $table->string('address_line_1');
             $table->string('address_line_2')->nullable();
             $table->string('phone', 10);
-            $table->smallInteger('city_id', false, true);
+            $table->integer('city_id', false, true);
             $table->foreign('city_id')->references('id')->on('cities');
-            $table->smallInteger('state_id', false, true);
+            $table->integer('state_id', false, true);
             $table->foreign('state_id')->references('id')->on('states');
-            $table->smallInteger('zip_code_id', false, true);
+            $table->integer('zip_code_id', false, true);
             $table->foreign('zip_code_id')->references('id')->on('zip_codes');
+            $table->smallInteger('country_id', false, true);
+            $table->foreign('country_id')->references('id')->on('countries');
             $table->softDeletes();
             $table->timestamps();
         });
