@@ -50,4 +50,24 @@ class User extends Authenticatable
     {
         return $this->belongsTo(\App\Models\Subscriptions\Plan::class, 'trial_plan_id');
     }
+
+    /**
+     * Relationship to the daycare this user belongs to
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function daycare()
+    {
+        return $this->belongsTo(\App\Models\Daycare::class);
+    }
+
+    /**
+     * Relationship to the DayCare this user owns
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function ownedDaycare()
+    {
+        return $this->hasMany(\App\Models\Daycare::class, 'owner_user_id');
+    }
 }

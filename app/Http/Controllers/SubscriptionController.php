@@ -63,6 +63,6 @@ class SubscriptionController extends Controller
         $user->trialPlan()->associate($plan);
         $user->save();
 
-        return redirect()->route('home');
+        return redirect()->route('daycare.create');
     }
 }

@@ -33,6 +33,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/subscribe/{plan_name}/start-free-trial', 'SubscriptionController@subscribeToTrial')
         ->name('subscribe.trial');
 
-    Route::get('/register/daycare', 'DaycareController@create')->name('daycare.create');
+    Route::get('/register/daycare', 'DaycaresController@create')->name('daycare.create');
+    Route::post('/register/daycare', 'DaycaresController@store')->name('daycare.store');
 });
 
