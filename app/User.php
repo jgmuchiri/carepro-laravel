@@ -48,6 +48,6 @@ class User extends Authenticatable
      */
     public function trialPlan()
     {
-        return $this->belongsTo(\App\Models\Subscriptions\Plan::class);
+        return $this->belongsTo(\App\Models\Subscriptions\Plan::class, 'trial_plan_id');
     }
 }
