@@ -52,17 +52,17 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
-            'zip_code' => 'required|max:10',
-            'city' => 'required|max:255',
-            'state' => 'required|max:255',
-            'address_line_1' => 'required|max:255',
-            'address_line_2' => 'max:255',
-            'phone' => 'required|max:10'
-        ]);
+        return Validator::make(
+            $data,
+            array_merge(
+                [
+                    'name' => 'required|max:255',
+                    'email' => 'required|email|max:255|unique:users',
+                    'password' => 'required|min:6|confirmed'
+                ],
+                Address::getRules()
+            )
+        );
     }
 
     /**
@@ -73,39 +73,13 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $city = City::whereName($data['city'])->first();
-        if (empty($city)) {
-            $city = City::create(['name' => $data['city']]);
-        }
-
-        $state = State::whereName($data['state'])->first();
-        if (empty($state)) {
-            $state = State::create(['name' => $data['state']]);
-        }
-
-        $zip_code = ZipCode::whereZipCode($data['zip_code'])->first();
-        if (empty($zip_code)) {
-            $zip_code = ZipCode::create(['zip_code' => $data['zip_code']]);
-        }
-
-        $address = new Address([
-            'address_line_1' => $data['address_line_1'],
-            'address_line_2' => $data['address_line_2'],
-            'phone' => $data['phone']
-        ]);
-
-        $address->city()->associate($city);
-        $address->state()->associate($state);
-        $address->zipCode()->associate($zip_code);
-
-        $address->save();
-
         $user = new User([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
 
+        $address = Address::createFromRawInput($data);
         $user->address()->associate($address);
 
         $user->save();
