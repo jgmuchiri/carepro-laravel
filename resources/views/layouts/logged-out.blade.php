@@ -11,6 +11,7 @@
 
     <link href="/css/app.css" rel="stylesheet">
 
+    @stack('styles')
     <script>
         window.Laravel ='<?php echo json_encode(['csrfToken' => csrf_token()]); ?>';
     </script>
@@ -85,6 +86,9 @@
     @yield('content')
 </div>
 
+<script src="https://js.stripe.com/v2/"></script>
+<script src="https://js.stripe.com/v3/"></script>
 <script src="/js/app.js"></script>
+@stack('scripts')
 </body>
 </html>

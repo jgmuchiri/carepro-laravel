@@ -10,6 +10,7 @@ use App\Models\Addresses\ZipCode;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Validator;
+use Session;
 
 class RegisterController extends Controller
 {
@@ -110,5 +111,21 @@ class RegisterController extends Controller
         $user->save();
 
         return $user;
+    }
+
+    /**
+     * Returns where a user should be redirectEd to after registering
+     *
+     * @return string
+     */
+    protected function redirectTo()
+    {
+        $url = $this->redirectTo;
+
+        if (Session::has('url.intended')) {
+            $url = Session::get('url.intended');
+        }
+
+        return $url;
     }
 }

@@ -1279,7 +1279,7 @@ input[type=checkbox] {
     border-width: 1px;
     padding: 6px 18px;
 }
- 
+
 .input-group-btn .btn-default:not(.btn-fill) {
     border-color: #DDDDDD;
 }
@@ -3928,7 +3928,7 @@ label {}
 }
 .nav-sm a{
     padding:7px;
-} 
+}
 /**inline menu for tabs **/
 
 .ver-inline-menu {
@@ -4054,4 +4054,3 @@ label {}
         display: block;
     }
 }
-

@@ -4,9 +4,11 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Cashier\Billable;
 
 class User extends Authenticatable
 {
+    use Billable;
     use Notifiable;
 
     /**
@@ -35,5 +37,17 @@ class User extends Authenticatable
     public function address()
     {
         return $this->belongsTo(\App\Models\Addresses\Address::class);
+    }
+
+    /**
+     * Relationship to the trial plan selected for this user. Since all trials are
+     * the same, this is mostly used just so when they click to subscribe they don't have to reselect
+     * the plan.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function trialPlan()
+    {
+        return $this->belongsTo(\App\Models\Subscriptions\Plan::class);
     }
 }

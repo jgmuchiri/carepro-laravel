@@ -260,6 +260,8 @@
     $("input[name=phone]").mask("(999) 999-9999? x9999");
 </script>
 <script src="{{asset('js/global.js')}}"></script>
+<script src="https://js.stripe.com/v2/"></script>
+<script src="https://js.stripe.com/v3/"></script>
 
 @include('partials.flash')
 @stack('scripts')
