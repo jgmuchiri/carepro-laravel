@@ -25,7 +25,14 @@ Route::post(
 );
 
 Route::get('/plans', 'SubscriptionController@showPlans')->name('plans');
-Route::get('/subscribe', 'SubscriptionController@show')->middleware('auth')->name('billing');
 
-Route::post('/subscribe', 'SubscriptionController@subscribe')->middleware('auth')->name('billing');
-Route::get('/subscribe/{plan_name}/start-free-trial', 'SubscriptionController@subscribeToTrial')->middleware('auth')->name('subscribe.trial');
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('/subscribe', 'SubscriptionController@show')->name('billing');
+
+    Route::post('/subscribe', 'SubscriptionController@subscribe')->name('billing');
+    Route::get('/subscribe/{plan_name}/start-free-trial', 'SubscriptionController@subscribeToTrial')
+        ->name('subscribe.trial');
+
+    Route::get('/register/daycare', 'DaycareController@create')->name('daycare.create');
+});
+
