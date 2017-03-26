@@ -70,9 +70,6 @@
 <body>
 
 <div class="wrapper">
-    <?php
-    $uri = Request::segment(1);
-    ?>
     <div class="sidebar" data-background-color="white" data-active-color="danger">
         <!--
             Tip 1: you can change the color of the sidebar's background using: data-background-color="white | black"
@@ -95,38 +92,38 @@
             @endif
 
             <ul class="nav">
-                <li class="@if($uri=="dashboard") active  bg-warning @endif">
-                    <a href="/">
+                <li class="{{ $route_name === "home" ? 'active  bg-warning' : '' }}">
+                    <a href="{{ route('home') }}">
                         <i class="ti-panel"></i>
                         <p>Dashboard</p>
                     </a>
                 </li>
 
-                {{-- TODO: Mkae this if statement work with permissions--}}
+                {{-- TODO: Make this if statement work with permissions--}}
                 @if(1 == 2)
 
-                    <li class="@if($uri=="children") active  bg-warning @endif">
+                    <li class="@if($route_name=="children") active  bg-warning @endif">
                         <a href="/children" style="color:#5101ed">
                             <i class="fa fa-child"></i>
                             <p>Children</p>
                         </a>
                     </li>
 
-                    <li class="@if($uri=="parents") active  bg-warning @endif">
+                    <li class="@if($route_name=="parents") active  bg-warning @endif">
                         <a href="/parents" style="color:#5101ed">
                             <i class="fa fa-users"></i>
                             <p>Parents</p>
                         </a>
                     </li>
 
-                    {{--<li class="{{($uri=="messages" || $uri=="templates")?"active  bg-warning":""}}">--}}
+                    {{--<li class="{{($route_name=="messages" || $route_name=="templates")?"active  bg-warning":""}}">--}}
                     {{--<a href="/messages/admin">--}}
                     {{--<i class="fa fa-envelope-o"></i>--}}
                     {{--<p>Messaging</p>--}}
                     {{--</a>--}}
                     {{--</li>--}}
 
-                    <li class="{{($uri=="users" || $uri=="user")?"active  bg-warning":""}}">
+                    <li class="{{($route_name=="users" || $route_name=="user")?"active  bg-warning":""}}">
                         <a href="/users">
                             <i class="ti-user"></i>
                             <p>Users</p>
@@ -139,14 +136,14 @@
                         </a>
                     </li>
                 @endif
-                <li class="{{($uri=='birthdays')?"active  bg-warning":""}}">
-                    <a href="/birthdays" style="color:#eb28ca">
+                <li class="{{($route_name=='birthdays')?"active  bg-warning":""}}">
+                    <a href="/birthdays">
                         <i class="fa fa-gift"></i>
                         <p>Birthdays</p>
                     </a>
                 </li>
 
-                <li class="{{($uri=='profile')?"active  bg-warning":""}}">
+                <li class="{{($route_name=='profile')?"active  bg-warning":""}}">
                     <a href="/profile">
                         <i class="ti-user"></i>
                         <p>Profile</p>
@@ -189,7 +186,7 @@
                             </a>
                         </li>
 
-                        @if(Auth::check())
+                        @if(!empty($user))
                             <li>
                                 <a href="/logout">
                                     <i class="ti-lock"></i>
@@ -207,7 +204,7 @@
 
         <div class="content">
             <div class="container-fluid">
-                @if(Auth::check() && Auth::user()->confirmed ==0)
+                @if(!empty($user) && $user->confirmed === 0)
                     <div class="callout callout-danger text-center text-danger">
                         <i style="font-size:60px;" class="fa fa-exclamation-triangle"></i>
                         <h5 class="">

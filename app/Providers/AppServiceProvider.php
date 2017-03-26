@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Auth;
+use Route;
+use View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +16,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        View::composer('*', function ($view) {
+            $view->with('route_name', Route::currentRouteName());
+        });
+        View::composer('*', function($view){
+            $view->with('user', Auth::user());
+        });
     }
 
     /**
