@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SaveDaycareRequest;
 use App\Models\Addresses\Address;
-use App\Models\DayCare;
+use App\Models\Daycare;
 use Illuminate\Http\Request;
 
 class DaycaresController extends Controller
@@ -42,7 +42,7 @@ class DaycaresController extends Controller
             ['address_line_1', 'address_line_2', 'zip_code', 'state', 'city', 'country', 'phone']
         ));
 
-        $daycare = new DayCare([
+        $daycare = new Daycare([
             'name' => $request->input('name'),
             'employee_tax_identifier' => $request->input('employee_tax_identifier')]
         );
@@ -58,10 +58,10 @@ class DaycaresController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\DayCare  $dayCare
+     * @param  \App\Models\Daycare  $dayCare
      * @return \Illuminate\Http\Response
      */
-    public function show(DayCare $dayCare)
+    public function show(Daycare $dayCare)
     {
         //
     }
@@ -69,10 +69,10 @@ class DaycaresController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\DayCare  $dayCare
+     * @param  \App\Models\Daycare  $dayCare
      * @return \Illuminate\Http\Response
      */
-    public function edit(DayCare $dayCare)
+    public function edit(Daycare $dayCare)
     {
         //
     }
@@ -81,10 +81,10 @@ class DaycaresController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\DayCare  $dayCare
+     * @param  \App\Models\Daycare  $dayCare
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DayCare $dayCare)
+    public function update(Request $request, Daycare $dayCare)
     {
         //
     }
@@ -92,10 +92,10 @@ class DaycaresController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\DayCare  $dayCare
+     * @param  \App\Models\Daycare  $dayCare
      * @return \Illuminate\Http\Response
      */
-    public function destroy(DayCare $dayCare)
+    public function destroy(Daycare $dayCare)
     {
         //
     }
