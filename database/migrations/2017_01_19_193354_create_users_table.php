@@ -22,7 +22,6 @@ class CreateUsersTable extends Migration
             $table->foreign('address_id')->references('id')->on('addresses');
 
             $table->boolean('confirmed')->default(0);
-            $table->string('activation_code')->nullable();
             $table->string('confirmation_code')->nullable();
 
             $table->rememberToken();

@@ -129,6 +129,7 @@
                             <p>Users</p>
                         </a>
                     </li>
+                    {{-- Make this a proper route check--}}
                     <li class="{{(Request()->segment(2)=="roles" )?"active  bg-warning":""}}">
                         <a href="/roles">
                             <i class="fa fa-key"></i>
@@ -204,14 +205,14 @@
 
         <div class="content">
             <div class="container-fluid">
-                @if(!empty($user) && $user->confirmed === 0)
+                @if(!empty($user) && $user->confirmed === false)
                     <div class="callout callout-danger text-center text-danger">
                         <i style="font-size:60px;" class="fa fa-exclamation-triangle"></i>
                         <h5 class="">
                             Your account is not confirmed yet.
                             Please follow instructions received on the email.
                         </h5>
-                        <a href="/register/confirm">Click here to resend confirmation email</a>
+                        <a href="{{ route('auth.resend-verification') }}">Click here to resend confirmation email</a>
 
                     </div>
                 @else

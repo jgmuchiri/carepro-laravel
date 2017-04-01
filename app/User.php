@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Cashier\Billable;
@@ -17,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'confirmation_code'
     ];
 
     /**
@@ -27,6 +28,15 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password', 'remember_token',
+    ];
+
+    /**
+     * Store attributes and their casts
+     *
+     * @var array
+     */
+    protected $casts = [
+        'confirmed' => 'boolean'
     ];
 
     /**
@@ -69,5 +79,18 @@ class User extends Authenticatable
     public function ownedDaycare()
     {
         return $this->hasMany(\App\Models\Daycare::class, 'owner_user_id');
+    }
+
+    /**
+     * Query scope for where confirmed code
+     *
+     * @param Builder $query
+     * @param string $confirmation_code
+     *
+     * @return Builder
+     */
+    public function scopeWhereConfirmationCode(Builder $query, $confirmation_code)
+    {
+        return $query->where('confirmation_code', '=', $confirmation_code);
     }
 }

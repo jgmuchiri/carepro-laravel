@@ -4,13 +4,13 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Addresses\Address;
-use App\Models\Addresses\City;
-use App\Models\Addresses\State;
-use App\Models\Addresses\ZipCode;
+use App\Services\MailService;
 use App\User;
+use Config;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Validator;
+use Mail;
 use Session;
+use Validator;
 
 class RegisterController extends Controller
 {
@@ -77,12 +77,15 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'confirmation_code' => str_random(30)
         ]);
 
         $address = Address::createFromRawInput($data);
         $user->address()->associate($address);
 
         $user->save();
+
+        MailService::sendConfirmationEmail($user);
 
         return $user;
     }

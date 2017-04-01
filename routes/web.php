@@ -13,9 +13,10 @@
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('index');
 
 Auth::routes();
+Route::get('/register/verify/{confirmationCode}', 'Auth\VerificationController@verify')->name('auth.verify');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -35,5 +36,7 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::get('/register/daycare', 'DaycaresController@create')->name('daycare.create');
     Route::post('/register/daycare', 'DaycaresController@store')->name('daycare.store');
-});
 
+    Route::get('/register/resend-verification-email', 'Auth\VerificationController@resendVerificationEmail')
+        ->name('auth.resend-verification');
+});
