@@ -77,7 +77,7 @@ class Address extends Model
             'address_line_1' => 'required|max:255',
             'address_line_2' => 'max:255',
             'phone' => 'required|max:10',
-            'country' => 'required|max:255'
+            'country' => 'required|exists:countries,id'
         ];
     }
 
@@ -103,10 +103,7 @@ class Address extends Model
             $zip_code = ZipCode::create(['zip_code' => $data['zip_code']]);
         }
 
-        $country = Country::whereName($data['country'])->first();
-        if (empty($country)) {
-            $country = Country::create(['name' => $data['country']]);
-        }
+        $country = Country::find($data['country']);
 
         $address = new Address([
             'address_line_1' => $data['address_line_1'],

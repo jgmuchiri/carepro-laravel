@@ -13,14 +13,14 @@
                         </div>
                     @endif
 
-                    <form class="form-horizontal" role="form" method="POST" action="{{ route('password.email') }}">
+                    {!! Form::open(['route' => 'password.email', 'method' => 'POST', 'class' => 'form-horizontal', 'role' => 'form']) !!}
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+                            {!! Form::label('email', 'E-Mail Address', ['class' => 'col-md-4 control-label']) !!}
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+                                {!! Form::email('email', null, ['id' => 'email', 'class' => 'form-control', 'required' => '']) !!}
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
@@ -32,12 +32,10 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Send Password Reset Link
-                                </button>
+                                {!! Form::submit('Send Password Reset Link', ['class' => 'btn btn-primary']) !!}
                             </div>
                         </div>
-                    </form>
+                    {!! Form::close() !!}
                 </div>
             </div>
         </div>

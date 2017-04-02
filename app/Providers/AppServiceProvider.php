@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Addresses\Country;
 use Illuminate\Support\ServiceProvider;
 use Auth;
 use Route;
@@ -21,6 +22,9 @@ class AppServiceProvider extends ServiceProvider
         });
         View::composer('*', function($view){
             $view->with('user', Auth::user());
+        });
+        View::composer('partials.address-form', function ($view) {
+            $view->with('countries', Country::all()->pluck('name', 'id'));
         });
     }
 

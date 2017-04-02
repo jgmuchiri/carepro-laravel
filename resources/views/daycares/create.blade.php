@@ -7,14 +7,14 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Create Daycare</div>
                     <div class="panel-body">
-                        <form class="form-horizontal" role="form" method="POST" action="{{ route('daycare.store') }}">
+                        {!! Form::open(['route' => 'daycare.store', 'method' => 'post', 'role' => 'form', 'class' => 'form-horizontal']) !!}
                             {{ csrf_field() }}
 
                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                                <label for="name" class="col-md-4 control-label">Name</label>
+                                {!! Form::label('name', 'Name', ['class' => 'col-md-4 control-label']) !!}
 
                                 <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
+                                    {!! Form::text('name', null, ['id' => 'name', 'class' => 'form-control', 'required' => '', 'autofocus' => ''] !!}
 
                                     @if ($errors->has('name'))
                                         <span class="help-block">
@@ -25,10 +25,10 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('employee_tax_identifier') ? ' has-error' : '' }}">
-                                <label for="employee_tax_identifier" class="col-md-4 control-label">Employee Tax Identifier</label>
+                                {!! Form::label('employee_tax_identifier', 'Employee Tax Identifier', ['class' => 'col-md-4 control-label']) !!}
 
                                 <div class="col-md-6">
-                                    <input id="employee_tax_identifier" type="text" class="form-control" name="employee_tax_identifier" value="{{ old('employee_tax_identifier') }}" required autofocus>
+                                    {!! Form::text('employee_tax_identifier', null, ['id' => 'employee_tax_identifier', 'class' => 'form-control', 'required' => '']) !!}
 
                                     @if ($errors->has('employee_tax_identifier'))
                                         <span class="help-block">
@@ -42,12 +42,10 @@
 
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
-                                    <button type="submit" class="btn btn-primary">
-                                        Save
-                                    </button>
+                                    {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
                                 </div>
                             </div>
-                        </form>
+                        {!! Form::close() !!}
                     </div>
                 </div>
             </div>

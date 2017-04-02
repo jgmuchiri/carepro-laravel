@@ -7,14 +7,14 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Register</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ route('register') }}">
+                    {!! Form::open(['route' => 'register', 'method' => 'post', 'class' => 'form-horizontal', 'role' => 'form']) !!}
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Name</label>
+                            {!! Form::label('name', 'Name', ['class' => 'col-md-4 control-label']) !!}
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
+                                {!! Form::text('name', null, ['id' => 'name', 'class' => 'form-control', 'required' => '', 'autofocus' => '']) !!}
 
                                 @if ($errors->has('name'))
                                     <span class="help-block">
@@ -25,10 +25,10 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+                            {!! Form::label('email', 'E-Mail Address', ['class' => 'col-md-4 control-label']) !!}
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+                                {!! Form::email('email', null, ['id' => 'email', 'class' => 'form-control', 'required' => '']) !!}
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
@@ -39,10 +39,10 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
+                            {!! Form::label('password', 'Password', ['class' => 'col-md-4 control-label']) !!}
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
+                                {!! Form::password('password', ['class' => 'form-control', 'id' => 'password', 'required' => '']) !!}
 
                                 @if ($errors->has('password'))
                                     <span class="help-block">
@@ -53,10 +53,10 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
+                            {!! Form::label('password-confim', 'Confirm Password', ['class' => 'col-md-4 control-label']) !!}
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                                {!! Form::password('password_confirmation', ['id' => 'password-confirm', 'class' => 'form-control', 'required' => '']) !!}
                             </div>
                         </div>
 
@@ -64,12 +64,12 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Register
-                                </button>
+                                {!! Form::submit('Register', ['class' => 'btn btn-primary']) !!}
                             </div>
                         </div>
-                    </form>
+                    {!! Form::close() !!}
+
+                    <p>By registering your account, you agree the <a href="https://stripe.com/us/connect-account/legal">Stripe Connected Account Agreement</a>.</p>
                 </div>
             </div>
         </div>
