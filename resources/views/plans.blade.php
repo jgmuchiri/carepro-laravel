@@ -37,7 +37,7 @@
                             </table>
                         </div>
                         <div class="panel-footer">
-                            <a href="{{ route('subscribe.trial', 'Standard') }}" class="btn btn-success" role="button">START YOUR FREE TRIAL</a>
+                            <a href="{{ route('subscriptions.subscribe-to-trial', 'Standard') }}" class="btn btn-success" role="button">START YOUR FREE TRIAL</a>
                             <p>14 Days Free*</p>
                         </div>
                     </div>
@@ -80,7 +80,7 @@
                             </table>
                         </div>
                         <div class="panel-footer">
-                            <a href="{{ route('subscribe.trial', 'Professional') }}" class="btn btn-success" role="button">START YOUR FREE TRIAL</a>
+                            <a href="{{ route('subscriptions.subscribe-to-trial', 'Professional') }}" class="btn btn-success" role="button">START YOUR FREE TRIAL</a>
                             <p>14 Days Free*</p>
                         </div>
                     </div>
@@ -116,7 +116,7 @@
                             </table>
                         </div>
                         <div class="panel-footer">
-                            <a href="{{ route('subscribe.trial', 'Premium') }}" class="btn btn-success" role="button">START YOUR FREE TRIAL</a>
+                            <a href="{{ route('subscriptions.subscribe-to-trial', 'Premium') }}" class="btn btn-success" role="button">START YOUR FREE TRIAL</a>
                             <p>14 Days Free*</p>
                         </div>
                     </div>

@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SaveDaycareRequest;
 use App\Models\Addresses\Address;
 use App\Models\Daycare;
+use Config;
 use Illuminate\Http\Request;
+use Stripe\Stripe;
+use Stripe\Account;
 
 class DaycaresController extends Controller
 {
@@ -51,6 +54,43 @@ class DaycaresController extends Controller
         $daycare->owner()->associate($request->user());
 
         $daycare->save();
+
+        $user = $request->user();
+        $exploded_name = explode(' ', $user->name);
+
+        /*Stripe::setApiKey(Config::get('services.stripe.secret'));
+        $account = Account::create(
+            [
+                "country" => "US",
+                "managed" => true,
+                'business_name' => $daycare->name,
+                'email' => $user->email,
+                'legal_entity' => [
+                    'address' => [
+                        'city' => $address->city->name,
+                        'country' => $address->country->abbreviation,
+                        'line1' => $address->address_line_1,
+                        'line2' => $address->address_line_2,
+                        'postal_code' => $address->zipCode->name,
+                        'state' => $address->state->name
+                    ],
+                    'phone_number' => $address->phone,
+                    'business_tax_id' => $daycare->employee_tax_identifier,
+                    'first_name' => $exploded_name[0],
+                    'last_name' => (!empty($exploded_name[1]) ? $exploded_name[1] : null),
+                    'type' => 'company',
+                    'personal_address' => [
+                        'city' => $user->address->city->name,
+                        'country' => $user->address->country->abbreviation,
+                        'line1' => $user->address->line1,
+                        'line2' => $user->address->line2,
+                        'postal_code' => $address->zipCode->name,
+                        'state' => $address->state->name
+                    ]
+                ]
+            ]
+        );
+        dd($account); */
 
         return redirect()->route('home');
     }

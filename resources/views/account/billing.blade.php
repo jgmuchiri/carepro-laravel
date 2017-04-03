@@ -1,22 +1,13 @@
-@extends('layouts.logged-out')
+@extends('layouts.dashboard')
 
 @section('content')
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#payment-modal">
-        Launch demo modal
-    </button>
-
-    <div class="modal fade" id="payment-modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Subscribe</h4>
-                </div>
-                <form action="{{ route('subscribe') }}" method="post" id="payment-form">
-                    <input type="hidden" name="phone" value=""/>
-                    <input type="hidden" name="name" value=""/>
-                    <div class="modal-body">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">Subscribe</div>
+                <div class="panel-body">
+                    {!! Form::open(['route' => 'subscriptions.subscribe', 'method' => 'post', 'id' => 'payment-form']) !!}
+                        {!! csrf_field() !!}
                         <div class="form-row">
                             <label for="card-element">
                                 Credit or debit card
@@ -28,16 +19,12 @@
                             <!-- Used to display Element errors -->
                             <div id="card-errors"></div>
                         </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         <input type="submit" class="btn btn-primary" value="Subscribe"></input>
-                    </div>
-                </form>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+                    {!! Form::close() !!}
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('scripts')

@@ -144,8 +144,8 @@
                     </a>
                 </li>
 
-                <li class="{{($route_name=='profile')?"active  bg-warning":""}}">
-                    <a href="/profile">
+                <li class="{{($route_name === 'account.profile')?"active  bg-warning":""}}">
+                    <a href="{{ route('account.profile') }}">
                         <i class="ti-user"></i>
                         <p>Profile</p>
                     </a>
@@ -211,6 +211,17 @@
 
         <div class="content">
             <div class="container-fluid">
+                @if ($user->onGenericTrial())
+                    <div class="alert alert-warning" role="alert">
+                        You are currently on a trial. <a href="{{ route('subscriptions.subscribe') }}">Subscribe now</a>
+                        to avoid service interruptions.
+                    </div>
+                @elseif (!empty($user->trial_ends_at) && !$user->subscribed('main'))
+                    <div class="alert alert-warning" role="alert">
+                        You are currently not subscribed to a plan. <a href="{{ route('subscriptions.subscribe') }}">Subscribe now</a>
+                        to avoid service interruptions.
+                    </div>
+                @endif
                 @if(!empty($user) && $user->confirmed === false)
                     <div class="callout callout-danger text-center text-danger">
                         <i style="font-size:60px;" class="fa fa-exclamation-triangle"></i>

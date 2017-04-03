@@ -40,6 +40,17 @@ class User extends Authenticatable
     ];
 
     /**
+     * Attributes that should be treated as dates
+     *
+     * @var array
+     */
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'trial_ends_at'
+    ];
+
+    /**
      * Relationship to the address for this user
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

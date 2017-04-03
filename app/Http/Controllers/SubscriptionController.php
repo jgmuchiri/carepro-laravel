@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Subscriptions\Plan;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\MessageBag;
 
 /**
  * Class SubscriptionController
@@ -37,9 +38,32 @@ class SubscriptionController extends Controller
         return view('account.billing')->with(['user' => $request->user()]);
     }
 
+    /**
+     * Subscribes to a plan
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function subscribe(Request $request)
     {
+        $user = $request->user();
+        $trial_days = Carbon::today()->diffInDays($user->trial_ends_at, false);
 
+        $subscription = $user->newSubscription('main', $user->trialPlan->name);
+
+        if ($trial_days > 0) {
+            $subscription->trialDays($trial_days);
+        }
+
+        $subscription->create(
+            $request->input('stripeToken'),
+            [
+                'email' => $user->email,
+            ]
+        );
+
+        return redirect()->route('home')->with(['successes' => new MessageBag(['Successfully subscribed.'])]);
     }
 
     /**
@@ -64,5 +88,35 @@ class SubscriptionController extends Controller
         $user->save();
 
         return redirect()->route('daycare.create');
+    }
+
+    /**
+     * Cancels a subscription
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function cancel(Request $request)
+    {
+        $request->user()->subscription('main')->cancel();
+
+        return redirect()->route('account.profile')
+            ->with(['successes' => new MessageBag(['Successfully canceled subscription'])]);
+    }
+
+    /**
+     * Resumes a subscription
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function resume(Request $request)
+    {
+        $request->user()->subscription('main')->resume();
+
+        return redirect()->route('account.profile')
+            ->with(['successes' => new MessageBag(['Successfully resumed subscription'])]);
     }
 }
