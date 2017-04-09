@@ -35,6 +35,8 @@ Route::group(['middleware' => 'auth'], function() {
         ->name('subscriptions.subscribe-to-trial');
     Route::delete('/subscription/cancel', 'SubscriptionController@cancel')->name('subscriptions.cancel');
     Route::get('/subscription/resume', 'SubscriptionController@resume')->name('subscriptions.resume');
+    Route::post('/subscription/update-credit-card', 'SubscriptionController@updateCreditCard')
+        ->name('subscriptions.update-credit-card');
 
     Route::get('/register/daycare', 'DaycaresController@create')->name('daycare.create');
     Route::post('/register/daycare', 'DaycaresController@store')->name('daycare.store');

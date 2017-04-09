@@ -85,7 +85,6 @@
         </div>
         <hr/>
         <div class="content">
-
             <div class="row">
                 <div class="col-md-12">
                     @if ($user->subscribed('main'))
@@ -101,6 +100,27 @@
                             {!! Form::close() !!}
                         @endif
                     @endif
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="header">
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>Payment Information</p>
+                </div>
+            </div>
+        </div>
+        <hr/>
+        <div class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <p>You are currently subscribed using your card ending in {{ $user->card_last_four }}.</p>
+                    <p>Enter a new credit card below to update your payment method.</p>
+
+                    @include('partials.credit-card-form', ['route' => 'subscriptions.update-credit-card'])
                 </div>
             </div>
         </div>
