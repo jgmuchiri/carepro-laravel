@@ -120,6 +120,13 @@ class SubscriptionController extends Controller
             ->with(['successes' => new MessageBag(['Successfully resumed subscription'])]);
     }
 
+    /**
+     * Updates the credit card for a subscription
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function updateCreditCard(Request $request)
     {
         $request->user()->updateCard($request->input('stripeToken'));
