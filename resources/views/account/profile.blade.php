@@ -117,10 +117,16 @@
         <div class="content">
             <div class="row">
                 <div class="col-md-12">
-                    <p>You are currently subscribed using your card ending in {{ $user->card_last_four }}.</p>
-                    <p>Enter a new credit card below to update your payment method.</p>
+                    @if (!empty($user->card_last_four))
+                        <p>You are currently subscribed using your card ending in {{ $user->card_last_four }}.</p>
+                        <p>Enter a new credit card below to update your payment method.</p>
 
-                    @include('partials.credit-card-form', ['route' => 'subscriptions.update-credit-card'])
+                        @include('partials.credit-card-form', ['route' => 'subscriptions.update-credit-card'])
+                    @else
+                        <p>Enter a credit card to subscribe now. If you have any remaining trial time, you won't be charged until your trial is over.</p>
+
+                        @include('partials.credit-card-form', ['route' => 'subscriptions.subscribe'])
+                    @endif
                 </div>
             </div>
         </div>
