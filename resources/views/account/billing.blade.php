@@ -25,7 +25,7 @@
             </div>
         </div>
     </div>
-@endsection
+@stop
 
 @push('scripts')
 <script type="text/javascript">

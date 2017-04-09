@@ -9,7 +9,7 @@ class AccountsController extends Controller
 {
     /**
      * Shows the account profile page
-     * 
+     *
      * @param Request $request
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
