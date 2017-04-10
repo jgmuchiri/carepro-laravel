@@ -23,16 +23,22 @@
                             <table class="table">
                                 <tr>
                                     <td>
-                                        5 Children
+                                        {{ $plans->where('name', 'Standard')->first()->number_of_children_allowed }} Children
                                     </td>
                                 </tr>
                                 <tr class="active">
                                     <td>
-                                        1 Staff Member
+                                        {{ $plans->where('name', 'Standard')->first()->number_of_staff_allowed }} Staff Members
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><strike>Invoice due alerts to parents</strike></td>
+                                    <td>
+                                        @if ($plans->where('name', 'Standard')->first()->has_invoice_due_alert_to_parents)
+                                            Invoice due alerts to parents
+                                        @else
+                                            <strike>Invoice due alerts to parents</strike>
+                                        @endif
+                                    </td>
                                 </tr>
                             </table>
                         </div>
@@ -64,17 +70,21 @@
                             <table class="table">
                                 <tr>
                                     <td>
-                                        10 Children
+                                        {{ $plans->where('name', 'Professional')->first()->number_of_children_allowed }} Children
                                     </td>
                                 </tr>
                                 <tr class="active">
                                     <td>
-                                        3 Staff Members
+                                        {{ $plans->where('name', 'Professional')->first()->number_of_staff_allowed }} Staff Members
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        Invoice due alerts to parents
+                                        @if ($plans->where('name', 'Professional')->first()->has_invoice_due_alert_to_parents)
+                                            Invoice due alerts to parents
+                                        @else
+                                            <strike>Invoice due alerts to parents</strike>
+                                        @endif
                                     </td>
                                 </tr>
                             </table>
@@ -100,17 +110,21 @@
                             <table class="table">
                                 <tr>
                                     <td>
-                                        Unlimited Children
+                                        {{ $plans->where('name', 'Premium')->first()->number_of_children_allowed }} Children
                                     </td>
                                 </tr>
                                 <tr class="active">
                                     <td>
-                                        Unlimited Staff
+                                        {{ $plans->where('name', 'Premium')->first()->number_of_staff_allowed }} Staff Members
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        Invoice due alerts to parents
+                                        @if ($plans->where('name', 'Premium')->first()->has_invoice_due_alert_to_parents)
+                                            Invoice due alerts to parents
+                                        @else
+                                            <strike>Invoice due alerts to parents</strike>
+                                        @endif
                                     </td>
                                 </tr>
                             </table>

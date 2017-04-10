@@ -46,3 +46,8 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::get('/account/profile', 'AccountsController@showProfile')->name('account.profile');
 });
+
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function() {
+    Route::get('settings', 'SettingsController@edit')->name('admin.settings.edit');
+    Route::post('settings/{id}', 'SettingsController@update')->name('admin.settings.update');
+});
