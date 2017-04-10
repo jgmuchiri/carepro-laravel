@@ -23,7 +23,8 @@ class SubscriptionController extends Controller
      */
     public function showPlans()
     {
-        return view('plans');
+        $plans = Plan::all();
+        return view('plans')->with(compact('plans'));
     }
 
     /**
@@ -48,6 +49,11 @@ class SubscriptionController extends Controller
     public function subscribe(Request $request)
     {
         $user = $request->user();
+
+        if ($user->subscribed('main') && !$user->subscription('main')->onTrial()) {
+            redirect()->route('home')->withErrors(['You are already subscribed.']);
+        }
+
         $trial_days = Carbon::today()->diffInDays($user->trial_ends_at, false);
 
         $subscription = $user->newSubscription('main', $user->trialPlan->name);
