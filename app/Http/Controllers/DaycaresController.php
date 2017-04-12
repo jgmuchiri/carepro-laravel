@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SaveDaycareRequest;
 use App\Models\Addresses\Address;
 use App\Models\Daycare;
+use App\Models\Permissions\Role;
 use Config;
 use Illuminate\Http\Request;
 use Stripe\Stripe;
@@ -50,12 +51,18 @@ class DaycaresController extends Controller
             'employee_tax_identifier' => $request->input('employee_tax_identifier')]
         );
 
+        $user = $request->user();
         $daycare->address()->associate($address);
-        $daycare->owner()->associate($request->user());
+        $daycare->owner()->associate($user);
 
         $daycare->save();
 
-        $user = $request->user();
+        $user->daycare()->associate($daycare);
+        $user->save();
+
+        $role = Role::whereName(Role::TENANT_ROLE)->first();
+        $user->roles()->sync([$role->id]);
+
         $exploded_name = explode(' ', $user->name);
 
         /*Stripe::setApiKey(Config::get('services.stripe.secret'));
