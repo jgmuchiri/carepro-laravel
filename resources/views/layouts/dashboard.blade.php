@@ -151,7 +151,7 @@
                     </a>
                 </li>
 
-                <li class="{{($route_name === 'admin.settings.show')?"active  bg-warning":""}}">
+                <li class="{{($route_name === 'admin.settings.edit')?"active  bg-warning":""}}">
                     <a href="{{ route('admin.settings.edit') }}">
                         <i class="ti-settings"></i>
                         <p>Application Settings</p>
