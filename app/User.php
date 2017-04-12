@@ -93,6 +93,21 @@ class User extends Authenticatable
     }
 
     /**
+     * Relationship to the roles this user has
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function roles()
+    {
+        return $this->belongsToMany(
+            \App\Models\Permissions\Role::class,
+            'roles_to_users',
+            'user_id',
+            'role_id'
+        );
+    }
+
+    /**
      * Query scope for where confirmed code
      *
      * @param Builder $query
