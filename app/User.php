@@ -27,7 +27,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'stripe_managed_account_id', 'stripe_secret_key', 'stripe_publishable_key'
     ];
 
     /**

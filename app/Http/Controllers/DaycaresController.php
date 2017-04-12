@@ -65,39 +65,48 @@ class DaycaresController extends Controller
 
         $exploded_name = explode(' ', $user->name);
 
-        /*Stripe::setApiKey(Config::get('services.stripe.secret'));
-        $account = Account::create(
-            [
-                "country" => "US",
-                "managed" => true,
-                'business_name' => $daycare->name,
-                'email' => $user->email,
-                'legal_entity' => [
-                    'address' => [
-                        'city' => $address->city->name,
-                        'country' => $address->country->abbreviation,
-                        'line1' => $address->address_line_1,
-                        'line2' => $address->address_line_2,
-                        'postal_code' => $address->zipCode->name,
-                        'state' => $address->state->name
-                    ],
-                    'phone_number' => $address->phone,
-                    'business_tax_id' => $daycare->employee_tax_identifier,
-                    'first_name' => $exploded_name[0],
-                    'last_name' => (!empty($exploded_name[1]) ? $exploded_name[1] : null),
-                    'type' => 'company',
-                    'personal_address' => [
-                        'city' => $user->address->city->name,
-                        'country' => $user->address->country->abbreviation,
-                        'line1' => $user->address->line1,
-                        'line2' => $user->address->line2,
-                        'postal_code' => $address->zipCode->name,
-                        'state' => $address->state->name
+        try {
+            Stripe::setApiKey(Config::get('services.stripe.secret'));
+            $account = Account::create(
+                [
+                    "country" => "US",
+                    "managed" => true,
+                    'business_name' => $daycare->name,
+                    'email' => $user->email,
+                    'legal_entity' => [
+                        'address' => [
+                            'city' => $address->city->name,
+                            'country' => $address->country->abbreviation,
+                            'line1' => $address->address_line_1,
+                            'line2' => $address->address_line_2,
+                            'postal_code' => $address->zipCode->name,
+                            'state' => $address->state->name
+                        ],
+                        'phone_number' => $address->phone,
+                        'business_tax_id' => $daycare->employee_tax_identifier,
+                        'first_name' => $exploded_name[0],
+                        'last_name' => (!empty($exploded_name[1]) ? $exploded_name[1] : null),
+                        'type' => 'company',
+                        'personal_address' => [
+                            'city' => $user->address->city->name,
+                            'country' => $user->address->country->abbreviation,
+                            'line1' => $user->address->line1,
+                            'line2' => $user->address->line2,
+                            'postal_code' => $address->zipCode->name,
+                            'state' => $address->state->name
+                        ]
                     ]
                 ]
-            ]
-        );
-        dd($account); */
+            );
+
+            $user->stripe_managed_account_id = $account->id;
+            $user->stripe_secret_key = $account->keys['secret'];
+            $user->stripe_publishable_key = $account->keys['publishable'];
+            $user->save();
+        } catch (\Exception $exception) {
+            \Log::error('Failed to create managed account for user id: ' . $user->id .
+                '. Message: ' . $exception->getMessage());
+        }
 
         return redirect()->route('home');
     }
