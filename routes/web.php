@@ -45,6 +45,8 @@ Route::group(['middleware' => 'auth'], function() {
         ->name('auth.resend-verification');
 
     Route::get('/account/profile', 'AccountsController@showProfile')->name('account.profile');
+
+    Route::resource('roles', 'RolesController', ['except' => 'show']);
 });
 
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function() {
