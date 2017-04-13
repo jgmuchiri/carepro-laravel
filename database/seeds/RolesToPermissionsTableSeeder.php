@@ -36,7 +36,7 @@ class RolesToPermissionsTableSeeder extends Seeder
             Role::PARENT_ROLE => [
                 Permission::VIEW_OWN_CHILDREN,
                 Permission::PAY_INVOICES,
-                Permission::MESSAGE_DAYCARE_Center
+                Permission::MESSAGE_DAYCARE_CENTER
             ]
         ];
 

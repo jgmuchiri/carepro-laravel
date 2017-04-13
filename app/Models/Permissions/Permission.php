@@ -25,7 +25,7 @@ class Permission extends Model
     const PROCESS_PAYMENTS = 'Process Payments';
     const VIEW_OWN_CHILDREN = 'View Own Children';
     const PAY_INVOICES = 'Pay Invoices';
-    const MESSAGE_DAYCARE_Center = 'Message Daycare Center';
+    const MESSAGE_DAYCARE_CENTER = 'Message Daycare Center';
 
     protected $table = 'permissions';
 

@@ -28,7 +28,7 @@ class PermissionsTableSeeder extends Seeder
             ['name' => Permission::PROCESS_PAYMENTS, 'is_admin_only' => false],
             ['name' => Permission::VIEW_OWN_CHILDREN, 'is_admin_only' => false],
             ['name' => Permission::PAY_INVOICES, 'is_admin_only' => false],
-            ['name' => Permission::MESSAGE_DAYCARE_Center, 'is_admin_only' => false]
+            ['name' => Permission::MESSAGE_DAYCARE_CENTER, 'is_admin_only' => false]
         ];
 
         foreach ($data as $record) {
