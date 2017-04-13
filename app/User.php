@@ -107,6 +107,11 @@ class User extends Authenticatable
         );
     }
 
+    public function getRoleAttribute()
+    {
+        return $this->roles->first();
+    }
+
     /**
      * Query scope for where confirmed code
      *

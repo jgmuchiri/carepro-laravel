@@ -99,44 +99,41 @@
                     </a>
                 </li>
 
-                {{-- TODO: Make this if statement work with permissions--}}
-                @if(1 == 2)
+                <li class="@if($route_name=="children") active  bg-warning @endif">
+                    <a href="/children" style="color:#5101ed">
+                        <i class="fa fa-child"></i>
+                        <p>Children</p>
+                    </a>
+                </li>
 
-                    <li class="@if($route_name=="children") active  bg-warning @endif">
-                        <a href="/children" style="color:#5101ed">
-                            <i class="fa fa-child"></i>
-                            <p>Children</p>
-                        </a>
-                    </li>
+                <li class="@if($route_name=="parents") active  bg-warning @endif">
+                    <a href="/parents" style="color:#5101ed">
+                        <i class="fa fa-users"></i>
+                        <p>Parents</p>
+                    </a>
+                </li>
 
-                    <li class="@if($route_name=="parents") active  bg-warning @endif">
-                        <a href="/parents" style="color:#5101ed">
-                            <i class="fa fa-users"></i>
-                            <p>Parents</p>
-                        </a>
-                    </li>
+                {{--<li class="{{($route_name=="messages" || $route_name=="templates")?"active  bg-warning":""}}">--}}
+                {{--<a href="/messages/admin">--}}
+                {{--<i class="fa fa-envelope-o"></i>--}}
+                {{--<p>Messaging</p>--}}
+                {{--</a>--}}
+                {{--</li>--}}
 
-                    {{--<li class="{{($route_name=="messages" || $route_name=="templates")?"active  bg-warning":""}}">--}}
-                    {{--<a href="/messages/admin">--}}
-                    {{--<i class="fa fa-envelope-o"></i>--}}
-                    {{--<p>Messaging</p>--}}
-                    {{--</a>--}}
-                    {{--</li>--}}
+                <li class="{{($route_name=="users" || $route_name=="user")?"active  bg-warning":""}}">
+                    <a href="/users">
+                        <i class="ti-user"></i>
+                        <p>Users</p>
+                    </a>
+                </li>
+                {{-- Make this a proper route check--}}
+                <li class="{{(Request()->segment(2)=="roles" )?"active  bg-warning":""}}">
+                    <a href="/roles">
+                        <i class="fa fa-key"></i>
+                        <p>Roles</p>
+                    </a>
+                </li>
 
-                    <li class="{{($route_name=="users" || $route_name=="user")?"active  bg-warning":""}}">
-                        <a href="/users">
-                            <i class="ti-user"></i>
-                            <p>Users</p>
-                        </a>
-                    </li>
-                    {{-- Make this a proper route check--}}
-                    <li class="{{(Request()->segment(2)=="roles" )?"active  bg-warning":""}}">
-                        <a href="/roles">
-                            <i class="fa fa-key"></i>
-                            <p>Roles</p>
-                        </a>
-                    </li>
-                @endif
                 <li class="{{($route_name=='birthdays')?"active  bg-warning":""}}">
                     <a href="/birthdays">
                         <i class="fa fa-gift"></i>
@@ -151,12 +148,14 @@
                     </a>
                 </li>
 
-                <li class="{{($route_name === 'admin.settings.edit')?"active  bg-warning":""}}">
-                    <a href="{{ route('admin.settings.edit') }}">
-                        <i class="ti-settings"></i>
-                        <p>Application Settings</p>
-                    </a>
-                </li>
+                @can('update', \App\Models\Subscriptions\Plan::class)
+                    <li class="{{($route_name === 'admin.settings.edit')?"active  bg-warning":""}}">
+                        <a href="{{ route('admin.settings.edit') }}">
+                            <i class="ti-settings"></i>
+                            <p>Application Settings</p>
+                        </a>
+                    </li>
+                @endcan
 
                 @yield('sidebar')
             </ul>

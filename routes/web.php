@@ -18,8 +18,6 @@ Route::get('/', function () {
 Auth::routes();
 Route::get('/register/verify/{confirmationCode}', 'Auth\VerificationController@verify')->name('auth.verify');
 
-Route::get('/home', 'HomeController@index')->name('home');
-
 Route::post(
     'stripe/webhook',
     '\Laravel\Cashier\Http\Controllers\WebhookController@handleWebhook'
@@ -28,6 +26,7 @@ Route::post(
 Route::get('/plans', 'SubscriptionController@showPlans')->name('plans');
 
 Route::group(['middleware' => 'auth'], function() {
+    Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/subscribe', 'SubscriptionController@showBilling')->name('subscriptions.subscribe');
 
     Route::post('/subscribe', 'SubscriptionController@subscribe')->name('subscriptions.subscribe');
@@ -47,9 +46,16 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/account/profile', 'AccountsController@showProfile')->name('account.profile');
 
     Route::resource('roles', 'RolesController', ['except' => 'show']);
-});
 
-Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function() {
-    Route::get('settings', 'SettingsController@edit')->name('admin.settings.edit');
-    Route::post('settings/{id}', 'SettingsController@update')->name('admin.settings.update');
+    Route::group(
+        [
+            'namespace' => 'Admin',
+            'prefix' => 'admin',
+            'middleware' => 'can:update,App\Models\Subscriptions\Plan'
+        ],
+        function() {
+            Route::get('settings', 'SettingsController@edit')->name('admin.settings.edit');
+            Route::post('settings/{id}', 'SettingsController@update')->name('admin.settings.update');
+        }
+    );
 });
