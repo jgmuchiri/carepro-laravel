@@ -107,6 +107,11 @@ class User extends Authenticatable
         );
     }
 
+    /**
+     * Attribute to get user's role
+     *
+     * @return \App\Models\Permissions\Role
+     */
     public function getRoleAttribute()
     {
         return $this->roles->first();
