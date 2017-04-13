@@ -14,11 +14,13 @@
         </div>
         <hr/>
         <div class="content">
-            <div class="row">
-                <div class="col-md-12">
-                    <a href="{{ route('roles.create') }}" class="btn btn-primary">New Role</a>
+            @can('create', \App\Models\Permissions\Role::class)
+                <div class="row">
+                    <div class="col-md-12">
+                        <a href="{{ route('roles.create') }}" class="btn btn-primary">New Role</a>
+                    </div>
                 </div>
-            </div>
+            @endcan
             <div class="row">
                 <div class="col-md-12">
                     <table class="table table-bordered">
@@ -33,10 +35,12 @@
                                 <tr>
                                     <td>{{ $role->name }}</td>
                                     <td>
-                                        <a href="{{ route('roles.edit', $role->id) }}">Edit</a>
-                                        {!! Form::open(['route' => ['roles.destroy', $role->id], 'method' => 'delete']) !!}
-                                            {{ Form::submit('Delete', ['class' => 'btn btn-danger']) }}
-                                        {!! Form::close() !!}
+                                        @can('update', $role)<a href="{{ route('roles.edit', $role->id) }}">Edit</a>@endcan
+                                        @can('delete', $role)
+                                            {!! Form::open(['route' => ['roles.destroy', $role->id], 'method' => 'delete']) !!}
+                                                {{ Form::submit('Delete', ['class' => 'btn btn-danger']) }}
+                                            {!! Form::close() !!}
+                                        @endcan
                                     </td>
                                 </tr>
                             @empty

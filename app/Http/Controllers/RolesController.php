@@ -19,6 +19,7 @@ class RolesController extends Controller
      */
     public function index(Request $request)
     {
+        $this->authorize('edit', Role::class);
         $roles = Role::whereUserCanEdit($request->user())->get();
 
         return view('roles.index')->with(compact('roles'));
@@ -31,6 +32,7 @@ class RolesController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Role::class);
         $role = new Role();
         $permissions = Permission::whereIsNotAdminOnly()->get();
         $route = 'roles.store';
@@ -45,6 +47,7 @@ class RolesController extends Controller
      */
     public function store(SaveRolesRequest $request)
     {
+        $this->authorize('store', Role::class);
         $role = Role::create([
             'name' => $request->input('name'),
             'is_user_editable' => true
@@ -68,8 +71,14 @@ class RolesController extends Controller
     public function edit($id)
     {
         $role = Role::find($id);
+        if (empty($role)) {
+            return abort(404);
+        }
+        $this->authorize('update', $role);
+
         $permissions = Permission::whereIsNotAdminOnly()->get();
         $route = 'roles.update';
+
 
         return view('roles.create-edit')->with(compact('role', 'permissions', 'route'));
     }
@@ -88,6 +97,7 @@ class RolesController extends Controller
         if (empty($role)) {
             return abort(404);
         }
+        $this->authorize('update', $role);
 
         $role->name = $request->input('name');
         $role->permissions()->sync($request->input('permissions'));
@@ -110,6 +120,8 @@ class RolesController extends Controller
         if (empty($role)) {
             return abort(404);
         }
+
+        $this->authorize('delete', $role);
 
         $role->delete();
 

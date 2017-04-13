@@ -126,13 +126,15 @@
                         <p>Users</p>
                     </a>
                 </li>
-                {{-- Make this a proper route check--}}
-                <li class="{{(Request()->segment(2)=="roles" )?"active  bg-warning":""}}">
-                    <a href="/roles">
-                        <i class="fa fa-key"></i>
-                        <p>Roles</p>
-                    </a>
-                </li>
+
+                @can('edit', \App\Models\Permissions\Role::class)
+                    <li class="{{ $route_name == 'roles.index' ? "active  bg-warning": ""}}">
+                        <a href="{{ route('roles.index') }}">
+                            <i class="fa fa-key"></i>
+                            <p>Roles</p>
+                        </a>
+                    </li>
+                @endcan
 
                 <li class="{{($route_name=='birthdays')?"active  bg-warning":""}}">
                     <a href="/birthdays">
