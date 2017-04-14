@@ -79,8 +79,8 @@ class RolesPolicy
      *
      * @return bool
      */
-    public function store(User $user, Role $role)
+    public function store(User $user)
     {
-        return $user->role->name === Role::TENANT_ROLE && $role->daycare_id === $user->daycare_id;
+        return $user->role->name === Role::TENANT_ROLE;
     }
 }
