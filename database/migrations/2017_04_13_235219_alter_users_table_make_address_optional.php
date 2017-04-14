@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AlterUsersTableAddStripeManagedAccountColumns extends Migration
+class AlterUsersTableMakeAddressOptional extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,7 @@ class AlterUsersTableAddStripeManagedAccountColumns extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('stripe_managed_account_id')->nullable();
-            $table->string('stripe_secret_key')->nullable();
-            $table->string('stripe_publishable_key')->nullable();
+             $table->integer('address_id', false, true)->nullable()->change();
         });
     }
 
@@ -28,7 +26,7 @@ class AlterUsersTableAddStripeManagedAccountColumns extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['stripe_managed_account_id', 'stripe_secret_key', 'stripe_publishable_key']);
+            $table->integer('address_id', false, true)->change();
         });
     }
 }
