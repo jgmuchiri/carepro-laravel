@@ -14,7 +14,7 @@
                                 {!! Form::label('name', 'Name', ['class' => 'col-md-4 control-label']) !!}
 
                                 <div class="col-md-6">
-                                    {!! Form::text('name', null, ['id' => 'name', 'class' => 'form-control', 'required' => '', 'autofocus' => ''] !!}
+                                    {!! Form::text('name', null, ['id' => 'name', 'class' => 'form-control', 'required' => '', 'autofocus' => '']) !!}
 
                                     @if ($errors->has('name'))
                                         <span class="help-block">
