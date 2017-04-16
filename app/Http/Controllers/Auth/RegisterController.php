@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Addresses\Address;
+use App\Models\Permissions\Role;
 use App\Services\MailService;
 use App\User;
 use Config;
@@ -84,6 +85,9 @@ class RegisterController extends Controller
         $user->address()->associate($address);
 
         $user->save();
+
+        $role = Role::whereName(Role::TENANT_ROLE)->first();
+        $user->roles()->sync([$role->id]);
 
         MailService::sendConfirmationEmail($user);
 
