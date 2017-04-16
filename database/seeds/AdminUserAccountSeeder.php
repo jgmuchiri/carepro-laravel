@@ -2,7 +2,6 @@
 
 use App\Models\Permissions\Role;
 use App\User;
-use Config;
 use Illuminate\Database\Seeder;
 
 class AdminUserAccountSeeder extends Seeder
@@ -16,9 +15,9 @@ class AdminUserAccountSeeder extends Seeder
     {
         $user = User::create(
             [
-                'name' => Config::get('auth.admin_user.name'),
-                'email' => Config::get('auth.admin_user.email'),
-                'password' => bcrypt(Config::get('auth.admin_user.password')),
+                'name' => \Config::get('auth.admin_user.name'),
+                'email' => \Config::get('auth.admin_user.email'),
+                'password' => bcrypt(\Config::get('auth.admin_user.password')),
                 'confirmed' => true
             ]
         );
