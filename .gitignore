@@ -10,3 +10,4 @@ Homestead.yaml
 /.vagrant
 Vagrantfile
 /storage/debugbar
+/storage/app/public

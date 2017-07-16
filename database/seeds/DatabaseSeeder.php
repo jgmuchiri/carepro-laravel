@@ -17,5 +17,10 @@ class DatabaseSeeder extends Seeder
         $this->call(RolesTableSeeder::class);
         $this->call(RolesToPermissionsTableSeeder::class);
         $this->call(AdminUserAccountSeeder::class);
+        $this->call(BloodTypesSeeder::class);
+        $this->call(EthnicitiesSeeder::class);
+        $this->call(GendersSeeder::class);
+        $this->call(ReligionsSeeder::class);
+        $this->call(StatusesSeeder::class);
     }
 }

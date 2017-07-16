@@ -294,9 +294,9 @@ TESTO INTENSE #ffffff
                                             <tr>
                                                 <td align="left"
                                                     style="padding: 0 0 5px 0; font-size: 12px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none;">
-                                                    <a style="color:#fff;" href="{{ route('login') }}">login</a>
+                                                    <a style="color:#fff;" href="{{ route('login') }}">@lang('login')</a>
                                                     {{-- TODO: Switch this to real URL when this route exists --}}|
-                                                    <a style="color:#fff;" href="{{url()->to('profile')}}">profile</a>
+                                                    <a style="color:#fff;" href="{{url()->to('profile')}}">@lang('profile')</a>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -311,7 +311,7 @@ TESTO INTENSE #ffffff
                                                     style="padding: 0 0 5px 0; font-size: 12px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none;">
                                                     {{-- TODO: Switch this to real URL when this route exists --}}|
                                                     <a href="{{url()->to('login')}}" style="color: #ffffff;"
-                                                       target="_new"><span><span style="text-decoration: underline;">my account</span><br
+                                                       target="_new"><span><span style="text-decoration: underline;">@lang('my account')</span><br
                                                                     data-mce-bogus="1"></span></a></td>
                                             </tr>
                                             </tbody>

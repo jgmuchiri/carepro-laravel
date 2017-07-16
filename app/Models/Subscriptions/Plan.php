@@ -30,4 +30,9 @@ class Plan extends Model
     {
         $query->where('name', '=', $name);
     }
+
+    public function getNameLabelAttribute($value)
+    {
+        return __($this->name);
+    }
 }

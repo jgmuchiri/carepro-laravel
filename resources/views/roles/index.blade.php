@@ -8,7 +8,7 @@
         <div class="header">
             <div class="row">
                 <div class="col-sm-6">
-                    <p>Roles</p>
+                    <p>@lang('Roles')</p>
                 </div>
             </div>
         </div>
@@ -17,7 +17,7 @@
             @can('create', \App\Models\Permissions\Role::class)
                 <div class="row">
                     <div class="col-md-12">
-                        <a href="{{ route('roles.create') }}" class="btn btn-primary">New Role</a>
+                        <a href="{{ route('roles.create') }}" class="btn btn-primary">@lang('New Role')</a>
                     </div>
                 </div>
             @endcan
@@ -26,8 +26,8 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th colspan="2">Actions</th>
+                                <th>@lang('Name')</th>
+                                <th colspan="2">@lang('Actions')</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -35,16 +35,16 @@
                                 <tr>
                                     <td>{{ $role->name }}</td>
                                     <td>
-                                        @can('update', $role)<a href="{{ route('roles.edit', $role->id) }}">Edit</a>@endcan
+                                        @can('update', $role)<a href="{{ route('roles.edit', $role->id) }}">@lang('Edit')</a>@endcan
                                         @can('delete', $role)
                                             {!! Form::open(['route' => ['roles.destroy', $role->id], 'method' => 'delete']) !!}
-                                                {{ Form::submit('Delete', ['class' => 'btn btn-danger']) }}
+                                                {{ Form::submit(__('Delete'), ['class' => 'btn btn-danger']) }}
                                             {!! Form::close() !!}
                                         @endcan
                                     </td>
                                 </tr>
                             @empty
-                                <tr><td colspan="3">No roles created yet.</td></tr>
+                                <tr><td colspan="3">@lang('No roles created yet').</td></tr>
                             @endforelse
                         </tbody>
                     </table>

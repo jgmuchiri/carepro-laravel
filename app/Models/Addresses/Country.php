@@ -35,4 +35,14 @@ class Country extends Model
     {
         $query->where('abbreviation', '=', $abbreviation);
     }
+
+    public function getNameLabelAttribute($value)
+    {
+        return __($this->name);
+    }
+
+    public function getAbbreviationLabelAttribute($value)
+    {
+        return __($this->abbreviation);
+    }
 }

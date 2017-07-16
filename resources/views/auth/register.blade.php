@@ -5,13 +5,13 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
+                <div class="panel-heading">@lang('Register')</div>
                 <div class="panel-body">
                     {!! Form::open(['route' => 'register', 'method' => 'post', 'class' => 'form-horizontal', 'role' => 'form']) !!}
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            {!! Form::label('name', 'Name', ['class' => 'col-md-4 control-label']) !!}
+                            {!! Form::label('name', __('Name'), ['class' => 'col-md-4 control-label']) !!}
 
                             <div class="col-md-6">
                                 {!! Form::text('name', null, ['id' => 'name', 'class' => 'form-control', 'required' => '', 'autofocus' => '']) !!}
@@ -25,7 +25,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            {!! Form::label('email', 'E-Mail Address', ['class' => 'col-md-4 control-label']) !!}
+                            {!! Form::label('email', __('E-Mail Address'), ['class' => 'col-md-4 control-label']) !!}
 
                             <div class="col-md-6">
                                 {!! Form::email('email', null, ['id' => 'email', 'class' => 'form-control', 'required' => '']) !!}
@@ -39,7 +39,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            {!! Form::label('password', 'Password', ['class' => 'col-md-4 control-label']) !!}
+                            {!! Form::label('password', __('Password'), ['class' => 'col-md-4 control-label']) !!}
 
                             <div class="col-md-6">
                                 {!! Form::password('password', ['class' => 'form-control', 'id' => 'password', 'required' => '']) !!}
@@ -53,7 +53,7 @@
                         </div>
 
                         <div class="form-group">
-                            {!! Form::label('password-confim', 'Confirm Password', ['class' => 'col-md-4 control-label']) !!}
+                            {!! Form::label('password-confim', __('Confirm Password'), ['class' => 'col-md-4 control-label']) !!}
 
                             <div class="col-md-6">
                                 {!! Form::password('password_confirmation', ['id' => 'password-confirm', 'class' => 'form-control', 'required' => '']) !!}
@@ -69,7 +69,7 @@
                         </div>
                     {!! Form::close() !!}
 
-                    <p>By registering your account, you agree the <a href="https://stripe.com/us/connect-account/legal">Stripe Connected Account Agreement</a>.</p>
+                    <p>@lang('By registering your account, you agree to the') <a href="https://stripe.com/us/connect-account/legal" target="_blank">@lang('Stripe Connected Account Agreement')</a>.</p>
                 </div>
             </div>
         </div>

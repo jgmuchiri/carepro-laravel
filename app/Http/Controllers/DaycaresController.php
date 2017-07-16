@@ -106,49 +106,4 @@ class DaycaresController extends Controller
 
         return redirect()->route('home');
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Daycare  $dayCare
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Daycare $dayCare)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Daycare  $dayCare
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Daycare $dayCare)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Daycare  $dayCare
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Daycare $dayCare)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Daycare  $dayCare
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Daycare $dayCare)
-    {
-        //
-    }
 }

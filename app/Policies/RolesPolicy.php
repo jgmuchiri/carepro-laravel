@@ -72,7 +72,7 @@ class RolesPolicy
     }
 
     /**
-     * Checks if a user is authorized to store a specific role
+     * Checks if a user is authorized to store a role
      *
      * @param User $user
      * @param Role $role

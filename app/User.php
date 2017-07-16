@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Cashier\Billable;
@@ -11,6 +12,7 @@ class User extends Authenticatable
 {
     use Billable;
     use Notifiable;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -90,6 +92,26 @@ class User extends Authenticatable
     public function ownedDaycare()
     {
         return $this->hasMany(\App\Models\Daycare::class, 'owner_user_id');
+    }
+
+    /**
+     * Relationship to staff record
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function staff()
+    {
+        return $this->hasOne(\App\Models\Staff::class, 'user_id');
+    }
+
+    /**
+     * Relationship to parent record
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function parent()
+    {
+        return $this->hasOne(\App\Models\ChildParent::class, 'user_id');
     }
 
     /**

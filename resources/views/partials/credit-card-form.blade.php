@@ -2,7 +2,7 @@
     {!! csrf_field() !!}
     <div class="form-row">
         <label for="card-element">
-            Credit or debit card
+            @lang('Credit or debit card')
         </label>
         <div id="card-element">
             <!-- a Stripe Element will be inserted here. -->
@@ -11,7 +11,7 @@
         <!-- Used to display Element errors -->
         <div id="card-errors"></div>
     </div>
-    <input type="submit" class="btn btn-primary" value="Subscribe"></input>
+    <input type="submit" class="btn btn-primary" value="@lang('Subscribe')"></input>
 {!! Form::close() !!}
 
 @push('scripts')
@@ -29,7 +29,7 @@
                 fontSize: '16px',
                 '::placeholder': {
                     color: '#aab7c4'
-                }
+                },
             },
             invalid: {
                 color: '#fa755a',

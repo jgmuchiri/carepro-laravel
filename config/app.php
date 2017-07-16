@@ -170,6 +170,7 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
         Laravel\Cashier\CashierServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        \Torann\Currency\CurrencyServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -178,7 +179,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class
+        App\Providers\RouteServiceProvider::class,
 
     ],
 
@@ -234,7 +235,10 @@ return [
          */
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Form' => Collective\Html\FormFacade::class,
-        'Html' => Collective\Html\HtmlFacade::class
+        'Html' => Collective\Html\HtmlFacade::class,
+        'Currency' => \Torann\Currency\Facades\Currency::class,
     ],
 
+    'languages' => env('LANGUAGES', 'US'),
+    'currencies' => env('CURRENCIES', 'USD')
 ];

@@ -59,7 +59,7 @@ class RolesController extends Controller
         $role->save();
 
         return redirect()->route('roles.edit', $role->id)
-            ->with(['successes' => new MessageBag(['Successfully created role.'])]);
+            ->with(['successes' => new MessageBag([__('Successfully created role.')])]);
     }
 
     /**
@@ -104,7 +104,7 @@ class RolesController extends Controller
         $role->save();
 
         return redirect()->route('roles.edit', $role->id)
-            ->with(['successes' => new MessageBag(['Successfully created role.'])]);
+            ->with(['successes' => new MessageBag([__('Successfully updated role.')])]);
     }
 
     /**
@@ -125,6 +125,6 @@ class RolesController extends Controller
 
         $role->delete();
 
-        return redirect()->back()->with(['successes' => new MessageBag(['Successfully deleted role'])]);
+        return redirect()->back()->with(['successes' => new MessageBag([__('Successfully deleted role')])]);
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\DaycareHasActiveSubscription;
+use App\Http\Middleware\SetLocale;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -34,6 +36,8 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \Torann\Currency\Middleware\CurrencyMiddleware::class,
+            SetLocale::class
         ],
 
         'api' => [
@@ -56,5 +60,6 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'subscribed' => DaycareHasActiveSubscription::class
     ];
 }

@@ -2,11 +2,18 @@
 
 namespace App\Providers;
 
+use App\Models\Child;
+use App\Models\ChildParent;
+use App\Models\Groups\Group;
 use App\Models\Permissions\Role;
 use App\Models\Subscriptions\Plan;
+use App\Models\Staff;
+use App\Policies\ChildPolicy;
+use App\Policies\GroupPolicy;
+use App\Policies\ParentPolicy;
 use App\Policies\RolesPolicy;
 use App\Policies\SettingsPolicy;
-use Illuminate\Support\Facades\Gate;
+use App\Policies\StaffPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -18,7 +25,11 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Plan::class => SettingsPolicy::class,
-        Role::class => RolesPolicy::class
+        Role::class => RolesPolicy::class,
+        Staff::class => StaffPolicy::class,
+        ChildParent::class => ParentPolicy::class,
+        Child::class => ChildPolicy::class,
+        Group::class => GroupPolicy::class
     ];
 
     /**

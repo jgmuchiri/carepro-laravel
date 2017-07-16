@@ -12,39 +12,39 @@
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <h3 class="panel-title">
-                                STANDARD</h3>
+                                @lang('STANDARD')</h3>
                         </div>
                         <div class="panel-body">
                             <div class="the-price">
                                 <h1>
-                                    $10<span class="subscript">/mo</span></h1>
-                                <small>14 days FREE trial*</small>
+                                    {{ currency(10.00, 'USD', 'EUR', true) }}<span class="subscript">/@lang('mo')</span></h1>
+                                <small>14 @lang('days FREE trial')*</small>
                             </div>
                             <table class="table">
                                 <tr>
                                     <td>
-                                        {{ $plans->where('name', 'Standard')->first()->number_of_children_allowed }} Children
+                                        {{ $plans->where('name', 'Standard')->first()->number_of_children_allowed }} @lang('Children')
                                     </td>
                                 </tr>
                                 <tr class="active">
                                     <td>
-                                        {{ $plans->where('name', 'Standard')->first()->number_of_staff_allowed }} Staff Members
+                                        {{ $plans->where('name', 'Standard')->first()->number_of_staff_allowed }} @lang('Staff Members')
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         @if ($plans->where('name', 'Standard')->first()->has_invoice_due_alert_to_parents)
-                                            Invoice due alerts to parents
+                                            @lang('Invoice due alerts to parents')
                                         @else
-                                            <strike>Invoice due alerts to parents</strike>
+                                            <strike>@lang('Invoice due alerts to parents')</strike>
                                         @endif
                                     </td>
                                 </tr>
                             </table>
                         </div>
                         <div class="panel-footer">
-                            <a href="{{ route('subscriptions.subscribe-to-trial', 'Standard') }}" class="btn btn-success" role="button">START YOUR FREE TRIAL</a>
-                            <p>14 Days Free*</p>
+                            <a href="{{ route('subscriptions.subscribe-to-trial', 'Standard') }}" class="btn btn-success" role="button">@lang('START YOUR FREE TRIAL')</a>
+                            <p>14 @lang('Days Free')*</p>
                         </div>
                     </div>
                 </div>
@@ -52,46 +52,46 @@
                     <div class="panel panel-success">
                         <div class="cnrflash">
                             <div class="cnrflash-inner">
-                            <span class="cnrflash-label">MOST
+                            <span class="cnrflash-label">@lang('MOST')
                                 <br>
-                                POPULAR</span>
+                                @lang('POPULAR')</span>
                             </div>
                         </div>
                         <div class="panel-heading">
                             <h3 class="panel-title">
-                                PROFESSIONAL</h3>
+                                @lang('PROFESSIONAL')</h3>
                         </div>
                         <div class="panel-body">
                             <div class="the-price">
                                 <h1>
-                                    $20<span class="subscript">/mo</span></h1>
-                                <small>14 days FREE trial*</small>
+                                    {{ currency(20.00, 'USD', 'EUR', true) }}<span class="subscript">/@lang('mo')</span></h1>
+                                <small>14 @lang('days FREE trial')*</small>
                             </div>
                             <table class="table">
                                 <tr>
                                     <td>
-                                        {{ $plans->where('name', 'Professional')->first()->number_of_children_allowed }} Children
+                                        {{ $plans->where('name', 'Professional')->first()->number_of_children_allowed }} @lang('Children')
                                     </td>
                                 </tr>
                                 <tr class="active">
                                     <td>
-                                        {{ $plans->where('name', 'Professional')->first()->number_of_staff_allowed }} Staff Members
+                                        {{ $plans->where('name', 'Professional')->first()->number_of_staff_allowed }} @lang('Staff Members')
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         @if ($plans->where('name', 'Professional')->first()->has_invoice_due_alert_to_parents)
-                                            Invoice due alerts to parents
+                                            @lang('Invoice due alerts to parents')
                                         @else
-                                            <strike>Invoice due alerts to parents</strike>
+                                            <strike>@lang('Invoice due alerts to parents')</strike>
                                         @endif
                                     </td>
                                 </tr>
                             </table>
                         </div>
                         <div class="panel-footer">
-                            <a href="{{ route('subscriptions.subscribe-to-trial', 'Professional') }}" class="btn btn-success" role="button">START YOUR FREE TRIAL</a>
-                            <p>14 Days Free*</p>
+                            <a href="{{ route('subscriptions.subscribe-to-trial', 'Professional') }}" class="btn btn-success" role="button">@lang('START YOUR FREE TRIAL')</a>
+                            <p>14 @lang('Days Free')*</p>
                         </div>
                     </div>
                 </div>
@@ -99,45 +99,44 @@
                     <div class="panel panel-info">
                         <div class="panel-heading">
                             <h3 class="panel-title">
-                                PREMIUM</h3>
+                                @lang('PREMIUM')</h3>
                         </div>
                         <div class="panel-body">
                             <div class="the-price">
                                 <h1>
-                                    $35<span class="subscript">/mo</span></h1>
-                                <small>14 days FREE trial*</small>
+                                    {{ currency(35.00, 'USD', 'EUR', true) }}<span class="subscript">/@lang('mo')</span></h1>
+                                <small>14 @lang('days FREE trial')*</small>
                             </div>
                             <table class="table">
                                 <tr>
                                     <td>
-                                        {{ $plans->where('name', 'Premium')->first()->number_of_children_allowed }} Children
+                                        {{ $plans->where('name', 'Premium')->first()->number_of_children_allowed }} @lang('Children')
                                     </td>
                                 </tr>
                                 <tr class="active">
                                     <td>
-                                        {{ $plans->where('name', 'Premium')->first()->number_of_staff_allowed }} Staff Members
+                                        {{ $plans->where('name', 'Premium')->first()->number_of_staff_allowed }} @lang('Staff Members')
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         @if ($plans->where('name', 'Premium')->first()->has_invoice_due_alert_to_parents)
-                                            Invoice due alerts to parents
+                                            @lang('Invoice due alerts to parents')
                                         @else
-                                            <strike>Invoice due alerts to parents</strike>
+                                            <strike>@lang('Invoice due alerts to parents')</strike>
                                         @endif
                                     </td>
                                 </tr>
                             </table>
                         </div>
                         <div class="panel-footer">
-                            <a href="{{ route('subscriptions.subscribe-to-trial', 'Premium') }}" class="btn btn-success" role="button">START YOUR FREE TRIAL</a>
-                            <p>14 Days Free*</p>
+                            <a href="{{ route('subscriptions.subscribe-to-trial', 'Premium') }}" class="btn btn-success" role="button">@lang('START YOUR FREE TRIAL')</a>
+                            <p>14 @lang('Days Free')*</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-12 text-center">
-                    <p class="small">*During the free trial your account will be limited to 10 staff and children accounts and only be
-                    to generate 5 invoices.</p>
+                    <p class="small">*@lang('During the free trial your account will be limited to 10 staff and children accounts and only be to generate 5 invoices.')</p>
                 </div>
             </div>
         </div>

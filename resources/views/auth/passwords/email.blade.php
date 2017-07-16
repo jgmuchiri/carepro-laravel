@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Reset Password</div>
+                <div class="panel-heading">@lang('Reset Password')</div>
                 <div class="panel-body">
                     @if (session('status'))
                         <div class="alert alert-success">
@@ -17,7 +17,7 @@
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            {!! Form::label('email', 'E-Mail Address', ['class' => 'col-md-4 control-label']) !!}
+                            {!! Form::label('email', __('E-Mail Address'), ['class' => 'col-md-4 control-label']) !!}
 
                             <div class="col-md-6">
                                 {!! Form::email('email', null, ['id' => 'email', 'class' => 'form-control', 'required' => '']) !!}
@@ -32,7 +32,7 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                {!! Form::submit('Send Password Reset Link', ['class' => 'btn btn-primary']) !!}
+                                {!! Form::submit(__('Send Password Reset Link'), ['class' => 'btn btn-primary']) !!}
                             </div>
                         </div>
                     {!! Form::close() !!}

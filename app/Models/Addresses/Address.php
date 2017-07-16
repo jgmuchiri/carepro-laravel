@@ -76,7 +76,7 @@ class Address extends Model
             'state' => 'required|max:255',
             'address_line_1' => 'required|max:255',
             'address_line_2' => 'max:255',
-            'phone' => 'required|max:10',
+            'phone' => 'required|max:50',
             'country' => 'required|exists:countries,id'
         ];
     }

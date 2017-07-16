@@ -36,6 +36,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/subscription/resume', 'SubscriptionController@resume')->name('subscriptions.resume');
     Route::post('/subscription/update-credit-card', 'SubscriptionController@updateCreditCard')
         ->name('subscriptions.update-credit-card');
+    Route::get('/subscription/change-plan/{plan_name}', 'SubscriptionController@updateSubscription')
+        ->name('subscriptions.change-plan');
 
     Route::get('/register/daycare', 'DaycaresController@create')->name('daycare.create');
     Route::post('/register/daycare', 'DaycaresController@store')->name('daycare.store');
@@ -44,8 +46,6 @@ Route::group(['middleware' => 'auth'], function() {
         ->name('auth.resend-verification');
 
     Route::get('/account/profile', 'AccountsController@showProfile')->name('account.profile');
-
-    Route::resource('roles', 'RolesController', ['except' => 'show']);
 
     Route::group(
         [
@@ -56,6 +56,30 @@ Route::group(['middleware' => 'auth'], function() {
         function() {
             Route::get('settings', 'SettingsController@edit')->name('admin.settings.edit');
             Route::post('settings/{id}', 'SettingsController@update')->name('admin.settings.update');
+        }
+    );
+
+    Route::get('invoices', 'InvoicesController@index')->name('invoices.index');
+    Route::get('invoices/{id}/downlaod', 'InvoicesController@download')->name('invoices.download');
+
+    Route::group(
+        ['middleware' => 'subscribed'],
+        function() {
+            Route::resource('roles', 'RolesController', ['except' => 'show']);
+            Route::resource('staff', 'StaffController', ['only' => ['index', 'create', 'store']]);
+
+            Route::post('parents/{id}/assign-children', 'ParentsController@assignChildren')
+                ->name('parents.assign-children');
+            Route::resource('parents', 'ParentsController', ['only' => ['index', 'create', 'store', 'show']]);
+
+            Route::get('children/{id}/activate', 'ChildrenController@activate')->name('children.activate');
+            Route::get('children/{id}/deactivate', 'ChildrenController@deactivate')->name('children.deactivate');
+            Route::post('children/{id}/assign-parents', 'ChildrenController@assignParents')
+                ->name('children.assign-parents');
+            Route::post('children/{id}/assign-groups', 'ChildrenController@assignGroups')
+                ->name('children.assign-groups');
+            Route::resource('children', 'ChildrenController', ['only' => ['index', 'store', 'show']]);
+            Route::resource('groups', 'GroupsController', ['only' => ['index', 'store', 'show']]);
         }
     );
 });

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Child;
+use App\Models\Staff;
 use App\Models\Subscriptions\Plan;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -51,7 +53,7 @@ class SubscriptionController extends Controller
         $user = $request->user();
 
         if ($user->subscribed('main') && !$user->subscription('main')->onTrial()) {
-            redirect()->route('home')->withErrors(['You are already subscribed.']);
+            redirect()->route('home')->withErrors([__('You are already subscribed.')]);
         }
 
         $trial_days = Carbon::today()->diffInDays($user->trial_ends_at, false);
@@ -69,7 +71,8 @@ class SubscriptionController extends Controller
             ]
         );
 
-        return redirect()->route('home')->with(['successes' => new MessageBag(['Successfully subscribed.'])]);
+        return redirect()->route('home')
+            ->with(['successes' => new MessageBag([__('Successfully subscribed.')])]);
     }
 
     /**
@@ -85,7 +88,7 @@ class SubscriptionController extends Controller
         $plan = Plan::whereName($plan_name)->first();
 
         if (empty($plan)) {
-            return redirect()->route('plans')->withErrors('Invalid plan selected. Please try again.');
+            return redirect()->route('plans')->withErrors(__('Invalid plan selected. Please try again.'));
         }
 
         $user = $request->user();
@@ -108,7 +111,7 @@ class SubscriptionController extends Controller
         $request->user()->subscription('main')->cancel();
 
         return redirect()->route('account.profile')
-            ->with(['successes' => new MessageBag(['Successfully canceled subscription'])]);
+            ->with(['successes' => new MessageBag([__('Successfully canceled subscription')])]);
     }
 
     /**
@@ -123,7 +126,7 @@ class SubscriptionController extends Controller
         $request->user()->subscription('main')->resume();
 
         return redirect()->route('account.profile')
-            ->with(['successes' => new MessageBag(['Successfully resumed subscription'])]);
+            ->with(['successes' => new MessageBag([__('Successfully resumed subscription')])]);
     }
 
     /**
@@ -138,6 +141,70 @@ class SubscriptionController extends Controller
         $request->user()->updateCard($request->input('stripeToken'));
 
         return redirect()->back()
-            ->with(['successes' => new MessageBag(['Successfully updated credit card.'])]);
+            ->with(['successes' => new MessageBag([__('Successfully updated credit card.')])]);
+    }
+
+    /**
+     * Updates a user subscription
+     *
+     * @param Request $request
+     * @param string $plan_name
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function updateSubscription(Request $request, $plan_name)
+    {
+        $plan = Plan::whereName($plan_name)->first();
+
+        if (empty($plan)) {
+            return redirect()->route('account.profile')
+                ->withErrors(__('Invalid plan selected. Please try again.'));
+        }
+
+        $user = $request->user();
+        $user->subscription('main')->swap($plan_name);
+        $user->save();
+
+        $staff = Staff::whereDaycareId($user->daycare_id)->get();
+        $children = Child::whereDaycareId($user->daycare_id)->get();
+
+        if ($plan->number_of_staff_allowed < $staff->count()) {
+            for ($i = 0; $i < $staff->count(); $i++) {
+                if ($i > $plan->number_of_staff_allowed) {
+                    break;
+                }
+
+                $staff[$i]->is_active = false;
+                $staff[$i]->save();
+            }
+        } else {
+            foreach ($staff as $staff_member) {
+                if (!$staff_member->is_active) {
+                    $staff_member->is_active = true;
+                    $staff_member->save();
+                }
+            }
+        }
+
+        if ($plan->number_of_children_allowed < $children->count()) {
+            for ($i = 0; $i < $children->count(); $i++) {
+                if ($i > $plan->number_of_children_allowed) {
+                    continue;
+                }
+
+                $children[$i]->is_active = false;
+                $children[$i]->save();
+            }
+        } else {
+            foreach ($children as $child) {
+                if (!$child->is_active) {
+                    $child->is_active = true;
+                    $child->save();
+                }
+            }
+        }
+
+        return redirect()->route('account.profile')
+            ->with(['successes' => new MessageBag([_('Successfully updated plan.')])]);
     }
 }

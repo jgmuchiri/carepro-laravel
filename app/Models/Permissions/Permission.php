@@ -55,4 +55,9 @@ class Permission extends Model
     {
         $query->where('is_admin_only', '=', false);
     }
+
+    public function getNameLabelAttribute($value)
+    {
+        return __($this->name);
+    }
 }
