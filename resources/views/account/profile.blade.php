@@ -3,6 +3,10 @@
 @section('title') @lang('Edit Profile')
 @endsection
 
+@push('styles')
+    <link href="/css/subscriptions.css" rel="stylesheet"/>
+@endpush
+
 @section('content')
     <div class="card">
         <div class="header">
@@ -113,7 +117,7 @@
                                 <div class="panel-body">
                                     <div class="the-price">
                                         <h1>
-                                            {{ currency(10.00, 'USD', 'EUR', true) }}<span class="subscript">/@lang('mo')</span></h1>
+                                            {{ currency(10.00, 'USD', Laravel\Cashier\Cashier::usesCurrency(), true) }}<span class="subscript">/@lang('mo')</span></h1>
                                     </div>
                                     <table class="table">
                                         <tr>
@@ -162,7 +166,7 @@
                                 <div class="panel-body">
                                     <div class="the-price">
                                         <h1>
-                                            {{ currency(20.00, 'USD', 'EUR', true) }}<span class="subscript">/@lang('mo')</span></h1>
+                                            {{ currency(20.00, 'USD', Laravel\Cashier\Cashier::usesCurrency(), true) }}<span class="subscript">/@lang('mo')</span></h1>
                                     </div>
                                     <table class="table">
                                         <tr>
@@ -204,7 +208,7 @@
                                 <div class="panel-body">
                                     <div class="the-price">
                                         <h1>
-                                            {{ currency(35.00, 'USD', 'EUR', true) }}<span class="subscript">/@lang('mo')</span></h1>
+                                            {{ currency(35.00, 'USD', Laravel\Cashier\Cashier::usesCurrency(), true) }}<span class="subscript">/@lang('mo')</span></h1>
                                     </div>
                                     <table class="table">
                                         <tr>

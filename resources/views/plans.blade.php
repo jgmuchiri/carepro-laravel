@@ -17,7 +17,7 @@
                         <div class="panel-body">
                             <div class="the-price">
                                 <h1>
-                                    {{ currency(10.00, 'USD', 'EUR', true) }}<span class="subscript">/@lang('mo')</span></h1>
+                                    {{ currency(10.00, 'USD', Laravel\Cashier\Cashier::usesCurrency(), true) }}<span class="subscript">/@lang('mo')</span></h1>
                                 <small>14 @lang('days FREE trial')*</small>
                             </div>
                             <table class="table">
@@ -64,7 +64,7 @@
                         <div class="panel-body">
                             <div class="the-price">
                                 <h1>
-                                    {{ currency(20.00, 'USD', 'EUR', true) }}<span class="subscript">/@lang('mo')</span></h1>
+                                    {{ currency(20.00, 'USD', Laravel\Cashier\Cashier::usesCurrency(), true) }}<span class="subscript">/@lang('mo')</span></h1>
                                 <small>14 @lang('days FREE trial')*</small>
                             </div>
                             <table class="table">
@@ -104,7 +104,7 @@
                         <div class="panel-body">
                             <div class="the-price">
                                 <h1>
-                                    {{ currency(35.00, 'USD', 'EUR', true) }}<span class="subscript">/@lang('mo')</span></h1>
+                                    {{ currency(35.00, 'USD', Laravel\Cashier\Cashier::usesCurrency(), true) }}<span class="subscript">/@lang('mo')</span></h1>
                                 <small>14 @lang('days FREE trial')*</small>
                             </div>
                             <table class="table">
