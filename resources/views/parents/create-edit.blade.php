@@ -18,7 +18,7 @@
                 <div class="col-md-12">
                     <a href="{{ route('parents.index') }}">@lang('Back to all parents')</a>
                     {!! Form::model($parent, ['route' => [$route, $parent], 'method' => empty($parent->id) ? 'post' : 'put', 'files' => true]) !!}
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                        <div class="row{{ $errors->has('name') ? ' has-error' : '' }}">
                             {!! Form::label('name', __('Name'), ['class' => 'col-md-4 control-label']) !!}
 
                             <div class="col-md-6">
@@ -32,7 +32,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                        <div class="row{{ $errors->has('email') ? ' has-error' : '' }}">
                             {!! Form::label('email', __('E-Mail Address'), ['class' => 'col-md-4 control-label']) !!}
 
                             <div class="col-md-6">
@@ -46,7 +46,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                        <div class="row{{ $errors->has('password') ? ' has-error' : '' }}">
                             {!! Form::label('password', __('Password'), ['class' => 'col-md-4 control-label']) !!}
 
                             <div class="col-md-6">
@@ -60,7 +60,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="row">
                             {!! Form::label('password-confim', __('Confirm Password'), ['class' => 'col-md-4 control-label']) !!}
 
                             <div class="col-md-6">
@@ -68,7 +68,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('photo_uri') ? ' has-error' : '' }}">
+                        <div class="row{{ $errors->has('photo_uri') ? ' has-error' : '' }}">
                             {!! Form::label('photo_uri', __('Photo'), ['class' => 'col-md-4 control-label']) !!}
 
                             <div class="col-md-6">
@@ -82,7 +82,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('dob') ? ' has-error' : '' }}">
+                        <div class="row{{ $errors->has('dob') ? ' has-error' : '' }}">
                             {!! Form::label('dob', __('DOB'), ['class' => 'col-md-4 control-label']) !!}
 
                             <div class="col-md-6">
@@ -96,7 +96,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('pin') ? ' has-error' : '' }}">
+                        <div class="row{{ $errors->has('pin') ? ' has-error' : '' }}">
                             {!! Form::label('pin', __('PIN'), ['class' => 'col-md-4 control-label']) !!}
 
                             <div class="col-md-6">
@@ -110,7 +110,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('is_primary') ? ' has-error' : '' }}">
+                        <div class="row{{ $errors->has('is_primary') ? ' has-error' : '' }}">
                             {!! Form::label('is_primary', __('Is Primary Parent?'), ['class' => 'col-md-4 control-label']) !!}
 
                             <div class="col-md-6">
@@ -124,9 +124,15 @@
                             </div>
                         </div>
 
-                        @include('partials.address-form')
+                        <div class="row">
+                            @include('partials.address-form')
+                        </div>
 
-                        {!! Form::submit(__('Save'), ['class' => 'btn btn-primary']) !!}
+                        <div class="row">
+                            <div class="col-md-3">
+                                {!! Form::submit(__('Save'), ['class' => 'btn btn-primary']) !!}
+                            </div>
+                        </div>
                     {!! Form::close() !!}
                 </div>
             </div>

@@ -142,7 +142,7 @@
                                     </table>
                                 </div>
                                 <div class="panel-footer">
-                                    @if ($subscription->stripe_plan !== 'Standard')
+                                    @if ($current_plan_name !== 'Standard')
                                         <a href="{{ route('subscriptions.change-plan', 'Standard') }}" class="btn btn-success" role="button">@lang('Change Plan')</a>
                                     @else
                                         <a href="{{ route('subscriptions.change-plan', 'Standard') }}" class="btn btn-default" role="button" disabled>@lang('Current Plan')</a>
@@ -191,7 +191,7 @@
                                     </table>
                                 </div>
                                 <div class="panel-footer">
-                                    @if ($subscription->stripe_plan !== 'Professional')
+                                    @if ($current_plan_name !== 'Professional')
                                         <a href="{{ route('subscriptions.change-plan', 'Professional') }}" class="btn btn-success" role="button">@lang('Change Plan')</a>
                                     @else
                                         <a href="{{ route('subscriptions.change-plan', 'Professional') }}" class="btn btn-default" role="button" disabled>@lang('Current Plan')</a>
@@ -233,7 +233,7 @@
                                     </table>
                                 </div>
                                 <div class="panel-footer">
-                                    @if ($subscription->stripe_plan !== 'Premium')
+                                    @if ($current_plan_name !== 'Premium')
                                         <a href="{{ route('subscriptions.change-plan', 'Premium') }}" class="btn btn-success" role="button">@lang('Change Plan')</a>
                                     @else
                                         <a href="{{ route('subscriptions.change-plan', 'Premium') }}" class="btn btn-default" role="button" disabled>@lang('Current Plan')</a>

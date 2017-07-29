@@ -43,6 +43,7 @@ class SaveChildRequest extends FormRequest
             $rules = array_merge(
                 $rules,
                 [
+                    'parents' => 'required',
                     'parents.*' => 'required|exists:parents,id',
                     'status' => 'required|exists:statuses,id'
                 ]
