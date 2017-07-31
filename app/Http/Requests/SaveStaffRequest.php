@@ -51,12 +51,12 @@ class SaveStaffRequest extends FormRequest
             $staff_count = Staff::whereDaycareId($daycare->id)->count();
             if ($owner->onGenericTrial() && !$owner->subscribed('main') && $staff_count > 9)
             {
-                $validator->errors()->add('generic', 'This daycare is at the max number of staff for its plan. Please ask the owner to upgrade their account.');
+                $validator->errors()->add('generic', __('This daycare is at the max number of staff for its plan. Please ask the owner to upgrade their account.'));
             }
             if ($owner->subscribed('main')) {
                 $plan = Plan::whereName($owner->subscription('main')->stripe_plan)->first();
                 if ($staff_count >= $plan->number_of_staff_allowed) {
-                    $validator->errors()->add('generic', 'This daycare is at the max number of staff for its plan. Please ask the owner to upgrade their account.');
+                    $validator->errors()->add('generic', __('This daycare is at the max number of staff for its plan. Please ask the owner to upgrade their account.'));
                 }
             }
 
