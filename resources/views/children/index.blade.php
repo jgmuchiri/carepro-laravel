@@ -6,10 +6,13 @@
 @section('content')
     <div class="card">
         <div class="header">
-            <button class="btn btn-primary" data-toggle="modal" data-target="#newChild"><i
-                        class="fa fa-plus-circle"></i>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#newChild" {{ !count($parents) ? 'disabled' : '' }}>
+                <i class="fa fa-plus-circle"></i>
                 @lang('Register Child')
             </button>
+            @if (!count($parents))
+                <p>@lang('A child can not be registered without a parent. Please register parent(s) first before registering your first child.')</p>
+            @endif
         </div>
         <hr/>
         <div class="content">
@@ -72,5 +75,7 @@
 @stop
 
 @push('modals')
-    @include('children.register-modal')
+    @if (count($parents))
+        @include('children.register-modal')
+    @endif
 @endpush

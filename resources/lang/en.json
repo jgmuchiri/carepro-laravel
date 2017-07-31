@@ -196,6 +196,9 @@
     "Successfully resumed subscription": "Successfully resumed subscription",
     "Successfully updated credit card.": "Successfully updated credit card.",
     "Successfully updated plan.": "Successfully updated plan.",
-    "You are already subscribed.": "You are already subscribed."
+    "You are already subscribed.": "You are already subscribed.",
+    "A child can not be registered without a parent. Please register parent(s) first before registering your first child.":
+        "A child can not be registered without a parent. Please register parent(s) first before registering your first child.",
+    "Plans": "Plans"
 }
 
