@@ -171,6 +171,7 @@ return [
         Laravel\Cashier\CashierServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         \Torann\Currency\CurrencyServiceProvider::class,
+        MartinLindhe\VueInternationalizationGenerator\GeneratorProvider::class,
 
         /*
          * Application Service Providers...

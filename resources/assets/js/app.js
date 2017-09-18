@@ -9,14 +9,24 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 import VueRouter from 'vue-router';
+import VueI18n from 'vue-i18n';
+import Locales from './vue-i18n-locales.generated.js';
 
 Vue.use(VueRouter);
+Vue.use(VueI18n);
+
 Vue.prototype.$http = axios;
 
 const routes = [
     { path: '/foo', component: require('./components/Example.vue') },
     { path: '/bar', component: require('./components/Example.vue') }
-]
+];
+
+const i18n = new VueI18n({
+    locale: 'en',
+    fallbackLocale: 'en',
+    messages: Locales
+});
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -31,5 +41,6 @@ const router = new VueRouter({
 
 const app = new Vue({
     el: '#app',
-    router: router
+    router: router,
+    i18n: i18n
 });
