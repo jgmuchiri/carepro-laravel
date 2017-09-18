@@ -262,6 +262,7 @@
                             @endif
                         @endif
                         @yield('content')
+                        <router-view></router-view>
                     @endif
                 </div>
             </div>

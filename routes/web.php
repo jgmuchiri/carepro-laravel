@@ -82,4 +82,8 @@ Route::group(['middleware' => 'auth'], function() {
             Route::resource('groups', 'GroupsController', ['only' => ['index', 'store', 'show']]);
         }
     );
+
+    Route::get('{any?}', function () {
+        return view('layouts.dashboard');
+    })->where('any', '.*');
 });
