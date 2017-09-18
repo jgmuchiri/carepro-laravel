@@ -22,7 +22,8 @@ $(document).ready(function () {
         }, "slow");
     });
     $('[data-toggle="tooltip"]').tooltip();
-    $('[data-toggle="popover"]').popover().on('show.bs.popover', function () {
+    // TODO: Following method throws an error. Confirmed original site also threw this error
+    /*$('[data-toggle="popover"]').popover().on('show.bs.popover', function () {
         if (window.activePopover) {
             $(window.activePopover).popover('hide')
         }
@@ -30,7 +31,7 @@ $(document).ready(function () {
     })
         .on('hide.bs.popover', function () {
             window.activePopover = null;
-        });
+        }); */
 
     //deleting alert
     $('.delete').click(function(e){
