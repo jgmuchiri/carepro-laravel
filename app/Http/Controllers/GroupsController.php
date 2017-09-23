@@ -85,6 +85,6 @@ class GroupsController extends Controller
         $group = Group::with(['children', 'staff.user'])->find($id);
         $this->authorize('show', $group);
 
-        return view('groups.show')->with(compact('group'));
+        return response()->json(compact('group'));
     }
 }

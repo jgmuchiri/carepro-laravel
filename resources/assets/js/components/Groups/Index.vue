@@ -19,7 +19,7 @@
                 </thead>
                 <tbody>
                     <tr v-for="group in groups">
-                        <td><a href="#">{{group.name}}</a></td>
+                        <td><router-link :to="{ name: 'groups.show', params: { group_id: group.id }}">{{group.name}}</router-link></td>
                         <td>{{group.short_description}}</td>
                         <td>{{group.staff_count}}</td>
                         <td>{{group.children_count}}</td>

@@ -18,7 +18,8 @@ Vue.use(VueI18n);
 Vue.prototype.$http = axios;
 
 const routes = [
-    { path: '/groups', component: require('./components/Groups/Index.vue') },
+    { path: '/groups', name: 'groups.index', component: require('./components/Groups/Index.vue') },
+    { path: '/groups/:group_id', name: 'groups.show', component: require('./components/Groups/Show.vue'), props: true}
 ];
 
 Vue.component('CreateGroupModal', require('./components/Groups/CreateModal.vue'));
