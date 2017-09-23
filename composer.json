@@ -11,6 +11,7 @@
         "dompdf/dompdf": "^0.8.0",
         "laravel/cashier": "^7.0",
         "laravel/framework": "5.4.*",
+        "laravel/passport": "^4.0",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.3.0",
         "martinlindhe/laravel-vue-i18n-generator": "^0.1.18",

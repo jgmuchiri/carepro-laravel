@@ -6,7 +6,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <script>
-        window.Laravel ='<?php echo json_encode(['csrfToken' => csrf_token()]); ?>';
+        window.Laravel = {!! json_encode([
+            'csrfToken' => csrf_token(),
+        ]) !!};
     </script>
     <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-icon-60x60.png">
@@ -118,7 +120,7 @@
 
                     @can('showGeneric', \App\Models\Groups\Group::class)
                         <li class="{{ $route_name == 'groups.index' ? "active  bg-warning": "" }}">
-                            <a href="{{ route('groups.index') }}">
+                            <a href="/groups">
                                 <i class="fa fa-users"></i>
                                 <p>@lang('Groups')</p>
                             </a>
@@ -308,7 +310,7 @@
 <script src="https://js.stripe.com/v2/"></script>
 <script src="https://js.stripe.com/v3/"></script>
 
-<script src="{{mix('js/app.js')}}"></script>
+<script src="{{mix('/js/app.js')}}"></script>
 
 @include('partials.flash')
 @stack('scripts')

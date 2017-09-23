@@ -6,7 +6,7 @@
                             aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">@lang('New Group')</h4>
             </div>
-            {!! Form::open(['route' => 'groups.store', 'method' => 'post', 'id' => 'create-group-form']) !!}
+            {!! Form::open(['route' => 'groups.non-api-store', 'method' => 'post', 'id' => 'create-group-form']) !!}
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-sm-6">

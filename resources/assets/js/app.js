@@ -18,9 +18,38 @@ Vue.use(VueI18n);
 Vue.prototype.$http = axios;
 
 const routes = [
-    { path: '/foo', component: require('./components/Example.vue') },
-    { path: '/bar', component: require('./components/Example.vue') }
+    { path: '/groups', component: require('./components/Groups/Index.vue') },
 ];
+
+Vue.component('CreateGroupModal', require('./components/Groups/CreateModal.vue'));
+Vue.component('draggable', require('vuedraggable'));
+
+Vue.mixin({
+    methods: {
+        notifyError: function(message)
+        {
+            $.notify({
+                icon: 'ti-check',
+                message: message
+
+            }, {
+                type: 'danger',
+                timer: 4000
+            });
+        },
+        notifySuccess: function(message)
+        {
+            $.notify({
+                icon: 'ti-check',
+                message: message
+
+            }, {
+                type: 'success',
+                timer: 4000
+            });
+        }
+    }
+});
 
 const i18n = new VueI18n({
     locale: 'en',

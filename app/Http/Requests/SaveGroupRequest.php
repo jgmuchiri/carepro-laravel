@@ -29,8 +29,8 @@ class SaveGroupRequest extends FormRequest
         return [
             'name' => 'required|max:255',
             'description' => 'required|max:500',
-            'children.*' => 'required|exists:children,id',
-            'staff.*' => 'required|exists:staff,id'
+            'children' => 'required|min:1|exists:children,id',
+            'staff' => 'required|min:1|exists:staff,id'
         ];
     }
 }

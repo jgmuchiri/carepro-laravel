@@ -22,11 +22,20 @@ class GroupsController extends Controller
     {
         $this->authorize('showGeneric', Group::class);
         $daycare_id = $request->user()->daycare->id;
-        $groups = Group::whereDaycareId($daycare_id)->with(['staff.user', 'children'])->get();
+        $groups = Group::whereDaycareId($daycare_id)->withCount(['staff', 'children'])->get();
+
+        return response()->json(compact('groups'));
+    }
+
+    public function create(Request $request)
+    {
+        $this->authorize('create', Group::class);
+
+        $daycare_id = $request->user()->daycare->id;
         $children = Child::whereDaycareId($daycare_id)->get();
         $staff = Staff::whereDaycareId($daycare_id)->with(['user'])->get();
 
-        return view('groups.index')->with(compact('groups', 'children', 'staff'));
+        return response()->json(compact('children', 'staff'));
     }
 
     /**
@@ -39,15 +48,6 @@ class GroupsController extends Controller
     public function store(SaveGroupRequest $request)
     {
         $this->authorize('store', Group::class);
-        if (!$request->has('staff')) {
-            return redirect()->route('groups.index')
-                ->withErrors(__('A staff must be selected.'));
-        }
-
-        if (!$request->has('children')) {
-            return redirect()->route('groups.index')
-                ->withErrors(__('A child must be selected.'));
-        }
 
         $group = new Group([
             'name' => $request->input('name'),
@@ -59,7 +59,17 @@ class GroupsController extends Controller
         $group->staff()->sync($request->input('staff'));
         $group->children()->sync($request->input('children'));
 
-        return redirect()->route('groups.index')
+        $group->staff_count = count($request->input('staff'));
+        $group->children_count = count($request->input('children'));
+
+        if ($request->ajax()) {
+            return response()->json(
+                ['group' => $group, 'message' => 'Successfully saved group.'],
+                201
+            );
+        }
+
+        return redirect()->back()
             ->with(['successes' => new MessageBag([__('Successfully saved group.')])]);
     }
 

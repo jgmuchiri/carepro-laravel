@@ -1,5 +1,7 @@
 <?php
 
+use Laravel\Passport\PassportServiceProvider;
+
 return [
 
     /*
@@ -172,6 +174,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         \Torann\Currency\CurrencyServiceProvider::class,
         MartinLindhe\VueInternationalizationGenerator\GeneratorProvider::class,
+        PassportServiceProvider::class,
 
         /*
          * Application Service Providers...
