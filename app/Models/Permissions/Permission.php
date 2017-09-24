@@ -31,6 +31,8 @@ class Permission extends Model
 
     protected $fillable = ['name', 'is_admin_only'];
 
+    protected $appends = ['name_label'];
+
     /**
      * Relationship to the roles table
      *

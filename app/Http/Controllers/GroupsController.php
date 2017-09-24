@@ -64,7 +64,7 @@ class GroupsController extends Controller
 
         if ($request->ajax()) {
             return response()->json(
-                ['group' => $group, 'message' => 'Successfully saved group.'],
+                ['group' => $group, 'message' => __('Successfully saved group.')],
                 201
             );
         }

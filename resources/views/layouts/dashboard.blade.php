@@ -152,7 +152,7 @@
 
                     @can('edit', \App\Models\Permissions\Role::class)
                         <li class="{{ $route_name == 'roles.index' ? "active  bg-warning": ""}}">
-                            <a href="{{ route('roles.index') }}">
+                            <a href="/roles">
                                 <i class="fa fa-key"></i>
                                 <p>@lang('Roles')</p>
                             </a>

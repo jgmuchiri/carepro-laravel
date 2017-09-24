@@ -1,11 +1,11 @@
 <template>
-    <div class="modal fade" id="createGroup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade" id="createGroup" tabindex="-1" role="dialog" aria-labelledby="create-group">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">{{$t('New Group')}}</h4>
+                    <h4 class="modal-title" id="create-group">{{$t('New Group')}}</h4>
                 </div>
                 <form v-on:submit.prevent="storeGroup">
                     <div class="modal-body">
@@ -124,7 +124,6 @@
                         this.notifySuccess(response.data.message);
                     })
                     .catch(error => {
-                        console.log(error.response);
                         if (error.response.status == 422) {
                             for (var key in error.response.data) {
                                 this.notifyError(error.response.data[key]);

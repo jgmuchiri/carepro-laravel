@@ -22,7 +22,7 @@ class RolesController extends Controller
         $this->authorize('edit', Role::class);
         $roles = Role::whereUserCanEdit($request->user())->get();
 
-        return view('roles.index')->with(compact('roles'));
+        return response()->json(compact('roles'));
     }
 
     /**
@@ -33,10 +33,9 @@ class RolesController extends Controller
     public function create()
     {
         $this->authorize('create', Role::class);
-        $role = new Role();
         $permissions = Permission::whereIsNotAdminOnly()->get();
-        $route = 'roles.store';
-        return view('roles.create-edit')->with(compact('role', 'permissions', 'route'));
+
+        return response()->json(compact('permissions'));
     }
 
     /**
@@ -58,8 +57,10 @@ class RolesController extends Controller
 
         $role->save();
 
-        return redirect()->route('roles.edit', $role->id)
-            ->with(['successes' => new MessageBag([__('Successfully created role.')])]);
+        return response()->json(
+            ['role' => $role, 'message' => 'Successfully saved role.'],
+            201
+        );
     }
 
     /**
@@ -70,17 +71,15 @@ class RolesController extends Controller
      */
     public function edit($id)
     {
-        $role = Role::find($id);
+        $role = Role::with('permissions')->find($id);
         if (empty($role)) {
             return abort(404);
         }
         $this->authorize('update', $role);
 
         $permissions = Permission::whereIsNotAdminOnly()->get();
-        $route = 'roles.update';
 
-
-        return view('roles.create-edit')->with(compact('role', 'permissions', 'route'));
+        return response()->json(compact('role', 'permissions'));
     }
 
     /**
@@ -103,8 +102,10 @@ class RolesController extends Controller
         $role->permissions()->sync($request->input('permissions'));
         $role->save();
 
-        return redirect()->route('roles.edit', $role->id)
-            ->with(['successes' => new MessageBag([__('Successfully updated role.')])]);
+        return response()->json(
+            ['role' => $role, 'message'=> __('Successfully updated role.')],
+            201
+        );
     }
 
     /**
@@ -125,6 +126,6 @@ class RolesController extends Controller
 
         $role->delete();
 
-        return redirect()->back()->with(['successes' => new MessageBag([__('Successfully deleted role')])]);
+        return response(null,204);
     }
 }

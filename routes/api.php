@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::group(['middleware' => 'auth:api'], function() {
+Route::group(['middleware' => ['auth:api', 'subscribed']], function() {
     Route::resource('groups', 'GroupsController', ['only' => ['index', 'store', 'show', 'create']]);
+    Route::resource('roles', 'RolesController', ['except' => 'show']);
 });
