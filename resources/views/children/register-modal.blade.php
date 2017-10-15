@@ -10,7 +10,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-sm-6">
-                            <label>@lang('Name')</label>
+                            <label>@lang('Name')*</label>
                             {!! Form::text('name',null,['required'=>'']) !!}
                         </div>
                         <div class="col-sm-6">
@@ -20,21 +20,21 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <label>@lang('Birthday')</label>
+                            <label>@lang('Birthday')*</label>
                             {!! Form::date('dob',null,['required'=>'']) !!}
                         </div>
                         <div class="col-sm-6">
-                            <label>@lang('SSN/ID') #</label>
+                            <label>@lang('SSN/ID') #*</label>
                             {!! Form::text('ssn',null,['required'=>'']) !!}
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <label>@lang('Gender')</label>
+                            <label>@lang('Gender')*</label>
                             {!! Form::select('gender', $genders->pluck('name_label', 'id'), null, ['required' => '']) !!}
                         </div>
                         <div class="col-sm-6">
-                            <label>@lang('Blood Group')</label>
+                            <label>@lang('Blood Group')*</label>
                             {!! Form::select(
                                 'blood_type',
                                 $blood_types->pluck('blood_type_label', 'id'),
@@ -45,12 +45,12 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <label>@lang('Access Pin')</label>
+                            <label>@lang('Access Pin')*</label>
                             {!! Form::text('pin',rand(1111,9999),['required'=>'']) !!}
                         </div>
                         @if(count($parents))
                             <div class="col-sm-6">
-                                <label>@lang('Status')</label>
+                                <label>@lang('Status')*</label>
                                 {!! Form::select(
                                     'status',
                                     $statuses->pluck('name_label', 'id'),
@@ -62,7 +62,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <label>@lang('Religion')</label>
+                            <label>@lang('Religion')*</label>
                             {!! Form::select(
                                 'religion',
                                 $religions->pluck('name_label', 'id'),
@@ -71,7 +71,7 @@
                             ) !!}
                         </div>
                         <div class="col-sm-6">
-                            <label>@lang('Ethnicity')</label>
+                            <label>@lang('Ethnicity')*</label>
                             {!! Form::select(
                                 'ethnicity',
                                 $ethnicities->pluck('name_label', 'id'),
@@ -83,7 +83,7 @@
                     @if (count($parents))
                         <div class="row">
                             <div class="col-sm-6">
-                                <label>@lang('Parents')</label>
+                                <label>@lang('Parents')*</label>
                                 {!! Form::select(
                                     'parents[]',
                                     $parents->pluck('user.name', 'id'),
@@ -95,7 +95,7 @@
                     @endif
                     <div class="row">
                         <div class="col-sm-6">
-                            <label>@lang('Photo')</label>
+                            <label>@lang('Photo')*</label>
                             {!! Form::file('photo_uri') !!}
                         </div>
                     </div>

@@ -11,7 +11,7 @@
                             {{ csrf_field() }}
 
                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                                {!! Form::label('name', __('Name'), ['class' => 'col-md-4 control-label']) !!}
+                                {!! Form::label('name', __('Name') . '*', ['class' => 'col-md-4 control-label']) !!}
 
                                 <div class="col-md-6">
                                     {!! Form::text('name', null, ['id' => 'name', 'class' => 'form-control', 'required' => '', 'autofocus' => '']) !!}
@@ -25,7 +25,7 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('employee_tax_identifier') ? ' has-error' : '' }}">
-                                {!! Form::label('employee_tax_identifier', __('Employee Tax Identifier'), ['class' => 'col-md-4 control-label']) !!}
+                                {!! Form::label('employee_tax_identifier', __('Employee Tax Identifier') . '*', ['class' => 'col-md-4 control-label']) !!}
 
                                 <div class="col-md-6">
                                     {!! Form::text('employee_tax_identifier', null, ['id' => 'employee_tax_identifier', 'class' => 'form-control', 'required' => '']) !!}

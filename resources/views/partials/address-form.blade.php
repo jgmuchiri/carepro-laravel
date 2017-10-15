@@ -1,5 +1,5 @@
 <div class="form-group{{ $errors->has('address_line_1') ? ' has-error' : '' }}">
-    {!! Form::label('address_line_1', __('Address Line 1'), ['class' => 'col-md-4 control-label']) !!}
+    {!! Form::label('address_line_1', __('Address Line 1') . '*', ['class' => 'col-md-4 control-label']) !!}
 
     <div class="col-md-6">
         {!! Form::text('address_line_1', null, ['id' => 'address_line_1', 'class' => 'form-control', 'required' => '', 'placeholder' => 'Street and number, P.O. box, c/o.']) !!}
@@ -27,7 +27,7 @@
 </div>
 
 <div class="form-group{{ $errors->has('city') ? ' has-error' : '' }}">
-    {!! Form::label('city', __('City / Town / Village'), ['class' => 'col-md-4 control-label']) !!}
+    {!! Form::label('city', __('City / Town / Village') . '*', ['class' => 'col-md-4 control-label']) !!}
 
     <div class="col-md-6">
         {!! Form::text('city', null, ['id' => 'city', 'class' => 'form-control', 'required' => '']) !!}
@@ -41,7 +41,7 @@
 </div>
 
 <div class="form-group{{ $errors->has('state') ? ' has-error' : '' }}">
-    {!! Form::label('state', __('State / Province / Region'), ['class' => 'col-md-4 control-label']) !!}
+    {!! Form::label('state', __('State / Province / Region') . '*', ['class' => 'col-md-4 control-label']) !!}
 
     <div class="col-md-6">
         {!! Form::text('state', null, ['id' => 'state', 'class' => 'form-control', 'required' => '']) !!}
@@ -55,7 +55,7 @@
 </div>
 
 <div class="form-group{{ $errors->has('zip_code') ? ' has-error' : '' }}">
-    {!! Form::label('zip_code', __('ZIP'), ['class' => 'col-md-4 control-label']) !!}
+    {!! Form::label('zip_code', __('ZIP') . '*', ['class' => 'col-md-4 control-label']) !!}
 
     <div class="col-md-6">
         {!! Form::text('zip_code', null, ['id' => 'zip_code', 'class' => 'form-control', 'required' => '']) !!}
@@ -69,7 +69,7 @@
 </div>
 
 <div class="form-group{{ $errors->has('country') ? ' has-error' : '' }}">
-    {!! Form::label('country', __('Country'), ['class' => 'col-md-4 control-label']) !!}
+    {!! Form::label('country', __('Country') . '*', ['class' => 'col-md-4 control-label']) !!}
 
     <div class="col-md-6">
         {!! Form::select('country', $countries, null, ['id' => 'country', 'class' => 'form-control', 'required' => '']) !!}
@@ -83,7 +83,7 @@
 </div>
 
 <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
-    {!! Form::label('phone', __('Phone Number'), ['class' => 'col-md-4 control-label']) !!}
+    {!! Form::label('phone', __('Phone Number') . '*', ['class' => 'col-md-4 control-label']) !!}
 
     <div class="col-md-6">
         {!! Form::text('phone', null, ['id' => 'phone', 'class' => 'form-control', 'required' => '']) !!}
