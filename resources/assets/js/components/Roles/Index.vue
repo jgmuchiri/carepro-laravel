@@ -9,13 +9,11 @@
         </div>
         <hr/>
         <div class="content">
-            @can('create', \App\Models\Permissions\Role::class)
-            <div class="row">
+            <div class="row" v-show="can_create_role">
                 <div class="col-md-12">
                     <router-link :to="{name: 'roles.create'}" class="btn btn-primary">{{$t('New Role')}}</router-link>
                 </div>
             </div>
-            @endcan
             <div class="row">
                 <div class="col-md-12">
                     <table class="table table-bordered">
@@ -30,10 +28,8 @@
                         <tr v-for="role in roles">
                             <td>{{ role.name }}</td>
                             <td>
-                                @can('update', $role)<router-link :to="{name: 'roles.edit', params: { role_id: role.id}}">{{$t('Edit')}}</router-link>@endcan
-                                @can('delete', $role)
+                                <router-link :to="{name: 'roles.edit', params: { role_id: role.id}}" :v-if="role.can_update">{{$t('Edit')}}</router-link>
                                 <button class="btn btn-danger" @click.prevent="deleteRole(role.id)">{{$t('Delete')}}</button>
-                                @endcan
                             </td>
                         </tr>
                         </tbody>
@@ -51,6 +47,7 @@
             this.$http.get('/api/roles')
                 .then(response => {
                     this.roles = response.data.roles;
+                    this.can_create_role = response.data.can_create_role;
                 })
                 .catch(error => {
                     alert("Something went wrong. Please try reloading the page");
@@ -58,6 +55,7 @@
         },
         data() {
             return {
+                can_create_role: false,
                 roles: []
             }
         },

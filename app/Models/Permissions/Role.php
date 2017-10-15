@@ -25,6 +25,11 @@ class Role extends Model
         'daycare_id' => 'int'
     ];
 
+    protected $appends = [
+        'can_edit',
+        'can_delete'
+    ];
+
     /**
      * Relationship to the permissions table
      *
@@ -106,4 +111,13 @@ class Role extends Model
         $query->whereIsUserEditable()->whereDaycareId($user->daycare->id);
     }
 
+    public function getCanEditAttribute()
+    {
+        return \Auth::user()->can('edit', $this);
+    }
+
+    public function getCanDeleteAttribute()
+    {
+        return \Auth::user()->can('update', $this);
+    }
 }

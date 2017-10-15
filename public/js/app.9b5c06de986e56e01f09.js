@@ -23017,10 +23017,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     created: function created() {
@@ -23028,12 +23024,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         this.$http.get('/api/roles').then(function (response) {
             _this.roles = response.data.roles;
+            _this.can_create_role = response.data.can_create_role;
         }).catch(function (error) {
             alert("Something went wrong. Please try reloading the page");
         });
     },
     data: function data() {
         return {
+            can_create_role: false,
             roles: []
         };
     },
@@ -46474,7 +46472,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "col-sm-6"
   }, [_c('p', [_vm._v(_vm._s(_vm.$t('Roles')))])])])]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_vm._v("\n        @can('create', \\App\\Models\\Permissions\\Role::class)\n        "), _c('div', {
+  }, [_c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.can_create_role),
+      expression: "can_create_role"
+    }],
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-md-12"
@@ -46485,7 +46489,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         name: 'roles.create'
       }
     }
-  }, [_vm._v(_vm._s(_vm.$t('New Role')))])], 1)]), _vm._v("\n        @endcan\n        "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$t('New Role')))])], 1)]), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-md-12"
@@ -46500,16 +46504,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "colspan": "2"
     }
   }, [_vm._v(_vm._s(_vm.$t('No roles created yet')) + ".")])]) : _vm._e(), _vm._v(" "), _vm._l((_vm.roles), function(role) {
-    return _c('tr', [_c('td', [_vm._v(_vm._s(role.name))]), _vm._v(" "), _c('td', [_vm._v("\n                            @can('update', $role)"), _c('router-link', {
+    return _c('tr', [_c('td', [_vm._v(_vm._s(role.name))]), _vm._v(" "), _c('td', [_c('router-link', {
       attrs: {
         "to": {
           name: 'roles.edit',
           params: {
             role_id: role.id
           }
-        }
+        },
+        "v-if": role.can_update
       }
-    }, [_vm._v(_vm._s(_vm.$t('Edit')))]), _vm._v("@endcan\n                            @can('delete', $role)\n                            "), _c('button', {
+    }, [_vm._v(_vm._s(_vm.$t('Edit')))]), _vm._v(" "), _c('button', {
       staticClass: "btn btn-danger",
       on: {
         "click": function($event) {
@@ -46517,7 +46522,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.deleteRole(role.id)
         }
       }
-    }, [_vm._v(_vm._s(_vm.$t('Delete')))]), _vm._v("\n                            @endcan\n                        ")], 1)])
+    }, [_vm._v(_vm._s(_vm.$t('Delete')))])], 1)])
   })], 2)])])])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true

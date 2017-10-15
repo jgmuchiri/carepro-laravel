@@ -21,8 +21,9 @@ class RolesController extends Controller
     {
         $this->authorize('edit', Role::class);
         $roles = Role::whereUserCanEdit($request->user())->get();
+        $can_create_role = $request->user()->can('create', Role::class);
 
-        return response()->json(compact('roles'));
+        return response()->json(compact('roles', 'can_create_role'));
     }
 
     /**
