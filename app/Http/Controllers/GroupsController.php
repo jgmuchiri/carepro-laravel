@@ -51,7 +51,7 @@ class GroupsController extends Controller
 
         $group = new Group([
             'name' => $request->input('name'),
-            'short_description' => $request->input('description'),
+            'short_description' => $request->input('short_description'),
             'daycare_id' => $request->user()->daycare_id
         ]);
 
@@ -86,5 +86,38 @@ class GroupsController extends Controller
         $this->authorize('show', $group);
 
         return response()->json(compact('group'));
+    }
+
+    /**
+     * Updates the group
+     *
+     * @param SaveGroupRequest $request
+     * @param int $id
+     *
+     * @return \Illuminate\Http\JsonResponse|void
+     */
+    public function update(SaveGroupRequest $request, $id)
+    {
+        $group = Group::find($id);
+
+        if (empty($group)) {
+            return abort(404);
+        }
+        $this->authorize('update', $group);
+
+        $group->fill([
+            'name' => $request->input('name'),
+            'short_description' => $request->input('short_description'),
+        ]);
+
+        $group->staff()->sync($request->input('staff'));
+        $group->children()->sync($request->input('children'));
+        $group->save();
+
+        $group->load(['children', 'staff.user']);
+        return response()->json(
+            ['group' => $group, 'message' => __('Successfully saved group.')],
+            200
+        );
     }
 }

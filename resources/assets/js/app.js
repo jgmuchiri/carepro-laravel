@@ -25,7 +25,8 @@ const routes = [
     { path: '/roles/:role_id/edit', name: 'roles.edit', component: require('./components/Roles/CreateEdit.vue'), props: true}
 ];
 
-Vue.component('CreateGroupModal', require('./components/Groups/CreateModal.vue'));
+Vue.component('CreateEditGroupModal', require('./components/Groups/CreateEditModal.vue'));
+Vue.component('GroupMassAssign', require('./components/Groups/MassAssign.vue'));
 Vue.component('draggable', require('vuedraggable'));
 
 Vue.mixin({

@@ -104,7 +104,7 @@ class RolesController extends Controller
 
         return response()->json(
             ['role' => $role, 'message'=> __('Successfully updated role.')],
-            201
+            200
         );
     }
 

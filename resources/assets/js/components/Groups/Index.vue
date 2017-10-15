@@ -1,7 +1,7 @@
 <template>
     <div class="card">
         <div class="header">
-            <button class="btn btn-primary" data-toggle="modal" data-target="#createGroup"><i
+            <button class="btn btn-primary" data-toggle="modal" data-target="#createEditGroup"><i
                     class="fa fa-plus-circle"></i>
                 {{$t('Create Group')}}
             </button>
@@ -28,7 +28,7 @@
             </table>
             <div class="clearfix"></div>
         </div>
-        <CreateGroupModal v-on:createGroup="addGroup"></CreateGroupModal>
+        <CreateEditGroupModal v-on:createGroup="addGroup"></CreateEditGroupModal>
     </div>
 </template>
 
