@@ -104,6 +104,6 @@ class DaycaresController extends Controller
                 '. Message: ' . $exception->getMessage());
         }
 
-        return redirect()->route('home');
+        return redirect('/home');
     }
 }

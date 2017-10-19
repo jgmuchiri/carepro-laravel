@@ -96,7 +96,7 @@
 
                 <ul class="nav">
                     <li class="{{ $route_name === "home" ? 'active  bg-warning' : '' }}">
-                        <a href="{{ route('home') }}">
+                        <a href="/home">
                             <i class="ti-panel"></i>
                             <p>@lang('Dashboard')</p>
                         </a>

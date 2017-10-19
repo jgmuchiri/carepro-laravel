@@ -28,7 +28,6 @@ Route::get('/subscribe/{plan_name}/start-free-trial', 'SubscriptionController@su
     ->name('subscriptions.subscribe-to-trial');
 
 Route::group(['middleware' => 'auth'], function() {
-    Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/subscribe', 'SubscriptionController@showBilling')->name('subscriptions.subscribe');
 
     Route::post('/subscribe', 'SubscriptionController@subscribe')->name('subscriptions.subscribe');

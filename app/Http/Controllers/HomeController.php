@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Child;
+use App\Models\ChildParent;
 use App\Models\Staff;
 use Illuminate\Http\Request;
 
@@ -27,12 +28,22 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $daycare_id = $request->user()->daycare_id;
+        $user = $request->user();
+        $daycare_id = $user->daycare_id;
         $children_to_activate = Child::whereDaycareId($daycare_id)->wherePendingApproval()->first();
-        $daycare_id = $request->user()->daycare->id;
-        $children = Child::whereDaycareId($daycare_id)->get();
-        $staff = Staff::whereDaycareId($daycare_id)->with(['user'])->get();
 
-        return view('home')->with(compact('children_to_activate', 'children', 'staff'));
+        $can_register_parent = $user->can('create', ChildParent::class);
+        $can_register_staff = $user->can('create', Staff::class);
+        $can_register_child = $user->can('create', Child::class);
+        $can_update_child_status = $user->can('updateStatus', $children_to_activate);
+        $has_children_to_activate = $children_to_activate != null ? true : false;
+
+        return response()->json(compact(
+            'has_children_to_activate',
+            'can_register_child',
+            'can_register_parent',
+            'can_register_staff',
+            'can_update_child_status'
+        ));
     }
 }

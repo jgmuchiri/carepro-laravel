@@ -16,4 +16,5 @@ use Illuminate\Http\Request;
 Route::group(['middleware' => ['auth:api', 'subscribed']], function() {
     Route::resource('groups', 'GroupsController', ['except' => ['destroy']]);
     Route::resource('roles', 'RolesController', ['except' => 'show']);
+    Route::get('/home', 'HomeController@index')->name('home');
 });

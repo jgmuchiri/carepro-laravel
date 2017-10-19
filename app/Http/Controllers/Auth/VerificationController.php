@@ -32,7 +32,7 @@ class VerificationController extends Controller
         $user->confirmed = true;
         $user->save();
 
-        return redirect()->route('home')
+        return redirect('/home')
             ->with(['successes' => new MessageBag(['Successfully confirmed account.'])]);
     }
 
@@ -47,7 +47,7 @@ class VerificationController extends Controller
     {
         MailService::sendConfirmationEmail($request->user());
 
-        return redirect()->route('home')
+        return redirect('/home')
             ->with(['successes' => new MessageBag(
                 ['Successfully sent verification email. Please check your email inbox'])
             ]);

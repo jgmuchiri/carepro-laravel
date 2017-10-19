@@ -28,7 +28,7 @@ class DaycareHasActiveSubscription
             !$owner->subscribed('main') &&
             !$owner->onGenericTrial()
         ) {
-            return redirect()->route('home')
+            return redirect('/home')
                 ->withErrors([
                     __('Daycare is currently not subscribed. Ask the daycare owner to check their subscription status.')
                 ]);

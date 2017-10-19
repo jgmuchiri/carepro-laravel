@@ -53,7 +53,7 @@ class SubscriptionController extends Controller
         $user = $request->user();
 
         if ($user->subscribed('main') && !$user->subscription('main')->onTrial()) {
-            redirect()->route('home')->withErrors([__('You are already subscribed.')]);
+            return redirect('/home')->withErrors([__('You are already subscribed.')]);
         }
 
         $trial_days = Carbon::today()->diffInDays($user->trial_ends_at, false);
@@ -71,7 +71,7 @@ class SubscriptionController extends Controller
             ]
         );
 
-        return redirect()->route('home')
+        return redirect('/home')
             ->with(['successes' => new MessageBag([__('Successfully subscribed.')])]);
     }
 
