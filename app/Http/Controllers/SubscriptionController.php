@@ -92,6 +92,12 @@ class SubscriptionController extends Controller
         }
 
         $user = $request->user();
+
+        if (empty($user)) {
+            $request->session()->put('trial_plan', $plan_name);
+            return redirect()->route('register');
+        }
+
         $user->trial_ends_at = Carbon::now()->addDays(14);
         $user->trialPlan()->associate($plan);
         $user->save();

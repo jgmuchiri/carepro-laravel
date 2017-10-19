@@ -55,7 +55,6 @@
                 <ul class="nav navbar-nav">
                     @if (Auth::guest())
                         <li><a href="{{ url('/login') }}">@lang('Login')</a></li>
-                        <li><a href="{{ url('/register') }}">@lang('Register')</a></li>
                         <li><a href="{{ route('plans') }}">@lang('Plans')</a></li>
                     @else
                         <li class="dropdown">

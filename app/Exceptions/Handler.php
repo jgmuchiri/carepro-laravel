@@ -60,6 +60,10 @@ class Handler extends ExceptionHandler
             return response()->json(['error' => 'Unauthenticated.'], 401);
         }
 
+        if ($request->url() == route('daycare.create')) {
+            return redirect()->route('register');
+        }
+
         return redirect()->guest(route('login'));
     }
 }

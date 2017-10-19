@@ -24,14 +24,14 @@ Route::post(
 );
 
 Route::get('/plans', 'SubscriptionController@showPlans')->name('plans');
+Route::get('/subscribe/{plan_name}/start-free-trial', 'SubscriptionController@subscribeToTrial')
+    ->name('subscriptions.subscribe-to-trial');
 
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/subscribe', 'SubscriptionController@showBilling')->name('subscriptions.subscribe');
 
     Route::post('/subscribe', 'SubscriptionController@subscribe')->name('subscriptions.subscribe');
-    Route::get('/subscribe/{plan_name}/start-free-trial', 'SubscriptionController@subscribeToTrial')
-        ->name('subscriptions.subscribe-to-trial');
     Route::delete('/subscription/cancel', 'SubscriptionController@cancel')->name('subscriptions.cancel');
     Route::get('/subscription/resume', 'SubscriptionController@resume')->name('subscriptions.resume');
     Route::post('/subscription/update-credit-card', 'SubscriptionController@updateCreditCard')

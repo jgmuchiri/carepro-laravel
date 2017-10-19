@@ -5,10 +5,13 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Addresses\Address;
 use App\Models\Permissions\Role;
+use App\Models\Subscriptions\Plan;
 use App\Services\MailService;
 use App\User;
+use Carbon\Carbon;
 use Config;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Mail;
 use Session;
 use Validator;
@@ -43,6 +46,22 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+    }
+
+    /**
+     * Show the application registration form.
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showRegistrationForm(Request $request)
+    {
+        if (!$request->session()->has('trial_plan')) {
+            return redirect()->route('plans');
+        }
+
+        return view('auth.register');
     }
 
     /**
@@ -89,24 +108,29 @@ class RegisterController extends Controller
         $role = Role::whereName(Role::TENANT_ROLE)->first();
         $user->roles()->sync([$role->id]);
 
+        $plan = Plan::whereName(session('trial_plan'))->first();
+
+        if (empty($plan)) {
+            return redirect()->route('plans')->withErrors(__('You must select a plan before registering.'));
+        }
+
+        $user->trial_ends_at = Carbon::now()->addDays(14);
+        $user->trialPlan()->associate($plan);
+        $user->save();
+        $this->redirectTo = route('daycare.create');
+
         MailService::sendConfirmationEmail($user);
 
         return $user;
     }
 
     /**
-     * Returns where a user should be redirectEd to after registering
+     * Returns where a user should be redirected to after registering
      *
      * @return string
      */
     protected function redirectTo()
     {
-        $url = $this->redirectTo;
-
-        if (Session::has('url.intended')) {
-            $url = Session::get('url.intended');
-        }
-
-        return $url;
+        return route('daycare.create');
     }
 }

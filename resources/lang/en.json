@@ -199,6 +199,7 @@
     "You are already subscribed.": "You are already subscribed.",
     "A child can not be registered without a parent. Please register parent(s) first before registering your first child.":
         "A child can not be registered without a parent. Please register parent(s) first before registering your first child.",
-    "Plans": "Plans"
+    "Plans": "Plans",
+    "You must select a plan before registering.": "You must select a plan before registering."
 }
 
