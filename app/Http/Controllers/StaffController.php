@@ -48,6 +48,7 @@ class StaffController extends Controller
     public function store(SaveStaffRequest $request)
     {
         $this->authorize('store', Staff::class);
+
         $user = new User([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
@@ -69,6 +70,13 @@ class StaffController extends Controller
         $user->roles()->sync([$role->id]);
 
         MailService::sendConfirmationEmail($user);
+
+        if ($request->ajax()) {
+            return response()->json(
+                ['staff' => $staff, 'message' => __('Successfully created staff member.')],
+                201
+            );
+        }
 
         return redirect()->route('staff.index')
             ->with(['successes' => new MessageBag([__('Successfully created staff member.')])]);

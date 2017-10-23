@@ -1,32 +1,38 @@
 <template>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8">
-                <a v-show="this.can_register_parent" href="/parents/create" class="btn btn-primary">{{ $t('New Parent') }}</a>
-                <a v-show="this.can_register_child" href="/children" class="btn btn-primary">{{ $t('Add Child') }}</a>
-                <a v-show="this.can_register_staff" href="/staff" class="btn btn-primary">{{ $t('Staff Members') }}</a>
-            </div>
-        </div>
-
-        <div class="row" v-show="this.has_children_to_activate && this.can_update_child_status">
-            <div class="col-md-8">
-                <div class="alert alert-warning" role="alert">
-                    {{ $t('Parent registered a child') }}. <a href="/children">{{ $t('Activate Child') }}</a>
+    <div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <a v-show="this.can_register_parent" href="/parents/create" class="btn btn-primary">{{ $t('New Parent') }}</a>
+                    <a v-show="this.can_register_child" href="/children" class="btn btn-primary">{{ $t('Add Child') }}</a>
+                    <button v-show="this.can_register_staff" class="btn btn-primary" data-toggle="modal" data-target="#create-staff-modal"><i
+                            class="fa fa-plus-circle"></i>
+                        {{ $t('Register Staff')}}
+                    </button>
                 </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col-md-8">
-                <div class="panel panel-default">
-                    <div class="panel-heading">{{ $t('Dashboard') }}</div>
+            <div class="row" v-show="this.has_children_to_activate && this.can_update_child_status">
+                <div class="col-md-8">
+                    <div class="alert alert-warning" role="alert">
+                        {{ $t('Parent registered a child') }}. <a href="/children">{{ $t('Activate Child') }}</a>
+                    </div>
+                </div>
+            </div>
 
-                    <div class="panel-body">
-                        {{ $t('You are logged in!') }}
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">{{ $t('Dashboard') }}</div>
+
+                        <div class="panel-body">
+                            {{ $t('You are logged in!') }}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <CreateStaffModal></CreateStaffModal>
     </div>
 </template>
 

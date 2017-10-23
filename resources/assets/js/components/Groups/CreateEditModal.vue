@@ -115,7 +115,6 @@
                         this.notifySuccess(response.data.message);
                     })
                     .catch(error => {
-                        console.log(error);
                         if (error.response.status == 422) {
                             for (var key in error.response.data) {
                                 this.notifyError(error.response.data[key]);

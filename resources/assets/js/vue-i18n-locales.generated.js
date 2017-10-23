@@ -189,6 +189,10 @@ export default {
         "You are already subscribed.": "You are already subscribed.",
         "A child can not be registered without a parent. Please register parent(s) first before registering your first child.": "A child can not be registered without a parent. Please register parent(s) first before registering your first child.",
         "Plans": "Plans",
+        "You must select a plan before registering.": "You must select a plan before registering.",
+        "Register Staff": "Register Staff",
+        "Register Staff Member": "Register Staff Member",
+        "Search": "Search",
         "auth": {
             "failed": "These credentials do not match our records.",
             "throttle": "Too many login attempts. Please try again in {seconds} seconds."

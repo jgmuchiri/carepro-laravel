@@ -17,4 +17,6 @@ Route::group(['middleware' => ['auth:api', 'subscribed']], function() {
     Route::resource('groups', 'GroupsController', ['except' => ['destroy']]);
     Route::resource('roles', 'RolesController', ['except' => 'show']);
     Route::get('/home', 'HomeController@index')->name('home');
+    Route::resource('staff', 'StaffController', ['only' => ['store']]);
+    Route::get('addresses/countries', 'AddressesController@countriesIndex')->name('addresses.countries.index');
 });

@@ -29,6 +29,7 @@ const routes = [
 Vue.component('CreateEditGroupModal', require('./components/Groups/CreateEditModal.vue'));
 Vue.component('GroupMassAssign', require('./components/Groups/MassAssign.vue'));
 Vue.component('draggable', require('vuedraggable'));
+Vue.component('CreateStaffModal', require('./components/StaffMembers/CreateModal'));
 
 Vue.mixin({
     methods: {
