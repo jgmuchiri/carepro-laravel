@@ -3,10 +3,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
-                    <a v-show="this.can_register_parent" href="/parents/create" class="btn btn-primary">{{ $t('New Parent') }}</a>
+                    <button v-show="this.can_register_parent" class="btn btn-primary" data-toggle="modal" data-target="#create-parent-modal">
+                        <i class="fa fa-plus-circle"></i>
+                        {{ $t('Register Parent') }}
+                    </button>
                     <a v-show="this.can_register_child" href="/children" class="btn btn-primary">{{ $t('Add Child') }}</a>
-                    <button v-show="this.can_register_staff" class="btn btn-primary" data-toggle="modal" data-target="#create-staff-modal"><i
-                            class="fa fa-plus-circle"></i>
+                    <button v-show="this.can_register_staff" class="btn btn-primary" data-toggle="modal" data-target="#create-staff-modal">
+                        <i class="fa fa-plus-circle"></i>
                         {{ $t('Register Staff')}}
                     </button>
                 </div>
@@ -33,6 +36,7 @@
             </div>
         </div>
         <CreateStaffModal></CreateStaffModal>
+        <CreateParentModal></CreateParentModal>
     </div>
 </template>
 

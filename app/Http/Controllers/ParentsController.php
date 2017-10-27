@@ -78,6 +78,13 @@ class ParentsController extends Controller
 
         MailService::sendConfirmationEmail($user);
 
+        if ($request->ajax()) {
+            return response()->json(
+                ['parent' => $parent, 'message' => __('Successfully created parent.')],
+                201
+            );
+        }
+
         return redirect()->route('parents.index')
             ->with(['successes' => new MessageBag([__('Successfully created parent.')])]);
     }

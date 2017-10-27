@@ -193,6 +193,7 @@ export default {
         "Register Staff": "Register Staff",
         "Register Staff Member": "Register Staff Member",
         "Search": "Search",
+        "Register Parent": "Register Parent",
         "auth": {
             "failed": "These credentials do not match our records.",
             "throttle": "Too many login attempts. Please try again in {seconds} seconds."

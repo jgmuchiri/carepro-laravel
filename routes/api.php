@@ -19,4 +19,5 @@ Route::group(['middleware' => ['auth:api', 'subscribed']], function() {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::resource('staff', 'StaffController', ['only' => ['store']]);
     Route::get('addresses/countries', 'AddressesController@countriesIndex')->name('addresses.countries.index');
+    Route::resource('parents', 'ParentsController', ['only' => ['store']]);
 });
