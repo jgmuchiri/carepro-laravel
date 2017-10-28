@@ -64,8 +64,6 @@ Route::group(['middleware' => 'auth'], function() {
     Route::group(
         ['middleware' => 'subscribed'],
         function() {
-            Route::resource('staff', 'StaffController', ['only' => ['index', 'create', 'store']]);
-
             Route::post('parents/{id}/assign-children', 'ParentsController@assignChildren')
                 ->name('parents.assign-children');
             Route::resource('parents', 'ParentsController', ['only' => ['index', 'create', 'store', 'show']]);

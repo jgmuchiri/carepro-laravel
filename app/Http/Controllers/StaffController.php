@@ -21,22 +21,12 @@ class StaffController extends Controller
      */
     public function index(Request $request)
     {
-        $staff = Staff::whereDaycareId($request->user()->daycare_id)->get();
+        $staff = Staff::whereDaycareId($request->user()->daycare_id)
+            ->with('user')
+            ->get();
+        $can_create_staff = $request->user()->can('create', Staff::class);
 
-        return view('staff.index')->with(compact('staff'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $this->authorize('create', Staff::class);
-        $staff = new Staff();
-        $route = 'staff.store';
-        return view('staff.create-edit')->with(compact('staff','route'));
+        return response()->json(compact('staff', 'can_create_staff'));
     }
 
     /**
@@ -71,14 +61,9 @@ class StaffController extends Controller
 
         MailService::sendConfirmationEmail($user);
 
-        if ($request->ajax()) {
-            return response()->json(
-                ['staff' => $staff, 'message' => __('Successfully created staff member.')],
-                201
-            );
-        }
-
-        return redirect()->route('staff.index')
-            ->with(['successes' => new MessageBag([__('Successfully created staff member.')])]);
+        return response()->json(
+            ['staff' => $staff, 'message' => __('Successfully created staff member.')],
+            201
+        );
     }
 }
