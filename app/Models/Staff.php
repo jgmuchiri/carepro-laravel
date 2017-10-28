@@ -29,6 +29,7 @@ class Staff extends Model
     protected $hidden = [
     ];
 
+    protected $appends = ['full_photo_uri'] ;
     /**
      * Store attributes and their casts
      *
@@ -72,5 +73,13 @@ class Staff extends Model
         $query->distinct()->select($this->getTable() . '.*')
             ->join('users', 'users.id', '=', $this->getTable() . '.user_id')
             ->where('users.daycare_id', '=', $daycare_id);
+    }
+
+    public function getFullPhotoUriAttribute()
+    {
+        if (empty($this->photo_uri)) {
+            return asset('/img/portrait.png');
+        }
+        return asset('storage/' . $this->photo_uri);
     }
 }

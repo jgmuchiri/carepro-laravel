@@ -19,17 +19,23 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <table class="table table-bordered">
+                    <table class="table table-responsive table-full-width table-striped">
                         <thead>
-                        <tr>
-                            <th>{{ $t('Name') }}</th>
-                        </tr>
+                            <tr>
+                                <th></th>
+                                <th>{{ $t('Name') }}</th>
+                                <th>{{ $t('Email') }}</th>
+                                <th>{{ $t('Phone') }}</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        <tr v-if="staff.length < 1"><td colspan="3">{{ $t('No staff created yet') }}</td></tr>
-                        <tr v-for="staff_member in staff">
-                            <td>{{ staff_member.user.name }}</td>
-                        </tr>
+                            <tr v-if="staff.length < 1"><td colspan="4">{{ $t('No staff created yet') }}</td></tr>
+                            <tr v-for="staff_member in staff">
+                                <td><img :src="staff_member.full_photo_uri"></td>
+                                <td>{{ staff_member.user.name }}</td>
+                                <td>{{ staff_member.user.email }}</td>
+                                <td>{{ staff_member.user.address.phone }}</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

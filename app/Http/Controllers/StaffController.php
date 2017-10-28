@@ -22,7 +22,7 @@ class StaffController extends Controller
     public function index(Request $request)
     {
         $staff = Staff::whereDaycareId($request->user()->daycare_id)
-            ->with('user')
+            ->with('user.address')
             ->get();
         $can_create_staff = $request->user()->can('create', Staff::class);
 

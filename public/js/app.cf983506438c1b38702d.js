@@ -23774,6 +23774,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     created: function created() {
@@ -47436,13 +47442,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "col-md-12"
   }, [_c('table', {
-    staticClass: "table table-bordered"
-  }, [_c('thead', [_c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t('Name')))])])]), _vm._v(" "), _c('tbody', [(_vm.staff.length < 1) ? _c('tr', [_c('td', {
+    staticClass: "table table-responsive table-full-width table-striped"
+  }, [_c('thead', [_c('tr', [_c('th'), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Name')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Email')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Phone')))])])]), _vm._v(" "), _c('tbody', [(_vm.staff.length < 1) ? _c('tr', [_c('td', {
     attrs: {
-      "colspan": "3"
+      "colspan": "4"
     }
   }, [_vm._v(_vm._s(_vm.$t('No staff created yet')))])]) : _vm._e(), _vm._v(" "), _vm._l((_vm.staff), function(staff_member) {
-    return _c('tr', [_c('td', [_vm._v(_vm._s(staff_member.user.name))])])
+    return _c('tr', [_c('td', [_c('img', {
+      attrs: {
+        "src": staff_member.full_photo_uri
+      }
+    })]), _vm._v(" "), _c('td', [_vm._v(_vm._s(staff_member.user.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(staff_member.user.email))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(staff_member.user.address.phone))])])
   })], 2)])])])]), _vm._v(" "), _c('CreateStaffModal')], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
