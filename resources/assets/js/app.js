@@ -31,6 +31,7 @@ Vue.component('GroupMassAssign', require('./components/Groups/MassAssign.vue'));
 Vue.component('draggable', require('vuedraggable'));
 Vue.component('CreateStaffModal', require('./components/StaffMembers/CreateModal'));
 Vue.component('CreateParentModal', require('./components/Parents/CreateModal'));
+Vue.component('CreateChildModal', require('./components/Children/CreateModal'));
 
 Vue.mixin({
     methods: {

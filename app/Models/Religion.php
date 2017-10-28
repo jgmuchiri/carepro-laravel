@@ -26,6 +26,8 @@ class Religion extends Model
      */
     protected $hidden = [];
 
+    protected $appends = ['name_label'];
+
     public function getNameLabelAttribute($value)
     {
         return __($this->name);

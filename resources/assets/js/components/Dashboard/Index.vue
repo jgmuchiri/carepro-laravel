@@ -7,7 +7,9 @@
                         <i class="fa fa-plus-circle"></i>
                         {{ $t('Register Parent') }}
                     </button>
-                    <a v-show="this.can_register_child" href="/children" class="btn btn-primary">{{ $t('Add Child') }}</a>
+                    <button v-show="this.can_register_child" class="btn btn-primary" data-toggle="modal" data-target="#create-child-modal">
+                        <i class="fa fa-plus-circle"></i>
+                        {{ $t('Register Child') }}</button>
                     <button v-show="this.can_register_staff" class="btn btn-primary" data-toggle="modal" data-target="#create-staff-modal">
                         <i class="fa fa-plus-circle"></i>
                         {{ $t('Register Staff')}}
@@ -37,6 +39,7 @@
         </div>
         <CreateStaffModal></CreateStaffModal>
         <CreateParentModal></CreateParentModal>
+        <CreateChildModal></CreateChildModal>
     </div>
 </template>
 

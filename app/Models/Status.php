@@ -19,6 +19,8 @@ class Status extends Model
      */
     protected $fillable = ['name'];
 
+    protected $appends = ['name_label'];
+
     /**
      * The attributes that should be hidden for arrays.
      *

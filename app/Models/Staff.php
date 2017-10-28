@@ -29,6 +29,8 @@ class Staff extends Model
     protected $hidden = [
     ];
 
+    protected $appends = ['name_label'];
+
     /**
      * Store attributes and their casts
      *

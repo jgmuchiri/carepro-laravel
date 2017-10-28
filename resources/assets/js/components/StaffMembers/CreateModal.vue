@@ -81,7 +81,7 @@
                                 <label for="country" class="control-label">{{ $t('Country') }}*</label>
                                 <select id="country" class="form-control" v-model="staff.country" required>
                                     <option v-for="country in countries" v-bind:value="country.id">
-                                        {{ country.name }}
+                                        {{ country.name_label }}
                                     </option>
                                 </select>
                             </div>

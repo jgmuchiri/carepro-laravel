@@ -14,6 +14,8 @@ class Country extends Model
 
     protected $fillable = ['name', 'abbreviation'];
 
+    protected $appends = ['name_label', 'abbreviation_label'];
+
     /**
      * Query scope for where name
      *

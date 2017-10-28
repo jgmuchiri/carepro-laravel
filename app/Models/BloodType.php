@@ -26,6 +26,8 @@ class BloodType extends Model
      */
     protected $hidden = [];
 
+    protected $appends = ['blood_type_label'];
+
     public function getBloodTypeLabelAttribute($value)
     {
         return __($this->blood_type);
