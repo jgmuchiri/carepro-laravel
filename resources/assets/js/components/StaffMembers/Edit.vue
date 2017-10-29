@@ -93,7 +93,7 @@
             <div class="header">
                 <div class="row">
                     <div class="col-sm-6">
-                        <p>{{ $t('Edit Staff Member') }}</p>
+                        <p>{{ $t('Update Password') }}</p>
                     </div>
                 </div>
             </div>

@@ -32,7 +32,9 @@
                             <tr v-if="staff.length < 1"><td colspan="4">{{ $t('No staff created yet') }}</td></tr>
                             <tr v-for="staff_member in staff">
                                 <td><img :src="staff_member.full_photo_uri" width="50px"></td>
-                                <td>{{ staff_member.user.name }}</td>
+                                <td><router-link :to="{ name: 'staff.edit', params: { staff_id: staff_member.id }}">
+                                    {{ staff_member.user.name }}
+                                </router-link></td>
                                 <td>{{ staff_member.user.email }}</td>
                                 <td>{{ staff_member.user.address.phone }}</td>
                             </tr>

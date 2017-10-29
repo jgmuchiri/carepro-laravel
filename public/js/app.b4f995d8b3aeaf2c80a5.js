@@ -39990,6 +39990,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     created: function created() {
@@ -40270,6 +40272,8 @@ window.axios.defaults.headers.common = {
         "Register Staff Member": "Register Staff Member",
         "Search": "Search",
         "Register Parent": "Register Parent",
+        "Edit Staff Member": "Edit Staff Member",
+        "Update Password": "Update Password",
         "auth": {
             "failed": "These credentials do not match our records.",
             "throttle": "Too many login attempts. Please try again in {seconds} seconds."
@@ -64148,7 +64152,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-sm-6"
-  }, [_c('p', [_vm._v(_vm._s(_vm.$t('Edit Staff Member')))])])])]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('form', {
+  }, [_c('p', [_vm._v(_vm._s(_vm.$t('Update Password')))])])])]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('form', {
     on: {
       "submit": function($event) {
         $event.preventDefault();
@@ -64407,7 +64411,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "src": staff_member.full_photo_uri,
         "width": "50px"
       }
-    })]), _vm._v(" "), _c('td', [_vm._v(_vm._s(staff_member.user.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(staff_member.user.email))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(staff_member.user.address.phone))])])
+    })]), _vm._v(" "), _c('td', [_c('router-link', {
+      attrs: {
+        "to": {
+          name: 'staff.edit',
+          params: {
+            staff_id: staff_member.id
+          }
+        }
+      }
+    }, [_vm._v("\n                                " + _vm._s(staff_member.user.name) + "\n                            ")])], 1), _vm._v(" "), _c('td', [_vm._v(_vm._s(staff_member.user.email))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(staff_member.user.address.phone))])])
   })], 2)])])])]), _vm._v(" "), _c('CreateStaffModal', {
     on: {
       "staffRegistered": _vm.addStaff
