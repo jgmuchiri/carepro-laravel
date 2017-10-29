@@ -162,6 +162,7 @@
 
                 this.$http.post('/api/staff', formData)
                     .then(response => {
+                        this.$emit('staffRegistered', response.data.staff_member);
                         $('#create-staff-modal').modal('hide');
                         this.staff = this.generateNewStaffModel();
                         this.notifySuccess(response.data.message);

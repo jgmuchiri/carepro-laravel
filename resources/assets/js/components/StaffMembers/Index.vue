@@ -31,7 +31,7 @@
                         <tbody>
                             <tr v-if="staff.length < 1"><td colspan="4">{{ $t('No staff created yet') }}</td></tr>
                             <tr v-for="staff_member in staff">
-                                <td><img :src="staff_member.full_photo_uri"></td>
+                                <td><img :src="staff_member.full_photo_uri" width="50px"></td>
                                 <td>{{ staff_member.user.name }}</td>
                                 <td>{{ staff_member.user.email }}</td>
                                 <td>{{ staff_member.user.address.phone }}</td>
@@ -41,7 +41,7 @@
                 </div>
             </div>
         </div>
-        <CreateStaffModal></CreateStaffModal>
+        <CreateStaffModal v-on:staffRegistered="addStaff"></CreateStaffModal>
     </div>
 </template>
 

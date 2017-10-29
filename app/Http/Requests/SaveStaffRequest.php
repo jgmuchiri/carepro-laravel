@@ -26,13 +26,19 @@ class SaveStaffRequest extends FormRequest
      */
     public function rules()
     {
+        $photo_uri_rules = 'image|max:5000';
+
+        if ($this->isMethod('PUT')) {
+            $photo_uri_rules .= '|required';
+        }
+
         return array_merge(
             [
                 'name' => 'required|max:255',
                 'email' => 'required|email|max:255|unique:users',
                 'password' => 'required|min:6|confirmed',
                 'dob' => 'required|date|before:today',
-                'photo_uri' => 'required|image|max:5000'
+                'photo_uri' => $photo_uri_rules
             ],
             Address::getRules()
         );
