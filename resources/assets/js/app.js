@@ -8,6 +8,7 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+window.moment = require('moment');
 import VueRouter from 'vue-router';
 import VueI18n from 'vue-i18n';
 import Locales from './vue-i18n-locales.generated.js';
@@ -23,13 +24,17 @@ const routes = [
     { path: '/roles', name: 'roles.index', component: require('./components/Roles/Index.vue')},
     { path: '/roles/create', name: 'roles.create', component: require('./components/Roles/CreateEdit.vue')},
     { path: '/roles/:role_id/edit', name: 'roles.edit', component: require('./components/Roles/CreateEdit.vue'), props: true},
-    { path: '/home', name: 'home', component: require('./components/Dashboard/Index.vue')}
+    { path: '/home', name: 'home', component: require('./components/Dashboard/Index.vue')},
+    { path: '/staff', name: 'staff.index', component: require('./components/StaffMembers/Index.vue')},
+    { path: '/staff/:staff_id/edit', name: 'staff.edit', component: require('./components/StaffMembers/Edit.vue'), props: true}
 ];
 
 Vue.component('CreateEditGroupModal', require('./components/Groups/CreateEditModal.vue'));
 Vue.component('GroupMassAssign', require('./components/Groups/MassAssign.vue'));
 Vue.component('draggable', require('vuedraggable'));
 Vue.component('CreateStaffModal', require('./components/StaffMembers/CreateModal'));
+Vue.component('CreateParentModal', require('./components/Parents/CreateModal'));
+Vue.component('CreateChildModal', require('./components/Children/CreateModal'));
 
 Vue.mixin({
     methods: {

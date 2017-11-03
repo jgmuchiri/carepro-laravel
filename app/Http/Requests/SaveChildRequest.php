@@ -51,7 +51,7 @@ class SaveChildRequest extends FormRequest
                 'photo_uri' => 'required|image|max:5000',
                 'gender' => 'required|exists:genders,id',
                 'blood_type' => 'required|exists:blood_types,id',
-                'pin' => 'required',
+                'pin' => 'required|numeric',
                 'religion' => 'required|exists:religions,id',
                 'ethnicity' => 'required|exists:ethnicities,id',
             ]

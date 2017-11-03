@@ -71,7 +71,6 @@
             <div class="clearfix"></div>
         </div>
     </div>
-    @include('partials.datatables',['table'=>'#table'])
 @stop
 
 @push('modals')

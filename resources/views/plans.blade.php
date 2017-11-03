@@ -6,6 +6,20 @@
 
 @section('content')
     <div class="container">
+        <div class="row center center-text">
+            <div class="col-md-offset-1 col-md-3">
+                <p><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span></p>
+                <p>@lang('Plan')</p>
+            </div>
+            <div class="col-md-4">
+                <p><span class="glyphicon glyphicon-user" aria-hidden="true"></span></p>
+                <p>@lang('User Registration')</p>
+            </div>
+            <div class="col-md-4">
+                <p><span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span></p>
+                <p>@lang('Daycare Registration')</p>
+            </div>
+        </div>
         <div class="row">
             <div>
                 <div class="col-xs-12 col-md-3 col-md-offset-1">

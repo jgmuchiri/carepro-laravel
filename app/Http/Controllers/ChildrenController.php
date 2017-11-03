@@ -17,6 +17,7 @@ use App\Models\Status;
 use App\Services\MailService;
 use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\MessageBag;
 use Storage;
 
@@ -52,6 +53,47 @@ class ChildrenController extends Controller
         $religions = Religion::all();
 
         return view('children.index')->with(compact([
+            'children',
+            'blood_types',
+            'ethnicities',
+            'genders',
+            'religions',
+            'statuses',
+            'parents'
+        ]));
+    }
+
+    /**
+     * Returns data needed to create a child
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function create(Request $request)
+    {
+        $this->authorize('showGeneric', Child::class);
+
+        $user = $request->user();
+        $parents = null;
+        $children = [];
+
+        if ($user->role->name == Role::PARENT_ROLE) {
+            $children = Child::whereParentId($user->id)->get();
+        } else {
+            if ($user->role->name != Role::STAFF_ROLE) {
+                $children = Child::whereDaycareId($user->daycare_id)->with(['status'])->get();
+            } else {
+                $children = Child::whereAssignedStaffId($user->daycare_id)->with(['status'])->get();
+            }
+            $parents = ChildParent::whereDaycareId($user->daycare_id)->with('user')->get();
+            $statuses = Status::all();
+        }
+        $blood_types = BloodType::all();
+        $ethnicities = Ethnicity::all();
+        $genders = Gender::all();
+        $religions = Religion::all();
+
+        return response()->json(compact([
             'children',
             'blood_types',
             'ethnicities',
@@ -123,6 +165,13 @@ class ChildrenController extends Controller
 
         if ($request->user()->role->name == Role::PARENT_ROLE) {
             MailService::sendParentRegisteredChildEmail($request->user());
+        }
+
+        if ($request->ajax()) {
+            return response()->json(
+                ['child' => $child, 'message' => __('Successfully saved child.')],
+                201
+            );
         }
         return redirect()->route('children.index')
             ->with(['successes' => new MessageBag([__('Successfully saved child.')])]);

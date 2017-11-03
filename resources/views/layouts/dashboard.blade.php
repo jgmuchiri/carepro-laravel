@@ -128,8 +128,8 @@
                     @endcan
 
                     @can('edit', \App\Models\Staff::class)
-                        <li class="{{ $route_name == 'staff.index' ? "active  bg-warning": ""}}">
-                            <a href="{{ route('staff.index') }}">
+                        <li class="{{ url() == '/staff' ? "active  bg-warning": ""}}">
+                            <a href="/staff">
                                 <i class="fa fa-users"></i>
                                 <p>@lang('Staff Members')</p>
                             </a>

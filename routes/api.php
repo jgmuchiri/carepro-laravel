@@ -19,4 +19,9 @@ Route::group(['middleware' => ['auth:api', 'subscribed']], function() {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::resource('staff', 'StaffController', ['only' => ['store']]);
     Route::get('addresses/countries', 'AddressesController@countriesIndex')->name('addresses.countries.index');
+    Route::resource('parents', 'ParentsController', ['only' => ['store']]);
+    Route::resource('children', 'ChildrenController', ['only' => ['create', 'store']]);
+
+    Route::put('staff/{staff_id}/update-password', 'StaffController@updatePassword')->name('staff.update-password');
+    Route::resource('staff', 'StaffController', ['only' => ['index', 'store', 'update', 'edit']]);
 });
