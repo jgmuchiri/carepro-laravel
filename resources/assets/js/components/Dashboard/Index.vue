@@ -1,5 +1,83 @@
 <template>
-    <div>
+
+ <div class="content-wrapper">
+    <div class="content-heading">
+
+       <!-- END Language list-->Dashboard
+       <small data-localize="dashboard.WELCOME"></small>
+    </div>
+    <!-- END widgets box-->
+    <div class="row">
+       <!-- START dashboard main content-->
+       <div class="col-lg-9">
+          <!-- START chart-->
+          <div class="row">
+             <div class="col-lg-12">
+                <!-- START widget-->
+                <div class="panel panel-default panel-demo" id="panelChart9">
+                   <div class="panel-heading">
+                      <a class="pull-right" href="#" data-tool="panel-refresh" data-toggle="tooltip" title="Refresh Panel">
+                         <em class="fa fa-refresh"></em>
+                      </a>
+                      <a class="pull-right" href="#" data-tool="panel-collapse" data-toggle="tooltip" title="Collapse Panel">
+                         <em class="fa fa-minus"></em>
+                      </a>
+                      <div class="panel-title">Monthly Reports</div>
+                   </div>
+                   <div class="panel-body">
+                      <div class="chart-spline flot-chart"></div>
+                   </div>
+                </div>
+                <!-- END widget-->
+             </div>
+          </div>
+       </div>
+       <!-- END dashboard main content-->
+       <!-- START dashboard sidebar-->
+       <aside class="col-lg-3">
+          <!-- START messages and activity-->
+          <div class="panel panel-default">
+             <div class="panel-heading">
+                <div class="panel-title">Quick Actions</div>
+             </div>
+             <!-- START list group-->
+             <div class="list-group">
+                <!-- START list group item-->
+                <div v-show="this.can_register_child" class="list-group-item">
+                   <div class="media-box">
+                      <div  class="media-box-body clearfix text-center">
+                         <button class="btn btn-primary waves-effect btn-quick btn-lg m-b-5" data-toggle="modal" data-target="#create-child-modal" data-backdrop="false"> <i class="fa fa-plus m-r-5 btn-fa"></i> <span>{{ $t('Register Child') }}</span> </button>
+                      </div>
+                   </div>
+                </div>
+                <div v-show="this.can_register_parent" class="list-group-item">
+                   <div class="media-box">
+                      <div class="media-box-body clearfix text-center">
+                         <button class="btn btn-primary waves-effect btn-quick btn-lg m-b-5" data-toggle="modal" data-target="#create-parent-modal" data-backdrop="false"> <i class="fa fa-plus m-r-5 btn-fa"></i> <span> {{ $t('Register Parent') }}</span> </button>
+                      </div>
+                   </div>
+                </div>
+                <div v-show="this.can_register_staff" class="list-group-item">
+                   <div class="media-box">
+                      <div class="media-box-body clearfix text-center">
+                         <button class="btn btn-primary waves-effect btn-quick btn-lg m-b-5" data-toggle="modal" data-target="#create-staff-modal" data-backdrop="false"> <i class="fa fa-plus m-r-5 btn-fa"></i> <span> {{ $t('Register Staff')}}</span> </button>
+                      </div>
+                   </div>
+                </div>
+                <!-- END list group item-->
+             </div>
+             <!-- END list group-->
+          </div>
+          <!-- END messages and activity-->
+       </aside>
+       <!-- END dashboard sidebar-->
+    </div>
+    <CreateStaffModal></CreateStaffModal>
+    <CreateParentModal></CreateParentModal>
+    <CreateChildModal></CreateChildModal>
+ </div>
+
+<!--     <div>
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
@@ -37,10 +115,8 @@
                 </div>
             </div>
         </div>
-        <CreateStaffModal></CreateStaffModal>
-        <CreateParentModal></CreateParentModal>
-        <CreateChildModal></CreateChildModal>
-    </div>
+        
+    </div> -->
 </template>
 
 <script>

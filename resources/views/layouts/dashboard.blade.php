@@ -56,7 +56,7 @@
 </head>
 
 <body>
-   <div class="wrapper">
+   <div id="app" class="wrapper">
       <!-- top navbar-->
       <header class="topnavbar-wrapper">
          <!-- START Top Navbar-->
@@ -334,7 +334,7 @@
                </div>
            @else
                @if ($user->role->name == \App\Models\Permissions\Role::TENANT_ROLE)
-                   @if ($user->onGenericTrial() && !$user->subscribed('main'))
+                   {{-- @if ($user->onGenericTrial() && !$user->subscribed('main'))
                        <div class="alert alert-warning" role="alert">
                            @lang('You are currently on a trial.') <a href="{{ route('subscriptions.subscribe') }}">@lang('Subscribe now')</a>
                            @lang('to avoid any service interruptions').
@@ -344,7 +344,7 @@
                            @lang('You are currently not subscribed to a plan.') <a href="{{ route('subscriptions.subscribe') }}">@lang('Subscribe now')</a>
                            @lang('to avoid any service interruptions').
                        </div>
-                   @endif
+                   @endif --}}
                @endif
                @yield('content')
                <router-view></router-view>
@@ -397,6 +397,14 @@
    <script src="assets/js/demo/demo-flot.js"></script>
    <!-- =============== APP SCRIPTS ===============-->
    <script src="assets/js/app.js"></script>
+   <script src="{{mix('/js/app.js')}}"></script>
+   @include('partials.flash')
+   @stack('scripts')
+   @stack('modals')
+   <script type="text/javascript" >
+      $('.modal ').insertAfter($('#app'));
+   </script>
+   
 </body>
 
 
