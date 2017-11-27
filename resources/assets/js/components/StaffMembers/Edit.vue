@@ -1,16 +1,22 @@
 <template>
-    <div>
-        <div class="card">
-            <div class="header">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <p>{{ $t('Edit Staff Member') }}</p>
-                    </div>
-                </div>
-            </div>
-            <hr/>
-            <div class="content">
-                <form v-on:submit.prevent="updateStaff">
+<div class="content-wrapper">
+    <div class="content-heading">
+        <div class="pull-right">
+          <div class="btn-group">
+             <button class="btn btn-primary waves-effect m-b-5" data-toggle="modal" data-target="#create-staff-modal"> <i class="fa fa-plus m-r-5 btn-fa"></i> <span> {{ $t('Register Staff') }}</span></button>
+          </div>
+       </div>
+       <!-- END Language list-->{{ $t('Staff Members') }}
+       <small data-localize="dashboard.WELCOME"></small>
+    </div>
+    <!-- END widgets box-->
+    <div class="row">
+      <div class="col-md-offset-1 col-md-10">
+        <div class="panel panel-default">
+       <div class="panel-heading">{{ $t('Edit Staff Member') }}</div>
+       <hr>
+         <div class="panel-body">
+            <form v-on:submit.prevent="updateStaff">
                     <div class="row">
                         <div class="col-md-6">
                             <label for="name" class="control-label">{{ $t('Name') }}*</label>
@@ -26,7 +32,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label for="photo_uri" class="control-label">{{ $t('Photo') }}*</label>
-                            <input type="file" name="photo_uri" id="photo_uri" @change="onFileChange" />
+                            <input type="file" name="photo_uri" id="photo_uri" class="form-control" @change="onFileChange" />
                         </div>
 
                         <div class="col-md-6">
@@ -81,23 +87,18 @@
                             <input type="text" id="phone" class="form-control" v-model="staff.user.address.phone" required />
                         </div>
                     </div>
-                    <div class="row footer">
-                        <div class="col-md-offset-10 col-md-2">
+                    <div class="row" style="padding-top:30px;">
+                        <div class="form-group text-center">
                             <button class="btn btn-primary"><i class="fa fa-save"></i> {{$t('Save')}}</button>
                         </div>
                     </div>
                 </form>
-            </div>
-        </div>
-        <div class="card">
-            <div class="header">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <p>{{ $t('Update Password') }}</p>
-                    </div>
-                </div>
-            </div>
-            <hr/>
+         </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">{{ $t('Update Password') }}</div>
+        <hr/>
+        <div class="panel-body">
             <form v-on:submit.prevent="updateStaffPassword">
                 <div class="content">
                     <div class="row">
@@ -111,15 +112,19 @@
                             <input type="password" id="password-confirm" class="form-control" v-model="staff.user.confirm_password" required />
                         </div>
                     </div>
-                    <div class="row footer">
-                        <div class="col-md-offset-10 col-md-2">
+                    <div class="row" style="padding-top:30px;">
+                        <div class="form-group text-center">
                             <button class="btn btn-primary"><i class="fa fa-save"></i> {{$t('Save')}}</button>
                         </div>
                     </div>
                 </div>
             </form>
         </div>
+    </div>   
+      </div> 
     </div>
+
+ </div>
 </template>
 
 <script>
