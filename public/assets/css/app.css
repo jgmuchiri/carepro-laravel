@@ -100,7 +100,11 @@ hr {
 
 .panel .panel-heading {
     border-bottom: 0;
-    font-size: 14px
+    font-size: 14px;
+}
+
+.panel .panel-heading a {
+    color: #fff;
 }
 
 .pnl-child-hd {
@@ -6703,6 +6707,13 @@ body .select2-container--bootstrap .select2-selection--multiple,
 body .select2-container--bootstrap .select2-selection--single {
     border: 1px solid #dde6e9;
     box-shadow: 0 0 0 #000!important
+}
+
+.modal-header .close {
+    color: #fff;
+    opacity: 1;
+    font-size: 40px;
+    margin-top: -8px;
 }
 
 [data-scrollable] {

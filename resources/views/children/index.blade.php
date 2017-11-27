@@ -4,73 +4,74 @@
 @endsection
 
 @section('content')
-    <div class="card">
-        <div class="header">
-            <button class="btn btn-primary" data-toggle="modal" data-target="#newChild" {{ !count($parents) ? 'disabled' : '' }}>
-                <i class="fa fa-plus-circle"></i>
-                @lang('Register Child')
-            </button>
-            @if (!count($parents))
-                <p>@lang('A child can not be registered without a parent. Please register parent(s) first before registering your first child.')</p>
-            @endif
-        </div>
-        <hr/>
-        <div class="content">
-            <table class="table table-responsive table-full-width table-striped" id="table">
-                <thead>
-                <tr>
-                    <th data-orderable="false"></th>
-                    <th>@lang('Name')</th>
-                    <th>@lang('DOB')</th>
-                    <th>@lang('SSN/ID')</th>
-                    <th>@lang('Status')</th>
-                    <th data-orderable="false"></th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($children as $child)
-                    <tr>
-                        <td>
-                            @if($child->photo =="")
-                                <img style="width:72px;height:72px" src="{{asset('/img/portrait.png')}}" alt="@lang('User Image')"
-                                     class=""/>
-                            @else
-                                <img src="{{asset('storage/' . $child->photo)}}" class=""
-                                     style="width:72px;height:72px"
-                                     alt="@lang('User Image')"/>
-                            @endif
-                        </td>
-                        <td><a href="{{ route('children.show', $child->id) }}">{{$child->name}}</a></td>
-                        <td>{{$child->dob}}</td>
-                        <td>{{$child->ssn}}</td>
-                        <td>
-                            @if($child->status=='Pending Approval')
-                                <span class="label label-warning">{{$child->status->name_label}}</span>
-                            @elseif($child->status =='Inactive')
-                                <span class="label label-danger">{{$child->status->name_label}}</span>
-                            @else
-                                <span class="label label-info">{{$child->status->name_label}}</span>
-                            @endif
-                        </td>
-                        <td>
-                            @if ($child->is_active)
+<div class="content-wrapper">
+            <div class="content-heading">
+               <!-- START Language list-->
+               <div class="pull-right">
+                  <div class="btn-group">
+                     <button class="btn btn-primary waves-effect m-b-5" data-toggle="modal" data-target="#newChild"> <i class="fa fa-plus m-r-5 btn-fa"></i> <span> @lang('Register Child')</span></button>
+                  </div>
+               </div>
+               <!-- END Language list-->Children
+               <small data-localize="dashboard.WELCOME"></small>
+            </div>
+            <!-- END widgets box-->
+            <div class="row">
+               <!-- START dashboard main content-->
+               @foreach($children as $child)
+               <div class="col-lg-4">
+                     <!-- START widget-->
+                  <div class="panel panel-primary" id="panelDemo8">
+                     <div class="panel-heading pnl-child-hd"><a href="{{ route('children.show', $child->id) }}">{{ $child->name }}</a></div>
+                     <div class="panel-body">
+                        <div class="row row-table">
+                           <div class="col-xs-6 text-center">
+                                @if($child->photo =="")
+                                    <img src="{{asset('/img/portrait.png')}}" alt="@lang('User Image')"
+                                         class=""/>
+                                @else
+                                    <img class="" src="{{ asset('storage/' . $child->photo) }}" alt="@lang('User Image')">
+                                @endif
+                           </div>
+                           <div class="col-xs-6">
+                              <h3 class="mt0">{{ $child->dob }}</h3>
+                              <h3 class="mt0">{{ $child->ssn }}</h3>
+                              @if($child->status=='Pending Approval')
+                                <h3 class="mt0 text-warning">{{$child->status->name_label}}</h3>
+                              @elseif($child->status =='Inactive')
+                                <h3 class="mt0 text-danger">{{$child->status->name_label}}</h3>
+                              @else
+                                <h3 class="mt0 text-success">{{$child->status->name_label}}</h3>
+                              @endif
+                           </div>
+                        </div>
+                     </div>
+                     <div class="panel-footer">
+                        <div class="row row-table text-center">
+                           <div class="col-xs-6">
+                              <a class="mb-sm btn btn-success btn-quick" href="{{ route('children.show', $child->id) }}" >View</a>
+                           </div>
+                           @if ($child->is_active)
                                 @can('updateStatus', $child)
                                     @if($child->status->name =='Active')
-                                        <a class="btn btn-danger btn-xs delete" href="{{ route('children.deactivate', $child->id) }}"><i class="fa fa-times-circle-o"></i>@lang('deactivate')</a>
+                                        <div class="col-xs-6">
+                                          <a class="mb-sm btn btn-primary btn-quick" href="{{ route('children.deactivate', $child->id) }}">Check-out</a>
+                                        </div>
                                     @else
-                                        <a class="btn btn-info btn-xs delete" href="{{ route('children.activate', $child->id) }}"><i class="fa fa-times-circle-o"></i>@lang('activate')</a>
+                                        <div class="col-xs-6">
+                                          <a class="mb-sm btn btn-success btn-quick" href="{{ route('children.deactivate', $child->id) }}">Check-in</a>
+                                        </div>
                                     @endif
                                 @endcan
                             @endif
-                        </td>
-                    </tr>
-                @endforeach
-
-                </tbody>
-            </table>
-            <div class="clearfix"></div>
-        </div>
-    </div>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- END widget-->
+               </div>
+               @endforeach
+            </div>
+         </div>
 @stop
 
 @push('modals')
