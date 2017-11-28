@@ -16,21 +16,21 @@
    <title>{{env('COMPANY_NAME')}}</title>
    <!-- =============== VENDOR STYLES ===============-->
    <!-- FONT AWESOME-->
-   <link rel="stylesheet" href="assets/vendor/fontawesome/css/font-awesome.min.css">
+   <link rel="stylesheet" href="{{ url('assets/vendor/fontawesome/css/font-awesome.min.css') }}">
    <!-- SIMPLE LINE ICONS-->
-   <link rel="stylesheet" href="assets/vendor/simple-line-icons/css/simple-line-icons.css">
+   <link rel="stylesheet" href="{{ url('assets/vendor/simple-line-icons/css/simple-line-icons.css') }}">
    <!-- ANIMATE.CSS-->
-   <link rel="stylesheet" href="assets/vendor/animate.css/animate.min.css">
+   <link rel="stylesheet" href="{{ url('assets/vendor/animate.css/animate.min.css') }}">
    <!-- WHIRL (spinners)-->
-   <link rel="stylesheet" href="assets/vendor/whirl/dist/whirl.css">
+   <link rel="stylesheet" href="{{ url('assets/vendor/whirl/dist/whirl.css') }}">
    <!-- =============== PAGE VENDOR STYLES ===============-->
    <!-- WEATHER ICONS-->
-   <link rel="stylesheet" href="assets/vendor/weather-icons/css/weather-icons.min.css">
-   <link rel="stylesheet" type="text/css" href="assets/vendor/icon-pack-1/font/flaticon.css">
+   <link rel="stylesheet" href="{{ url('assets/vendor/weather-icons/css/weather-icons.min.css') }}">
+   <link rel="stylesheet" type="text/css" href="{{ url('assets/vendor/icon-pack-1/font/flaticon.css') }}">
    <!-- =============== BOOTSTRAP STYLES ===============-->
-   <link rel="stylesheet" href="assets/css/bootstrap.css" id="bscss">
+   <link rel="stylesheet" href="{{ url('assets/css/bootstrap.css') }}" id="bscss">
    <!-- =============== APP STYLES ===============-->
-   <link rel="stylesheet" href="assets/css/app.css" id="maincss">
+   <link rel="stylesheet" href="{{ url('assets/css/app.css') }}" id="maincss">
 
    @stack('styles')
 
@@ -65,10 +65,10 @@
             <div class="navbar-header">
                <a class="navbar-brand" href="#/">
                   <div class="brand-logo">
-                     <img class="img-responsive" height="30px" src="assets/img/logo.png" alt="App Logo">
+                     <img class="img-responsive" height="30px" src="{{ url('assets/img/logo.png') }}" alt="App Logo">
                   </div>
                   <div class="brand-logo-collapsed">
-                     <img class="img-responsive" src="assets/img/logo-sg.png" alt="App Logo">
+                     <img class="img-responsive" src="{{ url('assets/img/logo-sg.png') }}" alt="App Logo">
                   </div>
                </a>
             </div>
@@ -209,7 +209,7 @@
             </div>
             <!-- END Nav wrapper-->
             <!-- START Search form-->
-            <form class="navbar-form" role="search" action="http://themicon.co/theme/angle/v3.8.1/backend-jquery/app/search.html">
+            <form class="navbar-form" role="search" action="">
                <div class="form-group has-feedback">
                   <input class="form-control" type="text" placeholder="Type and hit enter ...">
                   <div class="fa fa-times form-control-feedback" data-search-dismiss=""></div>
@@ -233,20 +233,20 @@
                   </li>
                   <li class="{{ $route_name == "home" ? 'active  bg-warning' : '' }}">
                      <a href="/home" title="@lang('Dashboard')">
-                        <img src="assets/vendor/icon-pack-1/svg/home-icon.png" width="36" height="36" />
+                        <img src="{{ url('assets/vendor/icon-pack-1/svg/home-icon.png') }}" width="36" height="36" />
                         <span data-localize="sidebar.nav.DASHBOARD">@lang('Dashboard')</span>
                      </a>
                   </li>
                   <li class="@if($route_name=="children") active  bg-warning @endif">
                      <a href="/children" title="@lang('Children')">
-                        <img src="assets/vendor/icon-pack-1/svg/child.svg" width="36" height="36" />
+                        <img src="{{ url('assets/vendor/icon-pack-1/svg/child.svg') }}" width="36" height="36" />
                         <span data-localize="sidebar.nav.WIDGETS">@lang('Children')</span>
                      </a>
                   </li>
                   @can('edit', \App\Models\ChildParent::class)
                   <li class="{{ $route_name == 'parents.index' ? "active  bg-warning": "" }}">
                      <a href="{{ route('parents.index') }}" title="@lang('Parents')">
-                        <img src="assets/vendor/icon-pack-1/svg/couple.png" width="36" height="36" />
+                        <img src="{{ url('assets/vendor/icon-pack-1/svg/couple.png') }}" width="36" height="36" />
                         <span data-localize="sidebar.nav.WIDGETS">@lang('Parents')</span>
                      </a>
                   </li>
@@ -255,7 +255,7 @@
                   @can('edit', \App\Models\Staff::class)
                   <li class="{{ url() == '/staff' ? "active  bg-warning": ""}}">
                      <a href="/staff" title="@lang('Staff Members')">
-                        <img src="assets/vendor/icon-pack-1/svg/telemarketer.png" width="36" height="36" />
+                        <img src="{{ url('assets/vendor/icon-pack-1/svg/telemarketer.png') }}" width="36" height="36" />
                         <span data-localize="sidebar.nav.WIDGETS">@lang('Staff Members')</span>
                      </a>
                   </li>
@@ -263,7 +263,7 @@
 
                   <li class=" ">
                      <a href="" title="Billing">
-                        <img src="assets/vendor/icon-pack-1/svg/billing.png" width="36" height="36" />
+                        <img src="{{ url('assets/vendor/icon-pack-1/svg/billing.png') }}" width="36" height="36" />
                         <span data-localize="sidebar.nav.WIDGETS">Billing</span>
                      </a>
                   </li>
@@ -271,7 +271,7 @@
                   @can('showGeneric', \App\Models\Groups\Group::class)
                   <li class="{{ $route_name == 'groups.index' ? "active  bg-warning": "" }}">
                      <a href="/groups" title="@lang('Groups')">
-                        <img src="assets/vendor/icon-pack-1/svg/group.png" width="36" height="36" />
+                        <img src="{{ url('assets/vendor/icon-pack-1/svg/group.png') }}" width="36" height="36" />
                         <span data-localize="sidebar.nav.WIDGETS">@lang('Groups')</span>
                      </a>
                   </li>
@@ -279,7 +279,7 @@
 
                   <li class=" ">
                      <a href="#admins" class="accordion-toggle collapsed" title="Admin" data-toggle="collapse">
-                        <img src="assets/vendor/icon-pack-1/svg/admin.png" width="36" height="36" />
+                        <img src="{{ url('assets/vendor/icon-pack-1/svg/admin.png') }}" width="36" height="36" />
                         <span data-localize="sidebar.nav.form.FORM">Admin</span>
                      </a>
                      <ul class="nav sidebar-subnav collapse" id="admins">
@@ -357,46 +357,46 @@
    </div>
    <!-- =============== VENDOR SCRIPTS ===============-->
    <!-- MODERNIZR-->
-   <script src="assets/vendor/modernizr/modernizr.custom.js"></script>
+   <script src="{{ url('assets/vendor/modernizr/modernizr.custom.js"') }}></script>
    <!-- MATCHMEDIA POLYFILL-->
-   <script src="assets/vendor/matchMedia/matchMedia.js"></script>
+   <script src="{{ url('assets/vendor/matchMedia/matchMedia.js') }}"></script>
    <!-- JQUERY-->
-   <script src="assets/vendor/jquery/dist/jquery.js"></script>
+   <script src="{{ url('assets/vendor/jquery/dist/jquery.js') }}"></script>
    <!-- BOOTSTRAP-->
-   <script src="assets/vendor/bootstrap/dist/js/bootstrap.js"></script>
+   <script src="{{ url('assets/vendor/bootstrap/dist/js/bootstrap.js') }}"></script>
    <!-- STORAGE API-->
-   <script src="assets/vendor/jQuery-Storage-API/jquery.storageapi.js"></script>
+   <script src="{{ url('assets/vendor/jQuery-Storage-API/jquery.storageapi.js') }}"></script>
    <!-- JQUERY EASING-->
-   <script src="assets/vendor/jquery.easing/js/jquery.easing.js"></script>
+   <script src="{{ url('assets/vendor/jquery.easing/js/jquery.easing.js') }}"></script>
    <!-- ANIMO-->
-   <script src="assets/vendor/animo.js/animo.js"></script>
+   <script src="{{ url('assets/vendor/animo.js/animo.js') }}"></script>
    <!-- SLIMSCROLL-->
-   <script src="assets/vendor/slimScroll/jquery.slimscroll.min.js"></script>
+   <script src="{{ url('assets/vendor/slimScroll/jquery.slimscroll.min.js') }}"></script>
    <!-- SCREENFULL-->
-   <script src="assets/vendor/screenfull/dist/screenfull.js"></script>
+   <script src="{{ url('assets/vendor/screenfull/dist/screenfull.js') }}"></script>
    <!-- LOCALIZE-->
-   <script src="assets/vendor/jquery-localize-i18n/dist/jquery.localize.js"></script>
+   <script src="{{ url('assets/vendor/jquery-localize-i18n/dist/jquery.localize.js') }}"></script>
    <!-- RTL demo-->
-   <script src="js/demo/demo-rtl.js"></script>
+   <script src="{{ url('js/demo/demo-rtl.js') }}"></script>
    <!-- =============== PAGE VENDOR SCRIPTS ===============-->
    <!-- SPARKLINE-->
-   <script src="assets/vendor/sparkline/index.js"></script>
+   <script src="{{ url('assets/vendor/sparkline/index.js') }}"></script>
    <!-- FLOT CHART-->
-   <script src="assets/vendor/flot/jquery.flot.js"></script>
-   <script src="assets/vendor/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
-   <script src="assets/vendor/flot/jquery.flot.resize.js"></script>
-   <script src="assets/vendor/flot/jquery.flot.pie.js"></script>
-   <script src="assets/vendor/flot/jquery.flot.time.js"></script>
-   <script src="assets/vendor/flot/jquery.flot.categories.js"></script>
-   <script src="assets/vendor/flot-spline/js/jquery.flot.spline.min.js"></script>
+   <script src="{{ url('assets/vendor/flot/jquery.flot.js') }}"></script>
+   <script src="{{ url('assets/vendor/flot.tooltip/js/jquery.flot.tooltip.min.js') }}"></script>
+   <script src="{{ url('assets/vendor/flot/jquery.flot.resize.js') }}"></script>
+   <script src="{{ url('assets/vendor/flot/jquery.flot.pie.js') }}"></script>
+   <script src="{{ url('assets/vendor/flot/jquery.flot.time.js') }}"></script>
+   <script src="{{ url('assets/vendor/flot/jquery.flot.categories.js') }}"></script>
+   <script src="{{ url('assets/vendor/flot-spline/js/jquery.flot.spline.min.js') }}"></script>
    <!-- EASY PIE CHART-->
-   <script src="assets/vendor/jquery.easy-pie-chart/dist/jquery.easypiechart.js"></script>
+   <script src="{{ url('assets/vendor/jquery.easy-pie-chart/dist/jquery.easypiechart.js') }}"></script>
    <!-- MOMENT JS-->
-   <script src="assets/vendor/moment/min/moment-with-locales.min.js"></script>
+   <script src="{{ url('assets/vendor/moment/min/moment-with-locales.min.js') }}"></script>
    <!-- DEMO-->
-   <script src="assets/js/demo/demo-flot.js"></script>
+   <script src="{{ url('assets/js/demo/demo-flot.js') }}"></script>
    <!-- =============== APP SCRIPTS ===============-->
-   <script src="assets/js/app.js"></script>
+   <script src="{{ url('assets/js/app.js') }}"></script>
    <script src="{{mix('/js/app.js')}}"></script>
    @include('partials.flash')
    @stack('scripts')
