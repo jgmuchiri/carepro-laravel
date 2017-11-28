@@ -11,3 +11,4 @@ Homestead.yaml
 Vagrantfile
 /storage/debugbar
 /storage/app/public
+composer.lock
