@@ -12,7 +12,10 @@ window.moment = require('moment');
 import VueRouter from 'vue-router';
 import VueI18n from 'vue-i18n';
 import Locales from './vue-i18n-locales.generated.js';
+import Vue from 'vue';
+import VueNoty from 'vuejs-noty';
 
+Vue.use(VueNoty);
 Vue.use(VueRouter);
 Vue.use(VueI18n);
 

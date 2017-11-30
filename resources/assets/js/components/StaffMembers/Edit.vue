@@ -1,11 +1,6 @@
 <template>
 <div class="content-wrapper">
     <div class="content-heading">
-        <div class="pull-right">
-          <div class="btn-group">
-             <button class="btn btn-primary waves-effect m-b-5" data-toggle="modal" data-target="#create-staff-modal"> <i class="fa fa-plus m-r-5 btn-fa"></i> <span> {{ $t('Register Staff') }}</span></button>
-          </div>
-       </div>
        <!-- END Language list-->{{ $t('Staff Members') }}
        <small data-localize="dashboard.WELCOME"></small>
     </div>
@@ -128,6 +123,7 @@
 </template>
 
 <script>
+import 'vuejs-noty/dist/vuejs-noty.css'
     export default {
         created() {
             this.$http.get('/api/addresses/countries')
@@ -208,7 +204,7 @@
 
                 this.$http.post('/api/staff/' + this.staff_id, formData)
                     .then(response => {
-                        this.notifySuccess(response.data.message);
+                        this.$noty.success(response.data.message);
                     })
                     .catch(error => {
                         if (error.response.status == 422) {

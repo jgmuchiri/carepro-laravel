@@ -183,12 +183,12 @@
                     .then(response => {
                         $('#create-parent-modal').modal('hide');
                         this.parent = this.generateNewParentModel();
-                        this.notifySuccess(response.data.message);
+                        this.$noty.success(response.data.message);
                     })
                     .catch(error => {
                         if (error.response.status == 422) {
                             for (var key in error.response.data) {
-                                this.notifyError(error.response.data[key]);
+                                this.$noty.error(error.response.data[key]);
                             }
                         } else {
                             alert("Something went wrong. Please reload the page and try again.");

@@ -3,7 +3,7 @@
     <div class="content-heading">
         <div class="pull-right">
           <div class="btn-group">
-             <button class="btn btn-primary waves-effect m-b-5" data-toggle="modal" data-target="#create-staff-modal"> <i class="fa fa-plus m-r-5 btn-fa"></i> <span> {{ $t('Register Staff') }}</span></button>
+             <button class="btn btn-primary waves-effect m-b-5" data-toggle="modal" data-target="#create-staff-modal" data-backdrop="false"> <i class="fa fa-plus m-r-5 btn-fa"></i> <span> {{ $t('Register Staff') }}</span></button>
           </div>
        </div>
        <!-- END Language list-->{{ $t('Staff Members') }}
