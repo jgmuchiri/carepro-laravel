@@ -10,6 +10,28 @@
        <small >{{ group.name}}</small>
     </div>
     <!-- END widgets box-->
+    <div class="list-group">
+       <a class="list-group-item" href="#">
+          <table class="wd-wide">
+             <tbody>
+                <tr>
+                   <td>
+                      <div class="ph">
+                         <h4 class="media-box-heading">{{ $t('Name') }}</h4>
+                         <small class="text-muted">{{ group.name }}</small>
+                      </div>
+                   </td>
+                   <td>
+                      <div class="ph">
+                         <h4 class="media-box-heading">{{ $t('Description') }}</h4>
+                         <small class="text-muted">{{ group.short_description }}</small>
+                      </div>
+                   </td>
+                </tr>
+             </tbody>
+          </table>
+       </a>
+    </div>
     <div class="row">
        <div class="col-lg-6">
           <!-- START panel-->
