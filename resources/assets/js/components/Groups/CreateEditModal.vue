@@ -10,13 +10,13 @@
                 <form v-on:submit.prevent="saveGroup">
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-sm-6">
+                            <div class="form-group col-sm-6">
                                 <label>{{$t('Name')}}</label>
-                                <input type="text" name="name" required v-model="group.name"/>
+                                <input type="text" name="name" class="form-control" required v-model="group.name"/>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="form-group col-sm-6">
                                 <label>{{$t('Description')}}</label>
-                                <textarea name="short_description" rows="4" cols="30" v-model="group.short_description"></textarea>
+                                <textarea name="short_description" class="form-control" rows="4" cols="30" v-model="group.short_description"></textarea>
                             </div>
                         </div>
                         <GroupMassAssign :existing_assigned_staff_members="group.assigned_staff_members"
