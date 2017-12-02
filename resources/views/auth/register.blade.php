@@ -1,75 +1,77 @@
 @extends('layouts.logged-out')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">@lang('Register')</div>
-                <div class="panel-body">
-                    {!! Form::open(['route' => 'register', 'method' => 'post', 'class' => 'form-horizontal', 'role' => 'form']) !!}
+<div class="wrapper">
+    <div class="pricing-4 section ">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 ml-auto mr-auto text-center">
+                    <h2 class="title">@lang('Register')</h2>
+                </div>
+            </div>
+            <div class="space-top"></div>
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <form method="POST" action="{{ url('register') }}" accept-charset="UTF-8" role="form">
                         {{ csrf_field() }}
-
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            {!! Form::label('name', __('Name') . '*', ['class' => 'col-md-4 control-label']) !!}
-
-                            <div class="col-md-6">
-                                {!! Form::text('name', null, ['id' => 'name', 'class' => 'form-control', 'required' => '', 'autofocus' => '']) !!}
-
-                                @if ($errors->has('name'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
+                        <div class="row">
+                            <div class="col-sm-6">
+                               <div class="form-group">
+                                    <label for="name" class="control-label">Name *</label>
+                                    <input id="name" class="form-control" required="" autofocus="" name="name" type="text" value="{{ old('name') }}">
+                                    @if ($errors->has('name'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('name') }}</strong>
+                                        </span>
+                                    @endif
+                                </div> 
+                            </div>
+                            <div class="col-sm-6">
+                               <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
+                                    <label for="email" class="control-label">E-Mail Address *</label>
+                                    <input id="email" class="form-control" required="" name="email" type="email" value="{{ old('email') }}">
+                                    @if ($errors->has('email'))
+                                        <span class="help-block has-danger">
+                                            <strong>{{ $errors->first('email') }}</strong>
+                                        </span>
+                                    @endif 
+                                </div> 
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            {!! Form::label('email', __('E-Mail Address') . '*', ['class' => 'col-md-4 control-label']) !!}
-
-                            <div class="col-md-6">
-                                {!! Form::email('email', null, ['id' => 'email', 'class' => 'form-control', 'required' => '']) !!}
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
+                        <div class="row">
+                            <div class="col-sm-6">
+                               <div class="form-group{{ $errors->has('password') ? ' has-danger' : '' }}">
+                                    <label for="password" class="control-label">Password *</label>
+                                    <input class="form-control" id="password" required="" name="password" type="password" value="{{ old('password') }}">
+                                    @if ($errors->has('password'))
+                                        <span class="help-block has-danger">
+                                            <strong>{{ $errors->first('password') }}</strong>
+                                        </span>
+                                    @endif
+                                </div> 
                             </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            {!! Form::label('password', __('Password') . '*', ['class' => 'col-md-4 control-label']) !!}
-
-                            <div class="col-md-6">
-                                {!! Form::password('password', ['class' => 'form-control', 'id' => 'password', 'required' => '']) !!}
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            {!! Form::label('password-confim', __('Confirm Password') . '*', ['class' => 'col-md-4 control-label']) !!}
-
-                            <div class="col-md-6">
-                                {!! Form::password('password_confirmation', ['id' => 'password-confirm', 'class' => 'form-control', 'required' => '']) !!}
+                            <div class="col-sm-6">
+                               <div class="form-group{{ $errors->has('password_confirmation') ? ' has-danger' : '' }}">
+                                    <label for="password-confim" class="control-label">Confirm Password *</label>
+                                    <input id="password-confirm" class="form-control" required="" name="password_confirmation" type="password" value="{{ old('password_confirmation') }}">
+                                    @if ($errors->has('password_confirmation'))
+                                        <span class="help-block has-danger">
+                                            <strong>{{ $errors->first('password_confirmation') }}</strong>
+                                        </span>
+                                    @endif
+                                </div> 
                             </div>
                         </div>
 
                         @include('partials.address-form')
 
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                {!! Form::submit('Register', ['class' => 'btn btn-primary']) !!}
+                        <div class="form-group text-center">
+                            <div class="12">
+                                <input class="btn btn-primary" type="submit" value="Register">
                             </div>
                         </div>
-                    {!! Form::close() !!}
-
-                    <p>@lang('By registering your account, you agree to the') <a href="https://stripe.com/us/connect-account/legal" target="_blank">@lang('Stripe Connected Account Agreement')</a>.</p>
+                    </form>
                 </div>
             </div>
         </div>
