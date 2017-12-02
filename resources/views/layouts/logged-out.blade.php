@@ -2,7 +2,6 @@
 <html lang="en">
 
 
-<!-- Mirrored from demos.creative-tim.com/paper-kit-2-pro/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 28 Nov 2017 01:58:55 GMT -->
 <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/png" href="assets/img/favicon.ico">
@@ -14,14 +13,14 @@
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
 
-    <link href="website/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="website/css/styles.css" rel="stylesheet"/>
-    <link href="website/css/demo.css" rel="stylesheet" />
+    <link href="{{ url('website/css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ url('website/css/styles.css') }}" rel="stylesheet"/>
+    <link href="{{ url('website/css/demo.css') }}" rel="stylesheet" />
 
     <!--     Fonts and icons     -->
     <link href='http://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-    <link href="website/css/nucleo-icons.css" rel="stylesheet">
+    <link href="{{ url('website/css/nucleo-icons.css') }}" rel="stylesheet">
     @stack('styles')
     <script>
         window.Laravel ='<?php echo json_encode(['csrfToken' => csrf_token()]); ?>';
@@ -34,7 +33,7 @@
         <div class="container">
             <div class="navbar-translate">
                 <div class="navbar-header">
-                    <img src="assets/img/logo.png" alt="logo">
+                    <img src="{{ url('assets/img/logo.png') }}" alt="logo">
                 </div>
                 <button class="navbar-toggler navbar-burger" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-bar"></span>
@@ -232,19 +231,17 @@
 
     <!--  Plugins -->
     <!-- Core JS Files -->
-    <script src="website/js/jquery-3.2.1.min.js" type="text/javascript"></script>
-    <script src="website/js/jquery-ui-1.12.1.custom.min.js" type="text/javascript"></script>
-    <script src="website/js/popper.js" type="text/javascript"></script>
-    <script src="website/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="website/js/paper-kitf066.js?v=2.1.0"></script>
-    <script src="website/js/demo.js"></script>
+    <script src="{{ url('website/js/jquery-3.2.1.min.js') }}" type="text/javascript"></script>
+    <script src="{{ url('website/js/jquery-ui-1.12.1.custom.min.js') }}" type="text/javascript"></script>
+    <script src="{{ url('website/js/popper.js') }}" type="text/javascript"></script>
+    <script src="{{ url('website/js/bootstrap.min.js') }}" type="text/javascript"></script>
+    <script src="{{ url('website/js/paper-kitf066.js') }}"></script>
+    <script src="{{ url('website/js/demo.js') }}"></script>
     <!--  Plugins for presentation page -->
-    <script src="website/js/presentation-page/main.js"></script>
+    <script src="{{ url('website/js/presentation-page/main.js') }}"></script>
 
     <!-- Sharrre plugin -->
-    <script src="website/js/presentation-page/jquery.sharrre.js"></script>
-
-    <script async defer src="../../buttons.github.io/buttons.js"></script>
+    <script src="{{ url('website/js/presentation-page/jquery.sharrre.js') }}"></script>
 
     @stack('scripts')
 
