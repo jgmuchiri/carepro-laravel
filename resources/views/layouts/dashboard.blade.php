@@ -55,7 +55,7 @@
     @endif
 </head>
 
-<body>
+<body class="layout-fixed">
    <div id="app" class="wrapper">
       <!-- top navbar-->
       <header class="topnavbar-wrapper">
@@ -232,13 +232,13 @@
                      <span data-localize="sidebar.heading.HEADER">Main Navigation</span>
                   </li>
                   <li class="{{ $route_name == "home" ? 'active  bg-warning' : '' }}">
-                     <a href="/home" title="@lang('Dashboard')">
+                     <a href="{{ url('/home') }}" title="@lang('Dashboard')">
                         <img src="{{ url('assets/vendor/icon-pack-1/svg/home-icon.png') }}" width="36" height="36" />
                         <span data-localize="sidebar.nav.DASHBOARD">@lang('Dashboard')</span>
                      </a>
                   </li>
                   <li class="@if($route_name=="children") active  bg-warning @endif">
-                     <a href="/children" title="@lang('Children')">
+                     <a href="{{ url('/children') }}" title="@lang('Children')">
                         <img src="{{ url('assets/vendor/icon-pack-1/svg/child.svg') }}" width="36" height="36" />
                         <span data-localize="sidebar.nav.WIDGETS">@lang('Children')</span>
                      </a>
@@ -372,12 +372,9 @@
    <script src="{{ url('assets/vendor/animo.js/animo.js') }}"></script>
    <!-- SLIMSCROLL-->
    <script src="{{ url('assets/vendor/slimScroll/jquery.slimscroll.min.js') }}"></script>
-   <!-- SCREENFULL-->
-   <script src="{{ url('assets/vendor/screenfull/dist/screenfull.js') }}"></script>
    <!-- LOCALIZE-->
    <script src="{{ url('assets/vendor/jquery-localize-i18n/dist/jquery.localize.js') }}"></script>
-   <!-- RTL demo-->
-   <script src="{{ url('js/demo/demo-rtl.js') }}"></script>
+
    <!-- =============== PAGE VENDOR SCRIPTS ===============-->
    <!-- SPARKLINE-->
    <script src="{{ url('assets/vendor/sparkline/index.js') }}"></script>
