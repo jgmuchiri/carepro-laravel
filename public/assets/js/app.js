@@ -627,21 +627,6 @@ function(e, t, o, a) {
         })
     })
 }(window, document, window.jQuery),
-function(e, t, o, a) {
-    "undefined" != typeof screenfull && o(function() {
-        function a(e) {
-            screenfull.isFullscreen ? e.children("em").removeClass("fa-expand").addClass("fa-compress") : e.children("em").removeClass("fa-compress").addClass("fa-expand")
-        }
-        var n = o(t),
-            r = o("[data-toggle-fullscreen]"),
-            i = e.navigator.userAgent;
-        (i.indexOf("MSIE ") > 0 || i.match(/Trident.*rv\:11\./)) && r.addClass("hide"), r.is(":visible") && (r.on("click", function(e) {
-            e.preventDefault(), screenfull.enabled ? (screenfull.toggle(), a(r)) : console.log("Fullscreen not enabled")
-        }), screenfull.raw && screenfull.raw.fullscreenchange && n.on(screenfull.raw.fullscreenchange, function() {
-            a(r)
-        }))
-    })
-}(window, document, window.jQuery),
 function(e, t, o) {
     "use strict";
     var a = [{
