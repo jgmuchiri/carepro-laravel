@@ -74,6 +74,7 @@
                     </form>
                 </div>
             </div>
+            <p class="text-center">@lang('By registering your account, you agree to the') <a href="https://stripe.com/us/connect-account/legal" target="_blank">@lang('Stripe Connected Account Agreement')</a>.</p>
         </div>
     </div>
 </div>

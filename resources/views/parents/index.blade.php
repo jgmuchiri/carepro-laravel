@@ -9,7 +9,7 @@
         @can('create', \App\Models\ChildParent::class)
         <div class="pull-right">
           <div class="btn-group">
-             <button class="btn btn-primary waves-effect m-b-5" data-toggle="modal" data-target="#newParent"> <i class="fa fa-plus m-r-5 btn-fa"></i> <span> @lang('New Parent')</span></button>
+             <a class="btn btn-primary waves-effect m-b-5" href="{{ route('parents.create')}}" > <i class="fa fa-plus m-r-5 btn-fa"></i> <span> @lang('New Parent')</span></a>
           </div>
        </div>
        @endcan

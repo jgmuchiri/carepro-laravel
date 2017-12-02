@@ -8,7 +8,7 @@
     <div class="content-heading">
         <div class="pull-right">
           <div class="btn-group">
-             <a href="{{ route('parents.index') }}" class="btn btn-primary waves-effect m-b-5"> <i class="fa fa-plus m-r-5 btn-fa"></i> <span> @lang('Back to all parents')</span></a>
+             <a href="{{ route('parents.index') }}" class="btn btn-primary waves-effect m-b-5"> <i class="fa fa-arrow-left m-r-5 btn-fa"></i> <span> @lang('Back to all parents')</span></a>
           </div>
        </div>
        <!-- END Language list-->@lang('Parents')
@@ -19,7 +19,7 @@
         <div class="col-md-offset-1 col-md-10">
            <div class="panel panel-default">
            <div class="panel-heading">
-              Edit @lang('Parent') 
+              {{ !empty($role->id) ? __('Edit') : __('Create')  }} @lang('Parent') 
            </div>
            <div class="panel-body">
               <div class="content">
@@ -30,88 +30,88 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="name">Name*</label>
-                                <input id="name" class="form-control" required="" autofocus="" name="name" type="text" autofocus required>
+                                <input id="name" class="form-control" required="" autofocus="" name="name" type="text" value="{{ old('name', $parent->name) }}" autofocus required>
+                                @if ($errors->has('name'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('name') }}</strong>
+                                    </span>
+                                @endif
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }} col-md-6">
                                 <label for="email">E-Mail Address*</label>
-                                <input id="email" class="form-control" required="" name="email" type="email">
+                                <input id="email" class="form-control" required="" name="email" type="email" value="{{ old('email', $parent->email) }}">
+                                @if ($errors->has('email'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }} col-md-6">
                                 <label for="password">Password*</label>
-                                <input class="form-control" id="password" required="" name="password" type="password" value="">
+                                <input class="form-control" id="password" required="" name="password" type="password" value="{{ old('password') }}">
+                                @if ($errors->has('password'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="password-confim">Confirm Password*</label>
-                                <input id="password-confirm" class="form-control" required="" name="password_confirmation" type="password" value="">
+                                <input id="password-confirm" class="form-control" required="" name="password_confirmation" type="password" value="{{ old('password_confirmation') }}">
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group{{ $errors->has('photo_uri') ? ' has-error' : '' }} col-md-6">
                                 <label for="photo_uri">Photo*</label>
-                                <input name="photo_uri" type="file" id="photo_uri">
+                                <input name="photo_uri" type="file" class="form-control" id="photo_uri">
+                                @if ($errors->has('photo_uri'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('photo_uri') }}</strong>
+                                    </span>
+                                @endif
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group{{ $errors->has('dob') ? ' has-error' : '' }} col-md-6">
                                 <label for="dob">DOB*</label>
-                                <input id="dob" class="form-control" required="" name="dob" type="date">
+                                <input id="dob" class="form-control" required="" name="dob" type="date" value="{{ old('dob', $parent->dob) }}">
+                                @if ($errors->has('dob'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('dob') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group{{ $errors->has('pin') ? ' has-error' : '' }} col-md-6">
                                 <label for="pin">PIN*</label>
                                 <input id="pin" class="form-control" required="" name="pin" type="text" value="{{ old('pin', $parent->pin) }}">
+                                @if ($errors->has('pin'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('pin') }}</strong>
+                                    </span>
+                                @endif
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group{{ $errors->has('is_primary') ? ' has-error' : '' }} col-md-6">
                                 <label for="is_primary"></label>
                                 <div class="checkbox c-checkbox needsclick">
                                     <label class="needsclick">
                                         <input class="needsclick" type="checkbox" id="is_primary" value="{{ old('pin', $parent->is_primary) }}">
                                         <span class="fa fa-check"></span>Is Primary Parent?</label>
                                 </div> 
+                                @if ($errors->has('is_primary'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('is_primary') }}</strong>
+                                    </span>
+                                @endif
                             </div>
 
                         </div>
 
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <label for="address_line_1">Address Line 1*</label>
-                                <input id="address_line_1" class="form-control" required="" placeholder="Street and number, P.O. box, c/o." name="address_line_1" type="text">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="address_line_2">Address Line 2</label>
-                                <input id="address_line_2" class="form-control" placeholder="Apartment, suite, unit, building, floor, etc." name="address_line_2" type="text">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-5">
-                                <label for="city">City / Town / Village*</label>
-                                <input id="city" class="form-control" required="" name="city" type="text">
-                            </div>
-
-                            <div class="form-group col-md-5">
-                                <label for="state">State / Province / Region*</label>
-                                <input id="state" class="form-control" required="" name="state" type="text">
-                            </div>
-
-                            <div class="form-group col-md-2">
-                                <label for="zip_code">ZIP*</label>
-                                <input id="zip_code" class="form-control" required="" name="zip_code" type="text">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <label for="country">Country*</label>
-                                <select id="country" class="form-control" required="" name="country"><option value="1">United States</option></select>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="phone">Phone Number*</label>
-                                <input id="phone" class="form-control" required="" name="phone" type="text">
-                            </div>
-                        </div>
+                        @include('partials.address-form')
 
                         <div class="row text-center">
                             <div>
