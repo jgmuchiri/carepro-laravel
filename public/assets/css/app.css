@@ -1444,7 +1444,7 @@ _:-ms-lang(x) {
 
 @media only screen and (min-width:1025px) {
     .sidebar:not(.show-scrollbar) {
-        /* margin-right: -17px; */
+        margin-right: -17px;
         overflow-y: scroll
     }
 }
@@ -5083,7 +5083,7 @@ x:-o-prefocus {
     box-sizing: border-box;
     -moz-box-sizing: border-box
 }
-
+background:#DDDDDD; min-height: 50px;
 .dd-empty {
     border: 1px dashed #bbb;
     min-height: 100px;
@@ -5104,6 +5104,23 @@ x:-o-prefocus {
 
 .dd-dragel .dd-handle {
     box-shadow: 2px 4px 6px 0 rgba(0, 0, 0, .1)
+}
+
+.drag {
+    border: 1px solid #dde6e9; 
+    border-radius: 4px;
+    padding-left: 5px;
+    cursor: move;
+    min-height: 50px;
+}
+
+.drag2 {
+    border: 1px solid #dde6e9; 
+    border-radius: 4px;
+    margin-top: 3px;
+    padding-left: 5px;
+    cursor: move;
+    min-height: 50px;
 }
 
 .nestable-lists {
