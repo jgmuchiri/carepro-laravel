@@ -9,7 +9,7 @@
        <!-- START Language list-->
        <div class="pull-right">
           <div class="btn-group">
-             <button class="btn btn-primary waves-effect m-b-5" data-toggle="modal" data-target="#newChild"> <i class="fa fa-plus m-r-5 btn-fa"></i> <span> @lang('Register Child')</span></button>
+             <button class="btn btn-primary waves-effect m-b-5" data-toggle="modal" data-target="#newChild" data-backdrop="false"> <i class="fa fa-plus m-r-5 btn-fa"></i> <span> @lang('Register Child')</span></button>
           </div>
        </div>
        <!-- END Language list-->Children
