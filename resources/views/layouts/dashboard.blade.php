@@ -395,6 +395,8 @@
    <!-- =============== APP SCRIPTS ===============-->
    <script src="{{ url('assets/js/app.js') }}"></script>
    <script src="{{mix('/js/app.js')}}"></script>
+   <script src="https://js.stripe.com/v2/"></script>
+   <script src="https://js.stripe.com/v3/"></script>
    @include('partials.flash')
    @stack('scripts')
    @stack('modals')
