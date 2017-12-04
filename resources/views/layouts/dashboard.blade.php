@@ -55,7 +55,7 @@
     @endif
 </head>
 
-<body class="layout-fixed">
+<body>
    <div id="app" class="wrapper">
       <!-- top navbar-->
       <header class="topnavbar-wrapper">
