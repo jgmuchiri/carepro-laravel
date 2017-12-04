@@ -6,7 +6,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 ml-auto mr-auto text-center">
-                    <h2 class="title">@lang('Create Daycare')</h2>
+                    <h2 class="title">@lang('Register your daycare')</h2>
                 </div>
             </div>
             <div class="space-top"></div>
