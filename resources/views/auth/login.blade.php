@@ -31,7 +31,7 @@
                                           
                       <button type="submit" name="go" class="btn btn-lg btn-primary btn-block">@lang('Login')</button>
                       <div>
-                        <a href="#">@lang('Forgot Your Password')?</a>
+                        <a href="{{ route('password.request') }}">@lang('Forgot Your Password')?</a>
                       </div>
                       
                     </form>
