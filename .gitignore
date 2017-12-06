@@ -11,5 +11,5 @@ Homestead.yaml
 Vagrantfile
 /storage/debugbar
 /storage/app/public
-/public/mix-manifest.jsongit
+/public/mix-manifest.json
 /public/js/app.*.js
