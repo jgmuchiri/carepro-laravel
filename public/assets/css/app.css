@@ -132,27 +132,26 @@ hr {
 }
 
 .nav-tabs>li>a {
-    font-weight: 700;
     color: #515253;
-    background-color: #edf1f2;
-    margin: 0;
-    border: 1px solid #dde6e9;
-    border-radius: 0;
-    padding: 10px 20px
+    text-align: center;
+    white-space: nowrap;
+    font-weight: 600;
+    font-family: 'Hind Madurai', sans-serif;
+    text-transform: uppercase;
 }
 
 .nav-tabs>li.active>a,
 .nav-tabs>li.active>a:focus,
 .nav-tabs>li.active>a:hover {
-    color: inherit;
-    border-bottom-color: #fff
+    border-bottom-color: #fff;
+    background-color: rgba(152, 166, 173, 0.1);
+    border: 0;
+    color: #7fc1fc;
 }
 
 .tab-content {
     padding: 10px 20px;
-    border-style: solid;
     border-width: 0 1px 1px;
-    border-color: #dde6e9
 }
 
 .nav-pills+.tab-content {
@@ -8722,4 +8721,99 @@ fieldset[disabled] .flatdoc-wrapper .button:hover {
 .flatdoc-wrapper .button .badge {
     color: #23b7e5;
     background-color: #fff
+}
+.td-text-success {
+    color: #27c24c !important;
+}
+
+.nav-tabs.nav-tabs-left {
+    float: left;
+    padding-right: 0;
+}
+
+.nav-tabs.nav-tabs-left, .nav-tabs.nav-tabs-right {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-flex-shrink: 0;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    min-width: 120px;
+    width: 150px;
+}
+
+.nav-tabs-simple {
+    border-bottom: 0px;
+}
+
+.nav-tabs {
+    position: relative;
+}
+
+.bg-white {
+    background-color: #fff;
+}
+
+.nav-tabs.nav-tabs-left~.tab-content {
+    -ms-flex: 1;
+    -ms-flex-negative: 0;
+}
+
+.nav-tabs~.tab-content {
+    overflow: hidden;
+    padding: 30px;
+    padding-top: 0px;
+}
+
+
+.nav-tabs.nav-tabs-left>li, .nav-tabs.nav-tabs-right>li {
+    float: none;
+}
+
+.nav-tabs-simple>li {
+    margin-bottom: 0;
+}
+
+.nav-tabs>li {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+ul>li, ol>li {
+    padding-left: 3px;
+    line-height: 24px;
+}
+
+.child-alert {
+    background-color: #e57d0d;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    font-size: 18px;
+}
+
+.child-warning {
+    background-color: #ff902b !important;
+}
+
+.child-success {
+    background-color: #27c24c !important;
+}
+
+.child-info {
+    background-color: #23b7e5 !important;
+}
+
+.child-danger {
+    background-color: #f05050 !important;
+}
+
+.child-parent {
+    padding-top: 25px;
+}
+
+.big-icon { 
+    font-size: 32px; 
 }
