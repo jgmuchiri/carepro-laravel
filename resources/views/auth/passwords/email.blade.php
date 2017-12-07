@@ -14,7 +14,8 @@
                             </div>
                         @endif
                         <form method="post" action="{{ route('password.email') }}" role="login">
-                            <p><strong>@lang('Reset Password')</strong></p>
+                          <img src="{{ url('assets/img/logo.png') }}" class="img-responsive" alt="" />
+                            <p style="font-size: 20px;"><strong>@lang('Reset Password')</strong></p>
                           {{ csrf_field() }}
                           <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
                              <input type="email" name="email" placeholder="Email" required class="form-control input-lg" required/>
@@ -26,6 +27,10 @@
                           </div>
                                             
                             <button type="submit" name="go" class="btn btn-primary btn-block">@lang('Send Password Reset Link')</button>
+
+                            <div>
+                              <a href="{{ route('login') }}">@lang('Back to Login')</a>
+                            </div>
                           
                         </form>
                       </section>  
