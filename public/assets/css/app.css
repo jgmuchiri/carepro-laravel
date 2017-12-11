@@ -120,6 +120,10 @@ hr {
     border-top-width: 3px
 }
 
+.billing-panel {
+    padding-top: 20px;
+}
+
 .jumbotron,
 .well {
     border: 1px solid #dde6e9
@@ -1108,7 +1112,7 @@ _:-ms-lang(x) {
 }
 
 .btn-fa {
-    padding-right: 10px;
+    padding-right: 05px;
 }
 
 .topnavbar .navbar-header .brand-logo-collapsed {
@@ -8756,6 +8760,36 @@ fieldset[disabled] .flatdoc-wrapper .button:hover {
     background-color: #fff;
 }
 
+.nav-tabs.nav-justified {
+    width: 100%;
+    border-bottom: 0;
+}
+
+@media (min-width: 768px)
+responsive.css:1
+.nav-tabs.nav-justified>li>a {
+    border-bottom: 2px solid #eee;
+}
+
+.tabs-bordered li a, .tabs-bordered li a:hover, .tabs-bordered li a:focus {
+    border: 0 !important;
+    background-color: #ffffff !important;
+    padding: 10px 20px !important;
+}
+
+.tabs-bordered li.active a, .tabs-bordered li.active a:hover, .tabs-bordered li.active a:focus {
+    border-bottom: 2px solid #7fc1fc !important;
+    margin-bottom: -1px;
+    color: #7fc1fc;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+    color: #7fc1fc;
+}
+
+.tabs-bordered {
+    border-bottom: 2px solid rgba(152, 166, 173, 0.2) !important;
+}
 .nav-tabs.nav-tabs-left~.tab-content {
     -ms-flex: 1;
     -ms-flex-negative: 0;
@@ -8814,6 +8848,28 @@ ul>li, ol>li {
     padding-top: 25px;
 }
 
-.big-icon { 
-    font-size: 32px; 
+.general {
+    color: #ff902b;
+}
+
+.incident {
+    color: #f05050;
+}
+
+.child-upload {
+    border: 1px solid #dde6e9; 
+}
+
+.child-upload .panel-body {
+    padding: 0px !important;
+}
+
+.child-btn-fa {
+    color: black;
+    font-size: 46px;
+}
+
+.child-border {
+    border: 1px solid #dde6e9;
+    padding: 0px 20px 0px 20px;
 }
