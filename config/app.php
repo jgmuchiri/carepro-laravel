@@ -175,6 +175,7 @@ return [
         \Torann\Currency\CurrencyServiceProvider::class,
         MartinLindhe\VueInternationalizationGenerator\GeneratorProvider::class,
         PassportServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -241,6 +242,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Currency' => \Torann\Currency\Facades\Currency::class,
+        'Image' => Intervention\Image\Facades\Image::class,
     ],
 
     'languages' => env('LANGUAGES', 'US'),
