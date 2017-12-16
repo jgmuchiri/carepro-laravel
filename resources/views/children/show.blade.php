@@ -47,26 +47,38 @@
                             @endif
                         </li>
                         <li class="nav-item active">
-                            <a href="#" data-toggle="tab" data-target="#home">Home</a>
+                            <a href="#" data-toggle="tab" data-target="#home">
+                                <i class="fa fa-home"></i> Home
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" data-toggle="tab" data-target="#photo">Photos</a>
+                            <a href="#" data-toggle="tab" data-target="#photo">
+                                <i class="fa fa-photo"></i> Photos
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" data-toggle="tab" data-target="#notes">Notes</a>
+                            <a href="#" data-toggle="tab" data-target="#notes">
+                                <i class="fa fa-file-text"></i> Notes
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" data-toggle="tab" data-target="#billing">Billing</a>
+                            <a href="#" data-toggle="tab" data-target="#billing">
+                                <i class="fa fa-money"></i> Billing
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" data-toggle="tab" data-target="#health">Health</a>
+                            <a href="#" data-toggle="tab" data-target="#health">
+                                <i class="fa fa-medkit"></i> Health
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" data-toggle="tab" data-target="#attendance">Attendance</a>
+                            <a href="#" data-toggle="tab" data-target="#attendance">
+                                <i class="fa fa-calendar"></i> Attendance
+                            </a>
                         </li>
                     </ul>
                     <div class="tab-content ">
-                        <div class="tab-pane active" id="home">
+                        <div class="tab-pane " id="home">
                             @include('children.includes.home')
                         </div>
                         <div class="tab-pane" id="photo">
@@ -81,7 +93,7 @@
                         <div class="tab-pane" id="attendance">
                             @include('children.includes.attendance')
                         </div>
-                        <div class="tab-pane" id="health">
+                        <div class="tab-pane active" id="health">
                             @include('children.includes.health')
                         </div>
                     </div>
