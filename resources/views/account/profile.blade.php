@@ -3,93 +3,73 @@
 @section('title') @lang('Edit Profile')
 @endsection
 
-@push('styles')
-    <link href="/css/subscriptions.css" rel="stylesheet"/>
-@endpush
-
 @section('content')
-    <div class="card">
-        <div class="header">
-            <div class="row">
-                <div class="col-sm-6">
-                    <p>@lang('Update your account information')</p>
-                </div>
-                <div class="col-sm-6">
-                    <p><strong>@lang('Registered')</strong> {{$user->created_at}}</p>
-                </div>
-            </div>
-
+<div class="content-wrapper">
+    <div class="content-heading">
+       <!-- START Language list-->
+       <!-- END Language list-->Profile
+       <small></small>
+    </div>
+    <!-- END widgets box-->
+    <div class="panel panel-default" id="panelDemo1">
+        <div class="panel-heading">@lang('Update your account information')
+           <p class="pull-right"><strong>@lang('Registered')</strong> {{$user->created_at}}</p>
         </div>
-        <hr/>
-        <div class="content">
-            {{-- TODO: Make this form work --}}
-            <p>TODO: Make form work</p>
-            {!! Form::model($user,['url'=>'profile']) !!}
-            <div class="row">
-                <div class="col-md-8">
+        <div class="panel-wrapper">
+           <div class="panel-body">
+              <form method="POST" action="http://127.0.0.1:8080/profile" accept-charset="UTF-8">     
+                <div class="row">
+                    <div class="col-md-8">
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label>@lang('First Name')</label>
-                            {{Form::text('first_name')}}
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label>First Name</label>
+                                <input name="name" type="text" class="form-control" value="{{ old('name', $user->name) }}">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Email</label>
+                                <input name="email" type="email" value="{{ old('email', $user->email) }}" class="form-control">
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <label>@lang('Last Name')</label>
-                            {{Form::text('last_name')}}
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label>Phone</label>
+                                <input name="phone" type="text" class="form-control" value="{{ old('phone', $user->address->phone) }}">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>DOB</label>
+                                <input name="dob" type="date" class="form-control">
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label>@lang('Email')</label>
-                            {{Form::input('email','email')}}
-                        </div>
-                        <div class="col-md-6">
-                            <label>@lang('Phone')</label>
-                            {{Form::text('phone')}}
-                        </div>
-                    </div>
-                    <div class="row">
-                        {{-- TODO: Replace this address input
-                        <div class="col-md-6">
-                            <label>@lang('Address')</label>
-                            {{Form::textarea('address',null,['rows'=>3])}}
-                        </div>--}}
-                        <div class="col-md-6">
-                            <label>@lang('DOB')</label>
-                            {{Form::input('date','dob')}}
+                    <div class="col-md-4">
+                        <div class="">
+                            <div class="form-group">
+                                <label>Password: <em>(only if changing)</em></label><br/>
+                                <input name="password" type="password" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Confirm Password:</label>
+                                <input name="password_confirmation" type="password" class="form-control">
+                            </div>
+
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <br/>
-                    <br/>
-                    <div class="callout callout-danger">
-                        <label>@lang('Password'): <em>(@lang('only if changing'))</em></label><br/>
-                        {!! Form::input('password','password') !!}
-
-                        <label>@lang('Confirm Password'):</label>
-                        {!! Form::input('password','password_confirmation') !!}
-                    </div>
+                <div class="text-right">
+                    <input class="btn btn-primary" type="submit" value="Update">
                 </div>
-            </div>
-            <div class="text-right">
-                {{Form::submit(__('Update'),['class'=>'btn btn-primary'])}}
-            </div>
-            {!! Form::close() !!}
+            </form>
+           </div>
         </div>
     </div>
-
-    @if ($user->role->name == \App\Models\Permissions\Role::TENANT_ROLE)
-        <div class="card">
-            <div class="header">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <p>@lang('Subscription')</p>
-                    </div>
-                </div>
-            </div>
-            <hr/>
-            <div class="content">
+    <div class="panel panel-default" >
+        <div class="panel-heading">@lang('Subscription')
+        </div>
+        <div class="panel-wrapper ">
+           <div class="panel-body">
+              <div class="content">
                 <div class="row">
                     <div class="col-md-12">
                         @if ($user->subscribed('main'))
@@ -107,7 +87,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div>
+                    <div class="text-center">
                         <div class="col-xs-12 col-md-3 col-md-offset-1">
                             <div class="panel panel-primary">
                                 <div class="panel-heading">
@@ -150,15 +130,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-md-4">
+                        <div class="col-xs-12 col-md-3">
                             <div class="panel panel-success">
-                                <div class="cnrflash">
-                                    <div class="cnrflash-inner">
-                                <span class="cnrflash-label">@lang('MOST')
-                                    <br>
-                                    @lang('POPULAR')</span>
-                                    </div>
-                                </div>
                                 <div class="panel-heading">
                                     <h3 class="panel-title">
                                         @lang('PROFESSIONAL')</h3>
@@ -243,20 +216,17 @@
                         </div>
                     </div>
                 </div>
-            </div>
+           </div>
         </div>
+    </div>
+   </div>
 
-        <div class="card">
-            <div class="header">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <p>@lang('Payment Information')</p>
-                    </div>
-                </div>
-            </div>
-            <hr/>
-            <div class="content">
-                <div class="row">
+    <div class="panel panel-default">
+        <div class="panel-heading">@lang('Payment Information')
+        </div>
+        <div class="panel-wrapper collapse in">
+           <div class="panel-body">
+              <div class="row">
                     <div class="col-md-12">
                         @if (!empty($user->card_last_four))
                             <p>@lang('billing.subscribed_using_card', ['card_last_four' => $user->card_last_four])</p>
@@ -270,7 +240,9 @@
                         @endif
                     </div>
                 </div>
-            </div>
+           </div>
         </div>
-    @endif
+    </div>
+
+ </div>
 @stop

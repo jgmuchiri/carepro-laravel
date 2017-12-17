@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('index');
+Route::get('/', 'PagesController@index')->name('index');
 
 Auth::routes();
 Route::get('/register/verify/{confirmationCode}', 'Auth\VerificationController@verify')->name('auth.verify');

@@ -1,5 +1,5 @@
 <template>
-    <div class="modal fade" id="create-child-modal" tabindex="-1" role="dialog" aria-labelledby="create-child-modal">
+    <div class="modal fade modal-mo" id="create-child-modal" tabindex="-1" role="dialog" aria-labelledby="create-child-modal">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -10,37 +10,37 @@
                 <form v-on:submit.prevent="storeChild">
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-sm-6">
+                            <div class="form-group col-sm-6">
                                 <label>{{ $t('Name') }}*</label>
-                                <input type="text" name="name" required v-model="child.name" />
+                                <input type="text" class="form-control" name="name" required v-model="child.name" />
                             </div>
-                            <div class="col-sm-6">
+                            <div class="form-group col-sm-6">
                                 <label>{{ $t('Nickname') }}</label>
-                                <input type="text" name="nickname" v-model="child.nickname" />
+                                <input type="text" class="form-control" name="nickname" v-model="child.nickname" />
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-6">
+                            <div class="form-group col-sm-6">
                                 <label>{{ $t('Birthday') }}*</label>
-                                <input type="date" name="dob" required v-model="child.dob" />
+                                <input type="date" class="form-control" name="dob" required v-model="child.dob" />
                             </div>
-                            <div class="col-sm-6">
+                            <div class="form-group col-sm-6">
                                 <label>{{ $t('SSN/ID') }}#*</label>
-                                <input type="text" name="ssn" required v-model="child.ssn" />
+                                <input type="text" class="form-control" name="ssn" required v-model="child.ssn" />
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-6">
+                            <div class="form-group col-sm-6">
                                 <label>{{ $t('Gender') }}*</label>
-                                <select id="gender" v-model="child.gender" required>
+                                <select id="gender" class="form-control" v-model="child.gender" required>
                                     <option v-for="gender in genders" v-bind:value="gender.id">
                                         {{ gender.name_label }}
                                     </option>
                                 </select>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="form-group col-sm-6">
                                 <label>{{ $t('Blood Group') }}*</label>
-                                <select id="blood_type" v-model="child.blood_type" required>
+                                <select id="blood_type" class="form-control" v-model="child.blood_type" required>
                                     <option v-for="blood_type in blood_types" v-bind:value="blood_type.id">
                                         {{ blood_type.blood_type_label }}
                                     </option>
@@ -48,12 +48,12 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-6">
+                            <div class="form-group col-sm-6">
                                 <label>{{ $t('Access Pin') }}*</label>
-                                <input type="number" name="pin" min="4" class="form-control"equired v-model="child.pin" />
+                                <input type="number" name="pin" min="4" class="form-control" equired v-model="child.pin" />
                             </div>
                             <template v-if="parents.length">
-                                <div class="col-sm-6">
+                                <div class="form-group col-sm-6">
                                     <label>{{ $t('Status') }}*</label>
                                     <select id="status" class="form-control" v-model="child.status" required>
                                         <option v-for="status in statuses" v-bind:value="status.id">
@@ -64,17 +64,17 @@
                             </template>
                         </div>
                         <div class="row">
-                            <div class="col-sm-6">
+                            <div class="form-group col-sm-6">
                                 <label>{{ $t('Religion') }}*</label>
-                                <select id="religion" v-model="child.religion" required>
+                                <select id="religion" class="form-control" v-model="child.religion" required>
                                     <option v-for="religion in religions" v-bind:value="religion.id">
                                         {{ religion.name_label }}
                                     </option>
                                 </select>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="form-group col-sm-6">
                                 <label>{{ $t('Ethnicity') }}*</label>
-                                <select id="ethnicity" v-model="child.ethnicity" required>
+                                <select id="ethnicity" class="form-control" v-model="child.ethnicity" required>
                                     <option v-for="ethnicity in ethnicities" v-bind:value="ethnicity.id">
                                         {{ ethnicity.name_label }}
                                     </option>
@@ -83,7 +83,7 @@
                         </div>
                         <template v-if="parents.length">
                             <div class="row">
-                                <div class="col-sm-6">
+                                <div class="form-group col-sm-6">
                                     <label>{{ $t('Parents') }}*</label>
                                     <select id="parents" v-model="child.parents" class="form-control" required multiple>
                                         <option v-for="parent in parents" v-bind:value="parent.id">
@@ -94,16 +94,16 @@
                             </div>
                         </template>
                         <div class="row">
-                            <div class="col-sm-6">
+                            <div class="form-group col-sm-6">
                                 <label for="photo_uri" class="control-label">{{ $t('Photo') }}*</label>
-                                <input type="file" name="photo_uri" id="photo_uri" @change="onFileChange" />
+                                <input type="file" class="form-control" name="photo_uri" id="photo_uri" @change="onFileChange" />
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> {{ $t('Cancel') }}
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times btn-fa"></i> {{ $t('Cancel') }}
                         </button>
-                        <button class="btn btn-primary"><i class="fa fa-save"></i> {{ $t('Save Changes') }}</button>
+                        <button class="btn btn-primary"><i class="fa fa-save btn-fa"></i> {{ $t('Save Changes') }}</button>
                     </div>
                 </form>
             </div>
@@ -182,12 +182,12 @@
                     .then(response => {
                         $('#create-child-modal').modal('hide');
                         this.child = this.generateNewChildModel();
-                        this.notifySuccess(response.data.message);
+                        this.$noty.success(response.data.message);
                     })
                     .catch(error => {
                         if (error.response.status == 422) {
                             for (var key in error.response.data) {
-                                this.notifyError(error.response.data[key]);
+                                this.$noty.error(error.response.data[key]);
                             }
                         } else {
                             alert("Something went wrong. Please reload the page and try again.");

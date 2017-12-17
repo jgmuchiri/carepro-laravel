@@ -20,6 +20,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\MessageBag;
 use Storage;
+use Image;
+
 
 class ChildrenController extends Controller
 {
@@ -135,7 +137,17 @@ class ChildrenController extends Controller
     public function store(SaveChildRequest $request)
     {
         $this->authorize('store', Child::class);
-        $photo_uri = Storage::disk('public')->putFile('children-images', $request->file('photo_uri'), 'public');
+        $photo_uri = Storage::disk('public')->putFile('children-images/original', $request->file('photo_uri'), 'public');
+        //get the saved photo name
+        $photo_name = basename($photo_uri);
+        //retrieve the image
+        $file = Storage::get('public/children-images/original/'.$photo_name);
+        //resize image
+        $photo_thumb = Image::make($file)->resize(128, 128)->stream();
+        //move the resized image to the childrens folder.
+        $path = Storage::disk('public')->put('children-images/'.$photo_name, $photo_thumb);
+        //generate resized image path
+        $thumb_path = 'children-images/'.$photo_name;
 
         if ($request->user()->role->name == Role::PARENT_ROLE) {
             $status_id = Status::whereName('Pending Approval')->first()->id;
@@ -155,7 +167,7 @@ class ChildrenController extends Controller
             'status_id' => $status_id,
             'religion_id' => $request->input('religion'),
             'ethnicity_id' => $request->input('ethnicity'),
-            'photo' => $photo_uri,
+            'photo' => $thumb_path,
             'created_by_user_id' => Auth::id(),
             'updated_by_user_id' => Auth::id()
         ]);

@@ -20,6 +20,7 @@
     "vuedraggable": "^2.14.1"
   },
   "dependencies": {
-    "moment": "^2.19.1"
+    "moment": "^2.19.1",
+    "vuejs-noty": "^0.1.2"
   }
 }

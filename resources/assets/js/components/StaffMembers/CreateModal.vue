@@ -10,74 +10,74 @@
                 <form v-on:submit.prevent="storeStaff">
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="form-group col-md-6">
                                 <label for="name" class="control-label">{{ $t('Name') }}*</label>
                                 <input type="text" id="name" class="form-control" v-model="staff.name" required autofocus/>
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="form-group col-md-6">
                                 <label for="email" class="control-label">{{ $t('E-Mail Address') }}*</label>
                                 <input type="email" id="email" class="form-control" v-model="staff.email" required />
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="form-group col-md-6">
                                 <label for="password" class="control-label">{{ $t('Password') }}*</label>
                                 <input type="password" class="form-control" id="password" v-model="staff.password" required />
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="form-group col-md-6">
                                 <label for="password-confirm" class="control-label">{{ $t('Confirm Password') }}*</label>
                                 <input type="password" id="password-confirm" class="form-control" v-model="staff.confirm_password" required />
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="form-group col-md-6">
                                 <label for="photo_uri" class="control-label">{{ $t('Photo') }}*</label>
-                                <input type="file" name="photo_uri" id="photo_uri" @change="onFileChange" />
+                                <input type="file" class="form-control" name="photo_uri" id="photo_uri" @change="onFileChange" />
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="form-group col-md-6">
                                 <label for="dob" class="control-label">{{ $t('DOB') }}*</label>
                                 <input type="date" id="dob" class="form-control" required v-model="staff.dob"/>
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="form-group col-md-12">
                                 <label for="address_line_1" class="control-label">{{ $t('Address Line 1') }}*</label>
                                 <input type="text" id="address_line_1" class="form-control" v-model="staff.address_line_1" required placeholder="Street and number, P.O. box, c/o."/>
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="form-group col-md-12">
                                 <label for="address_line_2" class="control-label">{{ $t('Address Line 2') }}</label>
                                 <input type="text" id="address_line_2" class="form-control" v-model="staff.address_line_2" placeholder="Apartment, suite, unit, building, floor, etc." />
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-md-5">
+                            <div class="form-group col-md-5">
                                 <label for="city" class="control-label">{{ $t('City / Town / Village') }}*</label>
                                 <input type="text" id="city" class="form-control" v-model="staff.city" required />
                             </div>
 
-                            <div class="col-md-5">
+                            <div class="form-group col-md-5">
                                 <label for="state" class="control-label">{{ $t('State / Province / Region') }}*</label>
                                 <input type="text" id="state" class="form-control" v-model="staff.state" required />
                             </div>
 
-                            <div class="col-md-2">
+                            <div class="form-group col-md-2">
                                 <label for="zip_code" class="control-label">{{ $t('ZIP') }}*</label>
                                 <input type="text" id="zip_code" class="form-control" v-model="staff.zip_code" required />
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="form-group col-md-6">
                                 <label for="country" class="control-label">{{ $t('Country') }}*</label>
                                 <select id="country" class="form-control" v-model="staff.country" required>
                                     <option v-for="country in countries" v-bind:value="country.id">
@@ -86,16 +86,16 @@
                                 </select>
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="form-group col-md-6">
                                 <label for="phone" class="control-label">{{ $t('Phone Number') }}*</label>
                                 <input type="text" id="phone" class="form-control" v-model="staff.phone" required />
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> {{$t('Cancel')}}
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times btn-fa"></i> {{$t('Cancel')}}
                         </button>
-                        <button class="btn btn-primary"><i class="fa fa-save"></i> {{$t('Save')}}</button>
+                        <button class="btn btn-primary"><i class="fa fa-save btn-fa"></i> {{$t('Save')}}</button>
                     </div>
                 </form>
             </div>
@@ -165,12 +165,12 @@
                         this.$emit('staffRegistered', response.data.staff_member);
                         $('#create-staff-modal').modal('hide');
                         this.staff = this.generateNewStaffModel();
-                        this.notifySuccess(response.data.message);
+                        this.$noty.success(response.data.message);
                     })
                     .catch(error => {
                         if (error.response.status == 422) {
                             for (var key in error.response.data) {
-                                this.notifyError(error.response.data[key]);
+                                this.$noty.error(error.response.data[key]);
                             }
                         } else {
                             alert("Something went wrong. Please reload the page and try again.");

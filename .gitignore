@@ -12,3 +12,7 @@ Vagrantfile
 /storage/debugbar
 /storage/app/public
 composer.lock
+/public/mix-manifest.json
+/public/js/app.*.js
+
+*.lock

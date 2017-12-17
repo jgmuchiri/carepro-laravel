@@ -1,65 +1,45 @@
 @extends('layouts.logged-out')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">@lang('Login')</div>
-                <div class="panel-body">
-                    {!! Form::open(['route' => 'login', 'method' => 'post', 'class' => 'form-horizontal', 'role' => 'form']) !!}
-                        {{ csrf_field() }}
+<div class="wrapper">
+    <div class="full-screen register main">
+        <div class="section">
+            <div class="row" id="pwd-container">
+                
+                <div class="col-md-4 offset-md-4">
+                  <section class="login-form">
+                    <form method="post" action="{{ route('login') }}" role="login">
+                      <img src="assets/img/logo.png" class="img-responsive" alt="" />
+                      {{ csrf_field() }}
+                      <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
+                         <input type="email" name="email" placeholder="Email" required class="form-control input-lg" />
+                        @if ($errors->has('email'))
+                            <span class="help-block has-danger">
+                                <strong>{{ $errors->first('email') }}</strong>
+                            </span>
+                        @endif 
+                      </div>
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            {!! Form::label('email', __('E-Mail Address'), ['class' => 'col-md-4 control-label']) !!}
+                      <div class="form-group {{ $errors->has('password') ? ' has-danger' : '' }}">
+                          <input type="password" class="form-control input-lg" name="password" id="password" placeholder="Password" required="" />
+                         @if ($errors->has('password'))
+                            <span class="help-block has-danger">
+                                <strong>{{ $errors->first('password') }}</strong>
+                            </span>
+                        @endif
+                      </div>
+                                          
+                      <button type="submit" name="go" class="btn btn-lg btn-primary btn-block">@lang('Login')</button>
+                      <div>
+                        <a href="{{ route('password.request') }}">@lang('Forgot Your Password')?</a>
+                      </div>
+                      
+                    </form>
+                  </section>  
+                  </div>
+                                    
 
-                            <div class="col-md-6">
-                                {!! Form::email('email', null, ['id' => 'email', 'class' => 'form-control', 'required' => '', 'autofocus' => '']) !!}
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            {!! Form::label('password', __('Password'), ['class' => 'col-md-4 control-label']) !!}
-
-                            <div class="col-md-6">
-                                {!! Form::password('password', ['id' => 'password', 'class' => 'form-control', 'required' => '']) !!}
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <div class="checkbox">
-                                    <label>
-                                        {!! Form::checkbox('remember') !!} @lang('Remember Me')
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-8 col-md-offset-4">
-                                {!! Form::submit(__('Login'), ['class' => 'btn btn-primary']) !!}
-
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    @lang('Forgot Your Password')?
-                                </a>
-                            </div>
-                        </div>
-                    {!! Form::close() !!}
-                </div>
-            </div>
+              </div>            
         </div>
     </div>
 </div>

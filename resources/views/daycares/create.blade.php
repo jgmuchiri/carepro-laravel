@@ -1,54 +1,55 @@
 @extends('layouts.logged-out')
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
-                    <div class="panel-heading">@lang('Create Daycare')</div>
-                    <div class="panel-body">
-                        {!! Form::open(['route' => 'daycare.store', 'method' => 'post', 'role' => 'form', 'class' => 'form-horizontal']) !!}
-                            {{ csrf_field() }}
-
-                            <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                                {!! Form::label('name', __('Name') . '*', ['class' => 'col-md-4 control-label']) !!}
-
-                                <div class="col-md-6">
-                                    {!! Form::text('name', null, ['id' => 'name', 'class' => 'form-control', 'required' => '', 'autofocus' => '']) !!}
-
+<div class="wrapper">
+    <div class="pricing-4 section ">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 ml-auto mr-auto text-center">
+                    <h2 class="title">@lang('Register your daycare')</h2>
+                </div>
+            </div>
+            <div class="space-top"></div>
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <form method="POST" action="{{ route('daycare.store') }}" accept-charset="UTF-8" role="form">
+                        {{ csrf_field() }}
+                        <div class="row">
+                            <div class="col-sm-6">
+                               <div class="form-group">
+                                    <label for="name" class="control-label">Name *</label>
+                                    <input id="name" class="form-control" required="" autofocus="" name="name" type="text" value="{{ old('name') }}">
                                     @if ($errors->has('name'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('name') }}</strong>
                                         </span>
                                     @endif
-                                </div>
+                                </div> 
                             </div>
-
-                            <div class="form-group{{ $errors->has('employee_tax_identifier') ? ' has-error' : '' }}">
-                                {!! Form::label('employee_tax_identifier', __('Employee Tax Identifier') . '*', ['class' => 'col-md-4 control-label']) !!}
-
-                                <div class="col-md-6">
-                                    {!! Form::text('employee_tax_identifier', null, ['id' => 'employee_tax_identifier', 'class' => 'form-control', 'required' => '']) !!}
-
+                            <div class="col-sm-6">
+                               <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
+                                    <label for="employee_tax_identifier" class="control-label">Employee Tax Identifier *</label>
+                                    <input id="employee_tax_identifier" class="form-control" required="" name="employee_tax_identifier" type="text" value="{{ old('employee_tax_identifier') }}">
                                     @if ($errors->has('employee_tax_identifier'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('employee_tax_identifier') }}</strong>
                                         </span>
                                     @endif
-                                </div>
+                                </div> 
                             </div>
+                        </div>
 
-                            @include('partials.address-form')
-
-                            <div class="form-group">
-                                <div class="col-md-6 col-md-offset-4">
-                                    {!! Form::submit(__('Save'), ['class' => 'btn btn-primary']) !!}
-                                </div>
+                        @include('partials.address-form')
+                        
+                        <div class="form-group text-center">
+                            <div class="12">
+                                <input class="btn btn-primary" type="submit" value="Register">
                             </div>
-                        {!! Form::close() !!}
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+</div>
 @endsection

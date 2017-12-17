@@ -1,35 +1,35 @@
 <template>
     <div>
         <div class="row">
-            <div class="col-sm-5">
+            <div class="form-group col-sm-6">
                 <label>{{$t('All Staff')}}</label>
                 <label>{{$t('Search')}}</label>
-                <input type="text" v-model="staff_search"/>
-                <draggable @end="assigneesUpdated" v-model="staff_members" :options="{group:'staff'}" style="background:#DDDDDD; min-height: 50px;">
+                <input type="text" class="form-control" placeholder="Search" v-model="staff_search"/>
+                <draggable class="drag2" @end="assigneesUpdated" v-model="staff_members" :options="{group:'staff'}" >
                     <div v-for="staff_member in filtered_staff_members">{{staff_member.user.name}}</div>
                 </draggable>
             </div>
 
-            <div class="col-sm-5 col-sm-offset-1">
+            <div class="col-sm-6">
                 <label>{{$t('Assigned Staff')}}</label>
-                <draggable @end="assigneesUpdated" v-model="assigned_staff_members" :options="{group:'staff'}" style="background:#DDDDDD; min-height: 50px;">
+                <draggable class="drag" @end="assigneesUpdated" v-model="assigned_staff_members" :options="{group:'staff'}">
                     <div v-for="staff_member in assigned_staff_members">{{staff_member.user.name}}</div>
                 </draggable>
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-5">
+            <div class="form-group col-sm-6">
                 <label>{{$t('All Children')}}</label>
                 <label>{{$t('Search')}}</label>
-                <input type="text" v-model="child_search"/>
-                <draggable @end="assigneesUpdated" v-model="children" :options="{group:'children'}" style="background:#DDDDDD; min-height: 50px;">
+                <input type="text" class="form-control" placeholder="Search" v-model="child_search"/>
+                <draggable class="drag2" @end="assigneesUpdated" v-model="children" :options="{group:'children'}">
                     <div v-for="child in filtered_children">{{child.name}}</div>
                 </draggable>
             </div>
 
-            <div class="col-sm-5 col-sm-offset-1">
+            <div class="form-group col-sm-6">
                 <label>{{$t('Assigned Children')}}</label>
-                <draggable @end="assigneesUpdated" v-model="assigned_children" :options="{group:'children'}" style="background:#DDDDDD; min-height: 50px;">
+                <draggable class="drag" @end="assigneesUpdated" v-model="assigned_children" :options="{group:'children'}" >
                     <div v-for="child in assigned_children">{{child.name}}</div>
                 </draggable>
             </div>
