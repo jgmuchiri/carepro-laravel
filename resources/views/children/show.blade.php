@@ -28,7 +28,7 @@
               {{ $child->dob }}
             </div>
             <div class="col-md-3">
-              {{ $child->ssn }}
+              xxx-xx-{{substr($child->ssn, -4) }}
             </div>
           </div>
     </div>
@@ -77,8 +77,8 @@
                             </a>
                         </li>
                     </ul>
-                    <div class="tab-content ">
-                        <div class="tab-pane " id="home">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="home">
                             @include('children.includes.home')
                         </div>
                         <div class="tab-pane" id="photo">
@@ -93,7 +93,7 @@
                         <div class="tab-pane" id="attendance">
                             @include('children.includes.attendance')
                         </div>
-                        <div class="tab-pane active" id="health">
+                        <div class="tab-pane" id="health">
                             @include('children.includes.health')
                         </div>
                     </div>
@@ -106,6 +106,103 @@
     <!-- end row -->
  </div>
 @stop
+
+@push('modals')
+    @if ($user->role->permissions->contains('name', App\Models\Permissions\Permission::MANAGE_CHILDREN))
+        <div class="modal fade" id="attachParent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">@lang('Select Parent')</h4>
+                    </div>
+
+                    {!! Form::open(['route' => ['children.assign-parents', $child->id], 'method' => 'post']) !!}
+
+                    <div class="modal-body">
+                        <table class="table table-striped" id="table">
+                            <thead>
+                            <tr>
+                                <td data-orderable="false"></td>
+                                <td>@lang('Name')</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($parents as $parent)
+                                <tr>
+                                    <td style="width:20px;">
+                                        <div class="checkbox c-checkbox">
+                                        <label>
+                                            <input type="checkbox" value="{{$parent->id}}" name="parents[]" {{ $child->parents->contains($parent) ? 'checked' : ''}}/>                                            
+                                            <span class="fa fa-check"></span>
+                                        </label>
+                                    </div>
+                                    </td>
+                                    <td>{{$parent->user->name}}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">@lang('Close')</button>
+                        <input type="submit" class="btn btn-primary" value="@lang('Assign')"/>
+                    </div>
+
+                    {!! Form::close() !!}
+                </div>
+            </div>
+        </div>
+    @endif
+    <div class="modal fade" id="attachGroup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">@lang('Assign Groups')</h4>
+                </div>
+
+                {!! Form::open(['route' => ['children.assign-groups', $child->id], 'method' => 'post']) !!}
+
+                <div class="modal-body">
+                    <table class="table table-striped" id="table">
+                        <thead>
+                        <tr>
+                            <td data-orderable="false"></td>
+                            <td>@lang('Name')</td>
+                            <td>@lang('Description')</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($groups as $group)
+                            <tr>
+                                <td style="width:20px;">
+                                    <div class="checkbox c-checkbox">
+                                        <label>
+                                            <input type="checkbox" value="{{$group->id}}" name="groups[]" {{ $child->groups->contains($group) ? 'checked' : ''}}/>                                            
+                                            <span class="fa fa-check"></span>
+                                        </label>
+                                    </div>
+                                </td>
+                                <td>{{ $group->name }}</td>
+                                <td>{{ $group->short_description }}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">@lang('Close')</button>
+                    <input type="submit" class="btn btn-primary" value="@lang('Assign')"/>
+                </div>
+
+                {!! Form::close() !!}
+            </div>
+        </div>
+    </div>
+@endpush
 
 @push('scripts')
     <script type="text/javascript">

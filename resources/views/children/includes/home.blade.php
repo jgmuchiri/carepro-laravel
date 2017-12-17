@@ -97,18 +97,75 @@
     </div>
 </div>
 <div class="child-border">
+  <!-- groups section -->
     <div class="content-heading">
-       <!-- START Language list-->
        <div class="pull-right">
           <div class="btn-group">
-             <button class="btn btn-primary waves-effect m-b-5" data-toggle="modal" data-target="#newChild" data-backdrop="false"> <i class="fa fa-plus m-r-5 btn-fa"></i> <span> @lang('Assign Parent/Guardian')</span></button>
+             <button class="btn btn-primary waves-effect m-b-5" data-toggle="modal" data-target="#attachGroup" data-backdrop="false"> <i class="fa fa-plus m-r-5 btn-fa"></i> <span> @lang('Assign to group')</span></button>
+          </div>
+       </div>
+       <h3>Assigned Groups</h3>
+    </div>
+    @if(!$child->groups->isEmpty())
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover" >
+         <thead>
+            <tr>
+                <th data-check-all width="3">
+                  <div class="checkbox c-checkbox" data-toggle="tooltip" data-title="Check All">
+                     <label>
+                        <input type="checkbox">
+                        <span class="fa fa-check"></span>
+                     </label>
+                  </div>
+                </th>
+                <th>Name</th>
+                <th>Description</th>
+                <th class="text-center">Actions</th>
+            </tr>
+         </thead>
+         <tbody>
+          @foreach($child->groups as $group)
+            <tr>
+                <td>
+                  <div class="checkbox c-checkbox">
+                     <label>
+                        <input type="checkbox">
+                        <span class="fa fa-check"></span>
+                     </label>
+                  </div>
+                </td>
+                <td>{{ $group->name }}</td>
+                <td>{{ $group->short_description }}</td>
+                <td class="text-center">
+                    <a class="btn btn-danger btn-xs" href="" title="Delete"><i class="fa fa-trash-o"></i></a>
+                </td>
+            </tr>
+          @endforeach
+         </tbody>
+      </table>
+   </div>
+   @else
+   <div class="text-center">
+      <h4>No assigned groups yet</h4>
+      <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#attachGroup" data-backdrop="false" title="">Assign to first group</button>
+   </div>
+   @endif
+    <hr>
+    <!-- parents section -->
+    <div class="content-heading">
+       <div class="pull-right">
+          <div class="btn-group">
+            @if ($user->role->permissions->contains('name', App\Models\Permissions\Permission::MANAGE_CHILDREN))
+                <button class="btn btn-primary waves-effect m-b-5" data-toggle="modal" data-target="#attachParent" data-backdrop="false"> <i class="fa fa-plus m-r-5 btn-fa"></i> <span> @lang('Assign Parent/Guardian')</span></button>
+            @endif
           </div>
        </div>
        <h3>Parents/Guardians</h3>
     </div>
     <div class="child-parent">
         <div class="row">
-            @foreach($parents as $parent)
+            @foreach($child->parents as $parent)
             <div class="col-md-offset-1 col-md-4">
                 <div class="panel b text-center">
                    <div class="panel-body">
@@ -120,11 +177,11 @@
                    </div>
                 </div>
              </div>
-            @endforeach
-             
+            @endforeach 
         </div>
     </div>
     <hr>
+    <!-- authorized section -->
     <div class="content-heading">
        <!-- START Language list-->
        <div class="pull-right">
