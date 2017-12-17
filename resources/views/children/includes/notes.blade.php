@@ -1,9 +1,18 @@
 <div class="content-heading">
    <!-- START Language list-->
    <div class="pull-right">
-      <div class="btn-group">
-         <button class="btn btn-success waves-effect m-b-5" data-toggle="modal" data-target="" data-backdrop="false"> <i class="fa fa-plus m-r-5 btn-fa"></i> <span> @lang('New Note')</span></button>
-      </div>
+   	  <div class="row">
+   	  	<div class="col-md-6">
+   	  		<div class="btn-group">
+		         <button class="btn btn-success waves-effect m-b-5" data-toggle="modal" data-target="" data-backdrop="false"> <i class="fa fa-plus m-r-5 btn-fa"></i> <span> @lang('New Note')</span></button>
+		     </div>
+   	  	</div>
+   	  	<div class="col-md-6">
+   	  		<div class="btn-group">
+		         <button class="btn btn-danger waves-effect m-b-5" data-toggle="modal" data-target="" data-backdrop="false"> <i class="fa fa-plus m-r-5 btn-fa"></i> <span> @lang('Incident report')</span></button>
+		     </div>
+   	  	</div>
+   	  </div>
    </div>
    <h3 style="margin-top: 0px;">Notes</h3>
 </div>
