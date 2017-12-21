@@ -52,7 +52,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" data-toggle="tab" data-target="#photo">
+                            <a href="#" data-toggle="tab" id="photo-a" data-target="#photo">
                                 <i class="fa fa-photo"></i> Photos
                             </a>
                         </li>
@@ -205,8 +205,21 @@
 @endpush
 
 @push('scripts')
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+    <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
     <script type="text/javascript">
 
+
+    var $container = $('.grid');
+    $container.imagesLoaded( function () {
+      $container.masonry();  
+    });
+
+    $('#photo-a').click(function (e) {
+      $container.imagesLoaded( function () {
+          $container.masonry();  
+        }); 
+    })
     $(document).on('click', '#upload_link', function(e) {
         e.preventDefault();
         $("#upload:hidden").trigger('click');

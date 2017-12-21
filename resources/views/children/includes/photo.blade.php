@@ -11,12 +11,70 @@
 <div class="panel panel-default">
    <div class="panel-body">
 	<div class="media-box-body">
-	  <h4 class="media-box-heading general">10 October 2017 | General</h4>
-	  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus suscipit eros elit, eget molestie turpis ultricies et. Nullam non ornare ligula, a venenatis urna. Vestibulum sodales egestas massa, quis laoreet arcu. Integer euismod enim sit amet metus iaculis tincidunt. Suspendisse sit amet mi velit. Integer eu commodo nunc. Integer vitae tortor nisl. Ut porttitor arcu a mauris auctor, in consectetur dolor hendrerit.Cras massa diam, vehicula at ipsum eget, lobortis malesuada mauris. In hac habitasse platea dictumst. Aenean consectetur posuere consequat. Curabitur in purus sed ex blandit tincidunt at nec eros. Curabitur ligula sapien, convallis eu elementum quis, auctor ac urna. Aliquam commodo fermentum tristique. Quisque placerat ornare sodales. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sodales viverra tellus, sollicitudin pharetra purus efficitur eu. Etiam ullamcorper quam nec ante tempus sagittis. Nullam hendrerit fermentum massa. Aenean sed ultrices purus. In porttitor vulputate eros sit amet ornare.</p>
+	  <h4 class="media-box-heading">10 October 2017</h4>
+	  	<div class="grid">
+			  <div class="grid-sizer"></div>
+			  <div class="grid-item">
+			    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/orange-tree.jpg" />
+			  </div>
+			  <div class="grid-item">
+			    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/submerged.jpg" />
+			  </div>
+			  <div class="grid-item">
+			    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/look-out.jpg" />
+			  </div>
+			  <div class="grid-item">
+			    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/one-world-trade.jpg" />
+			  </div>
+			  <div class="grid-item">
+			    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/drizzle.jpg" />
+			  </div>
+			  <div class="grid-item">
+			    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/cat-nose.jpg" />
+			  </div>
+			  <div class="grid-item">
+			    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/contrail.jpg" />
+			  </div>
+			  <div class="grid-item">
+			    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/golden-hour.jpg" />
+			  </div>
+			  <div class="grid-item">
+			    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/flight-formation.jpg" />
+			  </div>
+		</div>
 	</div>
 	<div class="media-box-body">
-	  <h4 class="media-box-heading incident">9 October 2017 | Incedent</h4>
-	  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus suscipit eros elit, eget molestie turpis ultricies et. Nullam non ornare ligula, a venenatis urna. Vestibulum sodales egestas massa, quis laoreet arcu. Integer euismod enim sit amet metus iaculis tincidunt. Suspendisse sit amet mi velit. Integer eu commodo nunc. Integer vitae tortor nisl. Ut porttitor arcu a mauris auctor, in consectetur dolor hendrerit.Cras massa diam, vehicula at ipsum eget, lobortis malesuada mauris. In hac habitasse platea dictumst. Aenean consectetur posuere consequat. Curabitur in purus sed ex blandit tincidunt at nec eros. Curabitur ligula sapien, convallis eu elementum quis, auctor ac urna. Aliquam commodo fermentum tristique. Quisque placerat ornare sodales. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sodales viverra tellus, sollicitudin pharetra purus efficitur eu. Etiam ullamcorper quam nec ante tempus sagittis. Nullam hendrerit fermentum massa. Aenean sed ultrices purus. In porttitor vulputate eros sit amet ornare.</p>
+	  <h4 class="media-box-heading">9 October 2017 | Incedent</h4>
+	  	<div class="grid">
+			  <div class="grid-sizer"></div>
+			  <div class="grid-item">
+			    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/orange-tree.jpg" />
+			  </div>
+			  <div class="grid-item">
+			    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/submerged.jpg" />
+			  </div>
+			  <div class="grid-item">
+			    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/look-out.jpg" />
+			  </div>
+			  <div class="grid-item">
+			    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/one-world-trade.jpg" />
+			  </div>
+			  <div class="grid-item">
+			    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/drizzle.jpg" />
+			  </div>
+			  <div class="grid-item">
+			    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/cat-nose.jpg" />
+			  </div>
+			  <div class="grid-item">
+			    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/contrail.jpg" />
+			  </div>
+			  <div class="grid-item">
+			    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/golden-hour.jpg" />
+			  </div>
+			  <div class="grid-item">
+			    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/flight-formation.jpg" />
+			  </div>
+		</div>
 	</div>
 </div>
 </div>
