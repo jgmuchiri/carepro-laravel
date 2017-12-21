@@ -78,7 +78,7 @@
                         </li>
                     </ul>
                     <div class="tab-content">
-                        <div class="tab-pane active" id="home">
+                        <div class="tab-pane " id="home">
                             @include('children.includes.home')
                         </div>
                         <div class="tab-pane" id="photo">
@@ -87,7 +87,7 @@
                         <div class="tab-pane" id="notes">
                             @include('children.includes.notes')
                         </div>
-                        <div class="tab-pane" id="billing">
+                        <div class="tab-pane active" id="billing">
                             @include('children.includes.billing')
                         </div>
                         <div class="tab-pane" id="attendance">
@@ -205,10 +205,19 @@
 @endpush
 
 @push('scripts')
+
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
     <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
     <script type="text/javascript">
 
+    $('#btn-invoice').on('click', function() {
+        $('#billing-index').hide();
+        $('#invoice-create').show();
+    });
+    $('#back-btn').on('click', function() {
+        $('#invoice-create').hide();
+        $('#billing-index').show();
+    });
 
     var $container = $('.grid');
     $container.imagesLoaded( function () {

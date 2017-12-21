@@ -8868,7 +8868,36 @@ ul>li, ol>li {
     font-size: 46px;
 }
 
+.billing-btn-fa {
+    color: #515253;
+    font-size: 36px;
+    padding-top: 5px;
+}
+
 .child-border {
     border: 1px solid #dde6e9;
     padding: 0px 20px 0px 20px;
+}
+
+/* clear fix */
+.grid:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+/* ---- .grid-item ---- */
+
+.grid-sizer,
+.grid-item {
+  width: 33.333%;
+}
+
+.grid-item {
+  float: left;
+}
+
+.grid-item img {
+  display: block;
+  max-width: 100%;
 }
