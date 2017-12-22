@@ -78,13 +78,13 @@
                         </li>
                     </ul>
                     <div class="tab-content">
-                        <div class="tab-pane " id="home">
+                        <div class="tab-pane active" id="home">
                             @include('children.includes.home')
                         </div>
                         <div class="tab-pane" id="photo">
                             @include('children.includes.photo')
                         </div>
-                        <div class="tab-pane active" id="notes">
+                        <div class="tab-pane" id="notes">
                             @include('children.includes.notes')
                         </div>
                         <div class="tab-pane" id="billing">
