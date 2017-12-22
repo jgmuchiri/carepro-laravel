@@ -84,10 +84,10 @@
                         <div class="tab-pane" id="photo">
                             @include('children.includes.photo')
                         </div>
-                        <div class="tab-pane" id="notes">
+                        <div class="tab-pane active" id="notes">
                             @include('children.includes.notes')
                         </div>
-                        <div class="tab-pane active" id="billing">
+                        <div class="tab-pane" id="billing">
                             @include('children.includes.billing')
                         </div>
                         <div class="tab-pane" id="attendance">
@@ -217,6 +217,15 @@
     $('#back-btn').on('click', function() {
         $('#invoice-create').hide();
         $('#billing-index').show();
+    });
+
+    $('#btn-incident').on('click', function() {
+        $('#notes-index').hide();
+        $('#incident-create').show();
+    });
+    $('#incident-back-btn').on('click', function() {
+        $('#incident-create').hide();
+        $('#notes-index').show();
     });
 
     var $container = $('.grid');
