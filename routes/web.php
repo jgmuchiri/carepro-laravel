@@ -64,7 +64,7 @@ Route::group(['middleware' => 'auth'], function() {
         function() {
             Route::post('parents/{id}/assign-children', 'ParentsController@assignChildren')
                 ->name('parents.assign-children');
-            Route::resource('parents', 'ParentsController', ['only' => ['index', 'create', 'store', 'show']]);
+            Route::resource('parents', 'ParentsController', ['only' => ['create', 'store', 'show']]);
 
             Route::get('children/{id}/activate', 'ChildrenController@activate')->name('children.activate');
             Route::get('children/{id}/deactivate', 'ChildrenController@deactivate')->name('children.deactivate');

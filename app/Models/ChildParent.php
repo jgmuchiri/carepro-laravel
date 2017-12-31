@@ -51,6 +51,8 @@ class ChildParent extends Model
         'date_of_birth'
     ];
 
+    protected $appends = ['full_photo_uri'];
+
     /**
      * Relationship to the user
      *
@@ -87,5 +89,18 @@ class ChildParent extends Model
         $query->select($this->getTable() . '.*')
             ->join('users', 'users.id', '=', $this->getTable() . '.user_id')
             ->where('users.daycare_id', '=', $daycare_id);
+    }
+
+    /**
+     * Gets the full photo uri
+     *
+     * @return string
+     */
+    public function getFullPhotoUriAttribute()
+    {
+        if (empty($this->photo_uri)) {
+            return asset('/img/portrait.png');
+        }
+        return asset('storage/' . $this->photo_uri);
     }
 }

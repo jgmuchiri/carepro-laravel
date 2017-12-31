@@ -24,9 +24,13 @@ class ParentsController extends Controller
     public function index(Request $request)
     {
         $this->authorize('create', ChildParent::class);
-        $parents = ChildParent::whereDaycareId($request->user()->daycare_id)->get();
 
-        return view('parents.index')->with(compact('parents'));
+        $parents = ChildParent::whereDaycareId($request->user()->daycare_id)
+            ->with('user')->get();
+
+        $can_create_parent = $request->user()->can('create', Parent::class);
+
+        return response()->json(compact('parents', 'can_create_parent'));
     }
 
     /**

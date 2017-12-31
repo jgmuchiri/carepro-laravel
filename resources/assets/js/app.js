@@ -29,7 +29,8 @@ const routes = [
     { path: '/roles/:role_id/edit', name: 'roles.edit', component: require('./components/Roles/CreateEdit.vue'), props: true},
     { path: '/home', name: 'home', component: require('./components/Dashboard/Index.vue')},
     { path: '/staff', name: 'staff.index', component: require('./components/StaffMembers/Index.vue')},
-    { path: '/staff/:staff_id/edit', name: 'staff.edit', component: require('./components/StaffMembers/Edit.vue'), props: true}
+    { path: '/staff/:staff_id/edit', name: 'staff.edit', component: require('./components/StaffMembers/Edit.vue'), props: true},
+    { path: '/parents', name: 'parents.index', component: require('./components/Parents/Index.vue')}
 ];
 
 Vue.component('CreateEditGroupModal', require('./components/Groups/CreateEditModal.vue'));
