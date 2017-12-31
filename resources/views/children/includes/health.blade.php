@@ -16,7 +16,7 @@
     </li>
     <li class="">
         <a href="#food" data-toggle="tab" aria-expanded="false">
-            <span class="visible-xs"><img src="{{ url('assets/img/icons/food.png') }}"></i></span>
+            <span class="visible-xs"><img src="{{ url('assets/img/icons/food.png') }}"></span>
             <span class="hidden-xs"><img src="{{ url('assets/img/icons/food.png') }}"> Food Preferences</span>
         </a>
     </li>
@@ -273,5 +273,4 @@
          </div>
       </div>
     </div>
-</div>
 </div>

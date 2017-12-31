@@ -59,8 +59,9 @@
                    </th>
                    <th>Picture</th>
                    <th>@lang('Name')</th>
-                   <th></th>
-                   <th></th>
+                   <th>Phone</th>
+                   <th>Email</th>
+                   <th>Address</th>
                 </tr>
              </thead>
              <tbody>
@@ -80,8 +81,9 @@
                       </div>
                    </td>
                    <td>{{ $parent->user->name }}</td>
-                   <td></td>
-                   <td></td>
+                   <td>{{ $parent->user->address->phone }}</td>
+                   <td>{{ $parent->user->email }}</td>
+                   <td>{{ $parent->user->address->address_line_1 }}</td>
                 </tr>
                 @endforeach
 

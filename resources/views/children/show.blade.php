@@ -52,7 +52,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" data-toggle="tab" data-target="#photo">
+                            <a href="#" data-toggle="tab" id="photo-a" data-target="#photo">
                                 <i class="fa fa-photo"></i> Photos
                             </a>
                         </li>
@@ -205,8 +205,39 @@
 @endpush
 
 @push('scripts')
+
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+    <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
     <script type="text/javascript">
 
+    $('#btn-invoice').on('click', function() {
+        $('#billing-index').hide();
+        $('#invoice-create').show();
+    });
+    $('#back-btn').on('click', function() {
+        $('#invoice-create').hide();
+        $('#billing-index').show();
+    });
+
+    $('#btn-incident').on('click', function() {
+        $('#notes-index').hide();
+        $('#incident-create').show();
+    });
+    $('#incident-back-btn').on('click', function() {
+        $('#incident-create').hide();
+        $('#notes-index').show();
+    });
+
+    var $container = $('.grid');
+    $container.imagesLoaded( function () {
+      $container.masonry();  
+    });
+
+    $('#photo-a').click(function (e) {
+      $container.imagesLoaded( function () {
+          $container.masonry();  
+        }); 
+    })
     $(document).on('click', '#upload_link', function(e) {
         e.preventDefault();
         $("#upload:hidden").trigger('click');
