@@ -87,13 +87,13 @@ class ParentsController extends Controller
      */
     public function show(Request $request, $id)
     {
-        $parent = ChildParent::findOrFail($id);
+        $parent = ChildParent::with('children')->findOrFail($id);
         $this->authorize('show', $parent);
 
         $children = Child::whereDaycareId($request->user()->daycare->id)->get();
-        $user = $request->user();
+        $can_manage_children = $request->user()->can('store', Child::class);
 
-        return view('parents.show')->with(compact('children', 'parent', 'user'));
+        return response()->json(compact('children', 'parent', 'can_manage_children'));
     }
 
     /**
@@ -109,13 +109,8 @@ class ParentsController extends Controller
         $parent = ChildParent::findOrFail($id);
         $this->authorize('update', $parent);
 
-        if (!$request->has('children')) {
-            return redirect()->route('parents.show', $id)
-                ->withErrors(__('A child must be selected.'));
-        }
         $parent->children()->sync($request->input('children', []));
 
-        return redirect()->route('parents.show', $id)
-            ->with(['successes' => new MessageBag([__('Successfully saved parent.')])]);
+        return response()->json(['message' => __('Successfully saved parent.')]);
     }
 }

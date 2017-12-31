@@ -226,7 +226,7 @@
          <div class="aside-inner">
             <nav class="sidebar" data-sidebar-anyclick-close="">
                <!-- START sidebar nav-->
-               <ul class="nav">                  
+               <ul class="nav">
                   <!-- Iterates over all sidebar items-->
                   <li class="nav-heading ">
                      <span data-localize="sidebar.heading.HEADER">Main Navigation</span>
@@ -245,7 +245,7 @@
                   </li>
                   @can('edit', \App\Models\ChildParent::class)
                   <li class="{{ $route_name == 'parents.index' ? "active  bg-warning": "" }}">
-                     <a href="{{ route('parents.index') }}" title="@lang('Parents')">
+                     <a href="/parents" title="@lang('Parents')">
                         <img src="{{ url('assets/vendor/icon-pack-1/svg/couple.png') }}" width="36" height="36" />
                         <span data-localize="sidebar.nav.WIDGETS">@lang('Parents')</span>
                      </a>
@@ -403,7 +403,7 @@
    <script type="text/javascript" >
       $('.modal ').insertAfter($('#app'));
    </script>
-   
+
 </body>
 
 

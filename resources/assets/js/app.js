@@ -30,7 +30,8 @@ const routes = [
     { path: '/home', name: 'home', component: require('./components/Dashboard/Index.vue')},
     { path: '/staff', name: 'staff.index', component: require('./components/StaffMembers/Index.vue')},
     { path: '/staff/:staff_id/edit', name: 'staff.edit', component: require('./components/StaffMembers/Edit.vue'), props: true},
-    { path: '/parents', name: 'parents.index', component: require('./components/Parents/Index.vue')}
+    { path: '/parents', name: 'parents.index', component: require('./components/Parents/Index.vue')},
+    { path: '/parents/:parent_id', name: 'parents.show', component: require('./components/Parents/Show.vue'), props: true}
 ];
 
 Vue.component('CreateEditGroupModal', require('./components/Groups/CreateEditModal.vue'));
@@ -39,6 +40,7 @@ Vue.component('draggable', require('vuedraggable'));
 Vue.component('CreateStaffModal', require('./components/StaffMembers/CreateModal'));
 Vue.component('CreateParentModal', require('./components/Parents/CreateModal'));
 Vue.component('CreateChildModal', require('./components/Children/CreateModal'));
+Vue.component('AssignChildrenModal', require('./components/Parents/AssignChildrenModal'));
 
 Vue.mixin({
     methods: {

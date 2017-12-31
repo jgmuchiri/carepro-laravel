@@ -49,6 +49,11 @@ class ChildrenController extends Controller
             $parents = ChildParent::whereDaycareId($user->daycare_id)->with('user')->get();
             $statuses = Status::all();
         }
+
+        if ($request->ajax()) {
+            return response()->json(compact('children'));
+        }
+
         $blood_types = BloodType::all();
         $ethnicities = Ethnicity::all();
         $genders = Gender::all();
