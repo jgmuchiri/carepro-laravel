@@ -1,125 +1,145 @@
 <template>
-<div class="content-wrapper">
-    <div class="content-heading">
-       <!-- END Language list-->{{ $t('Staff Members') }}
-       <small data-localize="dashboard.WELCOME"></small>
-    </div>
-    <!-- END widgets box-->
-    <div class="row">
-      <div class="col-md-offset-1 col-md-10">
-        <div class="panel panel-default">
-       <div class="panel-heading">{{ $t('Edit Staff Member') }}</div>
-       <hr>
-         <div class="panel-body">
-            <form v-on:submit.prevent="updateStaff">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label for="name" class="control-label">{{ $t('Name') }}*</label>
-                            <input type="text" id="name" class="form-control" v-model="staff.user.name" required autofocus/>
-                        </div>
+    <div class="content-wrapper">
+        <div class="content-heading">
+           <!-- END Language list-->{{ $t('Staff Members') }}
+        </div>
+        <!-- END widgets box-->
+        <div class="row">
+            <div class="col-md-offset-1 col-md-10">
+                <div class="panel panel-default">
+                    <div class="panel-heading">{{ $t('Edit Staff Member') }}</div>
+                    <hr>
+                    <div class="panel-body">
+                        <form v-on:submit.prevent="updateStaff">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="name" class="control-label">{{ $t('Name') }}*</label>
+                                    <input type="text" id="name" class="form-control" v-model="staff.user.name" required autofocus/>
+                                </div>
 
-                        <div class="col-md-6">
-                            <label for="email" class="control-label">{{ $t('E-Mail Address') }}*</label>
-                            <input type="email" id="email" class="form-control" v-model="staff.user.email" required />
-                        </div>
-                    </div>
+                                <div class="col-md-6">
+                                    <label for="email" class="control-label">{{ $t('E-Mail Address') }}*</label>
+                                    <input type="email" id="email" class="form-control" v-model="staff.user.email" required />
+                                </div>
+                            </div>
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label for="photo_uri" class="control-label">{{ $t('Photo') }}*</label>
-                            <input type="file" name="photo_uri" id="photo_uri" class="form-control" @change="onFileChange" />
-                        </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="photo_uri" class="control-label">{{ $t('Photo') }}*</label>
+                                    <input type="file" name="photo_uri" id="photo_uri" class="form-control" @change="onFileChange" />
+                                </div>
 
-                        <div class="col-md-6">
-                            <label for="dob" class="control-label">{{ $t('DOB') }}*</label>
-                            <input type="date" id="dob" class="form-control" required v-model="staff.date_of_birth"/>
-                        </div>
-                    </div>
+                                <div class="col-md-6">
+                                    <label for="dob" class="control-label">{{ $t('DOB') }}*</label>
+                                    <input type="date" id="dob" class="form-control" required v-model="staff.date_of_birth"/>
+                                </div>
+                            </div>
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label for="address_line_1" class="control-label">{{ $t('Address Line 1') }}*</label>
-                            <input type="text" id="address_line_1" class="form-control" v-model="staff.user.address.address_line_1" required placeholder="Street and number, P.O. box, c/o."/>
-                        </div>
-                    </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="address_line_1" class="control-label">{{ $t('Address Line 1') }}*</label>
+                                    <input type="text" id="address_line_1" class="form-control" v-model="staff.user.address.address_line_1" required placeholder="Street and number, P.O. box, c/o."/>
+                                </div>
+                            </div>
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label for="address_line_2" class="control-label">{{ $t('Address Line 2') }}</label>
-                            <input type="text" id="address_line_2" class="form-control" v-model="staff.user.address.address_line_2" placeholder="Apartment, suite, unit, building, floor, etc." />
-                        </div>
-                    </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="address_line_2" class="control-label">{{ $t('Address Line 2') }}</label>
+                                    <input type="text" id="address_line_2" class="form-control" v-model="staff.user.address.address_line_2" placeholder="Apartment, suite, unit, building, floor, etc." />
+                                </div>
+                            </div>
 
-                    <div class="row">
-                        <div class="col-md-5">
-                            <label for="city" class="control-label">{{ $t('City / Town / Village') }}*</label>
-                            <input type="text" id="city" class="form-control" v-model="staff.user.address.city.name" required />
-                        </div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label for="city" class="control-label">{{ $t('City / Town / Village') }}*</label>
+                                    <input type="text" id="city" class="form-control" v-model="staff.user.address.city.name" required />
+                                </div>
 
-                        <div class="col-md-5">
-                            <label for="state" class="control-label">{{ $t('State / Province / Region') }}*</label>
-                            <input type="text" id="state" class="form-control" v-model="staff.user.address.state.name" required />
-                        </div>
+                                <div class="col-md-5">
+                                    <label for="state" class="control-label">{{ $t('State / Province / Region') }}*</label>
+                                    <input type="text" id="state" class="form-control" v-model="staff.user.address.state.name" required />
+                                </div>
 
-                        <div class="col-md-2">
-                            <label for="zip_code" class="control-label">{{ $t('ZIP') }}*</label>
-                            <input type="text" id="zip_code" class="form-control" v-model="staff.user.address.zip_code.zip_code" required />
-                        </div>
-                    </div>
+                                <div class="col-md-2">
+                                    <label for="zip_code" class="control-label">{{ $t('ZIP') }}*</label>
+                                    <input type="text" id="zip_code" class="form-control" v-model="staff.user.address.zip_code.zip_code" required />
+                                </div>
+                            </div>
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label for="country" class="control-label">{{ $t('Country') }}*</label>
-                            <select id="country" class="form-control" v-model="staff.user.address.country.id" required>
-                                <option v-for="country in countries" v-bind:value="country.id">
-                                    {{ country.name_label }}
-                                </option>
-                            </select>
-                        </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="country" class="control-label">{{ $t('Country') }}*</label>
+                                    <select id="country" class="form-control" v-model="staff.user.address.country.id" required>
+                                        <option v-for="country in countries" v-bind:value="country.id">
+                                            {{ country.name_label }}
+                                        </option>
+                                    </select>
+                                </div>
 
-                        <div class="col-md-6">
-                            <label for="phone" class="control-label">{{ $t('Phone Number') }}*</label>
-                            <input type="text" id="phone" class="form-control" v-model="staff.user.address.phone" required />
-                        </div>
-                    </div>
-                    <div class="row" style="padding-top:30px;">
-                        <div class="form-group text-center">
-                            <button class="btn btn-primary"><i class="fa fa-save"></i> {{$t('Save')}}</button>
-                        </div>
-                    </div>
-                </form>
-         </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-heading">{{ $t('Update Password') }}</div>
-        <hr/>
-        <div class="panel-body">
-            <form v-on:submit.prevent="updateStaffPassword">
-                <div class="content">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label for="password" class="control-label">{{ $t('Password') }}*</label>
-                            <input type="password" class="form-control" id="password" v-model="staff.user.password" required />
-                        </div>
-
-                        <div class="col-md-6">
-                            <label for="password-confirm" class="control-label">{{ $t('Confirm Password') }}*</label>
-                            <input type="password" id="password-confirm" class="form-control" v-model="staff.user.confirm_password" required />
-                        </div>
-                    </div>
-                    <div class="row" style="padding-top:30px;">
-                        <div class="form-group text-center">
-                            <button class="btn btn-primary"><i class="fa fa-save"></i> {{$t('Save')}}</button>
-                        </div>
+                                <div class="col-md-6">
+                                    <label for="phone" class="control-label">{{ $t('Phone Number') }}*</label>
+                                    <input type="text" id="phone" class="form-control" v-model="staff.user.address.phone" required />
+                                </div>
+                            </div>
+                            <div class="row" style="padding-top:30px;">
+                                <div class="form-group text-center">
+                                    <button class="btn btn-primary"><i class="fa fa-save"></i> {{$t('Save')}}</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
-            </form>
-        </div>
-    </div>   
-      </div> 
-    </div>
 
- </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">{{ $t('Update Password') }}</div>
+                    <hr/>
+                    <div class="panel-body">
+                        <form v-on:submit.prevent="updateStaffPassword">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="password" class="control-label">{{ $t('Password') }}*</label>
+                                        <input type="password" class="form-control" id="password" v-model="staff.user.password" required />
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="password-confirm" class="control-label">{{ $t('Confirm Password') }}*</label>
+                                        <input type="password" id="password-confirm" class="form-control" v-model="staff.user.confirm_password" required />
+                                    </div>
+                                </div>
+                                <div class="row" style="padding-top:30px;">
+                                    <div class="form-group text-center">
+                                        <button class="btn btn-primary"><i class="fa fa-save"></i> {{$t('Save')}}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">{{ $t('Groups') }}</div>
+                    <hr/>
+                    <div class="panel-body">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>{{ $t('Name') }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="group in staff.groups">
+                                    <router-link :to="{ name: 'groups.show', params: { group_id: group.id }}">
+                                        {{group.name}}
+                                    </router-link>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -178,7 +198,8 @@ import 'vuejs-noty/dist/vuejs-noty.css'
                         }
                     },
                     photo_uri: null,
-                    date_of_birth: ''
+                    date_of_birth: '',
+                    groups: []
                 }
             },
             onFileChange: function(event) {

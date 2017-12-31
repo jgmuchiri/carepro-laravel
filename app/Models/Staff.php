@@ -63,6 +63,21 @@ class Staff extends Model
     }
 
     /**
+     * Relationship to this staff's groups
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function groups()
+    {
+        return $this->belongsToMany(
+            \App\Models\Groups\Group::class,
+            'groups_to_staff',
+            'staff_id',
+            'group_id'
+        );
+    }
+
+    /**
      * Query scope for where belongs to daycare
      *
      * @param Builder $query

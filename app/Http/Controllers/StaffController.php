@@ -24,8 +24,9 @@ class StaffController extends Controller
     public function index(Request $request)
     {
         $staff = Staff::whereDaycareId($request->user()->daycare_id)
-            ->with('user.address')
+            ->with(['user.address'])
             ->get();
+
         $can_create_staff = $request->user()->can('create', Staff::class);
 
         return response()->json(compact('staff', 'can_create_staff'));
@@ -83,6 +84,7 @@ class StaffController extends Controller
             'user.address.state',
             'user.address.zipCode',
             'user.address.country',
+            'groups'
         ])->find($id);
 
         if (empty($staff)) {
