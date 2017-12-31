@@ -28,22 +28,9 @@ class ParentsController extends Controller
         $parents = ChildParent::whereDaycareId($request->user()->daycare_id)
             ->with('user')->get();
 
-        $can_create_parent = $request->user()->can('create', Parent::class);
+        $can_create_parents = $request->user()->can('create', ChildParent::class);
 
-        return response()->json(compact('parents', 'can_create_parent'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $this->authorize('create', ChildParent::class);
-        $parent = new ChildParent();
-        $route = 'parents.store';
-        return view('parents.create-edit')->with(compact('parent','route'));
+        return response()->json(compact('parents', 'can_create_parents'));
     }
 
     /**
@@ -82,15 +69,12 @@ class ParentsController extends Controller
 
         MailService::sendConfirmationEmail($user);
 
-        if ($request->ajax()) {
-            return response()->json(
-                ['parent' => $parent, 'message' => __('Successfully created parent.')],
-                201
-            );
-        }
+        $parent->load('user');
 
-        return redirect()->route('parents.index')
-            ->with(['successes' => new MessageBag([__('Successfully created parent.')])]);
+        return response()->json(
+            ['parent' => $parent, 'message' => __('Successfully created parent.')],
+            201
+        );
     }
 
     /**

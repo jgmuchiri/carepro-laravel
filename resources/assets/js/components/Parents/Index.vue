@@ -3,7 +3,9 @@
         <div class="content-heading">
             <div class="pull-right" v-if="can_create_parents">
                 <div class="btn-group">
-                    <a class="btn btn-primary waves-effect m-b-5"><i class="fa fa-plus m-r-5 btn-fa"></i> <span> {{ $t('New Parent') }}</span></a>
+                    <a class="btn btn-primary waves-effect m-b-5" data-toggle="modal" data-target="#create-parent-modal" data-backdrop="false">
+                        <i class="fa fa-plus m-r-5 btn-fa"></i> <span> {{ $t('New Parent') }}</span>
+                    </a>
                 </div>
             </div>
             <!-- END Language list-->{{ $t('Parents') }}
@@ -78,6 +80,7 @@
                 </table>
             </div>
         </div>
+        <CreateParentModal v-on:parentRegistered="addParent"></CreateParentModal>
     </div>
 </template>
 
