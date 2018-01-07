@@ -118,7 +118,17 @@
                 </div>
 
                 <div class="panel panel-default">
-                    <div class="panel-heading">{{ $t('Groups') }}</div>
+                    <div class="panel-heading">
+                        {{ $t('Groups') }}
+                        <div class="pull-right">
+                            <div class="btn-group">
+                                <button data-toggle="modal" data-target="#addToGroup" data-backdrop="false" class="btn btn-primary waves-effect m-b-5">
+                                    <i class="fa fa-plus m-r-5 btn-fa"></i>
+                                    <span> {{ $t('Add to group') }}</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                     <hr/>
                     <div class="panel-body">
                         <table class="table table-bordered table-hover">
@@ -129,9 +139,11 @@
                             </thead>
                             <tbody>
                                 <tr v-for="group in staff.groups">
-                                    <router-link :to="{ name: 'groups.show', params: { group_id: group.id }}">
-                                        {{group.name}}
-                                    </router-link>
+                                    <td>
+                                        <router-link :to="{ name: 'groups.show', params: { group_id: group.id }}">
+                                            {{group.name}}
+                                        </router-link>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -139,6 +151,7 @@
                 </div>
             </div>
         </div>
+        <AddToGroupModal v-if="staff.id" v-on:staffAddedToGroup="addGroups" :staff_id="staff.id" :initial_groups="staff.groups"></AddToGroupModal>
     </div>
 </template>
 
@@ -261,7 +274,11 @@ import 'vuejs-noty/dist/vuejs-noty.css'
                             alert("Something went wrong. Please reload the page and try again.");
                         }
                     });
+            },
+            addGroups: function(groups) {
+                this.staff.groups = groups;
             }
+
         },
         props: ['staff_id']
     }

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddStaffToGroupRequest;
 use App\Http\Requests\SaveStaffRequest;
 use App\Http\Requests\SaveStaffPasswordRequest;
 use App\Models\Addresses\Address;
+use App\Models\Groups\Group;
 use App\Models\Staff;
 use App\Models\Permissions\Role;
 use App\Services\MailService;
@@ -166,6 +168,37 @@ class StaffController extends Controller
         return response()->json(
             ['staff_member' => $staff, 'message' => __('Successfully updated staff member.')],
             200
+        );
+    }
+
+    /**
+     *
+     * Adds a staff member to a group
+     * @param AddStaffToGroupRequest $request
+     *
+     * @return JsonResponse
+     */
+    public function addToGroup(AddStaffToGroupRequest $request)
+    {
+        $staff = Staff::find($request->input('staff_id'));
+
+        if (empty($staff)) {
+            return abort(404);
+        }
+
+        $this->authorize('update', $staff);
+
+        $staff->groups()->sync($request->input('group_ids'));
+
+        $groups = Group::find($request->input('group_ids'));
+
+        return response()->json(
+            [
+                'staff_id' => $staff,
+                'groups' => $groups,
+                'message' => __('Successfully added staff member to group.')
+
+            ]
         );
     }
 }

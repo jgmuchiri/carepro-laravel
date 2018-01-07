@@ -1806,3 +1806,85 @@ function(e, t, o) {
 function(e, t, o, a) {
     o(function() {})
 }(window, document, window.jQuery);
+
+var dashboard_chart_data = [
+    {
+        "label": "Staff",
+        "color": "#768294",
+        "data": []
+    },
+    {
+        "label": "Parent",
+        "color": "#1f92fe",
+        "data": []
+    },
+    {
+        "label": "Children",
+        "color": "#12FFF4",
+        "data": []
+    }
+];
+
+var dashboard_plot;
+
+(function (window, document, $, undefined) {
+
+    $(function () {
+        var options = {
+            series: {
+                lines: {
+                    show: false
+                },
+                points: {
+                    show: true,
+                    radius: 4
+                },
+                splines: {
+                    show: true,
+                    tension: 0.4,
+                    lineWidth: 1,
+                    fill: 0.5
+                }
+            },
+            grid: {
+                borderColor: '#eee',
+                borderWidth: 1,
+                hoverable: true,
+                backgroundColor: '#fcfcfc'
+            },
+            tooltip: true,
+            tooltipOpts: {
+                content: function (label, x, y) {
+                    return x + ' : ' + y;
+                }
+            },
+            xaxis: {
+                tickColor: '#fcfcfc',
+                mode: 'categories'
+            },
+            yaxis: {
+                min: 0,
+                max: 50, // optional: use it for a clear represetation
+                tickColor: '#eee',
+                //position: 'right' or 'left',
+                tickFormatter: function (v) {
+                    return v/* + ' visitors'*/;
+                }
+            },
+            shadowSize: 0
+        };
+
+        var chart = $('.chart-spline');
+        if (chart.length)
+            dashboard_plot = $.plot(chart, dashboard_chart_data, options);
+    });
+
+})(window, document, window.jQuery);
+
+// Redraws the dashboard chart
+function redrawDashboardChart() {
+    dashboard_plot.getAxes().xaxis.categories = {};
+    dashboard_plot.setData(dashboard_chart_data);
+    dashboard_plot.setupGrid();
+    dashboard_plot.draw();
+}
