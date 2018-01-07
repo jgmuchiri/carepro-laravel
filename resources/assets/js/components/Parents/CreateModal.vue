@@ -182,6 +182,7 @@
                 this.$http.post('/api/parents', formData)
                     .then(response => {
                         this.$emit('parentRegistered', response.data.parent);
+                        window.bus.$emit('parentRegistered', response.data.parent);
                         $('#create-parent-modal').modal('hide');
                         this.parent = this.generateNewParentModel();
                         this.$noty.success(response.data.message);

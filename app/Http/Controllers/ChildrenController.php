@@ -82,18 +82,12 @@ class ChildrenController extends Controller
 
         $user = $request->user();
         $parents = null;
-        $children = [];
+        $is_not_parent = false;
 
-        if ($user->role->name == Role::PARENT_ROLE) {
-            $children = Child::whereParentId($user->id)->get();
-        } else {
-            if ($user->role->name != Role::STAFF_ROLE) {
-                $children = Child::whereDaycareId($user->daycare_id)->with(['status'])->get();
-            } else {
-                $children = Child::whereAssignedStaffId($user->daycare_id)->with(['status'])->get();
-            }
+        if ($user->role->name != Role::PARENT_ROLE) {
             $parents = ChildParent::whereDaycareId($user->daycare_id)->with('user')->get();
             $statuses = Status::all();
+            $is_not_parent = true;
         }
         $blood_types = BloodType::all();
         $ethnicities = Ethnicity::all();
@@ -101,13 +95,13 @@ class ChildrenController extends Controller
         $religions = Religion::all();
 
         return response()->json(compact([
-            'children',
             'blood_types',
             'ethnicities',
             'genders',
             'religions',
             'statuses',
-            'parents'
+            'parents',
+            'is_not_parent'
         ]));
     }
 

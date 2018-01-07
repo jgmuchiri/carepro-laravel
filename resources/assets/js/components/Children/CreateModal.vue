@@ -52,7 +52,7 @@
                                 <label>{{ $t('Access Pin') }}*</label>
                                 <input type="number" name="pin" min="4" class="form-control" equired v-model="child.pin" />
                             </div>
-                            <template v-if="parents.length">
+                            <template v-if="is_not_parent">
                                 <div class="form-group col-sm-6">
                                     <label>{{ $t('Status') }}*</label>
                                     <select id="status" class="form-control" v-model="child.status" required>
@@ -81,7 +81,7 @@
                                 </select>
                             </div>
                         </div>
-                        <template v-if="parents.length">
+                        <template v-if="is_not_parent && parents.length">
                             <div class="row">
                                 <div class="form-group col-sm-6">
                                     <label>{{ $t('Parents') }}*</label>
@@ -114,6 +114,9 @@
 <script>
     export default {
         created() {
+            // Needed to fix bootstrap multiple modal bug
+            $.fn.modal.Constructor.prototype.enforceFocus = function () {};
+
             this.$http.get('/api/children/create')
                 .then(response => {
                     this.genders = response.data.genders;
@@ -122,10 +125,19 @@
                     this.religions = response.data.religions;
                     this.ethnicities = response.data.ethnicities;
                     this.parents = response.data.parents
+                    this.is_not_parent = response.data.is_not_parent;
                 })
                 .catch(error => {
                     alert("Something went wrong. Please try reloading the page");
                 });
+
+            var self = this;
+            window.bus.$on('parentRegistered', function(parent) {
+                self.parents.push(parent);
+                self.child.parents.push(parent.id);
+                $('#create-parent-modal').modal('hide');
+                $('#create-child-modal').modal('show');
+            });
         },
         data() {
              return {
@@ -135,7 +147,8 @@
                  religions: [],
                  ethnicities: [],
                  parents: [],
-                 child: this.generateNewChildModel()
+                 child: this.generateNewChildModel(),
+                 is_not_parent: false
              };
         },
         methods: {
@@ -162,6 +175,12 @@
                 this.child.photo_uri = files[0];
             },
             storeChild: function() {
+                if (!this.parents.length && this.is_not_parent) {
+                    $('#create-child-modal').modal('hide');
+                    $('#create-parent-modal').modal('show');
+                    return;
+                }
+
                 var formData = new FormData();
                 formData.append('name', this.child.name);
                 formData.append('nickname', this.child.nickname);

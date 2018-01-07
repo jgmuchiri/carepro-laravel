@@ -15,6 +15,8 @@ import Locales from './vue-i18n-locales.generated.js';
 import Vue from 'vue';
 import VueNoty from 'vuejs-noty';
 
+window.bus = new Vue();
+
 Vue.use(VueNoty);
 Vue.use(VueRouter);
 Vue.use(VueI18n);
