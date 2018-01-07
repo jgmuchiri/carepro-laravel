@@ -4,6 +4,35 @@
 <div class="wrapper">
     <div class="pricing-4 section ">
         <div class="container">
+            <div class="row bs-wizard hidden-xs" style="border-bottom:0;">
+
+                <div class="col-4 bs-wizard-step complete">
+                    <div class="text-center bs-wizard-stepnum">
+                        <img src="{{ url('assets/vendor/icon-pack-1/svg/admin.png') }}" width="36" height="36">
+                    </div>
+                    <div class="progress"><div class="progress-bar"></div></div>
+                    <a href="#" class="bs-wizard-dot"></a>
+                    <div class="bs-wizard-info text-center">Plan</div>
+                </div>
+
+                <div class="col-4 bs-wizard-step complete"><!-- complete -->
+                    <div class="text-center bs-wizard-stepnum">
+                        <img src="{{ url('assets/vendor/icon-pack-1/svg/child.svg') }}" width="36" height="36">
+                    </div>
+                    <div class="progress"><div class="progress-bar"></div></div>
+                    <a href="#" class="bs-wizard-dot"></a>
+                    <div class="bs-wizard-info text-center">User Registration</div>
+                </div>
+
+                <div class="col-4 bs-wizard-step active">
+                    <div class="text-center bs-wizard-stepnum">
+                        <img src="{{ url('assets/vendor/icon-pack-1/svg/group.png') }}" width="36" height="36" />
+                    </div>
+                    <div class="progress"><div class="progress-bar"></div></div>
+                    <a href="#" class="bs-wizard-dot"></a>
+                    <div class="bs-wizard-info text-center">Daycare Registration</div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-6 ml-auto mr-auto text-center">
                     <h2 class="title">@lang('Register your daycare')</h2>
@@ -24,7 +53,7 @@
                                             <strong>{{ $errors->first('name') }}</strong>
                                         </span>
                                     @endif
-                                </div> 
+                                </div>
                             </div>
                             <div class="col-sm-6">
                                <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
@@ -35,12 +64,12 @@
                                             <strong>{{ $errors->first('employee_tax_identifier') }}</strong>
                                         </span>
                                     @endif
-                                </div> 
+                                </div>
                             </div>
                         </div>
 
                         @include('partials.address-form')
-                        
+
                         <div class="form-group text-center">
                             <div class="12">
                                 <input class="btn btn-primary" type="submit" value="Register">

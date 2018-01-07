@@ -4,10 +4,33 @@
 <div class="wrapper">
     <div class="pricing-4 section section-gray">
         <div class="container">
-            <div class="row">
-                <div class="col-md-6 ml-auto mr-auto text-center">
-                    <h2 class="title">Pick the best plan for you</h2>
-                    <h5 class="description">You have Free Unlimited Updates and Premium Support on each package.</h5>
+            <div class="row bs-wizard hidden-xs" style="border-bottom:0;">
+
+                <div class="col-4 bs-wizard-step active">
+                    <div class="text-center bs-wizard-stepnum">
+                        <img src="{{ url('assets/vendor/icon-pack-1/svg/admin.png') }}" width="36" height="36">
+                    </div>
+                    <div class="progress"><div class="progress-bar"></div></div>
+                    <a href="#" class="bs-wizard-dot"></a>
+                    <div class="bs-wizard-info text-center">Plan</div>
+                </div>
+
+                <div class="col-4 bs-wizard-step disabled"><!-- complete -->
+                    <div class="text-center bs-wizard-stepnum">
+                        <img src="{{ url('assets/vendor/icon-pack-1/svg/child.svg') }}" width="36" height="36">
+                    </div>
+                    <div class="progress"><div class="progress-bar"></div></div>
+                    <a href="#" class="bs-wizard-dot"></a>
+                    <div class="bs-wizard-info text-center">User Registration</div>
+                </div>
+
+                <div class="col-4 bs-wizard-step disabled">
+                    <div class="text-center bs-wizard-stepnum">
+                        <img src="{{ url('assets/vendor/icon-pack-1/svg/group.png') }}" width="36" height="36" />
+                    </div>
+                    <div class="progress"><div class="progress-bar"></div></div>
+                    <a href="#" class="bs-wizard-dot"></a>
+                    <div class="bs-wizard-info text-center">Daycare Registration</div>
                 </div>
             </div>
             <div class="space-top"></div>
@@ -22,13 +45,13 @@
                                 <li>
                                     <b>
                                         {{ $plans->where('name', 'Standard')->first()->number_of_children_allowed }}
-                                    </b> 
+                                    </b>
                                     @lang('Children')
                                 </li>
                                 <li>
                                     <b>
                                         {{ $plans->where('name', 'Standard')->first()->number_of_staff_allowed }}
-                                    </b> 
+                                    </b>
                                     @lang('Staff Members')
                                 </li>
                                 <li>
@@ -53,13 +76,13 @@
                                 <li>
                                     <b>
                                         {{ $plans->where('name', 'Professional')->first()->number_of_children_allowed }}
-                                    </b> 
+                                    </b>
                                     @lang('Children')
                                 </li>
                                 <li>
                                     <b>
                                         {{ $plans->where('name', 'Professional')->first()->number_of_staff_allowed }}
-                                    </b> 
+                                    </b>
                                     @lang('Staff Members')
                                 </li>
                                 <li>
@@ -84,13 +107,13 @@
                                 <li>
                                     <b>
                                         {{ $plans->where('name', 'Premium')->first()->number_of_children_allowed }}
-                                    </b> 
+                                    </b>
                                     @lang('Children')
                                 </li>
                                 <li>
                                     <b>
                                         {{ $plans->where('name', 'Premium')->first()->number_of_staff_allowed }}
-                                    </b> 
+                                    </b>
                                     @lang('Staff Members')
                                 </li>
                                 <li>

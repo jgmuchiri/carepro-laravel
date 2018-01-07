@@ -56,7 +56,7 @@
                                     <label class="needsclick">
                                         <input class="needsclick" type="checkbox" id="is_primary" v-model="parent.is_primary">
                                         <span class="fa fa-check"></span>{{ $t('Is Primary Parent?') }}</label>
-                                </div> 
+                                </div>
                             </div>
                         </div>
 
@@ -181,6 +181,8 @@
 
                 this.$http.post('/api/parents', formData)
                     .then(response => {
+                        this.$emit('parentRegistered', response.data.parent);
+                        window.bus.$emit('parentRegistered', response.data.parent);
                         $('#create-parent-modal').modal('hide');
                         this.parent = this.generateNewParentModel();
                         this.$noty.success(response.data.message);

@@ -19,9 +19,12 @@ Route::group(['middleware' => ['auth:api', 'subscribed']], function() {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::resource('staff', 'StaffController', ['only' => ['store']]);
     Route::get('addresses/countries', 'AddressesController@countriesIndex')->name('addresses.countries.index');
-    Route::resource('parents', 'ParentsController', ['only' => ['store']]);
-    Route::resource('children', 'ChildrenController', ['only' => ['create', 'store']]);
+    Route::post('parents/{id}/assign-children', 'ParentsController@assignChildren')
+        ->name('parents.assign-children');
+    Route::resource('parents', 'ParentsController', ['only' => ['index', 'store', 'show']]);
+    Route::resource('children', 'ChildrenController', ['only' => ['index', 'create', 'store']]);
 
+    Route::put('staff/{staff_id}/add-to-group', 'StaffController@addToGroup')->name('staff.add-to-group');
     Route::put('staff/{staff_id}/update-password', 'StaffController@updatePassword')->name('staff.update-password');
     Route::resource('staff', 'StaffController', ['only' => ['index', 'store', 'update', 'edit']]);
 });

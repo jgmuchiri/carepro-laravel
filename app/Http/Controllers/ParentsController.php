@@ -24,22 +24,13 @@ class ParentsController extends Controller
     public function index(Request $request)
     {
         $this->authorize('create', ChildParent::class);
-        $parents = ChildParent::whereDaycareId($request->user()->daycare_id)->get();
 
-        return view('parents.index')->with(compact('parents'));
-    }
+        $parents = ChildParent::whereDaycareId($request->user()->daycare_id)
+            ->with('user')->get();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $this->authorize('create', ChildParent::class);
-        $parent = new ChildParent();
-        $route = 'parents.store';
-        return view('parents.create-edit')->with(compact('parent','route'));
+        $can_create_parents = $request->user()->can('create', ChildParent::class);
+
+        return response()->json(compact('parents', 'can_create_parents'));
     }
 
     /**
@@ -78,15 +69,12 @@ class ParentsController extends Controller
 
         MailService::sendConfirmationEmail($user);
 
-        if ($request->ajax()) {
-            return response()->json(
-                ['parent' => $parent, 'message' => __('Successfully created parent.')],
-                201
-            );
-        }
+        $parent->load('user');
 
-        return redirect()->route('parents.index')
-            ->with(['successes' => new MessageBag([__('Successfully created parent.')])]);
+        return response()->json(
+            ['parent' => $parent, 'message' => __('Successfully created parent.')],
+            201
+        );
     }
 
     /**
@@ -99,13 +87,13 @@ class ParentsController extends Controller
      */
     public function show(Request $request, $id)
     {
-        $parent = ChildParent::findOrFail($id);
+        $parent = ChildParent::with('children')->findOrFail($id);
         $this->authorize('show', $parent);
 
         $children = Child::whereDaycareId($request->user()->daycare->id)->get();
-        $user = $request->user();
+        $can_manage_children = $request->user()->can('store', Child::class);
 
-        return view('parents.show')->with(compact('children', 'parent', 'user'));
+        return response()->json(compact('children', 'parent', 'can_manage_children'));
     }
 
     /**
@@ -121,13 +109,8 @@ class ParentsController extends Controller
         $parent = ChildParent::findOrFail($id);
         $this->authorize('update', $parent);
 
-        if (!$request->has('children')) {
-            return redirect()->route('parents.show', $id)
-                ->withErrors(__('A child must be selected.'));
-        }
         $parent->children()->sync($request->input('children', []));
 
-        return redirect()->route('parents.show', $id)
-            ->with(['successes' => new MessageBag([__('Successfully saved parent.')])]);
+        return response()->json(['message' => __('Successfully saved parent.')]);
     }
 }
