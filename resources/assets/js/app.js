@@ -41,6 +41,7 @@ Vue.component('CreateStaffModal', require('./components/StaffMembers/CreateModal
 Vue.component('CreateParentModal', require('./components/Parents/CreateModal'));
 Vue.component('CreateChildModal', require('./components/Children/CreateModal'));
 Vue.component('AssignChildrenModal', require('./components/Parents/AssignChildrenModal'));
+Vue.component('AddToGroupModal', require('./components/Groups/AddToGroupModal.vue'));
 
 Vue.mixin({
     methods: {

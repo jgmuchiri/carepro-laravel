@@ -372,8 +372,6 @@
    <script src="{{ url('assets/vendor/animo.js/animo.js') }}"></script>
    <!-- SLIMSCROLL-->
    <script src="{{ url('assets/vendor/slimScroll/jquery.slimscroll.min.js') }}"></script>
-   <!-- LOCALIZE-->
-   <script src="{{ url('assets/vendor/jquery-localize-i18n/dist/jquery.localize.js') }}"></script>
 
    <!-- =============== PAGE VENDOR SCRIPTS ===============-->
    <!-- SPARKLINE-->
@@ -390,8 +388,6 @@
    <script src="{{ url('assets/vendor/jquery.easy-pie-chart/dist/jquery.easypiechart.js') }}"></script>
    <!-- MOMENT JS-->
    <script src="{{ url('assets/vendor/moment/min/moment-with-locales.min.js') }}"></script>
-   <!-- DEMO-->
-   <script src="{{ url('assets/js/demo/demo-flot.js') }}"></script>
    <!-- =============== APP SCRIPTS ===============-->
    <script src="{{ url('assets/js/app.js') }}"></script>
    <script src="{{mix('/js/app.js')}}"></script>

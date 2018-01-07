@@ -1,11 +1,7 @@
 <template>
 
  <div class="content-wrapper">
-    <div class="content-heading">
-
-       <!-- END Language list-->Dashboard
-       <small data-localize="dashboard.WELCOME"></small>
-    </div>
+    <div class="content-heading"></div>
     <!-- END widgets box-->
     <div class="row">
        <!-- START dashboard main content-->
@@ -16,12 +12,15 @@
                 <!-- START widget-->
                 <div class="panel panel-default panel-demo" id="panelChart9">
                    <div class="panel-heading">
-                      <a class="pull-right" href="#" data-tool="panel-refresh" data-toggle="tooltip" title="Refresh Panel">
+                      <a class="pull-right" href="#" v-on:click.stop.prevent="refresh" data-tool="panel-refresh" data-toggle="tooltip" title="Refresh Panel">
                          <em class="fa fa-refresh"></em>
                       </a>
                       <a class="pull-right" href="#" data-tool="panel-collapse" data-toggle="tooltip" title="Collapse Panel">
                          <em class="fa fa-minus"></em>
                       </a>
+                      <button :class="'btn pull-right ' + (filter == null ? 'btn-info' : 'btn-default')" style="margin-left: 10px;" v-on:click="changeFilter()">All</button>
+                      <button :class="'btn pull-right ' + (filter == 'yearly' ? 'btn-info' : 'btn-default')" style="margin-left: 10px;" v-on:click="changeFilter('yearly')">Yearly</button>
+                      <button :class="'btn pull-right ' + (filter == 'monthly' ? 'btn-info' : 'btn-default')" v-on:click="changeFilter('monthly')">Monthly</button>
                       <div class="panel-title">Monthly Reports</div>
                    </div>
                    <div class="panel-body">
@@ -115,7 +114,7 @@
                 </div>
             </div>
         </div>
-        
+
     </div> -->
 </template>
 
@@ -123,17 +122,7 @@
     export default {
         created()
         {
-            this.$http.get('/api/home')
-                .then(response => {
-                    this.can_register_staff = response.data.can_register_staff;
-                    this.can_register_parent = response.data.can_register_parent;
-                    this.can_register_child = response.data.can_register_child;
-                    this.has_children_to_activate = response.data.has_children_to_activate;
-                    this.can_update_child_status = response.data.can_update_child_status
-                })
-                .catch(error => {
-                    alert("Something went wrong. Please try reloading the page");
-                });
+            this.refresh();
         },
         data() {
             return {
@@ -141,8 +130,39 @@
                 can_register_parent: false,
                 can_register_child: false,
                 has_children_to_activate: false,
-                can_update_child_status: false
+                can_update_child_status: false,
+                filter: null
             }
         },
+        methods: {
+            refresh: function() {
+                var url = '/api/home';
+                if (this.filter != null) {
+                    url += '?filter=' + this.filter;
+                }
+
+                this.$http.get(url)
+                    .then(response => {
+                        this.can_register_staff = response.data.can_register_staff;
+                        this.can_register_parent = response.data.can_register_parent;
+                        this.can_register_child = response.data.can_register_child;
+                        this.has_children_to_activate = response.data.has_children_to_activate;
+                        this.can_update_child_status = response.data.can_update_child_status;
+
+                        dashboard_chart_data[0].data = response.data.registration_stats.staff_stats.map(x => [x.label, x.count]);
+                        dashboard_chart_data[1].data = response.data.registration_stats.parent_stats.map(x => [x.label, x.count]);
+                        dashboard_chart_data[2].data = response.data.registration_stats.children_stats.map(x => [x.label, x.count]);
+                        redrawDashboardChart();
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        alert("Something went wrong. Please try reloading the page");
+                    });
+            },
+            changeFilter: function(filter) {
+                this.filter = filter;
+                this.refresh();
+            }
+        }
     }
 </script>

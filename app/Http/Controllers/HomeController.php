@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Child;
 use App\Models\ChildParent;
 use App\Models\Staff;
+use function array_key_exists;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use stdClass;
 
 class HomeController extends Controller
 {
@@ -38,12 +41,19 @@ class HomeController extends Controller
         $can_update_child_status = $user->can('updateStatus', $children_to_activate);
         $has_children_to_activate = $children_to_activate != null ? true : false;
 
+        $parent_stats = ChildParent::getRegistrationStats($request->input('filter'));
+        $children_stats = Child::getRegistrationStats($request->input('filter'));
+        $staff_stats = Staff::getRegistrationStats($request->input('filter'));
+
+        $registration_stats = compact('parent_stats', 'children_stats', 'staff_stats');
+
         return response()->json(compact(
             'has_children_to_activate',
             'can_register_child',
             'can_register_parent',
             'can_register_staff',
-            'can_update_child_status'
+            'can_update_child_status',
+            'registration_stats'
         ));
     }
 }
