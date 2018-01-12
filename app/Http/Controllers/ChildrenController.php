@@ -35,7 +35,6 @@ class ChildrenController extends Controller
         $this->authorize('showGeneric', Child::class);
 
         $user = $request->user();
-        $parents = null;
         $children = [];
 
         if ($user->role->name == Role::PARENT_ROLE) {
@@ -46,28 +45,9 @@ class ChildrenController extends Controller
             } else {
                 $children = Child::whereAssignedStaffId($user->daycare_id)->with(['status'])->get();
             }
-            $parents = ChildParent::whereDaycareId($user->daycare_id)->with('user')->get();
-            $statuses = Status::all();
         }
 
-        if ($request->ajax()) {
-            return response()->json(compact('children'));
-        }
-
-        $blood_types = BloodType::all();
-        $ethnicities = Ethnicity::all();
-        $genders = Gender::all();
-        $religions = Religion::all();
-
-        return view('children.index')->with(compact([
-            'children',
-            'blood_types',
-            'ethnicities',
-            'genders',
-            'religions',
-            'statuses',
-            'parents'
-        ]));
+        return response()->json(compact('children'));
     }
 
     /**

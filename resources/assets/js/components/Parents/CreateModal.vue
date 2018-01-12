@@ -35,8 +35,8 @@
 
                         <div class="row">
                             <div class="form-group col-md-6">
-                                <label for="photo_uri" class="control-label">{{ $t('Photo') }}*</label>
-                                <input class="form-control filestyle" type="file" data-classbutton="btn btn-default" data-classinput="form-control inline" name="photo_uri" id="photo_uri" @change="onFileChange" />
+                                <label for="parent_photo_uri" class="control-label">{{ $t('Photo') }}*</label>
+                                <input class="form-control filestyle" type="file" data-classbutton="btn btn-default" data-classinput="form-control inline" name="photo_uri" id="parent_photo_uri" @change="onFileChange" />
                             </div>
 
                             <div class="form-group col-md-6">

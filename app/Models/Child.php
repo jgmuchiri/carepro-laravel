@@ -72,6 +72,8 @@ class Child extends Model
         'date_of_birth'
     ];
 
+    protected $appends = ['full_photo_uri'];
+
     /**
      * Relationship to this child's parents
      *
@@ -280,5 +282,19 @@ class Child extends Model
                 '=',
                 'groups_to_children.group_id'
             );
+    }
+
+    /**
+     * Get full photo uri
+     *
+     * @return string
+     */
+    public function getFullPhotoUriAttribute()
+    {
+        if ($this->photo =="") {
+            return  asset('/img/portrait.png');
+        }
+
+        return asset('storage/' . $this->photo);
     }
 }
