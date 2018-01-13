@@ -72,7 +72,7 @@ class Child extends Model
         'date_of_birth'
     ];
 
-    protected $appends = ['full_photo_uri'];
+    protected $appends = ['full_photo_uri', 'full_photo_uri_original'];
 
     /**
      * Relationship to this child's parents
@@ -296,5 +296,22 @@ class Child extends Model
         }
 
         return asset('storage/' . $this->photo);
+    }
+
+    /**
+     * Get full photo uri for the original photo
+     *
+     * @return string
+     */
+    public function getFullPhotoUriOriginalAttribute()
+    {
+        if ($this->photo =="") {
+            return  asset('/img/portrait.png');
+        }
+
+        $split_uri = explode('/', $this->photo);
+        $file_name = array_pop($split_uri);
+        $full_uri = implode('/', $split_uri) . '/original/' . $file_name;
+        return asset('storage/' . $full_uri);
     }
 }

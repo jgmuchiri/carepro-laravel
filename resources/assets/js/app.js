@@ -9,6 +9,7 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 window.moment = require('moment');
+import Lightbox from 'vue-pure-lightbox'
 import VueRouter from 'vue-router';
 import VueI18n from 'vue-i18n';
 import Locales from './vue-i18n-locales.generated.js';
@@ -20,6 +21,7 @@ window.bus = new Vue();
 Vue.use(VueNoty);
 Vue.use(VueRouter);
 Vue.use(VueI18n);
+Vue.use(Lightbox)
 
 Vue.prototype.$http = axios;
 

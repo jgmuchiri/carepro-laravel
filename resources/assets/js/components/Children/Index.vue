@@ -25,7 +25,10 @@
                     <div class="panel-body">
                         <div class="row row-table">
                             <div class="col-xs-6 text-center">
-                                <img :src="child.full_photo_uri" :alt="$t('User Image')">
+                                <lightbox
+                                        :thumbnail="child.full_photo_uri"
+                                        :images="[child.full_photo_uri_original]"
+                                ></lightbox>
                             </div>
                             <div class="col-xs-6">
                                 <h3 class="mt0">{{ child.dob }}</h3>
