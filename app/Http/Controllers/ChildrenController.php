@@ -111,6 +111,14 @@ class ChildrenController extends Controller
         return response()->json(compact('child'));
     }
 
+    /**
+     * Returns data to edit a child
+     *
+     * @param Request $request
+     * @param int $id
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function edit(Request $request, $id)
     {
         $child = Child::findorFail($id);
