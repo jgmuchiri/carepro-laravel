@@ -65,7 +65,7 @@
                   <div class="tab-content">
                     <div class="tab-pane active" id="home">
                         <keep-alive>
-                            <component v-bind:is="currentView" :child="child"></component>
+                            <component v-if="child.id" v-bind:is="currentView" :child="child"></component>
                         </keep-alive>
                         <!-- @include('children.includes.home')
                      </div>

@@ -39,10 +39,10 @@
                             <input class="form-control input-lg" name="ssn" type="text" v-model="child.ssn">
                         </div>
                         <div class="form-group col-md-4">
-                            <select required="" class="form-control input-lg" name="status">
-                                <option value="1">Active</option>
-                                <option value="2">Inactive</option>
-                                <option value="3">Pending Approval</option>
+                            <select id="status" class="form-control input-lg" v-model="child.status_id" required>
+                                <option v-for="status in statuses" v-bind:value="status.id">
+                                    {{ status.name_label }}
+                                </option>
                             </select>
                         </div>
                     </div>
@@ -54,9 +54,10 @@
                                     <input id="name" class="form-control input-lg" name="name" type="text" v-model="child.name">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <select required="" class="form-control input-lg" name="gender">
-                                        <option value="1">Male</option>
-                                        <option value="2">Female</option>
+                                    <select required class="form-control input-lg" v-model="child.gender_id">
+                                        <option v-for="gender in genders" v-bind:value="gender.id">
+                                            {{ gender.name_label }}
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -70,14 +71,10 @@
                                         v-model="child.name">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <select required="" class="form-control input-lg" name="blood_type">
-                                        <option value="1">A-</option>
-                                        <option value="2">A+</option>
-                                        <option value="3">B-</option>
-                                        <option value="4">B+</option>
-                                        <option value="5">AB</option>
-                                        <option value="6">O-</option>
-                                        <option value="7">O+</option>
+                                    <select required class="form-control input-lg" v-model="child.blood_type_id">
+                                        <option v-for="blood_type in blood_types" v-bind:value="blood_type.id">
+                                            {{ blood_type.blood_type_label }}
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -102,7 +99,10 @@
                              <input required="" class="form-control input-lg" name="ssn" type="text" v-model="child.pin">
                         </div>
                         <div class="form-group col-sm-4 text-center">
-                             <button class="btn btn-primary btn-lg"><i class="fa fa-save btn-fa"></i> {{ $t('Save changes') }}</button>
+                             <button class="btn btn-primary btn-lg">
+                                 <i class="fa fa-save btn-fa"></i>
+                                 {{ $t('Save changes') }}
+                             </button>
                         </div>
                     </div>
                 </div>
@@ -167,7 +167,6 @@
             <div class="content-heading">
                 <div class="pull-right">
                     <div class="btn-group">
-                        <!-- @if ($user->role->permissions->contains('name', App\Models\Permissions\Permission::MANAGE_CHILDREN)) -->
                         <button v-if="can_manage_children"
                                 class="btn btn-primary waves-effect m-b-5"
                                 data-toggle="modal"
@@ -275,17 +274,23 @@
     export default {
         created()
         {
-            /*this.$http.get('/api/children/' + this.child_id)
+            this.$http.get('/api/children/' + this.child.id + '/edit')
                 .then(response => {
-                    this.child = response.data.child;
+                    this.statuses = response.data.statuses;
+                    this.genders = response.data.genders;
+                    this.blood_types = response.data.blood_types;
+                    this.can_manage_children = response.data.can_manage_children;
                 })
                 .catch(error => {
                     alert("Something went wrong. Please try reloading the page");
-                });*/
+                });
         },
         data() {
             return {
-                can_manage_children: false
+                blood_types: [],
+                can_manage_children: false,
+                genders: [],
+                statuses: []
             }
         },
         methods: {

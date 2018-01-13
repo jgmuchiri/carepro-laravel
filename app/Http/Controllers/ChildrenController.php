@@ -11,6 +11,7 @@ use App\Models\Child;
 use App\Models\Gender;
 use App\Models\Ethnicity;
 use App\Models\Groups\Group;
+use App\Models\Permissions\Permission;
 use App\Models\Permissions\Role;
 use App\Models\Religion;
 use App\Models\Status;
@@ -108,6 +109,27 @@ class ChildrenController extends Controller
         $groups = Group::whereDaycareId($request->user()->daycare->id)->get();
 
         return response()->json(compact('child'));
+    }
+
+    public function edit(Request $request, $id)
+    {
+        $child = Child::findorFail($id);
+        $this->authorize('edit', $child);
+
+        $blood_types = BloodType::all();
+        $genders = Gender::all();
+        $statuses = Status::all();
+        $can_manage_children = $request->user()->role->permissions->contains(
+            'name',
+            Permission::MANAGE_CHILDREN
+        );
+
+        return response()->json(compact([
+            'blood_types',
+            'can_manage_children',
+            'genders',
+            'statuses'
+        ]));
     }
 
     /**
