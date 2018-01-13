@@ -25,86 +25,88 @@
 
             <div class="panel-wrapper collapse">
                 <div class="panel-body">
-                    <div class="row">
-                        <div class="form-group col-md-4">
-                            <input id="name"
-                                class="form-control input-lg"
-                                :placeholder="$t('Apartment, suite, unit, building, floor, etc.')"
-                                name="name"
-                                type="text"
-                                v-model="child.name"
-                            >
+                    <form v-on:submit.prevent="save">
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <input id="name"
+                                    class="form-control input-lg"
+                                    :placeholder="$t('Apartment, suite, unit, building, floor, etc.')"
+                                    name="name"
+                                    type="text"
+                                    v-model="child.name"
+                                >
+                            </div>
+                            <div class="form-group col-md-4">
+                                <input class="form-control input-lg" name="ssn" type="text" v-model="child.ssn">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <select id="status" class="form-control input-lg" v-model="child.status_id" required>
+                                    <option v-for="status in statuses" v-bind:value="status.id">
+                                        {{ status.name_label }}
+                                    </option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="form-group col-md-4">
-                            <input class="form-control input-lg" name="ssn" type="text" v-model="child.ssn">
-                        </div>
-                        <div class="form-group col-md-4">
-                            <select id="status" class="form-control input-lg" v-model="child.status_id" required>
-                                <option v-for="status in statuses" v-bind:value="status.id">
-                                    {{ status.name_label }}
-                                </option>
-                            </select>
-                        </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="row">
-                                <div class="form-group col-md-6">
-                                    <input id="name" class="form-control input-lg" name="name" type="text" v-model="child.name">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <select required class="form-control input-lg" v-model="child.gender_id">
-                                        <option v-for="gender in genders" v-bind:value="gender.id">
-                                            {{ gender.name_label }}
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-md-6">
-                                    <input id="name"
-                                        class="form-control input-lg"
-                                        :placeholder="$t('Apartment, suite, unit, building, floor, etc.')"
-                                        name="name"
-                                        type="text"
-                                        v-model="child.name">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <select required class="form-control input-lg" v-model="child.blood_type_id">
-                                        <option v-for="blood_type in blood_types" v-bind:value="blood_type.id">
-                                            {{ blood_type.blood_type_label }}
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <input style="display:none;" id="upload" name="photo" type="file"/>
-                            <div class="panel widget child-upload">
-                                <div class="panel-body text-center">
-                                    <div class="child-btn-fa">
-                                        <a href="" id="upload_link" title=""><i class="fa fa-upload"></i></a>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <input id="name" class="form-control input-lg" name="name" type="text" v-model="child.name">
                                     </div>
-                                    <p><span>{{ $t('Upload Profile Photo') }}</span></p>
+                                    <div class="form-group col-md-6">
+                                        <select required class="form-control input-lg" v-model="child.gender_id">
+                                            <option v-for="gender in genders" v-bind:value="gender.id">
+                                                {{ gender.name_label }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <input id="name"
+                                            class="form-control input-lg"
+                                            :placeholder="$t('Apartment, suite, unit, building, floor, etc.')"
+                                            name="name"
+                                            type="text"
+                                            v-model="child.name">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <select required class="form-control input-lg" v-model="child.blood_type_id">
+                                            <option v-for="blood_type in blood_types" v-bind:value="blood_type.id">
+                                                {{ blood_type.blood_type_label }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <input style="display:none;" id="upload" name="photo" type="file" @change="onFileChange"/>
+                                <div class="panel widget child-upload">
+                                    <div class="panel-body text-center">
+                                        <div class="child-btn-fa">
+                                            <a href="" id="upload_link" title=""><i class="fa fa-upload"></i></a>
+                                        </div>
+                                        <p><span>{{ $t('Upload Profile Photo') }}</span></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-sm-4">
-                             <input required="" class="form-control input-lg" name="dob" type="date" v-model="child.dob">
+                        <div class="row">
+                            <div class="form-group col-sm-4">
+                                 <input required="" class="form-control input-lg" name="dob" type="date" v-model="child.dob">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                 <input required="" class="form-control input-lg" name="ssn" type="text" v-model="child.pin">
+                            </div>
+                            <div class="form-group col-sm-4 text-center">
+                                 <button class="btn btn-primary btn-lg">
+                                     <i class="fa fa-save btn-fa"></i>
+                                     {{ $t('Save changes') }}
+                                 </button>
+                            </div>
                         </div>
-                        <div class="form-group col-sm-4">
-                             <input required="" class="form-control input-lg" name="ssn" type="text" v-model="child.pin">
-                        </div>
-                        <div class="form-group col-sm-4 text-center">
-                             <button class="btn btn-primary btn-lg">
-                                 <i class="fa fa-save btn-fa"></i>
-                                 {{ $t('Save changes') }}
-                             </button>
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -290,11 +292,48 @@
                 blood_types: [],
                 can_manage_children: false,
                 genders: [],
-                statuses: []
+                statuses: [],
+                upload_image: false
             }
         },
         methods: {
+            onFileChange: function(event) {
+                var files = event.target.files || event.dataTransfer.files;
+                if (!files.length)
+                    return;
+                this.child.photo_uri = files[0];
+                this.upload_image = true;
+            },
+            save: function() {
+                var formData = new FormData();
+                formData.append('name', this.child.name);
+                formData.append('ssn', this.child.ssn);
+                formData.append('dob', this.child.dob);
+                formData.append('pin', this.child.pin);
+                formData.append('status_id', this.child.status_id);
+                formData.append('gender_id', this.child.gender_id);
+                formData.append('blood_type_id', this.child.blood_type_id);
+                formData.append('_method', 'PUT');
 
+                if (this.upload_image) {
+                    formData.append('photo_uri', this.child.photo_uri);
+                }
+
+                this.$http.post('/api/children/' + this.child.id, formData)
+                    .then(response => {
+                        this.$emit('childEdited', response.data.child);
+                        this.$noty.success(response.data.message);
+                    })
+                    .catch(error => {
+                        if (error.response.status == 422) {
+                            for (var key in error.response.data) {
+                                this.$noty.error(error.response.data[key]);
+                            }
+                        } else {
+                            alert("Something went wrong. Please reload the page and try again.");
+                        }
+                    });
+            }
         },
         props: ['child']
     }

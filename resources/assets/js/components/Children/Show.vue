@@ -66,7 +66,11 @@
                         <div class="tab-content">
                             <div class="tab-pane active">
                                 <keep-alive>
-                                    <component v-if="child.id" v-bind:is="currentView" :child="child"></component>
+                                    <component v-if="child.id"
+                                               v-bind:is="currentView"
+                                               :child="child"
+                                               v-on:childEdited="loadChild"
+                                    ></component>
                                 </keep-alive>
                             </div>
                         </div>
@@ -91,13 +95,7 @@
     export default {
         created()
         {
-            this.$http.get('/api/children/' + this.child_id)
-                .then(response => {
-                    this.child = response.data.child;
-                })
-                .catch(error => {
-                    alert("Something went wrong. Please try reloading the page");
-                });
+            this.loadChild();
 
             this.switchTab(window.location.hash.substr(1));
 
@@ -154,6 +152,15 @@
                     default:
                         this.currentView = 'ChildrenHomeTab';
                 }
+            },
+            loadChild: function() {
+                this.$http.get('/api/children/' + this.child_id)
+                    .then(response => {
+                        this.child = response.data.child;
+                    })
+                    .catch(error => {
+                        alert("Something went wrong. Please try reloading the page");
+                    });
             }
         },
         props: ['child_id']

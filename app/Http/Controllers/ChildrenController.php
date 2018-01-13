@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SaveAssignParentsRequest;
 use App\Http\Requests\SaveAssignGroupsRequest;
+use App\Http\Requests\UpdateChildRequest;
 use App\Models\ChildParent;
 use App\Http\Requests\SaveChildRequest;
 use App\Models\BloodType;
@@ -155,7 +156,7 @@ class ChildrenController extends Controller
         //retrieve the image
         $file = Storage::get('public/children-images/original/'.$photo_name);
         //resize image
-        $photo_thumb = Image::make($file)->resize(128, 128)->stream();
+        $photo_thumb = Image::make($file)->resize(100, 100)->stream();
         //move the resized image to the childrens folder.
         $path = Storage::disk('public')->put('children-images/'.$photo_name, $photo_thumb);
         //generate resized image path
@@ -194,6 +195,46 @@ class ChildrenController extends Controller
         return response()->json(
             ['child' => $child, 'message' => __('Successfully saved child.')],
             201
+        );
+    }
+
+    public function update(UpdateChildRequest $request, $id)
+    {
+        $child = Child::findOrFail($id);
+        $this->authorize('update', $child);
+
+        $child->fill([
+            'name' => $request->input('name'),
+            'ssn' => $request->input('ssn'),
+            'dob' => $request->input('dob'),
+            'pin' => $request->input('pin'),
+            'status_id' => $request->input('status_id'),
+            'gender_id' => $request->input('gender_id'),
+            'blood_type_id' => $request->input('blood_type_id'),
+            'updated_by_user_id' => Auth::id()
+        ]);
+
+        if (!empty($request->file('photo_uri'))) {
+            $photo_uri = Storage::disk('public')
+                ->putFile('children-images/original', $request->file('photo_uri'), 'public');
+            //get the saved photo name
+            $photo_name = basename($photo_uri);
+            //retrieve the image
+            $file = Storage::get('public/children-images/original/' . $photo_name);
+            //resize image
+            $photo_thumb = Image::make($file)->resize(100, 100)->stream();
+            //move the resized image to the childrens folder.
+            $path = Storage::disk('public')->put('children-images/' . $photo_name, $photo_thumb);
+            //generate resized image path
+            $thumb_path = 'children-images/' . $photo_name;
+
+            $child->photo = $thumb_path;
+        }
+
+        $child->save();
+
+        return response()->json(
+            ['child' => $child, 'message' => __('Successfully saved child.')]
         );
     }
 
