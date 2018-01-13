@@ -185,7 +185,7 @@
                     <div class="col-md-offset-1 col-md-4" v-for="parent in child.parents">
                         <div class="panel b text-center">
                             <div class="panel-body">
-                                <img class="img-circle thumb64" src="">
+                                <img class="img-circle thumb64" :src="parent.full_photo_uri">
                                 <p class="h4 text-bold mb0">{{ parent.user.name }}</p>
                                 <p class="h4 text-bold mb0">{{ parent.user.email }}</p>
                                 <p>{{ parent.user.address.phone }}</p>
