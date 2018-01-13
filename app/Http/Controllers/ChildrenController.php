@@ -95,7 +95,11 @@ class ChildrenController extends Controller
      */
     public function show(Request $request, $id)
     {
-        $child = Child::findOrFail($id);
+        $child = Child::with([
+            'status',
+            'groups',
+            'parents.user.address'
+        ])->findOrFail($id);
         $this->authorize('show', $child);
 
         $parents = ChildParent::whereDaycareId($request->user()->daycare->id)->get();
@@ -103,8 +107,7 @@ class ChildrenController extends Controller
 
         $groups = Group::whereDaycareId($request->user()->daycare->id)->get();
 
-        return view('children.show')
-            ->with(compact('child', 'parents', 'user', 'groups'));
+        return response()->json(compact('child'));
     }
 
     /**

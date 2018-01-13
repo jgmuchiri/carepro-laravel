@@ -46,6 +46,7 @@ Vue.component('CreateParentModal', require('./components/Parents/CreateModal'));
 Vue.component('CreateChildModal', require('./components/Children/CreateModal'));
 Vue.component('AssignChildrenModal', require('./components/Parents/AssignChildrenModal'));
 Vue.component('AddToGroupModal', require('./components/Groups/AddToGroupModal.vue'));
+Vue.component('ChildrenHomeTab', require('./components/Children/Tabs/Home.vue'));
 
 Vue.mixin({
     methods: {

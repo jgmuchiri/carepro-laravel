@@ -68,7 +68,6 @@ Route::group(['middleware' => 'auth'], function() {
                 ->name('children.assign-parents');
             Route::post('children/{id}/assign-groups', 'ChildrenController@assignGroups')
                 ->name('children.assign-groups');
-            Route::resource('children', 'ChildrenController', ['only' => ['show']]);
 
             Route::post('groups', 'GroupsController@store')->name('groups.non-api-store');
         }

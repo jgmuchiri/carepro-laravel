@@ -1,115 +1,167 @@
 <template>
-<div class="content-wrapper">
-    <div class="content-heading">
-        <div class="pull-right">
-          <div class="btn-group">
-             <button class="btn btn-primary waves-effect m-b-5" data-toggle="modal" data-target="#createEditGroup" data-backdrop="false"> <i class="fa fa-pencil m-r-5 btn-fa"></i> <span> {{ $t('Edit Group') }}</span></button>
-          </div>
-       </div>
-       <!-- END Language list-->{{ $t('View Group') }}
-       <small >{{ group.name}}</small>
-    </div>
-    <!-- END widgets box-->
-    <div class="list-group">
-       <a class="list-group-item" href="#">
-          <table class="wd-wide">
-             <tbody>
-                <tr>
-                   <td>
-                      <div class="ph">
-                         <h4 class="media-box-heading">{{ $t('Name') }}</h4>
-                         <small class="text-muted">{{ group.name }}</small>
-                      </div>
-                   </td>
-                   <td>
-                      <div class="ph">
-                         <h4 class="media-box-heading">{{ $t('Description') }}</h4>
-                         <small class="text-muted">{{ group.short_description }}</small>
-                      </div>
-                   </td>
-                </tr>
-             </tbody>
-          </table>
-       </a>
-    </div>
-    <div class="row">
-       <div class="col-lg-6">
-          <!-- START panel-->
-          <div class="panel panel-default">
-             <div class="panel-heading">{{$t('Staff')}}</div>
-             <div class="panel-body">
-                <!-- START table-responsive-->
-                <div class="table-responsive">
-                   <table class="table table-striped table-hover">
-                      <thead>
-                         <tr>
-                            <th>{{$t('Name')}}</th>
-                         </tr>
-                      </thead>
-                      <tbody>
-                         <tr v-for="staff_member in group.staff">
-                            <td>{{ staff_member.user.name }}</td>
-                        </tr>
-                      </tbody>
-                   </table>
-                </div>
-                <!-- END table-responsive-->
-             </div>
-          </div>
-          <!-- END panel-->
-       </div>
-       <div class="col-lg-6">
-          <!-- START panel-->
-          <div class="panel panel-default">
-             <div class="panel-heading">{{ $t('Children') }}</div>
-             <div class="panel-body">
-                <!-- START table-responsive-->
-                <div class="table-responsive">
-                   <table class="table">
-                      <thead>
-                         <tr>
-                            <th>{{$t('Name')}}</th>
-                         </tr>
-                      </thead>
-                      <tbody>
-                         <tr v-for="child in group.children">
-                            <td>{{ child.name }}</td>
-                        </tr>
-                      </tbody>
-                   </table>
-                </div>
-                <!-- END table-responsive-->
-             </div>
-          </div>
-          <!-- END panel-->
-       </div>
-    </div>
-    <CreateEditGroupModal v-on:editGroup="groupEdited" :edit_group="group"></CreateEditGroupModal>
- </div>
+   <div class="content-wrapper">
+      <div class="content-heading" style="padding-bottom: 6px;">
+         <!-- START Language list-->
+         <div class="pull-right">
+            <div class="btn-group">
+               <a class="mb-sm btn btn-primary btn-quick" href="#">Check-out</a>
+               <!-- TODO: Implement this when check and check out is implemented
+               <a class="mb-sm btn btn-success btn-quick" href="{{ route('children.deactivate', $child->id) }}">Check-in</a>
+               -->
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-md-4">
+               {{ child.name }} <small class="td-text-success" style="font-size: 12px;">{{ child.status.name_label }}</small>
+            </div>
+            <div class="col-md-3">
+               {{ child.dob }}
+            </div>
+            <div class="col-md-3">
+               {{ child.ssn }}
+            </div>
+         </div>
+      </div>
+      <!-- END widgets box-->
+      <div class="panel panel-default" id="panelDemo1">
+         <div class="panel-wrapper collapse in">
+            <div class="panel-body">
+               <div class="card card-transparent flex-row">
+                  <ul class="nav nav-tabs nav-tabs-simple nav-tabs-left" id="tab-3">
+                     <li style="padding-bottom: 15px;">
+                        <img :src="child.full_photo_uri" :alt="$t('User Image')" class="center-block img-responsive img-thumbnail"/>
+                     </li>
+                     <li class="nav-item active">
+                        <a href="#" data-toggle="tab" data-target="#home">
+                           <i class="fa fa-home"></i> {{ $t('Home') }}
+                        </a>
+                     </li>
+                     <li class="nav-item">
+                        <a href="#" data-toggle="tab" id="photo-a" data-target="#photo">
+                           <i class="fa fa-photo"></i> {{ $t('Photos') }}
+                        </a>
+                     </li>
+                     <li class="nav-item">
+                        <a href="#" data-toggle="tab" data-target="#notes">
+                           <i class="fa fa-file-text"></i> {{ $t('Notes') }}
+                        </a>
+                     </li>
+                     <li class="nav-item">
+                        <a href="#" data-toggle="tab" data-target="#billing">
+                           <i class="fa fa-money"></i> {{ $t('Billing') }}
+                        </a>
+                     </li>
+                     <li class="nav-item">
+                        <a href="#" data-toggle="tab" data-target="#health">
+                           <i class="fa fa-medkit"></i> {{ $t('Health') }}
+                        </a>
+                     </li>
+                     <li class="nav-item">
+                        <a href="#" data-toggle="tab" data-target="#attendance">
+                           <i class="fa fa-calendar"></i> {{ $t('Attendance') }}
+                        </a>
+                     </li>
+                  </ul>
+                  <div class="tab-content">
+                    <div class="tab-pane active" id="home">
+                        <keep-alive>
+                            <component v-bind:is="currentView" :child="child"></component>
+                        </keep-alive>
+                        <!-- @include('children.includes.home')
+                     </div>
+                     <div class="tab-pane" id="photo">
+                        @include('children.includes.photo')
+                     </div>
+                     <div class="tab-pane" id="notes">
+                        @include('children.includes.notes')
+                     </div>
+                     <div class="tab-pane" id="billing">
+                        @include('children.includes.billing')
+                     </div>
+                     <div class="tab-pane" id="attendance">
+                        @include('children.includes.attendance')
+                     </div>
+                     <div class="tab-pane" id="health">
+                        @include('children.includes.health')
+                     -->
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
 </template>
 
 <script>
     export default {
         created()
         {
-            this.$http.get('/api/groups/' + this.group_id)
+            this.$http.get('/api/children/' + this.child_id)
                 .then(response => {
-                    this.group = response.data.group;
+                    this.child = response.data.child;
                 })
                 .catch(error => {
                     alert("Something went wrong. Please try reloading the page");
                 });
+
+            $('#btn-invoice').on('click', function() {
+                $('#billing-index').hide();
+                $('#invoice-create').show();
+            });
+            $('#back-btn').on('click', function() {
+                $('#invoice-create').hide();
+                $('#billing-index').show();
+            });
+
+            $('#btn-incident').on('click', function() {
+                $('#notes-index').hide();
+                $('#incident-create').show();
+            });
+            $('#incident-back-btn').on('click', function() {
+                $('#incident-create').hide();
+                $('#notes-index').show();
+            });
+
+            var $container = $('.grid');
+            $container.imagesLoaded( function () {
+                $container.masonry();
+            });
+
+            $('#photo-a').click(function (e) {
+                $container.imagesLoaded( function () {
+                    $container.masonry();
+                });
+            })
+            $(document).on('click', '#upload_link', function(e) {
+                e.preventDefault();
+                $("#upload:hidden").trigger('click');
+            });
+
+            $("#upload").change(function () {
+                var file = $('#upload').val();
+                var filename = file.slice(-12);
+                if (filename !== null) {
+                    if ($('.filename').val() !== null) {
+                        $($('.filename')).empty();
+                    }
+                    $('<span>' + filename + '</span>').appendTo('.filename');
+                }
+            });
         },
         data() {
             return {
-                group: {}
+                child: {
+                    groups: [],
+                    parents: [],
+                    status: {}
+                },
+                currentView: 'ChildrenHomeTab'
             }
         },
         methods: {
-            groupEdited: function(group) {
-                this.group = group;
-            }
+
         },
-        props: ['group_id', 'child_id']
+        props: ['child_id']
     }
 </script>

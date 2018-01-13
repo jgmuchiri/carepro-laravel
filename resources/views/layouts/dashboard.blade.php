@@ -388,6 +388,9 @@
    <script src="{{ url('assets/vendor/jquery.easy-pie-chart/dist/jquery.easypiechart.js') }}"></script>
    <!-- MOMENT JS-->
    <script src="{{ url('assets/vendor/moment/min/moment-with-locales.min.js') }}"></script>
+
+   <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+   <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
    <!-- =============== APP SCRIPTS ===============-->
    <script src="{{ url('assets/js/app.js') }}"></script>
    <script src="{{mix('/js/app.js')}}"></script>
