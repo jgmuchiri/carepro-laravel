@@ -90,6 +90,11 @@
             </div>
          </div>
       </div>
+      <ChildrenAttachParentModal
+          :child="child"
+          v-if="child.id && currentView == 'ChildrenHomeTab'"
+          v-on:attachParentsToChild="loadParents"
+      ></ChildrenAttachParentModal>
    </div>
 </template>
 
@@ -150,7 +155,9 @@
             }
         },
         methods: {
-
+            loadParents: function (parents) {
+                this.child.parents = parents;
+            }
         },
         props: ['child_id']
     }

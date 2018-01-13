@@ -191,14 +191,10 @@ class ChildrenController extends Controller
             MailService::sendParentRegisteredChildEmail($request->user());
         }
 
-        if ($request->ajax()) {
-            return response()->json(
-                ['child' => $child, 'message' => __('Successfully saved child.')],
-                201
-            );
-        }
-        return redirect()->route('children.index')
-            ->with(['successes' => new MessageBag([__('Successfully saved child.')])]);
+        return response()->json(
+            ['child' => $child, 'message' => __('Successfully saved child.')],
+            201
+        );
     }
 
     /**
@@ -239,13 +235,14 @@ class ChildrenController extends Controller
         $this->authorize('update', $child);
 
         if (!$request->has('parents')) {
-            return redirect()->route('children.show', $id)
-                ->withErrors(__('A parent must be selected.'));
+            return response()->json(['parents' => __('A parent must be selected.')], 422);
         }
-        $child->parents()->sync($request->input('parents', []));
 
-        return redirect()->route('children.show', $id)
-            ->with(['successes' => new MessageBag([__('Successfully saved child.')])]);
+        $child->parents()->sync($request->input('parents', []));
+        $child->load('parents.user.address');
+
+        return response()
+            ->json(['parents' => $child->parents, 'message' => __('Successfully saved child.')]);
     }
 
     /**
