@@ -32,59 +32,42 @@
                             <li style="padding-bottom: 15px;">
                                 <img :src="child.full_photo_uri" :alt="$t('User Image')" class="center-block img-responsive img-thumbnail"/>
                             </li>
-                            <li class="nav-item active">
-                                <a href="#" data-toggle="tab" data-target="#home">
+                            <li :class="'nav-item ' + (this.currentView == 'ChildrenHomeTab' ? 'active' : '')">
+                                <a href="#home" v-on:click="switchTab('home')">
                                     <i class="fa fa-home"></i> {{ $t('Home') }}
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="#" data-toggle="tab" id="photo-a" data-target="#photo">
+                            <li :class="'nav-item ' + (this.currentView == 'ChildrenPhotoTab' ? 'active' : '')">
+                                <a href="#photos" v-on:click="switchTab('photos')">
                                     <i class="fa fa-photo"></i> {{ $t('Photos') }}
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="#" data-toggle="tab" data-target="#notes">
+                            <li :class="'nav-item ' + (this.currentView == 'ChildrenNoteTab' ? 'active' : '')">
+                                <a href="#notes" v-on:click="switchTab('notes')">
                                     <i class="fa fa-file-text"></i> {{ $t('Notes') }}
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="#" data-toggle="tab" data-target="#billing">
+                            <li :class="'nav-item ' + (this.currentView == 'ChildrenBillingTab' ? 'active' : '')">
+                                <a href="#billing" v-on:click="switchTab('billing')">
                                     <i class="fa fa-money"></i> {{ $t('Billing') }}
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="#" data-toggle="tab" data-target="#health">
+                            <li :class="'nav-item ' + (this.currentView == 'ChildrenHealthTab' ? 'active' : '')">
+                                <a href="#health" v-on:click="switchTab('health')">
                                     <i class="fa fa-medkit"></i> {{ $t('Health') }}
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="#" data-toggle="tab" data-target="#attendance">
+                            <li :class="'nav-item ' + (this.currentView == 'ChildrenAttendanceTab' ? 'active' : '')">
+                                <a href="#attendance" v-on:click="switchTab('attendance')">
                                     <i class="fa fa-calendar"></i> {{ $t('Attendance') }}
                                 </a>
                             </li>
                         </ul>
                         <div class="tab-content">
-                            <div class="tab-pane active" id="home">
+                            <div class="tab-pane active">
                                 <keep-alive>
                                     <component v-if="child.id" v-bind:is="currentView" :child="child"></component>
                                 </keep-alive>
-                                <!-- @include('children.includes.home')
-                             </div>
-                             <div class="tab-pane" id="photo">
-                                @include('children.includes.photo')
-                             </div>
-                             <div class="tab-pane" id="notes">
-                                @include('children.includes.notes')
-                             </div>
-                             <div class="tab-pane" id="billing">
-                                @include('children.includes.billing')
-                             </div>
-                             <div class="tab-pane" id="attendance">
-                                @include('children.includes.attendance')
-                             </div>
-                             <div class="tab-pane" id="health">
-                                @include('children.includes.health')
-                             -->
                             </div>
                         </div>
                     </div>
@@ -116,23 +99,7 @@
                     alert("Something went wrong. Please try reloading the page");
                 });
 
-            $('#btn-invoice').on('click', function() {
-                $('#billing-index').hide();
-                $('#invoice-create').show();
-            });
-            $('#back-btn').on('click', function() {
-                $('#invoice-create').hide();
-                $('#billing-index').show();
-            });
-
-            $('#btn-incident').on('click', function() {
-                $('#notes-index').hide();
-                $('#incident-create').show();
-            });
-            $('#incident-back-btn').on('click', function() {
-                $('#incident-create').hide();
-                $('#notes-index').show();
-            });
+            this.switchTab(window.location.hash.substr(1));
 
             $(document).on('click', '#upload_link', function(e) {
                 e.preventDefault();
@@ -166,6 +133,27 @@
             },
             loadGroups: function (groups) {
                 this.child.groups = groups;
+            },
+            switchTab: function (tab) {
+                switch (tab) {
+                    case 'photos':
+                        this.currentView = 'ChildrenPhotoTab';
+                        break;
+                    case 'notes':
+                        this.currentView = 'ChildrenNoteTab';
+                        break;
+                    case 'billing':
+                        this.currentView = 'ChildrenBillingTab';
+                        break;
+                    case 'health':
+                        this.currentView = 'ChildrenHealthTab';
+                        break;
+                    case 'attendance':
+                        this.currentView = 'ChildrenAttendanceTab';
+                        break;
+                    default:
+                        this.currentView = 'ChildrenHomeTab';
+                }
             }
         },
         props: ['child_id']

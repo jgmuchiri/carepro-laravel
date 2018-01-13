@@ -47,6 +47,11 @@ Vue.component('CreateChildModal', require('./components/Children/CreateModal'));
 Vue.component('AssignChildrenModal', require('./components/Parents/AssignChildrenModal'));
 Vue.component('AddToGroupModal', require('./components/Groups/AddToGroupModal.vue'));
 Vue.component('ChildrenHomeTab', require('./components/Children/Tabs/Home.vue'));
+Vue.component('ChildrenPhotoTab', require('./components/Children/Tabs/Photo.vue'));
+Vue.component('ChildrenNoteTab', require('./components/Children/Tabs/Note.vue'));
+Vue.component('ChildrenAttendanceTab', require('./components/Children/Tabs/Attendance.vue'));
+Vue.component('ChildrenBillingTab', require('./components/Children/Tabs/Billing.vue'));
+Vue.component('ChildrenHealthTab', require('./components/Children/Tabs/Health.vue'));
 Vue.component('ChildrenAttachParentModal', require('./components/Children/AttachParentModal.vue'));
 Vue.component('ChildrenAttachGroupModal', require('./components/Children/AttachGroupModal.vue'));
 

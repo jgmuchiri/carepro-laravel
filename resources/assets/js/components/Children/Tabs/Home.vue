@@ -1,5 +1,5 @@
 <template>
-   <div>
+    <div>
         <div class="row">
             <div class="col-md-4">
                 <p class="child-alert child-danger">3 {{ $t('Known Allergies') }}</p>
@@ -267,7 +267,7 @@
                 </div>
             </div>
         </div>
-   </div>
+    </div>
 </template>
 
 <script>
