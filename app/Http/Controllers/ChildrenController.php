@@ -198,6 +198,13 @@ class ChildrenController extends Controller
         );
     }
 
+    /**
+     * Updates a child
+     *
+     * @param UpdateChildRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(UpdateChildRequest $request, $id)
     {
         $child = Child::findOrFail($id);
