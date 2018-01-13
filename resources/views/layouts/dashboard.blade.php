@@ -399,7 +399,7 @@
    @include('partials.flash')
    @stack('scripts')
    @stack('modals')
-   <script type="text/javascript" >
+   <script type="text/javascript">
       $('.modal ').insertAfter($('#app'));
    </script>
 

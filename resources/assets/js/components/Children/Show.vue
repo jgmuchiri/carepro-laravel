@@ -123,16 +123,6 @@
                 $('#notes-index').show();
             });
 
-            var $container = $('.grid');
-            $container.imagesLoaded( function () {
-                $container.masonry();
-            });
-
-            $('#photo-a').click(function (e) {
-                $container.imagesLoaded( function () {
-                    $container.masonry();
-                });
-            })
             $(document).on('click', '#upload_link', function(e) {
                 e.preventDefault();
                 $("#upload:hidden").trigger('click');
