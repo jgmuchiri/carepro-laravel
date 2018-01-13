@@ -62,15 +62,10 @@ class GroupsController extends Controller
         $group->staff_count = count($request->input('staff'));
         $group->children_count = count($request->input('children'));
 
-        if ($request->ajax()) {
-            return response()->json(
-                ['group' => $group, 'message' => __('Successfully saved group.')],
-                201
-            );
-        }
-
-        return redirect()->back()
-            ->with(['successes' => new MessageBag([__('Successfully saved group.')])]);
+        return response()->json(
+            ['group' => $group, 'message' => __('Successfully saved group.')],
+            201
+        );
     }
 
     /**

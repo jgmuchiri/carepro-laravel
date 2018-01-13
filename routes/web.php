@@ -64,8 +64,6 @@ Route::group(['middleware' => 'auth'], function() {
         function() {
             Route::get('children/{id}/activate', 'ChildrenController@activate')->name('children.activate');
             Route::get('children/{id}/deactivate', 'ChildrenController@deactivate')->name('children.deactivate');
-
-            Route::post('groups', 'GroupsController@store')->name('groups.non-api-store');
         }
     );
 
