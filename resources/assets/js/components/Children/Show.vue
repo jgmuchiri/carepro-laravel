@@ -1,101 +1,107 @@
 <template>
-   <div class="content-wrapper">
-      <div class="content-heading" style="padding-bottom: 6px;">
-         <!-- START Language list-->
-         <div class="pull-right">
-            <div class="btn-group">
-               <a class="mb-sm btn btn-primary btn-quick" href="#">Check-out</a>
-               <!-- TODO: Implement this when check and check out is implemented
-               <a class="mb-sm btn btn-success btn-quick" href="{{ route('children.deactivate', $child->id) }}">Check-in</a>
-               -->
+    <div class="content-wrapper">
+        <div class="content-heading" style="padding-bottom: 6px;">
+            <!-- START Language list-->
+            <div class="pull-right">
+                <div class="btn-group">
+                    <a class="mb-sm btn btn-primary btn-quick" href="#">Check-out</a>
+                    <!-- TODO: Implement this when check and check out is implemented
+                        <a class="mb-sm btn btn-success btn-quick" href="{{ route('children.deactivate', $child->id) }}">Check-in</a>
+                    -->
+                </div>
             </div>
-         </div>
-         <div class="row">
-            <div class="col-md-4">
-               {{ child.name }} <small class="td-text-success" style="font-size: 12px;">{{ child.status.name_label }}</small>
+            <div class="row">
+                <div class="col-md-4">
+                    {{ child.name }} <small class="td-text-success" style="font-size: 12px;">{{ child.status.name_label }}</small>
+                </div>
+                <div class="col-md-3">
+                    {{ child.dob }}
+                </div>
+                <div class="col-md-3">
+                    {{ child.ssn }}
+                </div>
             </div>
-            <div class="col-md-3">
-               {{ child.dob }}
+        </div>
+        <!-- END widgets box-->
+
+        <div class="panel panel-default" id="panelDemo1">
+            <div class="panel-wrapper collapse in">
+                <div class="panel-body">
+                    <div class="card card-transparent flex-row">
+                        <ul class="nav nav-tabs nav-tabs-simple nav-tabs-left" id="tab-3">
+                            <li style="padding-bottom: 15px;">
+                                <img :src="child.full_photo_uri" :alt="$t('User Image')" class="center-block img-responsive img-thumbnail"/>
+                            </li>
+                            <li class="nav-item active">
+                                <a href="#" data-toggle="tab" data-target="#home">
+                                    <i class="fa fa-home"></i> {{ $t('Home') }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" data-toggle="tab" id="photo-a" data-target="#photo">
+                                    <i class="fa fa-photo"></i> {{ $t('Photos') }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" data-toggle="tab" data-target="#notes">
+                                    <i class="fa fa-file-text"></i> {{ $t('Notes') }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" data-toggle="tab" data-target="#billing">
+                                    <i class="fa fa-money"></i> {{ $t('Billing') }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" data-toggle="tab" data-target="#health">
+                                    <i class="fa fa-medkit"></i> {{ $t('Health') }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" data-toggle="tab" data-target="#attendance">
+                                    <i class="fa fa-calendar"></i> {{ $t('Attendance') }}
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="home">
+                                <keep-alive>
+                                    <component v-if="child.id" v-bind:is="currentView" :child="child"></component>
+                                </keep-alive>
+                                <!-- @include('children.includes.home')
+                             </div>
+                             <div class="tab-pane" id="photo">
+                                @include('children.includes.photo')
+                             </div>
+                             <div class="tab-pane" id="notes">
+                                @include('children.includes.notes')
+                             </div>
+                             <div class="tab-pane" id="billing">
+                                @include('children.includes.billing')
+                             </div>
+                             <div class="tab-pane" id="attendance">
+                                @include('children.includes.attendance')
+                             </div>
+                             <div class="tab-pane" id="health">
+                                @include('children.includes.health')
+                             -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-3">
-               {{ child.ssn }}
-            </div>
-         </div>
-      </div>
-      <!-- END widgets box-->
-      <div class="panel panel-default" id="panelDemo1">
-         <div class="panel-wrapper collapse in">
-            <div class="panel-body">
-               <div class="card card-transparent flex-row">
-                  <ul class="nav nav-tabs nav-tabs-simple nav-tabs-left" id="tab-3">
-                     <li style="padding-bottom: 15px;">
-                        <img :src="child.full_photo_uri" :alt="$t('User Image')" class="center-block img-responsive img-thumbnail"/>
-                     </li>
-                     <li class="nav-item active">
-                        <a href="#" data-toggle="tab" data-target="#home">
-                           <i class="fa fa-home"></i> {{ $t('Home') }}
-                        </a>
-                     </li>
-                     <li class="nav-item">
-                        <a href="#" data-toggle="tab" id="photo-a" data-target="#photo">
-                           <i class="fa fa-photo"></i> {{ $t('Photos') }}
-                        </a>
-                     </li>
-                     <li class="nav-item">
-                        <a href="#" data-toggle="tab" data-target="#notes">
-                           <i class="fa fa-file-text"></i> {{ $t('Notes') }}
-                        </a>
-                     </li>
-                     <li class="nav-item">
-                        <a href="#" data-toggle="tab" data-target="#billing">
-                           <i class="fa fa-money"></i> {{ $t('Billing') }}
-                        </a>
-                     </li>
-                     <li class="nav-item">
-                        <a href="#" data-toggle="tab" data-target="#health">
-                           <i class="fa fa-medkit"></i> {{ $t('Health') }}
-                        </a>
-                     </li>
-                     <li class="nav-item">
-                        <a href="#" data-toggle="tab" data-target="#attendance">
-                           <i class="fa fa-calendar"></i> {{ $t('Attendance') }}
-                        </a>
-                     </li>
-                  </ul>
-                  <div class="tab-content">
-                    <div class="tab-pane active" id="home">
-                        <keep-alive>
-                            <component v-if="child.id" v-bind:is="currentView" :child="child"></component>
-                        </keep-alive>
-                        <!-- @include('children.includes.home')
-                     </div>
-                     <div class="tab-pane" id="photo">
-                        @include('children.includes.photo')
-                     </div>
-                     <div class="tab-pane" id="notes">
-                        @include('children.includes.notes')
-                     </div>
-                     <div class="tab-pane" id="billing">
-                        @include('children.includes.billing')
-                     </div>
-                     <div class="tab-pane" id="attendance">
-                        @include('children.includes.attendance')
-                     </div>
-                     <div class="tab-pane" id="health">
-                        @include('children.includes.health')
-                     -->
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-      <ChildrenAttachParentModal
-          :child="child"
-          v-if="child.id && currentView == 'ChildrenHomeTab'"
-          v-on:attachParentsToChild="loadParents"
-      ></ChildrenAttachParentModal>
-   </div>
+        </div>
+        <ChildrenAttachParentModal
+            :child="child"
+            v-if="child.id && currentView == 'ChildrenHomeTab'"
+            v-on:attachParentsToChild="loadParents"
+        ></ChildrenAttachParentModal>
+        <ChildrenAttachGroupModal
+            :child="child"
+            v-if="child.id && currentView == 'ChildrenHomeTab'"
+            v-on:attachGroupsToChild="loadGroups"
+       ></ChildrenAttachGroupModal>
+    </div>
 </template>
 
 <script>
@@ -157,6 +163,9 @@
         methods: {
             loadParents: function (parents) {
                 this.child.parents = parents;
+            },
+            loadGroups: function (groups) {
+                this.child.groups = groups;
             }
         },
         props: ['child_id']

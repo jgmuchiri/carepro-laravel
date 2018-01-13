@@ -25,6 +25,8 @@ Route::group(['middleware' => ['auth:api', 'subscribed']], function() {
 
     Route::post('children/{id}/assign-parents', 'ChildrenController@assignParents')
         ->name('children.assign-parents');
+    Route::post('children/{id}/assign-groups', 'ChildrenController@assignGroups')
+        ->name('children.assign-groups');
     Route::resource('children', 'ChildrenController', ['only' => ['index', 'create', 'store', 'show', 'edit']]);
 
     Route::put('staff/{staff_id}/add-to-group', 'StaffController@addToGroup')->name('staff.add-to-group');

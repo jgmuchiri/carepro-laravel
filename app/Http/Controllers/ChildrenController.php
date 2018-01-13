@@ -259,13 +259,15 @@ class ChildrenController extends Controller
         $this->authorize('update', $child);
 
         if (!$request->has('groups')) {
-            return redirect()->route('children.show', $id)
-                ->withErrors(__('A group must be selected.'));
+            return response()->json(['groups' => __('A group must be selected.')]);
         }
         $child->groups()->sync($request->input('groups', []));
+        $child->load('groups');
 
-        return redirect()->route('children.show', $id)
-            ->with(['successes' => new MessageBag([__('Successfully saved child.')])]);
+        return response()->json([
+            'groups' => $child->groups,
+            'message' => __('Successfully saved child.')
+        ]);
     }
 
     /**
