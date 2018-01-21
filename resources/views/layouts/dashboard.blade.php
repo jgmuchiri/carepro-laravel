@@ -357,13 +357,14 @@
    </div>
    <!-- =============== VENDOR SCRIPTS ===============-->
    <!-- MODERNIZR-->
-   <script src="{{ url('assets/vendor/modernizr/modernizr.custom.js"') }}></script>
+   <script src="{{ url('assets/vendor/modernizr/modernizr.custom.js') }}"></script>
    <!-- MATCHMEDIA POLYFILL-->
    <script src="{{ url('assets/vendor/matchMedia/matchMedia.js') }}"></script>
+   <script src="{{mix('/js/app.js')}}"></script>
    <!-- JQUERY-->
-   <script src="{{ url('assets/vendor/jquery/dist/jquery.js') }}"></script>
+   <!-- <script src="{{ url('assets/vendor/jquery/dist/jquery.js') }}"></script> -->
    <!-- BOOTSTRAP-->
-   <script src="{{ url('assets/vendor/bootstrap/dist/js/bootstrap.js') }}"></script>
+   <!-- <script src="{{ url('assets/vendor/bootstrap/dist/js/bootstrap.js') }}"></script> -->
    <!-- STORAGE API-->
    <script src="{{ url('assets/vendor/jQuery-Storage-API/jquery.storageapi.js') }}"></script>
    <!-- JQUERY EASING-->
@@ -388,15 +389,18 @@
    <script src="{{ url('assets/vendor/jquery.easy-pie-chart/dist/jquery.easypiechart.js') }}"></script>
    <!-- MOMENT JS-->
    <script src="{{ url('assets/vendor/moment/min/moment-with-locales.min.js') }}"></script>
+
+   <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+   <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
    <!-- =============== APP SCRIPTS ===============-->
    <script src="{{ url('assets/js/app.js') }}"></script>
-   <script src="{{mix('/js/app.js')}}"></script>
+   
    <script src="https://js.stripe.com/v2/"></script>
    <script src="https://js.stripe.com/v3/"></script>
    @include('partials.flash')
    @stack('scripts')
    @stack('modals')
-   <script type="text/javascript" >
+   <script type="text/javascript">
       $('.modal ').insertAfter($('#app'));
    </script>
 
