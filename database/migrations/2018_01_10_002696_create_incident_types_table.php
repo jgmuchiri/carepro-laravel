@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateNoteTypesTable extends Migration
+class CreateIncidentTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class CreateNoteTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('note_types', function (Blueprint $table) {
-            $table->tinyIncrements('id');
+        Schema::create('incident_types', function (Blueprint $table) {
+            $table->increments('id');
             $table->string('name')->unique();
             $table->softDeletes();
             $table->timestamps();
@@ -28,6 +28,6 @@ class CreateNoteTypesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('note_types');
+        Schema::drop('incident_types');
     }
 }

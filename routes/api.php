@@ -32,4 +32,6 @@ Route::group(['middleware' => ['auth:api', 'subscribed']], function() {
     Route::put('staff/{staff_id}/add-to-group', 'StaffController@addToGroup')->name('staff.add-to-group');
     Route::put('staff/{staff_id}/update-password', 'StaffController@updatePassword')->name('staff.update-password');
     Route::resource('staff', 'StaffController', ['only' => ['index', 'store', 'update', 'edit']]);
+
+    Route::resource('notes', 'NotesController', ['only' => ['store']]);
 });

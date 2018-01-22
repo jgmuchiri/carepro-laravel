@@ -21,6 +21,7 @@ class CreateNotesToChildrenTable extends Migration
             $table->foreign('child_id')->references('id')->on('children');
             $table->timestamps();
             $table->softDeletes();
+            $table->unique(['note_id', 'child_id']);
         });
     }
 

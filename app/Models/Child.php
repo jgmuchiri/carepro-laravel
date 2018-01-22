@@ -115,6 +115,21 @@ class Child extends Model
     }
 
     /**
+     * Relationship to this child's notes
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function notes()
+    {
+        return $this->belongsToMany(
+            \App\Models\Notes\Note::class,
+            'notes_to_children',
+            'child_id',
+            'note_id'
+        );
+    }
+
+    /**
      * Returns registration stats
      *
      * @return \Illuminate\Support\Collection
