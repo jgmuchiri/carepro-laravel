@@ -72,6 +72,8 @@ class Child extends Model
         'date_of_birth'
     ];
 
+    protected $appends = ['full_photo_uri', 'full_photo_uri_original'];
+
     /**
      * Relationship to this child's parents
      *
@@ -110,6 +112,21 @@ class Child extends Model
     public function status()
     {
         return $this->belongsTo(\App\Models\Status::class, 'status_id');
+    }
+
+    /**
+     * Relationship to this child's notes
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function notes()
+    {
+        return $this->belongsToMany(
+            \App\Models\Notes\Note::class,
+            'notes_to_children',
+            'child_id',
+            'note_id'
+        );
     }
 
     /**
@@ -280,5 +297,36 @@ class Child extends Model
                 '=',
                 'groups_to_children.group_id'
             );
+    }
+
+    /**
+     * Get full photo uri
+     *
+     * @return string
+     */
+    public function getFullPhotoUriAttribute()
+    {
+        if ($this->photo =="") {
+            return  asset('/img/portrait.png');
+        }
+
+        return asset('storage/' . $this->photo);
+    }
+
+    /**
+     * Get full photo uri for the original photo
+     *
+     * @return string
+     */
+    public function getFullPhotoUriOriginalAttribute()
+    {
+        if ($this->photo =="") {
+            return  asset('/img/portrait.png');
+        }
+
+        $split_uri = explode('/', $this->photo);
+        $file_name = array_pop($split_uri);
+        $full_uri = implode('/', $split_uri) . '/original/' . $file_name;
+        return asset('storage/' . $full_uri);
     }
 }

@@ -22,9 +22,16 @@ Route::group(['middleware' => ['auth:api', 'subscribed']], function() {
     Route::post('parents/{id}/assign-children', 'ParentsController@assignChildren')
         ->name('parents.assign-children');
     Route::resource('parents', 'ParentsController', ['only' => ['index', 'store', 'show']]);
-    Route::resource('children', 'ChildrenController', ['only' => ['index', 'create', 'store']]);
+
+    Route::post('children/{id}/assign-parents', 'ChildrenController@assignParents')
+        ->name('children.assign-parents');
+    Route::post('children/{id}/assign-groups', 'ChildrenController@assignGroups')
+        ->name('children.assign-groups');
+    Route::resource('children', 'ChildrenController', ['only' => ['index', 'create', 'store', 'show', 'edit', 'update']]);
 
     Route::put('staff/{staff_id}/add-to-group', 'StaffController@addToGroup')->name('staff.add-to-group');
     Route::put('staff/{staff_id}/update-password', 'StaffController@updatePassword')->name('staff.update-password');
     Route::resource('staff', 'StaffController', ['only' => ['index', 'store', 'update', 'edit']]);
+
+    Route::resource('notes', 'NotesController', ['only' => ['store']]);
 });

@@ -64,13 +64,6 @@ Route::group(['middleware' => 'auth'], function() {
         function() {
             Route::get('children/{id}/activate', 'ChildrenController@activate')->name('children.activate');
             Route::get('children/{id}/deactivate', 'ChildrenController@deactivate')->name('children.deactivate');
-            Route::post('children/{id}/assign-parents', 'ChildrenController@assignParents')
-                ->name('children.assign-parents');
-            Route::post('children/{id}/assign-groups', 'ChildrenController@assignGroups')
-                ->name('children.assign-groups');
-            Route::resource('children', 'ChildrenController', ['only' => ['index', 'store', 'show']]);
-
-            Route::post('groups', 'GroupsController@store')->name('groups.non-api-store');
         }
     );
 

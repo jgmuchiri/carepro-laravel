@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SaveAssignParentsRequest;
 use App\Http\Requests\SaveAssignGroupsRequest;
+use App\Http\Requests\UpdateChildRequest;
 use App\Models\ChildParent;
 use App\Http\Requests\SaveChildRequest;
 use App\Models\BloodType;
@@ -11,6 +12,7 @@ use App\Models\Child;
 use App\Models\Gender;
 use App\Models\Ethnicity;
 use App\Models\Groups\Group;
+use App\Models\Permissions\Permission;
 use App\Models\Permissions\Role;
 use App\Models\Religion;
 use App\Models\Status;
@@ -35,7 +37,6 @@ class ChildrenController extends Controller
         $this->authorize('showGeneric', Child::class);
 
         $user = $request->user();
-        $parents = null;
         $children = [];
 
         if ($user->role->name == Role::PARENT_ROLE) {
@@ -46,28 +47,9 @@ class ChildrenController extends Controller
             } else {
                 $children = Child::whereAssignedStaffId($user->daycare_id)->with(['status'])->get();
             }
-            $parents = ChildParent::whereDaycareId($user->daycare_id)->with('user')->get();
-            $statuses = Status::all();
         }
 
-        if ($request->ajax()) {
-            return response()->json(compact('children'));
-        }
-
-        $blood_types = BloodType::all();
-        $ethnicities = Ethnicity::all();
-        $genders = Gender::all();
-        $religions = Religion::all();
-
-        return view('children.index')->with(compact([
-            'children',
-            'blood_types',
-            'ethnicities',
-            'genders',
-            'religions',
-            'statuses',
-            'parents'
-        ]));
+        return response()->json(compact('children'));
     }
 
     /**
@@ -115,7 +97,11 @@ class ChildrenController extends Controller
      */
     public function show(Request $request, $id)
     {
-        $child = Child::findOrFail($id);
+        $child = Child::with([
+            'status',
+            'groups',
+            'parents.user.address'
+        ])->findOrFail($id);
         $this->authorize('show', $child);
 
         $parents = ChildParent::whereDaycareId($request->user()->daycare->id)->get();
@@ -123,8 +109,36 @@ class ChildrenController extends Controller
 
         $groups = Group::whereDaycareId($request->user()->daycare->id)->get();
 
-        return view('children.show')
-            ->with(compact('child', 'parents', 'user', 'groups'));
+        return response()->json(compact('child'));
+    }
+
+    /**
+     * Returns data to edit a child
+     *
+     * @param Request $request
+     * @param int $id
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function edit(Request $request, $id)
+    {
+        $child = Child::findorFail($id);
+        $this->authorize('edit', $child);
+
+        $blood_types = BloodType::all();
+        $genders = Gender::all();
+        $statuses = Status::all();
+        $can_manage_children = $request->user()->role->permissions->contains(
+            'name',
+            Permission::MANAGE_CHILDREN
+        );
+
+        return response()->json(compact([
+            'blood_types',
+            'can_manage_children',
+            'genders',
+            'statuses'
+        ]));
     }
 
     /**
@@ -142,7 +156,7 @@ class ChildrenController extends Controller
         //retrieve the image
         $file = Storage::get('public/children-images/original/'.$photo_name);
         //resize image
-        $photo_thumb = Image::make($file)->resize(128, 128)->stream();
+        $photo_thumb = Image::make($file)->resize(100, 100)->stream();
         //move the resized image to the childrens folder.
         $path = Storage::disk('public')->put('children-images/'.$photo_name, $photo_thumb);
         //generate resized image path
@@ -178,14 +192,57 @@ class ChildrenController extends Controller
             MailService::sendParentRegisteredChildEmail($request->user());
         }
 
-        if ($request->ajax()) {
-            return response()->json(
-                ['child' => $child, 'message' => __('Successfully saved child.')],
-                201
-            );
+        return response()->json(
+            ['child' => $child, 'message' => __('Successfully saved child.')],
+            201
+        );
+    }
+
+    /**
+     * Updates a child
+     *
+     * @param UpdateChildRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update(UpdateChildRequest $request, $id)
+    {
+        $child = Child::findOrFail($id);
+        $this->authorize('update', $child);
+
+        $child->fill([
+            'name' => $request->input('name'),
+            'ssn' => $request->input('ssn'),
+            'dob' => $request->input('dob'),
+            'pin' => $request->input('pin'),
+            'status_id' => $request->input('status_id'),
+            'gender_id' => $request->input('gender_id'),
+            'blood_type_id' => $request->input('blood_type_id'),
+            'updated_by_user_id' => Auth::id()
+        ]);
+
+        if (!empty($request->file('photo_uri'))) {
+            $photo_uri = Storage::disk('public')
+                ->putFile('children-images/original', $request->file('photo_uri'), 'public');
+            //get the saved photo name
+            $photo_name = basename($photo_uri);
+            //retrieve the image
+            $file = Storage::get('public/children-images/original/' . $photo_name);
+            //resize image
+            $photo_thumb = Image::make($file)->resize(100, 100)->stream();
+            //move the resized image to the childrens folder.
+            $path = Storage::disk('public')->put('children-images/' . $photo_name, $photo_thumb);
+            //generate resized image path
+            $thumb_path = 'children-images/' . $photo_name;
+
+            $child->photo = $thumb_path;
         }
-        return redirect()->route('children.index')
-            ->with(['successes' => new MessageBag([__('Successfully saved child.')])]);
+
+        $child->save();
+
+        return response()->json(
+            ['child' => $child, 'message' => __('Successfully saved child.')]
+        );
     }
 
     /**
@@ -226,13 +283,14 @@ class ChildrenController extends Controller
         $this->authorize('update', $child);
 
         if (!$request->has('parents')) {
-            return redirect()->route('children.show', $id)
-                ->withErrors(__('A parent must be selected.'));
+            return response()->json(['parents' => __('A parent must be selected.')], 422);
         }
-        $child->parents()->sync($request->input('parents', []));
 
-        return redirect()->route('children.show', $id)
-            ->with(['successes' => new MessageBag([__('Successfully saved child.')])]);
+        $child->parents()->sync($request->input('parents', []));
+        $child->load('parents.user.address');
+
+        return response()
+            ->json(['parents' => $child->parents, 'message' => __('Successfully saved child.')]);
     }
 
     /**
@@ -249,13 +307,15 @@ class ChildrenController extends Controller
         $this->authorize('update', $child);
 
         if (!$request->has('groups')) {
-            return redirect()->route('children.show', $id)
-                ->withErrors(__('A group must be selected.'));
+            return response()->json(['groups' => __('A group must be selected.')]);
         }
         $child->groups()->sync($request->input('groups', []));
+        $child->load('groups');
 
-        return redirect()->route('children.show', $id)
-            ->with(['successes' => new MessageBag([__('Successfully saved child.')])]);
+        return response()->json([
+            'groups' => $child->groups,
+            'message' => __('Successfully saved child.')
+        ]);
     }
 
     /**

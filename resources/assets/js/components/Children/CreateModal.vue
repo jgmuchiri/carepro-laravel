@@ -95,8 +95,8 @@
                         </template>
                         <div class="row">
                             <div class="form-group col-sm-6">
-                                <label for="photo_uri" class="control-label">{{ $t('Photo') }}*</label>
-                                <input type="file" class="form-control" name="photo_uri" id="photo_uri" @change="onFileChange" />
+                                <label for="child_photo_uri" class="control-label">{{ $t('Photo') }}*</label>
+                                <input type="file" class="form-control" name="photo_uri" id="child_photo_uri" @change="onFileChange" />
                             </div>
                         </div>
                     </div>

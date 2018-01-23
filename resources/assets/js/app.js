@@ -9,6 +9,7 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 window.moment = require('moment');
+import Lightbox from 'vue-pure-lightbox'
 import VueRouter from 'vue-router';
 import VueI18n from 'vue-i18n';
 import Locales from './vue-i18n-locales.generated.js';
@@ -20,6 +21,7 @@ window.bus = new Vue();
 Vue.use(VueNoty);
 Vue.use(VueRouter);
 Vue.use(VueI18n);
+Vue.use(Lightbox)
 
 Vue.prototype.$http = axios;
 
@@ -33,7 +35,9 @@ const routes = [
     { path: '/staff', name: 'staff.index', component: require('./components/StaffMembers/Index.vue')},
     { path: '/staff/:staff_id/edit', name: 'staff.edit', component: require('./components/StaffMembers/Edit.vue'), props: true},
     { path: '/parents', name: 'parents.index', component: require('./components/Parents/Index.vue')},
-    { path: '/parents/:parent_id', name: 'parents.show', component: require('./components/Parents/Show.vue'), props: true}
+    { path: '/parents/:parent_id', name: 'parents.show', component: require('./components/Parents/Show.vue'), props: true},
+    { path: '/children/', name: 'children.index', component: require('./components/Children/Index.vue')},
+    { path: '/children/:child_id', name: 'children.show', component: require('./components/Children/Show.vue'), props: true}
 ];
 
 Vue.component('CreateEditGroupModal', require('./components/Groups/CreateEditModal.vue'));
@@ -44,6 +48,14 @@ Vue.component('CreateParentModal', require('./components/Parents/CreateModal'));
 Vue.component('CreateChildModal', require('./components/Children/CreateModal'));
 Vue.component('AssignChildrenModal', require('./components/Parents/AssignChildrenModal'));
 Vue.component('AddToGroupModal', require('./components/Groups/AddToGroupModal.vue'));
+Vue.component('ChildrenHomeTab', require('./components/Children/Tabs/Home.vue'));
+Vue.component('ChildrenPhotoTab', require('./components/Children/Tabs/Photo.vue'));
+Vue.component('ChildrenNoteTab', require('./components/Children/Tabs/Note.vue'));
+Vue.component('ChildrenAttendanceTab', require('./components/Children/Tabs/Attendance.vue'));
+Vue.component('ChildrenBillingTab', require('./components/Children/Tabs/Billing.vue'));
+Vue.component('ChildrenHealthTab', require('./components/Children/Tabs/Health.vue'));
+Vue.component('ChildrenAttachParentModal', require('./components/Children/AttachParentModal.vue'));
+Vue.component('ChildrenAttachGroupModal', require('./components/Children/AttachGroupModal.vue'));
 
 Vue.mixin({
     methods: {
