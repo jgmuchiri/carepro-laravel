@@ -17,12 +17,12 @@ class CreateNotesTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->text('body');
-            $table->string('witnesses', 8000);
-            $table->text('action_taken');
-            $table->text('remarks');
+            $table->string('witnesses', 8000)->nullable();
+            $table->text('action_taken')->nullable();
+            $table->text('remarks')->nullable();
             $table->integer('created_by_user_id')->unsigned();
             $table->foreign('created_by_user_id')->references('id')->on('users');
-            $table->integer('location_id')->unsigned();
+            $table->integer('location_id')->unsigned()->nullable();
             $table->foreign('location_id')->references('id')->on('locations');
             $table->tinyInteger('note_type_id')->unsigned();
             $table->foreign('note_type_id')->references('id')->on('note_types');

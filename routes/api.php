@@ -27,11 +27,10 @@ Route::group(['middleware' => ['auth:api', 'subscribed']], function() {
         ->name('children.assign-parents');
     Route::post('children/{id}/assign-groups', 'ChildrenController@assignGroups')
         ->name('children.assign-groups');
+    Route::resource('children/{id}/notes', 'NotesController', ['only' => ['store', 'index']]);
     Route::resource('children', 'ChildrenController', ['only' => ['index', 'create', 'store', 'show', 'edit', 'update']]);
 
     Route::put('staff/{staff_id}/add-to-group', 'StaffController@addToGroup')->name('staff.add-to-group');
     Route::put('staff/{staff_id}/update-password', 'StaffController@updatePassword')->name('staff.update-password');
     Route::resource('staff', 'StaffController', ['only' => ['index', 'store', 'update', 'edit']]);
-
-    Route::resource('notes', 'NotesController', ['only' => ['store']]);
 });

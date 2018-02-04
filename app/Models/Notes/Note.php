@@ -4,6 +4,7 @@ namespace App\Models\Notes;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use function str_limit;
 
 class Note extends Model
 {
@@ -25,6 +26,8 @@ class Note extends Model
         'note_type_id' => 'int'
     ];
 
+    protected $appends = ['short_body'];
+
     /**
      * Relationship to the children this note belongs to.
      *
@@ -38,6 +41,16 @@ class Note extends Model
             'note_id',
             'child_id'
         );
+    }
+
+    /**
+     * Relationship to the user that created the note
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function createdByUser()
+    {
+        return $this->belongsTo(\App\User::class, 'created_by_user_id');
     }
 
     /**
@@ -67,7 +80,7 @@ class Note extends Model
      */
     public function photos()
     {
-        return $this->belongsTo(\App\Models\Notes\Photo::class);
+        return $this->hasMany(\App\Models\Notes\Photo::class, 'note_id');
     }
 
     /**
@@ -78,5 +91,16 @@ class Note extends Model
     public function incidentType()
     {
         return $this->belongsTo(\App\Models\Notes\IncidentType::class, 'incident_type_id');
+    }
+
+    /**
+     * Attribute for short version of the note
+     *
+     * @param string $value
+     * @return \Illuminate\Contracts\Translation\Translator|string
+     */
+    public function getShortBodyAttribute($value)
+    {
+        return str_limit($this->body, 500);
     }
 }

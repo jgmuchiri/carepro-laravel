@@ -12,4 +12,17 @@ class Type extends Model
     protected $table = 'note_types';
 
     protected $fillable = ['name'];
+
+    protected $appends = ['name_label'];
+
+    /**
+     * Attribute for the translated version of the name
+     *
+     * @param string $value
+     * @return \Illuminate\Contracts\Translation\Translator|string
+     */
+    public function getNameLabelAttribute($value)
+    {
+        return __($this->name);
+    }
 }

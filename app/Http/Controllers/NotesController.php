@@ -2,8 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Child;
+use App\Models\Notes\IncidentType;
+use App\Models\Notes\Location;
 use App\Models\Notes\Note;
+use App\Models\Notes\Type;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Image;
+use Storage;
 
 class NotesController extends Controller
 {
@@ -14,7 +21,15 @@ class NotesController extends Controller
      */
     public function index()
     {
-        //
+        $notes = Note::with([
+            'type',
+            'createdByUser',
+            'children',
+            'location',
+            'incidentType'
+        ])->orderByDesc('created_at')->get();
+
+        return response()->json(compact('notes'));
     }
 
     /**
@@ -30,21 +45,75 @@ class NotesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @param int $id
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($id, Request $request)
     {
+        $child = Child::findOrFail($id);
+        $this->authorize('update', $child);
+
         $note = new Note([
             'title' => $request->input('title'),
             'body' => $request->input('body'),
-            'witnesses' => $request->input('witnesses'),
-            'action_taken' => $request->input('action_taken'),
-            'remarks' => $request->input('remarks'),
-            'location' => $request->input('location'),
-            'note_type_id' => $request->input('note_type_id'),
-            'incident_type' => $request->input('incident_type'),
-            'photo_uri' => $request->input('photo_uri')
+            'created_at' => $request->input('created_at')
+        ]);
+
+        if ($request->has('witnesses')) {
+            $note->witnesses = $request->input('witnesses');
+        }
+
+        if ($request->has('action_taken')) {
+            $note->action_taken = $request->input('action_taken');
+        }
+
+        if ($request->has('remarks')) {
+            $note->remarks = $request->input('remarks');
+        }
+
+        if ($request->has('location')) {
+            $location = Location::firstOrCreate(['name' => $request->input('location')]);
+            $note->location()->associate($location);
+        }
+
+        if ($request->has('incident_type')) {
+            $incident_type = IncidentType::firstOrCreate(['name' => $request->input('incident_type')]);
+            $note->incidentType()->associate($incident_type);
+        }
+
+        $type = Type::whereName($request->input('note_type'))->first();
+        $note->type()->associate($type);
+        $note->createdByUser()->associate(Auth::user());
+        $note->save();
+
+        $note->children()->save($child);
+
+        if (!empty($request->file('photo_uris'))) {
+            foreach ($request->file('photo_uris') as $photo) {
+                $photo_uri = Storage::disk('public')
+                    ->putFile('children-images/original', $photo, 'public');
+                //get the saved photo name
+                $photo_name = basename($photo_uri);
+                //retrieve the image
+                $file = Storage::get('public/children-images/original/' . $photo_name);
+                //resize image
+                $photo_thumb = Image::make($file)->resize(100, 100)->stream();
+                //move the resized image to the childrens folder.
+                $path = Storage::disk('public')->put('children-images/' . $photo_name, $photo_thumb);
+                //generate resized image path
+                $thumb_path = 'children-images/' . $photo_name;
+
+                $note->photos()->create(['photo_uri' => $thumb_path]);
+            }
+        }
+
+        $note->load([
+            'type',
+            'createdByUser',
+            'children',
+            'location',
+            'incidentType'
         ]);
 
         return response()->json(

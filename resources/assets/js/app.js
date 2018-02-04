@@ -50,7 +50,10 @@ Vue.component('AssignChildrenModal', require('./components/Parents/AssignChildre
 Vue.component('AddToGroupModal', require('./components/Groups/AddToGroupModal.vue'));
 Vue.component('ChildrenHomeTab', require('./components/Children/Tabs/Home.vue'));
 Vue.component('ChildrenPhotoTab', require('./components/Children/Tabs/Photo.vue'));
-Vue.component('ChildrenNoteTab', require('./components/Children/Tabs/Note.vue'));
+Vue.component('ChildrenNoteTab', require('./components/Children/Tabs/Notes/NoteTab.vue'));
+Vue.component('NoteIndex', require('./components/Children/Tabs/Notes/Index.vue'));
+Vue.component('CreateIncident', require('./components/Children/Tabs/Notes/CreateIncident.vue'));
+Vue.component('CreateNote', require('./components/Children/Tabs/Notes/CreateNote.vue'));
 Vue.component('ChildrenAttendanceTab', require('./components/Children/Tabs/Attendance.vue'));
 Vue.component('ChildrenBillingTab', require('./components/Children/Tabs/Billing.vue'));
 Vue.component('ChildrenHealthTab', require('./components/Children/Tabs/Health.vue'));
@@ -80,6 +83,12 @@ Vue.mixin({
                 type: 'success',
                 timer: 4000
             });
+        },
+        formatDate: function (date) {
+            return window.moment(date).format("D MMMM YYYY");
+        },
+        formatTime: function (date) {
+            return window.moment(date).format("LT");
         }
     }
 });
