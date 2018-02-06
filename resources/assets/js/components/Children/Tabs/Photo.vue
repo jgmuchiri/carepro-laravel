@@ -6,7 +6,7 @@
                 <div class="btn-group">
                     <button class="btn btn-success waves-effect m-b-5"
                             data-toggle="modal"
-                            data-target=""
+                            data-target="#dropzone-modal"
                             data-backdrop="false"
                     >
                         <i class="fa fa-camera m-r-5 btn-fa"></i>
@@ -19,91 +19,60 @@
         <hr>
         <div class="panel panel-default">
             <div class="panel-body">
-                <div class="media-box-body">
-                    <h4 class="media-box-heading">10 October 2017</h4>
+                <div class="media-box-body" v-for="photo_group in photos">
+                    <h4 class="media-box-heading">{{ photo_group.key }}</h4>
                     <div class="grid">
                         <div class="grid-sizer"></div>
-                        <div class="grid-item">
-                            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/orange-tree.jpg" />
-                        </div>
-                        <div class="grid-item">
-                            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/submerged.jpg" />
-                        </div>
-                        <div class="grid-item">
-                            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/look-out.jpg" />
-                        </div>
-                        <div class="grid-item">
-                            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/one-world-trade.jpg" />
-                        </div>
-                        <div class="grid-item">
-                            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/drizzle.jpg" />
-                        </div>
-                        <div class="grid-item">
-                            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/cat-nose.jpg" />
-                        </div>
-                        <div class="grid-item">
-                            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/contrail.jpg" />
-                        </div>
-                        <div class="grid-item">
-                            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/golden-hour.jpg" />
-                        </div>
-                        <div class="grid-item">
-                            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/flight-formation.jpg" />
-                        </div>
-                    </div>
-                </div>
-                <div class="media-box-body">
-                    <h4 class="media-box-heading">9 October 2017 | Incedent</h4>
-                    <div class="grid">
-                        <div class="grid-sizer"></div>
-                        <div class="grid-item">
-                            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/orange-tree.jpg" />
-                        </div>
-                        <div class="grid-item">
-                            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/submerged.jpg" />
-                        </div>
-                        <div class="grid-item">
-                            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/look-out.jpg" />
-                        </div>
-                        <div class="grid-item">
-                            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/one-world-trade.jpg" />
-                        </div>
-                        <div class="grid-item">
-                            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/drizzle.jpg" />
-                        </div>
-                        <div class="grid-item">
-                            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/cat-nose.jpg" />
-                        </div>
-                        <div class="grid-item">
-                            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/contrail.jpg" />
-                        </div>
-                        <div class="grid-item">
-                            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/golden-hour.jpg" />
-                        </div>
-                        <div class="grid-item">
-                            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/flight-formation.jpg" />
+                        <div class="grid-item" v-for="current_photo in photo_group.values">
+                            <lightbox
+                                    :thumbnail="current_photo.full_photo_uri"
+                                    :images="movePhotoToFront(photosUriArray, current_photo.full_photo_uri_original)"
+                                    @load="imageLoaded"
+                            ></lightbox>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <DropzoneModal :url="'/api/children/' + this.child.id + '/photos'"></DropzoneModal>
     </div>
 </template>
 
 <script>
     export default {
-        mounted()
+        created()
         {
-            var $container = $('.grid');
-            $container.imagesLoaded( function () {
-                $container.masonry();
-            });
-
-            $('#photo-a').click(function (e) {
-                $container.imagesLoaded( function () {
-                    $container.masonry();
+            this.$http.get('/api/children/' + this.child.id + '/photos')
+                .then(response => {
+                    this.photos = response.data.photos;
+                })
+                .catch(error => {
+                    alert("Something went wrong. Please try reloading the page");
                 });
-            });
-        }
+        },
+        computed: {
+            photosUriArray: function () {
+                return [].concat.apply([], this.photos.map(x => x.values.map(y => y.full_photo_uri_original)));
+            }
+        },
+        data()
+        {
+            return {
+                photos: [],
+                imagesLoadedCount: 0
+            }
+        },
+        methods: {
+            imageLoaded: function() {
+                this.imagesLoadedCount++;
+                if (this.imagesLoadedCount == this.photos.length) {
+
+                }
+            },
+            movePhotoToFront: function (array, element) {
+                return [].concat([element], array.filter(e => e !== element));
+            }
+        },
+        props: ['child']
     }
 </script>

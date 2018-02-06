@@ -130,6 +130,16 @@ class Child extends Model
     }
 
     /**
+     * Relationship to this child's photos
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function photos()
+    {
+        return $this->hasMany(\App\Models\Photo::class, 'child_id');
+    }
+
+    /**
      * Returns registration stats
      *
      * @return \Illuminate\Support\Collection
