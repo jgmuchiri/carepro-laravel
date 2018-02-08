@@ -19,6 +19,7 @@ class ChildPhotosController extends Controller
     public function index($id)
     {
         $child = Child::findOrFail($id);
+        $this->authorize('show', $child);
 
         $photos = Photo::whereChildId($id)->get();
 
@@ -37,16 +38,6 @@ class ChildPhotosController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param int $id
@@ -56,6 +47,7 @@ class ChildPhotosController extends Controller
     public function store($id, Request $request)
     {
         $child = Child::findOrFail($id);
+        $this->authorize('update', $child);
 
         $photo_uri = Storage::disk('public')
             ->putFile('children-images/original', $request->file('file'), 'public');
@@ -73,50 +65,5 @@ class ChildPhotosController extends Controller
         $photo = $child->photos()->create(['photo_uri' => $thumb_path]);
 
         return response()->json(compact('photo'));
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }
