@@ -20,7 +20,7 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 <div class="media-box-body" v-for="photo_group in photos">
-                    <h4 class="media-box-heading">{{ photo_group.key }}</h4>
+                    <h4 class="media-box-heading">{{ formatDate(createMomentDate(photo_group.key)) }}</h4>
                     <div class="grid">
                         <div class="grid-sizer"></div>
                         <div class="grid-item" v-for="current_photo in photo_group.values">

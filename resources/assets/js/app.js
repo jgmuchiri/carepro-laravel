@@ -60,6 +60,7 @@ Vue.component('ChildrenHealthTab', require('./components/Children/Tabs/Health.vu
 Vue.component('ChildrenAttachParentModal', require('./components/Children/AttachParentModal.vue'));
 Vue.component('ChildrenAttachGroupModal', require('./components/Children/AttachGroupModal.vue'));
 Vue.component('DropzoneModal', require('./components/DropzoneModal.vue'));
+Vue.component('CreateEditPickupUserModal', require('./components/Children/Tabs/CreateEditPickupUserModal.vue'));
 
 Vue.mixin({
     methods: {
@@ -84,6 +85,9 @@ Vue.mixin({
                 type: 'success',
                 timer: 4000
             });
+        },
+        createMomentDate: function (date) {
+            return window.moment(date);
         },
         formatDate: function (date) {
             return window.moment(date).format("D MMMM YYYY");
