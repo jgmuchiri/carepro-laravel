@@ -57,12 +57,13 @@
     export default {
         created()
         {
-            this.$http.get('/api/children/ ' + this.child.id + '/notes')
+            this.$http.get('/api/children/' + this.child.id + '/notes')
                 .then(response => { this.notes = response.data.notes; })
                 .catch(error => {
                     alert("Something went wrong. Please try reloading the page");
                 });
             this.notes = [];
+            var self = this;
             window.bus.$on('noteCreated', function(note) {
                 self.notes.unshift(note);
             });

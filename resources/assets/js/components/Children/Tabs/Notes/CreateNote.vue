@@ -79,7 +79,7 @@
                 formData.append('body', this.note.body);
                 formData.append('note_type', this.note.note_type);
                 formData.append('child_id', this.child_id);
-                formData.append('created_at', this.note.moment_date.toIsoString())
+                formData.append('created_at', window.moment(this.note.moment_date))
 
                 this.$http.post('/api/children/' + this.child.id + '/notes', formData).then(response => {
                     this.$emit('noteCreated', response.data.note);
