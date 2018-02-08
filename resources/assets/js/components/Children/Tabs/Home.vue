@@ -205,8 +205,10 @@
                     <div class="btn-group">
                         <button class="btn btn-primary waves-effect m-b-5"
                                 data-toggle="modal"
-                                data-target="#newChild"
-                                data-backdrop="false">
+                                data-target="#create-edit-pickup-user-modal"
+                                data-backdrop="false"
+                                id="new-pickup-user-button"
+                        >
                             <i class="fa fa-plus m-r-5 btn-fa"></i>
                             <span> {{ $t('New Authorization') }}</span>
                         </button>
@@ -216,52 +218,32 @@
             </div>
             <div class="child-parent">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-6" v-for="pickup_user in child.pickup_users">
                         <div class="panel panel-primary">
                             <div class="panel-body">
                                 <div class="row row-table">
                                     <div class="col-xs-5 text-center">
-                                        <img :src="child.full_photo_uri" :alt="$t('User Image')"/>
+                                        <img :src="pickup_user.full_photo_uri" :alt="$t('User Image')"/>
                                     </div>
                                     <div class="col-xs-7">
-                                        <h3 class="mt0">Patricia Ellys</h3>
+                                        <h3 class="mt0">{{ pickup_user.name }}</h3>
                                         <ul class="list-unstyled">
-                                            <li class="mb-sm"><em class="fa fa-envelope fa-fw"></em>patricia@gmail.com</li>
-                                            <li class="mb-sm"><em class="fa fa-phone fa-fw"></em>0708153683</li>
-                                            <li class="mb-sm"><em class="fa fa-key fa-fw"></em>123456</li><li class="mb-sm">
-                                            <em class="fa fa-check-circle-o fa-fw"></em>Aunt</li>
+                                            <li class="mb-sm"><em class="fa fa-envelope fa-fw"></em>{{ pickup_user.email }}</li>
+                                            <li class="mb-sm"><em class="fa fa-phone fa-fw"></em>{{ pickup_user.phone }}</li>
+                                            <li class="mb-sm"><em class="fa fa-key fa-fw"></em>{{ pickup_user.pin }}</li><li class="mb-sm">
+                                            <em class="fa fa-check-circle-o fa-fw"></em>{{ pickup_user.relation.name }}</li>
                                         </ul>
                                     </div>
                                 </div>
 
                                 <div class="text-center">
-                                    <a href="" class="btn btn-success btn-oval"><i class="fa fa-pencil"></i></a>
-                                    <a href="" class="btn btn-danger btn-oval"><i class="fa fa-trash-o"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="panel panel-primary">
-                            <div class="panel-body">
-                                <div class="row row-table">
-                                    <div class="col-xs-5 text-center">
-                                        <img :src="child.full_photo_uri" :alt="$t('User Image')"/>
-                                    </div>
-                                    <div class="col-xs-7">
-                                        <h3 class="mt0">Patricia Ellys</h3>
-                                        <ul class="list-unstyled">
-                                            <li class="mb-sm"><em class="fa fa-envelope fa-fw"></em>patricia@gmail.com</li>
-                                            <li class="mb-sm"><em class="fa fa-phone fa-fw"></em>0708153683</li>
-                                            <li class="mb-sm"><em class="fa fa-key fa-fw"></em>123456</li>
-                                            <li class="mb-sm"><em class="fa fa-check-circle-o fa-fw"></em>Brother</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="text-center">
-                                    <a href="" class="btn btn-success btn-oval"><i class="fa fa-pencil"></i></a>
-                                    <a href="" class="btn btn-danger btn-oval"><i class="fa fa-trash-o"></i></a>
+                                    <a class="btn btn-success btn-oval"
+                                       v-on:click="editPickupUser(pickup_user)">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                    <a class="btn btn-danger btn-oval" v-on:click.prevent="deletePickupUser(pickup_user.id)">
+                                        <i class="fa fa-trash-o"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -297,6 +279,22 @@
             }
         },
         methods: {
+            deletePickupUser: function (id) {
+                this.$http.delete('/api/children/' + this.child.id + '/pickup-users/' + id)
+                    .then(response => {
+                        this.$noty.success(response.data.message);
+                        this.child.pickup_users = this.child.pickup_users.filter(x => x.id != id);
+                    })
+                    .catch(error => {
+                        if (error.response.status == 422) {
+                            for (var key in error.response.data) {
+                                this.$noty.error(error.response.data[key]);
+                            }
+                        } else {
+                            alert("Something went wrong. Please reload the page and try again.");
+                        }
+                    });
+            },
             onFileChange: function(event) {
                 var files = event.target.files || event.dataTransfer.files;
                 if (!files.length)
@@ -333,6 +331,10 @@
                             alert("Something went wrong. Please reload the page and try again.");
                         }
                     });
+            },
+            editPickupUser: function(pickup_user) {
+                window.bus.$emit('editPickupUser', pickup_user);
+                $('#new-pickup-user-button').click();
             }
         },
         props: ['child']

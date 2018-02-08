@@ -87,7 +87,11 @@
             :child="child"
             v-if="child.id && currentView == 'ChildrenHomeTab'"
             v-on:attachGroupsToChild="loadGroups"
-       ></ChildrenAttachGroupModal>
+        ></ChildrenAttachGroupModal>
+        <CreateEditPickupUserModal
+            :child_id="child.id"
+            v-if="child.id && currentView == 'ChildrenHomeTab'"
+        ></CreateEditPickupUserModal>
     </div>
 </template>
 
@@ -113,6 +117,25 @@
                     }
                     $('<span>' + filename + '</span>').appendTo('.filename');
                 }
+            });
+
+            var self = this;
+            window.bus.$on('pickupUserCreated', function(pickup_user) {
+                self.child.pickup_users.push(pickup_user);
+            });
+
+            window.bus.$on('pickupUserEdited', function(pickup_user) {
+                self.child.pickup_users = self.child.pickup_users.map(x => {
+                    if (x.id == pickup_user.id)
+                    {
+                        pickup_user.photo_uri += '?date=' + window.moment().toISOString()
+                        return pickup_user;
+                    }
+                    else
+                    {
+                        return x;
+                    }
+                });
             });
         },
         data() {

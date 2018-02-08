@@ -140,6 +140,16 @@ class Child extends Model
     }
 
     /**
+     * Relationship to this child's pickup users
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function pickupUsers()
+    {
+        return $this->hasMany(\App\Models\PickupUsers\PickupUser::class, 'child_id');
+    }
+
+    /**
      * Returns registration stats
      *
      * @return \Illuminate\Support\Collection

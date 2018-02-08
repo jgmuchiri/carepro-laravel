@@ -100,7 +100,8 @@ class ChildrenController extends Controller
         $child = Child::with([
             'status',
             'groups',
-            'parents.user.address'
+            'parents.user.address',
+            'pickupUsers.relation'
         ])->findOrFail($id);
         $this->authorize('show', $child);
 
