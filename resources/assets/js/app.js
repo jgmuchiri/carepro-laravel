@@ -15,6 +15,8 @@ import VueI18n from 'vue-i18n';
 import Locales from './vue-i18n-locales.generated.js';
 import Vue from 'vue';
 import VueNoty from 'vuejs-noty';
+import wysiwyg from "vue-wysiwyg";
+Vue.use(wysiwyg, {});
 
 window.bus = new Vue();
 
