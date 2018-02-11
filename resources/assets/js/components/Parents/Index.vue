@@ -53,8 +53,9 @@
                             </th>
                             <th>Picture</th>
                             <th>{{ $t('Name') }}</th>
-                            <th></th>
-                            <th></th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -73,8 +74,13 @@
                                 </div>
                             </td>
                             <td>{{ parent.user.name }}</td>
-                            <td></td>
-                            <td></td>
+                            <td>{{ parent.user.address.phone }}</td>
+                            <td>{{ parent.user.email }}</td>
+                            <td class="text-center">
+                                <router-link class="mb-sm btn btn-success btn-xs" :to="{ name: 'parents.show', params: { parent_id: parent.id }}">
+                                    View
+                                </router-link>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
