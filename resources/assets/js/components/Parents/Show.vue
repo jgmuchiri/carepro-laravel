@@ -224,7 +224,7 @@
             return {
                 parent: {},
                 countries: [],
-                photo_uri: null,
+                photo_uri: '',
                 upload_image: false,
                 can_manage_children: false
             }
