@@ -7,7 +7,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="btn-group">
-                            <button class="btn btn-success waves-effect m-b-5">
+                            <button id="btn-create-note" class="btn btn-success waves-effect m-b-5">
                                 <i class="fa fa-plus m-r-5 btn-fa"></i>
                                 <span>{{ $t('New Note') }}</span>
                             </button>
@@ -148,10 +148,63 @@
                 </div>
             </div>
         </div>
+        <!-- new note -->
+        <div style="display: none;" id="note-create">
+            <div class="content-heading">
+                <!-- START Language list-->
+                <div class="pull-right">
+                    <div class="btn-group">
+                        <button class="btn btn-success waves-effect m-b-5"
+                                id="note-back-btn">
+                            <i class="fa fa-chevron-left m-r-5 btn-fa"></i>
+                            <span>{{ $t('Back') }}</span>
+                        </button>
+                    </div>
+                </div>
+                <h3 style="margin-top: 0px;">{{ $t('New General Note') }}</h3>
+            </div>
+            <hr>
+            <div class="panel panel-default">
+                <div class="panel-heading" style="color: #515253;">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <h4>Date: 10 October 2017</h4>
+                        </div>
+                        <div class="col-lg-6">
+                            <h4>Time: 02:00 PM</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <form>
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <input id="title" class="form-control input-lg" :placeholder="$t('Title')"  type="text">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <wysiwyg v-model="myHTML" />
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-danger waves-effect m-b-5"><span>{{ $t('Cancel') }}</span></button>
+                            </div>
+                            <div class="col-md-6">
+                                <button class="btn btn-success waves-effect m-b-5"><span>{{ $t('Save') }}</span></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- new note -->
     </div>
 </template>
 
 <script>
+    import "vue-wysiwyg/dist/vueWysiwyg.css";
     export default {
         mounted()
         {
@@ -161,6 +214,15 @@
             });
             $('#incident-back-btn').on('click', function() {
                 $('#incident-create').hide();
+                $('#notes-index').show();
+            });
+
+            $('#btn-create-note').on('click', function() {
+                $('#notes-index').hide();
+                $('#note-create').show();
+            });
+            $('#note-back-btn').on('click', function() {
+                $('#note-create').hide();
                 $('#notes-index').show();
             });
         },
