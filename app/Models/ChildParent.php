@@ -51,8 +51,7 @@ class ChildParent extends Model
     protected $dates = [
         'created_at',
         'updated_at',
-        'deleted_at',
-        'date_of_birth'
+        'deleted_at'
     ];
 
     protected $appends = ['full_photo_uri'];
