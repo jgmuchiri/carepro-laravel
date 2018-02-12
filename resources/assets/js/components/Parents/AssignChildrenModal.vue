@@ -20,7 +20,12 @@
                             <tbody>
                                 <tr v-for="child in children">
                                     <td style="width:20px;">
-                                        <input type="checkbox" v-model="selected_children" :value="child.id">
+                                        <div class="checkbox c-checkbox">
+                                            <label>
+                                                <input type="checkbox" v-model="selected_children" :value="child.id"/>
+                                                <span class="fa fa-check"></span>
+                                            </label>
+                                        </div>
                                     </td>
                                     <td><a href="#">{{ child.name }}</a></td>
                                 </tr>
@@ -61,6 +66,8 @@
                     children: this.selected_children
                 })
                     .then(response => {
+                        $('#attachChildren').modal('hide');
+                        this.$emit('attachChildtoParent', response.data.message);
                         this.$noty.success(response.data.message);
                     })
                     .catch(error => {

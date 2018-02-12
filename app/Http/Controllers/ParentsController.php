@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SaveAssignChildrenRequest;
+use App\Http\Requests\UpdateParentRequest;
 use App\Http\Requests\SaveParentRequest;
 use App\Models\Addresses\Address;
 use App\Models\Child;
@@ -26,7 +27,7 @@ class ParentsController extends Controller
         $this->authorize('create', ChildParent::class);
 
         $parents = ChildParent::whereDaycareId($request->user()->daycare_id)
-            ->with('user')->get();
+            ->with('user', 'user.address')->get();
 
         $can_create_parents = $request->user()->can('create', ChildParent::class);
 
@@ -87,13 +88,51 @@ class ParentsController extends Controller
      */
     public function show(Request $request, $id)
     {
-        $parent = ChildParent::with('children')->findOrFail($id);
+        $parent = ChildParent::with('children', 'children.status', 'user', 'user.address', 'user.address.city', 'user.address.state', 'user.address.zipCode', 'user.address.country')->findOrFail($id);
         $this->authorize('show', $parent);
 
         $children = Child::whereDaycareId($request->user()->daycare->id)->get();
         $can_manage_children = $request->user()->can('store', Child::class);
 
         return response()->json(compact('children', 'parent', 'can_manage_children'));
+    }
+
+    /**
+     * Updates a Parent
+     *
+     * @param UpdateParentRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update(UpdateParentRequest $request, $id)
+    {
+        $parent = ChildParent::findOrFail($id);
+        $this->authorize('update', $parent);
+
+        $parent->fill([
+            'date_of_birth' => $request->input('dob'),
+            'pin' => $request->input('pin'),
+            'is_primary' => $request->has('is_primary')
+        ]);
+
+        if (!empty($request->file('photo_uri'))) {
+            $photo_uri = Storage::disk('public')->putFile('parent-images', $request->file('photo_uri'), 'public');
+
+            $parent->photo_uri = $photo_uri;
+        }
+
+        $parent->save();
+
+        $parent->user()->update(array(
+            'name' => $request->input('name'),
+            'email' => $request->input('email')
+        ));
+
+        $parent->user->address->updateFromRawInput($request->input());
+
+        return response()->json([
+            'message' => __('Parent has been updated Successfully.')
+        ]);
     }
 
     /**
@@ -111,6 +150,6 @@ class ParentsController extends Controller
 
         $parent->children()->sync($request->input('children', []));
 
-        return response()->json(['message' => __('Successfully saved parent.')]);
+        return response()->json(['message' => __('Child has been assigned Successfully.')]);
     }
 }

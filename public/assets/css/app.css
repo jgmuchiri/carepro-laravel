@@ -8727,6 +8727,9 @@ fieldset[disabled] .flatdoc-wrapper .button:hover {
     color: #27c24c !important;
 }
 
+.td-text-danger {
+    color: #ff902b  !important;
+}
 .nav-tabs.nav-tabs-left {
     float: left;
     padding-right: 0;

@@ -23,6 +23,7 @@
   "dependencies": {
     "moment": "^2.19.1",
     "vue-pure-lightbox": "^2.1.4",
+    "vue-wysiwyg": "^1.4.1",
     "vuejs-noty": "^0.1.2"
   }
 }

@@ -21,7 +21,7 @@ Route::group(['middleware' => ['auth:api', 'subscribed']], function() {
     Route::get('addresses/countries', 'AddressesController@countriesIndex')->name('addresses.countries.index');
     Route::post('parents/{id}/assign-children', 'ParentsController@assignChildren')
         ->name('parents.assign-children');
-    Route::resource('parents', 'ParentsController', ['only' => ['index', 'store', 'show']]);
+    Route::resource('parents', 'ParentsController', ['only' => ['index', 'store', 'show', 'update']]);
 
     Route::post('children/{id}/assign-parents', 'ChildrenController@assignParents')
         ->name('children.assign-parents');
