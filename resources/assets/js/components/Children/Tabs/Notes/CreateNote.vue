@@ -37,7 +37,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <textarea v-model="note.body" rows="3" class="form-control input-lg" :placeholder="$t('Type your message here')"></textarea>
+                                <wysiwyg v-model="note.body"></wysiwyg>
                             </div>
                         </div>
                     </div>
@@ -58,6 +58,7 @@
 </template>
 
 <script>
+    import "vue-wysiwyg/dist/vueWysiwyg.css";
     export default {
         data() {
             return {

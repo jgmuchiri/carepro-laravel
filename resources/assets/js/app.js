@@ -16,7 +16,9 @@ import Locales from './vue-i18n-locales.generated.js';
 import Vue from 'vue';
 import VueNoty from 'vuejs-noty';
 import wysiwyg from "vue-wysiwyg";
-Vue.use(wysiwyg, {});
+Vue.use(wysiwyg, {
+    hideModules: { "image": true }
+});
 
 window.bus = new Vue();
 
