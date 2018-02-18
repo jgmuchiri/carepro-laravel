@@ -337,7 +337,11 @@
 
                 this.$http.post('/api/children/' + this.child.id, formData)
                     .then(response => {
-                        this.$emit('childEdited', response.data.child);
+                        var child = response.data.child;
+                        child.photo += '?date=' + window.moment().toISOString();
+                        child.full_photo_uri += '?date=' + window.moment().toISOString();
+                        child.full_photo_uri_original += '?date=' + window.moment().toISOString();
+                        window.bus.$emit('childEdited', child);
                         this.$noty.success(response.data.message);
                     })
                     .catch(error => {

@@ -75,15 +75,18 @@ class PickupUsersController extends Controller
 
         $pickup_user = PickupUser::findOrFail($id);
 
-        $photo_uri = $pickup_user->photo_uri;
-        Storage::disk('public')->putFileAs('children-images/pickup-users/original', $request->file('photo_uri'), $photo_uri);
+        if (!empty($request->file('photo_uri'))) {
+            $photo_uri = $pickup_user->photo_uri;
+            Storage::disk('public')->putFileAs('children-images/pickup-users/original', $request->file('photo_uri'),
+                $photo_uri);
 
-        //retrieve the image
-        $file = Storage::get('public/children-images/pickup-users/original/' . $photo_uri);
-        //resize image
-        $photo_thumb = Image::make($file)->resize(100, 100)->stream();
-        //move the resized image to the childrens folder.
-        $path = Storage::disk('public')->put($photo_uri, $photo_thumb);
+            //retrieve the image
+            $file = Storage::get('public/children-images/pickup-users/original/' . $photo_uri);
+            //resize image
+            $photo_thumb = Image::make($file)->resize(100, 100)->stream();
+            //move the resized image to the childrens folder.
+            $path = Storage::disk('public')->put($photo_uri, $photo_thumb);
+        }
 
         $pickup_user->fill([
             'name' => $request->input('name'),

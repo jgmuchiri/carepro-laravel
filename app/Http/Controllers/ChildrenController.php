@@ -229,20 +229,16 @@ class ChildrenController extends Controller
         ]);
 
         if (!empty($request->file('photo_uri'))) {
-            $photo_uri = Storage::disk('public')
-                ->putFile('children-images/original', $request->file('photo_uri'), 'public');
-            //get the saved photo name
-            $photo_name = basename($photo_uri);
+            $photo_uri = $child->photo;
+            Storage::disk('public')->putFileAs('children-images/original', $request->file('photo_uri'),
+                $photo_uri);
+
             //retrieve the image
-            $file = Storage::get('public/children-images/original/' . $photo_name);
+            $file = Storage::get('public/children-images/original/' . $photo_uri);
             //resize image
             $photo_thumb = Image::make($file)->resize(100, 100)->stream();
             //move the resized image to the childrens folder.
-            $path = Storage::disk('public')->put('children-images/' . $photo_name, $photo_thumb);
-            //generate resized image path
-            $thumb_path = 'children-images/' . $photo_name;
-
-            $child->photo = $thumb_path;
+            $path = Storage::disk('public')->put($photo_uri, $photo_thumb);
         }
 
         $child->save();
