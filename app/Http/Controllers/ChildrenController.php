@@ -331,6 +331,14 @@ class ChildrenController extends Controller
         ]);
     }
 
+    /**
+     * Unassigns a child from the group
+     *
+     * @param int $child_id
+     * @param int $group_id
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function unassignGroup($child_id, $group_id)
     {
         $child = Child::findOrFail($child_id);
