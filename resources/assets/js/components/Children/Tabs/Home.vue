@@ -250,6 +250,20 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="form-row text-center">
+                    <div class="col-md-12">
+                        <button v-if="child.status.name == 'Active'" type="submit" v-on:click.prevent="toggleChildActivation" class="btn btn-danger wave-effect m-b-5">
+                            <i class="fa fa-trash m-r-5 btn-fa"></i>
+                            <span> {{ $t('Deactivate Child')}}</span>
+                        </button>
+                        <button v-else type="submit" v-on:click.prevent="toggleChildActivation" class="btn btn-primary wave-effect m-b-5">
+                            <i class="fa fa-plus m-r-5 btn-fa"></i>
+                            <span> {{ $t('Activate Child')}}</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -286,7 +300,9 @@
                         this.child.pickup_users = this.child.pickup_users.filter(x => x.id != id);
                     })
                     .catch(error => {
-                        if (error.response.status == 422) {
+                        if (error.response.status == 403) {
+                           this.$noty.error(this.$t('This child is inactive and read-only.'));
+                        } else if (error.response.status == 422) {
                             for (var key in error.response.data) {
                                 this.$noty.error(error.response.data[key]);
                             }
@@ -323,7 +339,9 @@
                         this.$noty.success(response.data.message);
                     })
                     .catch(error => {
-                        if (error.response.status == 422) {
+                        if (error.response.status == 403) {
+                            this.$noty.error(this.$t('This child is inactive and read-only.'));
+                        } else if (error.response.status == 422) {
                             for (var key in error.response.data) {
                                 this.$noty.error(error.response.data[key]);
                             }
@@ -335,7 +353,45 @@
             editPickupUser: function(pickup_user) {
                 window.bus.$emit('editPickupUser', pickup_user);
                 $('#new-pickup-user-button').click();
+            },
+            toggleChildActivation: function() {
+                if (this.child.status.name == 'Active') {
+                    this.$http.get('/api/children/' + this.child.id + '/deactivate')
+                        .then(response => {
+                            this.$noty.success(response.data.message);
+                            this.child.status.name = 'Inactive';
+                        })
+                        .catch(error => {
+                            if (error.response.status == 403) {
+                                this.$noty.error(this.$t('This child is inactive and read-only.'));
+                            } else if (error.response.status == 422) {
+                                for (var key in error.response.data) {
+                                    this.$noty.error(error.response.data[key]);
+                                }
+                            } else {
+                                alert("Something went wrong. Please reload the page and try again.");
+                            }
+                        });
+                } else {
+                    this.$http.get('/api/children/' + this.child.id + '/activate')
+                        .then(response => {
+                            this.$noty.success(response.data.message);
+                            this.child.status.name = 'Active';
+                        })
+                        .catch(error => {
+                            if (error.response.status == 403) {
+                                this.$noty.error(this.$t('This child is inactive and read-only.'));
+                            } else if (error.response.status == 422) {
+                                for (var key in error.response.data) {
+                                    this.$noty.error(error.response.data[key]);
+                                }
+                            } else {
+                                alert("Something went wrong. Please reload the page and try again.");
+                            }
+                        });
+                }
             }
+
         },
         props: ['child']
     }

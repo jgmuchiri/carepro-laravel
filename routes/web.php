@@ -59,14 +59,6 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('invoices', 'InvoicesController@index')->name('invoices.index');
     Route::get('invoices/{id}/downlaod', 'InvoicesController@download')->name('invoices.download');
 
-    Route::group(
-        ['middleware' => 'subscribed'],
-        function() {
-            Route::get('children/{id}/activate', 'ChildrenController@activate')->name('children.activate');
-            Route::get('children/{id}/deactivate', 'ChildrenController@deactivate')->name('children.deactivate');
-        }
-    );
-
     Route::get('{any?}', function () {
         return view('layouts.dashboard');
     })->where('any', '.*');

@@ -65,9 +65,6 @@
         methods: {
             imageLoaded: function() {
                 this.imagesLoadedCount++;
-                if (this.imagesLoadedCount == this.photos.length) {
-
-                }
             },
             movePhotoToFront: function (array, element) {
                 return [].concat([element], array.filter(e => e !== element));

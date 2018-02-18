@@ -30,6 +30,8 @@ Route::group(['middleware' => ['auth:api', 'subscribed']], function() {
     Route::resource('children/{id}/notes', 'NotesController', ['only' => ['store', 'index']]);
     Route::resource('children/{id}/photos', 'ChildPhotosController', ['only' => ['store', 'index']]);
     Route::resource('children/{id}/pickup-users', 'PickupUsersController', ['only' => ['store', 'update', 'destroy']]);
+    Route::get('children/{id}/activate', 'ChildrenController@activate')->name('children.activate');
+    Route::get('children/{id}/deactivate', 'ChildrenController@deactivate')->name('children.deactivate');
     Route::resource('children', 'ChildrenController', ['only' => ['index', 'create', 'store', 'show', 'edit', 'update']]);
 
     Route::put('staff/{staff_id}/add-to-group', 'StaffController@addToGroup')->name('staff.add-to-group');

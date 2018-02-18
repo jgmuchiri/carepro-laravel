@@ -209,6 +209,12 @@ class ChildrenController extends Controller
     public function update(UpdateChildRequest $request, $id)
     {
         $child = Child::findOrFail($id);
+        $status = Status::find($request->input('status_id'));
+
+        if ($status->name == 'Active') {
+            $child->status->name = 'Active';
+        }
+
         $this->authorize('update', $child);
 
         $child->fill([
@@ -240,6 +246,12 @@ class ChildrenController extends Controller
         }
 
         $child->save();
+        $child->load([
+            'status',
+            'groups',
+            'parents.user.address',
+            'pickupUsers.relation'
+        ]);
 
         return response()->json(
             ['child' => $child, 'message' => __('Successfully saved child.')]
@@ -336,7 +348,6 @@ class ChildrenController extends Controller
         $child->status()->associate($status);
         $child->save();
 
-        return redirect()->route('children.index')
-            ->with(['successes' => new MessageBag([__('Successfully saved child.')])]);
+        return response()->json(['message' => new MessageBag([__('Successfully saved child.')])]);
     }
 }

@@ -124,6 +124,10 @@
                 self.child.pickup_users.push(pickup_user);
             });
 
+            window.bus.$on('childEdited', function (child) {
+                self.child = child;
+            });
+
             window.bus.$on('pickupUserEdited', function(pickup_user) {
                 self.child.pickup_users = self.child.pickup_users.map(x => {
                     if (x.id == pickup_user.id)
