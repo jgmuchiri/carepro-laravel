@@ -70,6 +70,7 @@
                                                v-bind:is="currentView"
                                                :child="child"
                                                v-on:childEdited="loadChild"
+                                               v-on:attachGroupsToChild="loadGroups"
                                     ></component>
                                 </keep-alive>
                             </div>

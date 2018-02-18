@@ -331,6 +331,20 @@ class ChildrenController extends Controller
         ]);
     }
 
+    public function unassignGroup($child_id, $group_id)
+    {
+        $child = Child::findOrFail($child_id);
+        $this->authorize('update', $child);
+
+        $child->groups()->detach($group_id);
+        $child->load('groups');
+
+        return response()->json([
+            'groups' => $child->groups,
+            'message' => __('Successfully saved child.')
+        ]);
+    }
+
     /**
      * Updates a child status
      *

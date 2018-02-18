@@ -152,7 +152,9 @@
                             <td>{{ group.name }}</td>
                             <td>{{ group.short_description }}</td>
                             <td class="text-center">
-                                <a class="btn btn-danger btn-xs" href="" title="Delete"><i class="fa fa-trash-o"></i></a>
+                                <a class="btn btn-danger btn-xs" v-on:click.prevent="unassignGroup(group.id)" title="Delete">
+                                    <i class="fa fa-trash-o"></i>
+                                </a>
                             </td>
                         </tr>
                     </tbody>
@@ -390,8 +392,25 @@
                             }
                         });
                 }
+            },
+            unassignGroup: function (group_id) {
+                this.$http.delete('/api/children/' + this.child.id + '/groups/' + group_id)
+                    .then(response => {
+                        this.$emit('attachGroupsToChild', response.data.groups);
+                        this.$noty.success(response.data.message);
+                    })
+                    .catch(error => {
+                        if (error.response.status == 403) {
+                            this.$noty.error(this.$t('This child is inactive and read-only.'));
+                        } else if (error.response.status == 422) {
+                            for (var key in error.response.data) {
+                                this.$noty.error(error.response.data[key]);
+                            }
+                        } else {
+                            alert("Something went wrong. Please reload the page and try again.");
+                        }
+                    });
             }
-
         },
         props: ['child']
     }
