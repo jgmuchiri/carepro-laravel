@@ -45,8 +45,9 @@
                     <h4 :class="'media-box-heading ' + note.type.name.toLowerCase()">
                         {{ formatDate(note.created_at) }} | {{ note.type.name_label }}
                     </h4>
-                    <h3><strong>{{ note.title }}</strong></h3>
-                    <p v-html="note.short_body">{{ note.short_body }}</p>
+                    <h3 v-on:click="expandNote(note)" style="cursor: pointer;"><strong>{{ note.title }}</strong></h3>
+                    <p v-if="note.is_expanded" v-html="note.body"></p>
+                    <p v-else v-html="note.short_body"></p>
                 </div>
             </div>
         </div>
@@ -58,8 +59,11 @@
         created()
         {
             this.$http.get('/api/children/' + this.child.id + '/notes')
-                .then(response => { this.notes = response.data.notes; })
+                .then(response => {
+                    this.notes = response.data.notes.map(x => {x.is_expanded = false; return x;});
+                })
                 .catch(error => {
+                    console.log(error);
                     alert("Something went wrong. Please try reloading the page");
                 });
             this.notes = [];
@@ -74,6 +78,10 @@
             }
         },
         methods: {
+            expandNote: function (note)
+            {
+                note.is_expanded = true;
+            },
             switchView: function (view)
             {
                 this.$emit('viewSwitched', view);
