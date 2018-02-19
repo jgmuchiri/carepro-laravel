@@ -59,7 +59,7 @@
                 <!-- END widget-->
             </div>
         </div>
-        <CreateParentModal></CreateParentModal>
+        <CreateEditParentModal></CreateEditParentModal>
         <CreateChildModal v-on:createChild="addChild"></CreateChildModal>
     </div>
 </template>

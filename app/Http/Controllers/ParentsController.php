@@ -88,7 +88,17 @@ class ParentsController extends Controller
      */
     public function show(Request $request, $id)
     {
-        $parent = ChildParent::with('children', 'children.status', 'user', 'user.address', 'user.address.city', 'user.address.state', 'user.address.zipCode', 'user.address.country')->findOrFail($id);
+        $parent = ChildParent::with([
+            'children',
+            'children.status',
+            'user',
+            'user.address',
+            'user.address.city',
+            'user.address.state',
+            'user.address.zipCode',
+            'user.address.country'
+        ])->findOrFail($id);
+
         $this->authorize('show', $parent);
 
         $children = Child::whereDaycareId($request->user()->daycare->id)->get();
@@ -127,10 +137,22 @@ class ParentsController extends Controller
             'name' => $request->input('name'),
             'email' => $request->input('email')
         ));
+        $parent->user()->update(['password' => bcrypt($request->input('password'))]);
 
         $parent->user->address->updateFromRawInput($request->input());
 
+        $parent->load([
+            'children',
+            'children.status',
+            'user',
+            'user.address',
+            'user.address.city',
+            'user.address.state',
+            'user.address.zipCode',
+            'user.address.country'
+        ]);
         return response()->json([
+            'parent' => $parent,
             'message' => __('Parent has been updated Successfully.')
         ]);
     }

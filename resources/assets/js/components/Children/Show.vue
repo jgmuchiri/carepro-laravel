@@ -92,6 +92,7 @@
             :child_id="child.id"
             v-if="child.id && currentView == 'ChildrenHomeTab'"
         ></CreateEditPickupUserModal>
+        <CreateEditParentModal v-if="child.id && currentView == 'ChildrenHomeTab'"></CreateEditParentModal>
     </div>
 </template>
 
@@ -126,6 +127,17 @@
 
             window.bus.$on('childEdited', function (child) {
                 self.child = child;
+            });
+
+            window.bus.$on('parentEdited', function(parent) {
+                self.child.parents = self.child.parents.map(x => {
+                    if (x.id == parent.id) {
+                        parent.photo_uri += '?date=' + window.moment().toISOString();
+                        return parent;
+                    } else {
+                        return x;
+                    }
+                })
             });
 
             window.bus.$on('pickupUserEdited', function(pickup_user) {

@@ -48,7 +48,7 @@ Vue.component('CreateEditGroupModal', require('./components/Groups/CreateEditMod
 Vue.component('GroupMassAssign', require('./components/Groups/MassAssign.vue'));
 Vue.component('draggable', require('vuedraggable'));
 Vue.component('CreateStaffModal', require('./components/StaffMembers/CreateModal'));
-Vue.component('CreateParentModal', require('./components/Parents/CreateModal'));
+Vue.component('CreateEditParentModal', require('./components/Parents/CreateEditModal'));
 Vue.component('CreateChildModal', require('./components/Children/CreateModal'));
 Vue.component('AssignChildrenModal', require('./components/Parents/AssignChildrenModal'));
 Vue.component('AddToGroupModal', require('./components/Groups/AddToGroupModal.vue'));

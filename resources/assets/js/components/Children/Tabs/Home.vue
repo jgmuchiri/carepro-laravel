@@ -179,6 +179,15 @@
                             <i class="fa fa-plus m-r-5 btn-fa"></i>
                             <span> {{ $t('Assign Parent/Guardian') }}</span>
                         </button>
+                        <button class="hide"
+                                data-toggle="modal"
+                                data-target="#create-edit-parent-modal"
+                                data-backdrop="false"
+                                id="edit-parent-button"
+                        >
+                            <i class="fa fa-plus m-r-5 btn-fa"></i>
+                            <span> {{ $t('New Authorization') }}</span>
+                        </button>
                     </div>
                 </div>
                 <h3>{{ $t('Parents/Guardians') }}</h3>
@@ -192,7 +201,7 @@
                                 <p class="h4 text-bold mb0">{{ parent.user.name }}</p>
                                 <p class="h4 text-bold mb0">{{ parent.user.email }}</p>
                                 <p>{{ parent.user.address.phone }}</p>
-                                <button class="btn btn-success btn-oval" type="button">{{ $t('Edit') }}</button>
+                                <button v-on:click="editParent(parent.id)"class="btn btn-success btn-oval" type="button">{{ $t('Edit') }}</button>
                             </div>
                         </div>
                     </div>
@@ -355,6 +364,10 @@
                             alert("Something went wrong. Please reload the page and try again.");
                         }
                     });
+            },
+            editParent: function(id) {
+                window.bus.$emit('editParent', id);
+                $('#edit-parent-button').click();
             },
             editPickupUser: function(pickup_user) {
                 window.bus.$emit('editPickupUser', pickup_user);

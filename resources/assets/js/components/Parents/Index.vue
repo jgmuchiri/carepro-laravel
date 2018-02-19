@@ -3,7 +3,7 @@
         <div class="content-heading">
             <div class="pull-right" v-if="can_create_parents">
                 <div class="btn-group">
-                    <a class="btn btn-primary waves-effect m-b-5" data-toggle="modal" data-target="#create-parent-modal" data-backdrop="false">
+                    <a class="btn btn-primary waves-effect m-b-5" data-toggle="modal" data-target="#create-edit-parent-modal" data-backdrop="false">
                         <i class="fa fa-plus m-r-5 btn-fa"></i> <span> {{ $t('New Parent') }}</span>
                     </a>
                 </div>
@@ -86,7 +86,7 @@
                 </table>
             </div>
         </div>
-        <CreateParentModal v-on:parentRegistered="addParent"></CreateParentModal>
+        <CreateEditParentModal v-on:parentRegistered="addParent"></CreateEditParentModal>
     </div>
 </template>
 
