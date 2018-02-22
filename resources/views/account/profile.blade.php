@@ -17,7 +17,7 @@
         </div>
         <div class="panel-wrapper">
            <div class="panel-body">
-              <form method="POST" action="http://127.0.0.1:8080/profile" accept-charset="UTF-8">     
+              <form method="POST" action="/profile" accept-charset="UTF-8">
                 <div class="row">
                     <div class="col-md-8">
 

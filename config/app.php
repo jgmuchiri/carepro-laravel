@@ -14,7 +14,19 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'Daycare Management',
+    'name' => env('APP_NAME', 'Daycare Management'),
+    'description' => env('APP_DESCRIPTION', 'Daycare Management System'),
+    'google-analytics' => env('GOOGLE_ANALYTICS'),
+    'phone' => env('PHONE'),
+    'email'=>env('EMAIL','test@example'),
+    'address' => array(
+        'street1' => env('STREET1'),
+        'street2' => env('STREET2'),
+        'city' => env('CITY'),
+        'state' => env('STATE'),
+        'zipcode' => env('ZIPCODE'),
+        'country' => env('COUNTRY')
+    ),
 
     /*
     |--------------------------------------------------------------------------
