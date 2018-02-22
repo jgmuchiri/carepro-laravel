@@ -22,6 +22,9 @@ Route::post(
 );
 
 Route::get('/plans', 'SubscriptionController@showPlans')->name('plans');
+Route::get('/contact', 'PagesController@contact')->name('contact');
+Route::post('/contact', 'PagesController@contactUs')->name('contact.us');
+
 Route::get('/subscribe/{plan_name}/start-free-trial', 'SubscriptionController@subscribeToTrial')
     ->name('subscriptions.subscribe-to-trial');
 

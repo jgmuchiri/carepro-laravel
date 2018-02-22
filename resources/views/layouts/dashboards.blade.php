@@ -6,9 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <script>
-        window.Laravel = {!! json_encode([
-            'csrfToken' => csrf_token(),
-        ]) !!};
+        window.Laravel = '{!! json_encode(['csrfToken' => csrf_token()]) !!}';
     </script>
     <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-icon-60x60.png">
@@ -30,8 +28,7 @@
 
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    {{-- TODO: Replace with daycare name --}}
-    <title>{{env('COMPANY_NAME')}}</title>
+    <title>{{config('app.name')}}</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
     <meta name="viewport" content="width=device-width"/>
     @if(\App::environment('production'))
@@ -41,7 +38,6 @@
     <link href="/css/themify-icons.css" rel="stylesheet">
     <link href="/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="/css/font-awesome.min.css" rel="stylesheet">
-
     <link href="/css/fc.css" rel="stylesheet">
     <link href="/css/sweetalert.css" rel="stylesheet">
 

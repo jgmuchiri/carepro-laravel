@@ -26,7 +26,7 @@ class SubscriptionController extends Controller
     public function showPlans()
     {
         $plans = Plan::all();
-        return view('plans')->with(compact('plans'));
+        return view('homepage.plans')->with(compact('plans'));
     }
 
     /**
