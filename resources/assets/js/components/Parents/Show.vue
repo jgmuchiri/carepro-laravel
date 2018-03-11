@@ -35,7 +35,7 @@
                                 <div class="col-md-6">
                                     <p class="child-alert child-warning">2 incidents Reported</p>
                                 </div>
-                            </div>                     
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -75,7 +75,7 @@
                                              </div>
                                         </div>
                                     </div>
-                                </div> 
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -84,17 +84,17 @@
                           <div class="panel panel-default">
                             <div class="panel-heading">
                                 <strong style="color: rgb(101, 101, 101);">Update Profile</strong>
-                            </div> 
+                            </div>
                             <div class="panel-wrapper">
                                 <div class="panel-body">
                                     <form v-on:submit.prevent="save">
                                         <div class="row">
                                             <div class="form-group col-md-4">
                                                 <input id="name" placeholder="Name" v-model="parent.user.name" type="text" class="form-control input-lg">
-                                            </div> 
+                                            </div>
                                             <div class="form-group col-md-4">
                                                 <input v-model="parent.user.email" type="text" placeholder="Email-Address" class="form-control input-lg">
-                                            </div> 
+                                            </div>
                                             <div class="form-group col-md-4">
                                                 <input v-model="parent.user.address.phone" type="text" placeholder="Phone" class="form-control input-lg">
                                             </div>
@@ -102,10 +102,10 @@
                                         <div class="row">
                                             <div class="form-group col-md-4">
                                                 <input  type="date" v-model="parent.date_of_birth" class="form-control input-lg">
-                                            </div> 
+                                            </div>
                                             <div class="form-group col-md-4">
                                                 <input v-model="parent.pin"  type="text" placeholder="Pin" class="form-control input-lg">
-                                            </div> 
+                                            </div>
                                             <div class="form-group col-md-4">
                                                 <div class="checkbox c-checkbox needsclick">
                                                     <label class="needsclick">
@@ -114,51 +114,51 @@
                                                     </label>
                                                 </div>
                                             </div>
-                                        </div> 
+                                        </div>
                                         <div class="row">
                                             <div class="col-md-8">
                                                 <div class="row">
                                                     <div class="form-group col-md-6">
                                                         <input v-model="parent.user.address.address_line_1" type="text" placeholder="Address Line 1" class="form-control input-lg">
-                                                    </div> 
+                                                    </div>
                                                     <div class="form-group col-md-6">
                                                         <input v-model="parent.user.address.address_line_2" type="text" placeholder="Address Line 2" class="form-control input-lg">
                                                     </div>
-                                                </div> 
+                                                </div>
                                                 <div class="row">
                                                     <div class="form-group col-md-6">
                                                         <input v-model="parent.user.address.city.name" placeholder="City" name="name" type="text" class="form-control input-lg">
-                                                    </div> 
+                                                    </div>
                                                     <div class="form-group col-md-6">
                                                         <input v-model="parent.user.address.state.name" placeholder="State" name="name" type="text" class="form-control input-lg">
                                                     </div>
                                                 </div>
-                                            </div> 
+                                            </div>
                                             <div class="col-md-4">
-                                                <input id="upload" name="photo" type="file" style="display: none;" @change="onFileChange"> 
+                                                <input id="upload" name="photo" type="file" style="display: none;" @change="onFileChange">
                                                 <div class="panel widget child-upload">
                                                     <div class="panel-body text-center">
                                                         <div class="child-btn-fa">
                                                             <a href="" id="upload_link" title="">
                                                                 <i class="fa fa-upload"></i>
                                                             </a>
-                                                        </div> 
+                                                        </div>
                                                         <p id="filename"><span>Upload Profile Photo</span></p>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div> 
+                                        </div>
                                         <div class="row">
                                             <div class="form-group col-sm-4">
                                                 <input required="required" v-model="parent.user.address.zip_code.zip_code" placeholder="Zip" type="text" class="form-control input-lg">
-                                            </div> 
+                                            </div>
                                             <div class="form-group col-sm-4">
-                                                <select id="country" v-model="parent.user.address.country_id" class="form-control input-lg"  required>
+                                                <select v-model="parent.user.address.country_id" class="form-control input-lg"  required>
                                                     <option v-for="country in countries" v-bind:value="country.id">
                                                         {{ country.name_label }}
                                                     </option>
                                                 </select>
-                                            </div> 
+                                            </div>
                                             <div class="form-group col-sm-4 text-center">
                                                 <button class="btn btn-primary btn-lg">
                                                 <i class="fa fa-save btn-fa"></i>
@@ -250,7 +250,7 @@
                 this.photo_uri = files[0];
                 this.upload_image = true;
             },
-            
+
             save: function() {
                 var formData = new FormData();
                 formData.append('name', this.parent.user.name);

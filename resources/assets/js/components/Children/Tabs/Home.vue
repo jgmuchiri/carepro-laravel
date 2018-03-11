@@ -225,7 +225,7 @@
                         </button>
                     </div>
                 </div>
-                <h3>{{ $t('Authorised Pick Up Users') }}</h3>
+                <h3>{{ $t('Authorized Pick Up Users') }}</h3>
             </div>
             <div class="child-parent">
                 <div class="row">

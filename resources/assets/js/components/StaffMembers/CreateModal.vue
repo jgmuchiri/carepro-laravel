@@ -11,25 +11,25 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="form-group col-md-6">
-                                <label for="name" class="control-label">{{ $t('Name') }}*</label>
-                                <input type="text" id="name" class="form-control" v-model="staff.name" required autofocus/>
+                                <label class="control-label">{{ $t('Name') }}*</label>
+                                <input type="text" class="form-control" v-model="staff.name" required autofocus/>
                             </div>
 
                             <div class="form-group col-md-6">
-                                <label for="email" class="control-label">{{ $t('E-Mail Address') }}*</label>
-                                <input type="email" id="email" class="form-control" v-model="staff.email" required />
+                                <label class="control-label">{{ $t('E-Mail Address') }}*</label>
+                                <input type="email" class="form-control" v-model="staff.email" required autocomplete="username email"/>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="form-group col-md-6">
-                                <label for="password" class="control-label">{{ $t('Password') }}*</label>
-                                <input type="password" class="form-control" id="password" v-model="staff.password" required />
+                                <label class="control-label">{{ $t('Password') }}*</label>
+                                <input type="password" class="form-control" v-model="staff.password" required autocomplete="new-password"/>
                             </div>
 
                             <div class="form-group col-md-6">
-                                <label for="password-confirm" class="control-label">{{ $t('Confirm Password') }}*</label>
-                                <input type="password" id="password-confirm" class="form-control" v-model="staff.confirm_password" required />
+                                <label class="control-label">{{ $t('Confirm Password') }}*</label>
+                                <input type="password" class="form-control" v-model="staff.confirm_password" required autocomplete="new-password"/>
                             </div>
                         </div>
 
@@ -40,46 +40,46 @@
                             </div>
 
                             <div class="form-group col-md-6">
-                                <label for="dob" class="control-label">{{ $t('DOB') }}*</label>
-                                <input type="date" id="dob" class="form-control" required v-model="staff.dob"/>
+                                <label class="control-label">{{ $t('DOB') }}*</label>
+                                <input type="date" class="form-control" required v-model="staff.dob"/>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="form-group col-md-12">
-                                <label for="address_line_1" class="control-label">{{ $t('Address Line 1') }}*</label>
-                                <input type="text" id="address_line_1" class="form-control" v-model="staff.address_line_1" required placeholder="Street and number, P.O. box, c/o."/>
+                                <label class="control-label">{{ $t('Address Line 1') }}*</label>
+                                <input type="text" class="form-control" v-model="staff.address_line_1" required placeholder="Street and number, P.O. box, c/o."/>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="form-group col-md-12">
-                                <label for="address_line_2" class="control-label">{{ $t('Address Line 2') }}</label>
-                                <input type="text" id="address_line_2" class="form-control" v-model="staff.address_line_2" placeholder="Apartment, suite, unit, building, floor, etc." />
+                                <label class="control-label">{{ $t('Address Line 2') }}</label>
+                                <input type="text" class="form-control" v-model="staff.address_line_2" placeholder="Apartment, suite, unit, building, floor, etc." />
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="form-group col-md-5">
-                                <label for="city" class="control-label">{{ $t('City / Town / Village') }}*</label>
-                                <input type="text" id="city" class="form-control" v-model="staff.city" required />
+                                <label class="control-label">{{ $t('City / Town / Village') }}*</label>
+                                <input type="text" class="form-control" v-model="staff.city" required />
                             </div>
 
                             <div class="form-group col-md-5">
-                                <label for="state" class="control-label">{{ $t('State / Province / Region') }}*</label>
-                                <input type="text" id="state" class="form-control" v-model="staff.state" required />
+                                <label class="control-label">{{ $t('State / Province / Region') }}*</label>
+                                <input type="text" class="form-control" v-model="staff.state" required />
                             </div>
 
                             <div class="form-group col-md-2">
-                                <label for="zip_code" class="control-label">{{ $t('ZIP') }}*</label>
-                                <input type="text" id="zip_code" class="form-control" v-model="staff.zip_code" required />
+                                <label class="control-label">{{ $t('ZIP') }}*</label>
+                                <input type="text" class="form-control" v-model="staff.zip_code" required />
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="form-group col-md-6">
-                                <label for="country" class="control-label">{{ $t('Country') }}*</label>
-                                <select id="country" class="form-control" v-model="staff.country" required>
+                                <label class="control-label">{{ $t('Country') }}*</label>
+                                <select class="form-control" v-model="staff.country" required>
                                     <option v-for="country in countries" v-bind:value="country.id">
                                         {{ country.name_label }}
                                     </option>
@@ -87,8 +87,8 @@
                             </div>
 
                             <div class="form-group col-md-6">
-                                <label for="phone" class="control-label">{{ $t('Phone Number') }}*</label>
-                                <input type="text" id="phone" class="form-control" v-model="staff.phone" required />
+                                <label class="control-label">{{ $t('Phone Number') }}*</label>
+                                <input type="text" class="form-control" v-model="staff.phone" required />
                             </div>
                         </div>
                     </div>

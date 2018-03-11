@@ -13,8 +13,8 @@
                 <div class="col-md-12">
                     <router-link :to="{name: 'roles.index'}">{{$t('Back to all roles')}}</router-link>
                     <form v-on:submit.prevent="saveRole">
-                        <label for="name">{{$t('Name')}}</label>
-                        <input type="text" v-model="role.name" id="name" />
+                        <label>{{$t('Name')}}</label>
+                        <input type="text" v-model="role.name" />
                         <br />
                         <div v-for="permission in permissions" class="form-group">
                             <label :for="'permissions-' + permission.id">{{ permission.name_label }}</label>
