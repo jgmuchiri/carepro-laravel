@@ -61,6 +61,18 @@
                     </div>
                 </div>
             </div>
+            <div class="panel-footer">
+                <div class="pagination">
+                    <button class="btn btn-default" @click="loadNotes(pagination.prev_page_url)"
+                        :disabled="!pagination.prev_page_url">
+                        Previous
+                    </button>
+                    <span>Page {{pagination.current_page}} of {{pagination.last_page}}</span>
+                    <button class="btn btn-default" @click="loadNotes(pagination.next_page_url)"
+                        :disabled="!pagination.next_page_url">Next
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -69,14 +81,7 @@
     export default {
         created()
         {
-            this.$http.get('/api/children/' + this.child.id + '/notes')
-                .then(response => {
-                    this.notes = response.data.notes.map(x => {x.is_expanded = false; return x;});
-                })
-                .catch(error => {
-                    console.log(error);
-                    alert("Something went wrong. Please try reloading the page");
-                });
+            this.loadNotes('/api/children/' + this.child.id + '/notes');
             this.notes = [];
             var self = this;
             window.bus.$on('noteCreated', function(note) {
@@ -85,7 +90,8 @@
         },
         data() {
             return {
-                notes: []
+                notes: [],
+                pagination: {}
             }
         },
         methods: {
@@ -114,6 +120,25 @@
                         } else {
                             alert("Something went wrong. Please reload the page and try again.");
                         }
+                    });
+            },
+            makePagination: function(data) {
+                let pagination = {
+                    current_page: data.current_page,
+                    last_page: data.last_page,
+                    next_page_url: data.next_page_url,
+                    prev_page_url: data.prev_page_url
+                }
+                this.pagination = pagination;
+            },
+            loadNotes: function (url) {
+                this.$http.get(url)
+                    .then(response => {
+                        this.notes = response.data.notes.data.map(x => {x.is_expanded = false; return x;});
+                        this.makePagination(response.data.notes);
+                    })
+                    .catch(error => {
+                        alert("Something went wrong. Please try reloading the page");
                     });
             }
         },

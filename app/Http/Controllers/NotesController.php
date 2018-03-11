@@ -28,7 +28,7 @@ class NotesController extends Controller
             'children',
             'location',
             'incidentType'
-        ])->orderByDesc('created_at')->whereChildId($id)->get();
+        ])->orderByDesc('created_at')->whereChildId($id)->paginate(2);
 
         return response()->json(compact('notes'));
     }
