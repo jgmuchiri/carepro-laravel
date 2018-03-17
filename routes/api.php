@@ -32,6 +32,7 @@ Route::group(['middleware' => ['auth:api', 'subscribed']], function() {
     Route::resource('children/{id}/pickup-users', 'PickupUsersController', ['only' => ['store', 'update', 'destroy']]);
     Route::get('children/{id}/activate', 'ChildrenController@activate')->name('children.activate');
     Route::get('children/{id}/deactivate', 'ChildrenController@deactivate')->name('children.deactivate');
+    Route::post('children/{id}/toggle-check-in', 'AttendanceController@toggleCheckIn')->name('children.toggle-check-in');
     Route::delete('children/{child_id}/groups/{group_id}', 'ChildrenController@unassignGroup')->name('children.groups.delete');
     Route::resource('children', 'ChildrenController', ['only' => ['index', 'create', 'store', 'show', 'edit', 'update']]);
 

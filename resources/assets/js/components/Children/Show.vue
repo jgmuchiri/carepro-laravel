@@ -4,7 +4,11 @@
             <!-- START Language list-->
             <div class="pull-right">
                 <div class="btn-group">
-                    <a class="mb-sm btn btn-primary btn-quick" href="#">Check-out</a>
+                    <a :class="getCheckInCheckOutButtonClass()"
+                       data-toggle="modal"
+                       data-target="#toggleCheckInModal"
+                       data-backdrop="false"
+                       >{{ child.is_checked_in ? 'Check-out' : 'Check-in' }}</a>
                     <!-- TODO: Implement this when check and check out is implemented
                         <a class="mb-sm btn btn-success btn-quick" href="{{ route('children.deactivate', $child->id) }}">Check-in</a>
                     -->
@@ -93,6 +97,7 @@
             v-if="child.id && currentView == 'ChildrenHomeTab'"
         ></CreateEditPickupUserModal>
         <CreateEditParentModal v-if="child.id && currentView == 'ChildrenHomeTab'"></CreateEditParentModal>
+        <ToggleCheckInModal v-if="child.id" :child="child"></ToggleCheckInModal>
     </div>
 </template>
 
@@ -200,6 +205,16 @@
                     .catch(error => {
                         alert("Something went wrong. Please try reloading the page");
                     });
+            },
+            getCheckInCheckOutButtonClass: function() {
+                var return_string = 'mb-sm btn btn-quick ';
+                if (this.child.is_checked_in) {
+                    return_string += 'btn-primary'
+                } else {
+                    return_string += 'btn-success';
+                }
+
+                return return_string;
             }
         },
         props: ['child_id']

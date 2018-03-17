@@ -65,6 +65,7 @@ Vue.component('ChildrenAttachParentModal', require('./components/Children/Attach
 Vue.component('ChildrenAttachGroupModal', require('./components/Children/AttachGroupModal.vue'));
 Vue.component('DropzoneModal', require('./components/DropzoneModal.vue'));
 Vue.component('CreateEditPickupUserModal', require('./components/Children/Tabs/CreateEditPickupUserModal.vue'));
+Vue.component('ToggleCheckInModal', require('./components/Children/ToggleCheckInModal.vue'));
 
 Vue.mixin({
     methods: {
