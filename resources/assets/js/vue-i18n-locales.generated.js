@@ -301,6 +301,7 @@ export default {
         "Edit Staff Member": "Edit Staff Member",
         "Update Password": "Update Password",
         "Add to group": "Add to group",
-        "Successfully added staff member to group.": "Successfully added staff member to group."
+        "Successfully added staff member to group.": "Successfully added staff member to group.",
+        "Failed to upload file. Please make sure it is an image.": "Failed to upload file. Please make sure it is an image."
     }
 }
