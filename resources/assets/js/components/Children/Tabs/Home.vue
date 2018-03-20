@@ -204,10 +204,11 @@
                 <div class="pull-right">
                     <div class="btn-group">
                         <button class="btn btn-primary waves-effect m-b-5"
-                                data-toggle="modal"
-                                data-target="#create-edit-pickup-user-modal"
-                                data-backdrop="false"
-                                id="new-pickup-user-button"
+                            data-toggle="modal"
+                            data-target="#create-edit-pickup-user-modal"
+                            data-backdrop="false"
+                            id="new-pickup-user-button"
+                            v-on:click="clearPickupUserModal()"
                         >
                             <i class="fa fa-plus m-r-5 btn-fa"></i>
                             <span> {{ $t('New Authorization') }}</span>
@@ -333,8 +334,11 @@
                     });
             },
             editPickupUser: function(pickup_user) {
-                window.bus.$emit('editPickupUser', pickup_user);
                 $('#new-pickup-user-button').click();
+                window.bus.$emit('editPickupUser', pickup_user);
+            },
+            clearPickupUserModal: function() {
+                window.bus.$emit('clearPickupUserModal');
             }
         },
         props: ['child']

@@ -47,8 +47,7 @@
                 this.files.push(file);
             },
             onError(response) {
-                console.log('Error');
-                console.log(response);
+                this.$noty.error(this.$t('Failed to upload file. Please make sure it is an image.'));
             },
         },
 

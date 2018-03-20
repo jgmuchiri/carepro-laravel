@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SaveNoteRequest;
 use App\Models\Child;
 use App\Models\Notes\IncidentType;
 use App\Models\Notes\Location;
@@ -46,10 +47,10 @@ class NotesController extends Controller
      * Store a newly created resource in storage.
      *
      * @param int $id
-     * @param  \Illuminate\Http\Request  $request
+     * @param  SaveNoteRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($id, Request $request)
+    public function store($id, SaveNoteRequest $request)
     {
         $child = Child::findOrFail($id);
         $this->authorize('update', $child);

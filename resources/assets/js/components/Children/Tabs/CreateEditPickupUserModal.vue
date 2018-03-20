@@ -65,6 +65,9 @@
                 self.user.pin = pickup_user.pin;
                 self.user.relation = pickup_user.relation.name;
             });
+            window.bus.$on('clearPickupUserModal', function() {
+                self.user = self.generateNewPickupUserModel();
+            })
         },
         data() {
              return {

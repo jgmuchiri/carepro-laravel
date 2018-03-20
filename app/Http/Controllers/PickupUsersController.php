@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SavePickupUserRequest;
 use App\Models\Child;
 use App\Models\PickupUsers\PickupUser;
 use App\Models\PickupUsers\Relation;
@@ -15,10 +16,10 @@ class PickupUsersController extends Controller
      * Store a newly created resource in storage.
      *
      * @param int $child_id
-     * @param  \Illuminate\Http\Request  $request
+     * @param  SavePickupUserRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($child_id, Request $request)
+    public function store($child_id, SavePickupUserRequest $request)
     {
         $child = Child::findOrFail($child_id);
         $this->authorize('update', $child);
@@ -63,12 +64,12 @@ class PickupUsersController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  SavePickupUserRequest $request
      * @param int $child_id
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $child_id, $id)
+    public function update(SavePickupUserRequest $request, $child_id, $id)
     {
         $child = Child::findOrFail($child_id);
         $this->authorize('update', $child);

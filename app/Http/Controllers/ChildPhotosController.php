@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SaveChildPhotoRequest;
 use App\Models\Child;
 use App\Models\Photo;
-use Illuminate\Http\Request;
 use Image;
 use Storage;
 
@@ -41,10 +41,10 @@ class ChildPhotosController extends Controller
      * Store a newly created resource in storage.
      *
      * @param int $id
-     * @param  \Illuminate\Http\Request  $request
+     * @param  SaveChildPhotoRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($id, Request $request)
+    public function store($id, SaveChildPhotoRequest $request)
     {
         $child = Child::findOrFail($id);
         $this->authorize('update', $child);
