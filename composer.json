@@ -16,7 +16,7 @@
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.3.0",
         "martinlindhe/laravel-vue-i18n-generator": "^0.1.18",
-        "torann/currency": "^1.0"
+        "torann/currency": "^1.0.13"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
