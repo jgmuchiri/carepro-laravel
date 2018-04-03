@@ -101,7 +101,19 @@ class ChildrenController extends Controller
             'status',
             'groups',
             'parents.user.address',
-            'pickupUsers.relation'
+            'pickupUsers.relation',
+            'emergencyContacts.address',
+            'emergencyContacts.address.city',
+            'emergencyContacts.address.state',
+            'emergencyContacts.address.zipCode',
+            'emergencyContacts.address.country',
+            'emergencyContacts.relation',
+            'healthProviders.address',
+            'healthProviders.address.city',
+            'healthProviders.address.state',
+            'healthProviders.address.zipCode',
+            'healthProviders.address.country',
+            'healthProviders.role'
         ])->findOrFail($id);
         $this->authorize('show', $child);
 

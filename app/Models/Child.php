@@ -164,6 +164,26 @@ class Child extends Model
     }
 
     /**
+     * Relationship to emergency contacts
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function emergencyContacts()
+    {
+        return $this->hasMany(\App\Models\EmergencyContact::class, 'child_id');
+    }
+
+    /**
+     * Relationship to health providers
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function healthProviders()
+    {
+        return $this->hasMany(\App\Models\HealthProviders\HealthProvider::class, 'child_id');
+    }
+
+    /**
      * Returns registration stats
      *
      * @return \Illuminate\Support\Collection

@@ -66,6 +66,8 @@ Vue.component('ChildrenAttachGroupModal', require('./components/Children/AttachG
 Vue.component('DropzoneModal', require('./components/DropzoneModal.vue'));
 Vue.component('CreateEditPickupUserModal', require('./components/Children/Tabs/CreateEditPickupUserModal.vue'));
 Vue.component('ToggleCheckInModal', require('./components/Children/ToggleCheckInModal.vue'));
+Vue.component('CreateEditEmergencyContactModal', require('./components/Children/CreateEditEmergencyContactModal.vue'));
+Vue.component('CreateEditHealthProviderModal', require('./components/Children/CreateEditHealthProviderModal.vue'));
 
 Vue.mixin({
     methods: {

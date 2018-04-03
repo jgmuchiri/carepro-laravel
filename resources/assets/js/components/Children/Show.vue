@@ -5,13 +5,13 @@
             <div class="pull-right">
                 <div class="btn-group">
                     <a :class="getCheckInCheckOutButtonClass()"
+                       v-on:click="openToggleCheckInModal(child)"
+                    >{{ child.is_checked_in ? 'Check-out' : 'Check-in' }}</a>
+                    <a id="open-toggle-checkin-modal"
+                       class="hidden"
                        data-toggle="modal"
                        data-target="#toggleCheckInModal"
-                       data-backdrop="false"
-                       >{{ child.is_checked_in ? 'Check-out' : 'Check-in' }}</a>
-                    <!-- TODO: Implement this when check and check out is implemented
-                        <a class="mb-sm btn btn-success btn-quick" href="{{ route('children.deactivate', $child->id) }}">Check-in</a>
-                    -->
+                       data-backdrop="false"></a>
                 </div>
             </div>
             <div class="row">
@@ -97,7 +97,15 @@
             v-if="child.id && currentView == 'ChildrenHomeTab'"
         ></CreateEditPickupUserModal>
         <CreateEditParentModal v-if="child.id && currentView == 'ChildrenHomeTab'"></CreateEditParentModal>
-        <ToggleCheckInModal v-if="child.id" :child="child"></ToggleCheckInModal>
+        <ToggleCheckInModal v-if="child.id"></ToggleCheckInModal>
+        <CreateEditEmergencyContactModal
+                :child_id="child.id"
+                v-if="child.id && currentView == 'ChildrenHealthTab'"
+        ></CreateEditEmergencyContactModal>
+        <CreateEditHealthProviderModal
+                :child_id="child.id"
+                v-if="child.id && currentView == 'ChildrenHealthTab'"
+        ></CreateEditHealthProviderModal>
     </div>
 </template>
 
@@ -130,6 +138,14 @@
                 self.child.pickup_users.push(pickup_user);
             });
 
+            window.bus.$on('emergencyContactCreated', function(emergency_contact) {
+                self.child.emergency_contacts.push(emergency_contact);
+            });
+
+            window.bus.$on('healthProviderCreated', function(health_provider) {
+                self.child.health_providers.push(health_provider);
+            });
+
             window.bus.$on('childEdited', function (child) {
                 self.child = child;
             });
@@ -157,6 +173,36 @@
                         return x;
                     }
                 });
+            });
+
+            window.bus.$on('emergencyContactEdited', function(emergency_contact) {
+                self.child.emergency_contacts = self.child.emergency_contacts.map(x => {
+                    if (x.id == emergency_contact.id)
+                    {
+                        return emergency_contact;
+                    }
+                    else
+                    {
+                        return x;
+                    }
+                });
+            });
+
+            window.bus.$on('healthProviderEdited', function(health_provider) {
+                self.child.health_providers = self.child.health_providers.map(x => {
+                    if (x.id == health_provider.id)
+                    {
+                        return health_provider;
+                    }
+                    else
+                    {
+                        return x;
+                    }
+                });
+            });
+
+            window.bus.$on('toggleChildCheckIn', function(child_id) {
+                self.child.is_checked_in = !self.child.is_checked_in;
             });
         },
         data() {
@@ -215,7 +261,11 @@
                 }
 
                 return return_string;
-            }
+            },
+            openToggleCheckInModal: function(child) {
+                window.bus.$emit('openToggleCheckinModal', child);
+                $('#open-toggle-checkin-modal').click();
+            },
         },
         props: ['child_id']
     }
