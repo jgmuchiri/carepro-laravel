@@ -384,6 +384,17 @@ export default {
         "Select Child": "Select Child",
         "Edit Group": "Edit Group",
         "View Group": "View Group",
-        "Staff": "Staff"
+        "Staff": "Staff",
+        "Enter the pickup person's pin number": "Enter the pickup person's pin number",
+        "Are you sure?": "Are you sure?",
+        "You are about to checkout a child.": "You are about to checkout a child.",
+        "You are about to check in a child.": "You are about to check in a child.",
+        "Child has been checked in.": "Child has been checked in.",
+        "Child has been checked out.": "Child has been checked out.",
+        "Validate and Checkout": "Validate and Checkout",
+        "Validate and Check in": "Validate and Check in",
+        "Check In ": "Check In ",
+        "Checkout ": "Checkout ",
+        "OK": "OK"
     }
 }

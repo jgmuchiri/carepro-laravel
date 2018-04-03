@@ -16,16 +16,16 @@
                         </template>
                         <template v-if="state == 'Confirm'">
                             <p class="text-center">{{ $t('Are you sure?') }}</p>
-                            <p class="text-center">{{ $t('You are about to check in a child.')}}</p>
+                            <p class="text-center">{{ $t('You are about to ' + (child.is_checked_in ? 'checkout' : 'check in') + ' a child.')}}</p>
                         </template>
                         <template v-if="state == 'Success'">
-                            <p class="text-center">{{ $t('Child has been checked in.') }}}</p>
-                            <p class="text-center">{{ $t('Check In ') }} {{ this.getDate() }}</p>
+                            <p class="text-center">{{ $t('Child has been ' + (child.is_checked_in ? 'checked in.' : 'checked out.')) }}</p>
+                            <p class="text-center">{{ $t((child.is_checked_in ? 'Check In ' : 'Checkout ')) }} {{ this.getDate() }}</p>
                         </template>
                     </div>
                     <div class="modal-footer">
                         <button type="button" :class="'btn ' + (state == 'Success' ? 'btn-primary' : 'btn-default')" data-dismiss="modal">{{ state == 'Success' ? $t('OK') : $t('Close') }}</button>
-                        <input v-if="state != 'Success'" type="submit" class="btn btn-primary" :value="$t('Validate and Checkout')"/>
+                        <input v-if="state != 'Success'" type="submit" class="btn btn-primary" :value="$t('Validate and ' + (child.is_checked_in ? 'Checkout' : 'Check in'))"/>
                     </div>
                 </form>
             </div>
@@ -35,10 +35,19 @@
 
 <script>
     export default {
+        created() {
+            var self = this;
+            window.bus.$on('openToggleCheckinModal', function(child) {
+                self.child = child;
+                self.state = 'Pin';
+                self.pin = null;
+            });
+        },
         data() {
              return {
                  pin: null,
-                 state: 'Pin'
+                 state: 'Pin',
+                 child: {}
              };
         },
         methods: {
@@ -52,7 +61,7 @@
                     pin: this.pin
                 })
                     .then(response => {
-                        this.$emit('toggleCheckIn', 'Check-out');
+                        window.bus.$emit('toggleChildCheckIn',this.child.id);
                         this.state = 'Success'
                     })
                     .catch(error => {
@@ -69,9 +78,8 @@
                     });
             },
             getDate: function() {
-                return window.moment().now().format('dddd, D MMM YYYY @ hh:mm a');
+                return window.moment().format('dddd, D MMM YYYY @ hh:mm a');
             }
-        },
-        props: ['child']
+        }
     }
 </script>
