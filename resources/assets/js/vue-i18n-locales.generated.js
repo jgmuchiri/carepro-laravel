@@ -395,6 +395,10 @@ export default {
         "Validate and Check in": "Validate and Check in",
         "Check In ": "Check In ",
         "Checkout ": "Checkout ",
-        "OK": "OK"
+        "OK": "OK",
+        "Successfully saved emergency contact.": "Successfully saved emergency contact.",
+        "Successfully deleted emergency contact.": "Successfully deleted emergency contact.",
+        "Successfully saved health provider.": "Successfully saved health provider.",
+        "Successfully deleted health provider.": "Successfully deleted health provider."
     }
 }
