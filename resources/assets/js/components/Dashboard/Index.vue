@@ -52,7 +52,7 @@
                 <div v-show="this.can_register_parent" class="list-group-item">
                    <div class="media-box">
                       <div class="media-box-body clearfix text-center">
-                         <button class="btn btn-primary waves-effect btn-quick btn-lg m-b-5" data-toggle="modal" data-target="#create-parent-modal" data-backdrop="false"> <i class="fa fa-plus m-r-5 btn-fa"></i> <span> {{ $t('Register Parent') }}</span> </button>
+                         <button class="btn btn-primary waves-effect btn-quick btn-lg m-b-5" data-toggle="modal" data-target="#create-edit-parent-modal" data-backdrop="false"> <i class="fa fa-plus m-r-5 btn-fa"></i> <span> {{ $t('Register Parent') }}</span> </button>
                       </div>
                    </div>
                 </div>
@@ -72,7 +72,7 @@
        <!-- END dashboard sidebar-->
     </div>
     <CreateStaffModal></CreateStaffModal>
-    <CreateParentModal></CreateParentModal>
+    <CreateEditParentModal></CreateEditParentModal>
     <CreateChildModal></CreateChildModal>
  </div>
 

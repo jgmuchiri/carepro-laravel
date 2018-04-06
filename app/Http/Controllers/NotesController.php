@@ -18,9 +18,10 @@ class NotesController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
         $notes = Note::with([
             'type',
@@ -28,7 +29,7 @@ class NotesController extends Controller
             'children',
             'location',
             'incidentType'
-        ])->orderByDesc('created_at')->get();
+        ])->orderByDesc('created_at')->whereChildId($id)->paginate(2);
 
         return response()->json(compact('notes'));
     }
@@ -160,11 +161,18 @@ class NotesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @param int $child_id
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($child_id, $note_id)
     {
-        //
+        $child = Child::findOrFail($child_id);
+        $note = Note::findOrFail($note_id);
+        $this->authorize('update', $child);
+
+        $note->delete();
+
+        return response()->json(['message' => __('Note successfully deleted.')]);
     }
 }

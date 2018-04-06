@@ -1,35 +1,35 @@
 <template>
-    <div class="modal fade" id="create-parent-modal" tabindex="-1" role="dialog" aria-labelledby="create-parent">
+    <div class="modal fade" id="create-edit-parent-modal" tabindex="-1" role="dialog" aria-labelledby="create-edit-parent">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="create-parent">{{ $t('Register Parent') }}</h4>
+                    <h4 class="modal-title" id="create-edit-parent">{{ (this.parent.id ? $t('Edit Parent') : $t('Register Parent')) }}</h4>
                 </div>
-                <form v-on:submit.prevent="storeParent">
+                <form v-on:submit.prevent="save">
                     <div class="modal-body">
                         <div class="row">
                             <div class="form-group col-md-6">
-                                <label for="name" class="control-label">{{ $t('Name') }}*</label>
-                                <input type="text" id="name" class="form-control" v-model="parent.name" required autofocus/>
+                                <label class="control-label">{{ $t('Name') }}*</label>
+                                <input type="text" class="form-control" v-model="parent.name" required autofocus/>
                             </div>
 
                             <div class="form-group col-md-6">
-                                <label for="email" class="control-label">{{ $t('E-Mail Address') }}*</label>
-                                <input type="email" id="email" class="form-control" v-model="parent.email" required />
+                                <label class="control-label">{{ $t('E-Mail Address') }}*</label>
+                                <input type="email" class="form-control" v-model="parent.email" required autocomplete="username email" />
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="form-group col-md-6">
-                                <label for="password" class="control-label">{{ $t('Password') }}*</label>
-                                <input type="password" class="form-control" id="password" v-model="parent.password" required />
+                                <label class="control-label">{{ $t('Password') }}{{ (this.parent.id ? '' : '*') }}</label>
+                                <input type="password" class="form-control" v-model="parent.password" autocomplete="new-password"/>
                             </div>
 
                             <div class="form-group col-md-6">
-                                <label for="password-confirm" class="control-label">{{ $t('Confirm Password') }}*</label>
-                                <input type="password" id="password-confirm" class="form-control" v-model="parent.confirm_password" required />
+                                <label class="control-label">{{ $t('Confirm Password') }}{{ (this.parent.id ? '' : '*') }}</label>
+                                <input type="password" class="form-control" v-model="parent.confirm_password" autocomplete="new-password" />
                             </div>
                         </div>
 
@@ -40,8 +40,8 @@
                             </div>
 
                             <div class="form-group col-md-6">
-                                <label for="dob" class="control-label">{{ $t('DOB') }}*</label>
-                                <input type="date" id="dob" class="form-control" required v-model="parent.dob"/>
+                                <label class="control-label">{{ $t('DOB') }}*</label>
+                                <input type="date" class="form-control" required v-model="parent.dob"/>
                             </div>
                         </div>
 
@@ -62,39 +62,39 @@
 
                         <div class="row">
                             <div class="form-group col-md-12">
-                                <label for="address_line_1" class="control-label">{{ $t('Address Line 1') }}*</label>
-                                <input type="text" id="address_line_1" class="form-control" v-model="parent.address_line_1" required placeholder="Street and number, P.O. box, c/o."/>
+                                <label class="control-label">{{ $t('Address Line 1') }}*</label>
+                                <input type="text" class="form-control" v-model="parent.address_line_1" required placeholder="Street and number, P.O. box, c/o."/>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="form-group col-md-12">
-                                <label for="address_line_2" class="control-label">{{ $t('Address Line 2') }}</label>
-                                <input type="text" id="address_line_2" class="form-control" v-model="parent.address_line_2" placeholder="Apartment, suite, unit, building, floor, etc." />
+                                <label class="control-label">{{ $t('Address Line 2') }}</label>
+                                <input type="text" class="form-control" v-model="parent.address_line_2" placeholder="Apartment, suite, unit, building, floor, etc." />
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="form-group col-md-5">
-                                <label for="city" class="control-label">{{ $t('City / Town / Village') }}*</label>
-                                <input type="text" id="city" class="form-control" v-model="parent.city" required />
+                                <label class="control-label">{{ $t('City / Town / Village') }}*</label>
+                                <input type="text" class="form-control" v-model="parent.city" required />
                             </div>
 
                             <div class="form-group col-md-5">
-                                <label for="state" class="control-label">{{ $t('State / Province / Region') }}*</label>
-                                <input type="text" id="state" class="form-control" v-model="parent.state" required />
+                                <label class="control-label">{{ $t('State / Province / Region') }}*</label>
+                                <input type="text" class="form-control" v-model="parent.state" required />
                             </div>
 
                             <div class="form-group col-md-2">
-                                <label for="zip_code" class="control-label">{{ $t('ZIP') }}*</label>
-                                <input type="text" id="zip_code" class="form-control" v-model="parent.zip_code" required />
+                                <label class="control-label">{{ $t('ZIP') }}*</label>
+                                <input type="text" class="form-control" v-model="parent.zip_code" required />
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="form-group col-md-6">
-                                <label for="country" class="control-label">{{ $t('Country') }}*</label>
-                                <select id="country" class="form-control" v-model="parent.country" required>
+                                <label class="control-label">{{ $t('Country') }}*</label>
+                                <select class="form-control" v-model="parent.country" required>
                                     <option v-for="country in countries" v-bind:value="country.id">
                                         {{ country.name_label }}
                                     </option>
@@ -102,8 +102,8 @@
                             </div>
 
                             <div class="form-group col-md-6">
-                                <label for="phone" class="control-label">{{ $t('Phone Number') }}*</label>
-                                <input type="text" id="phone" class="form-control" v-model="parent.phone" required />
+                                <label class="control-label">{{ $t('Phone Number') }}*</label>
+                                <input type="text" class="form-control" v-model="parent.phone" required />
                             </div>
                         </div>
                     </div>
@@ -128,6 +128,35 @@
                 .catch(error => {
                     alert("Something went wrong. Please try reloading the page");
                 });
+
+            var self = this;
+            window.bus.$on('editParent', function(id) {
+                this.$http.get('/api/parents/' + id)
+                    .then(response => {
+                        self.parent = {
+                            id: response.data.parent.id,
+                            name: response.data.parent.user.name,
+                            email: response.data.parent.user.email,
+                            password: '',
+                            confirm_password: '',
+                            photo_uri: null,
+                            dob: response.data.parent.date_of_birth,
+                            pin: response.data.parent.pin,
+                            is_primary: response.data.parent.is_primary,
+                            address_line_1: response.data.parent.user.address.address_line_1,
+                            address_line_2: response.data.parent.user.address.address_line_2,
+                            city: response.data.parent.user.address.city.name,
+                            state: response.data.parent.user.address.state.name,
+                            zip_code: response.data.parent.user.address.zip_code.zip_code,
+                            country: response.data.parent.user.address.country.id,
+                            phone: response.data.parent.user.address.phone
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        alert("Something went wrong. Please try reloading the page");
+                    });
+            });
         },
         data() {
              return {
@@ -160,6 +189,14 @@
                 if (!files.length)
                     return;
                 this.parent.photo_uri = files[0];
+                this.upload_image = true;
+            },
+            save: function() {
+               if (this.parent.id) {
+                   return this.updateParent();
+               } else {
+                   return this.storeParent();
+               }
             },
             storeParent: function() {
                 var formData = new FormData();
@@ -183,7 +220,47 @@
                     .then(response => {
                         this.$emit('parentRegistered', response.data.parent);
                         window.bus.$emit('parentRegistered', response.data.parent);
-                        $('#create-parent-modal').modal('hide');
+                        $('#create-edit-parent-modal').modal('hide');
+                        this.parent = this.generateNewParentModel();
+                        this.$noty.success(response.data.message);
+                    })
+                    .catch(error => {
+                        if (error.response.status == 422) {
+                            for (var key in error.response.data) {
+                                this.$noty.error(error.response.data[key]);
+                            }
+                        } else {
+                            alert("Something went wrong. Please reload the page and try again.");
+                        }
+                    });
+            },
+            updateParent: function() {
+                var formData = new FormData();
+                formData.append('name', this.parent.name);
+                formData.append('email', this.parent.email);
+                formData.append('password', this.parent.password);
+                formData.append('password_confirmation', this.parent.confirm_password);
+                formData.append('dob', this.parent.dob);
+                formData.append('pin', this.parent.pin);
+                formData.append('is_primary', this.parent.is_primary)
+                formData.append('address_line_1', this.parent.address_line_1);
+                formData.append('address_line_2', this.parent.address_line_2);
+                formData.append('city', this.parent.city);
+                formData.append('state', this.parent.state);
+                formData.append('zip_code', this.parent.zip_code)
+                formData.append('country', this.parent.country);
+                formData.append('phone', this.parent.phone);
+                formData.append('_method', 'PUT');
+
+                if (this.upload_image) {
+                    formData.append('photo_uri', this.parent.photo_uri);
+                }
+
+                this.$http.post('/api/parents/' + this.parent.id, formData)
+                    .then(response => {
+                        this.$emit('parentEdited', response.data.parent);
+                        window.bus.$emit('parentEdited', response.data.parent);
+                        $('#create-edit-parent-modal').modal('hide');
                         this.parent = this.generateNewParentModel();
                         this.$noty.success(response.data.message);
                     })

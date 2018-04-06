@@ -52,10 +52,10 @@
                                     <tr>
                                         <th>#</th>
                                         <th>{{ $t('Name') }}</th>
-                                        <th>{ $t('Frequency') }}</th>
-                                        <th>{ $t('Start') }}</th>
-                                        <th>{ $t('Stop') }}</th>
-                                        <th class="text-center">{ $t('Actions') }}</th>
+                                        <th>{{ $t('Frequency') }}</th>
+                                        <th>{{ $t('Start') }}</th>
+                                        <th>{{ $t('Stop') }}</th>
+                                        <th class="text-center">{{ $t('Actions') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -176,9 +176,14 @@
                     <!-- START Language list-->
                     <div class="pull-right">
                         <div class="btn-group">
-                            <button class="btn btn-success waves-effect m-b-5">
+                            <button class="btn btn-success waves-effect m-b-5"
+                                data-toggle="modal"
+                                data-target="#create-edit-emergency-contact-modal"
+                                data-backdrop="false"
+                                id="new-emergency-contact-button"
+                            >
                                 <i class="fa fa-plus m-r-5 btn-fa"></i>
-                                <span>{{ $t('New Contact') }}</span>
+                                <span> {{ $t('New Contact') }}</span>
                             </button>
                         </div>
                     </div>
@@ -200,26 +205,19 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Joe Stick</td>
-                                        <td>Uncle</td>
-                                        <td>123-384-4444</td>
-                                        <td>123 State st Watertown, NY 12003</td>
-                                        <td class="text-center">
-                                            <a class="btn btn-primary btn-xs" href="" title="Edit"><i class="fa fa-pencil"></i></a>
-                                            <a class="btn btn-danger btn-xs" href="" title="Delete"><i class="fa fa-trash-o"></i></a>
+                                    <tr v-for="emergency_contact in child.emergency_contacts">
+                                        <td>{{ emergency_contact.id }}</td>
+                                        <td>{{ emergency_contact.name }}</td>
+                                        <td>{{ emergency_contact.relation.name }}</td>
+                                        <td>{{ emergency_contact.address.phone }}</td>
+                                        <td>
+                                            {{ emergency_contact.address.address_line_1 }} <br />
+                                            {{ emergency_contact.address.address_line_2 }} <br v-if="emergency_contact.address.address_line_2"/>
+                                            {{ emergency_contact.address.city.name }}, {{ emergency_contact.address.state.name }} {{ emergency_contact.address.zip_code.zip_code }}
                                         </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Eric Mind</td>
-                                        <td>Brother</td>
-                                        <td>233-488-4444</td>
-                                        <td>123 State st City town, NY 2388</td>
                                         <td class="text-center">
-                                            <a class="btn btn-primary btn-xs" href="" title="Edit"><i class="fa fa-pencil"></i></a>
-                                            <a class="btn btn-danger btn-xs" href="" title="Delete"><i class="fa fa-trash-o"></i></a>
+                                            <a class="btn btn-primary btn-xs" v-on:click="editEmergencyContact(emergency_contact)" title="Edit"><i class="fa fa-pencil"></i></a>
+                                            <a class="btn btn-danger btn-xs" title="Delete" v-on:click.prevent="deleteEmergencyContact(emergency_contact.id)"><i class="fa fa-trash-o"></i></a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -233,7 +231,12 @@
                     <!-- START Language list-->
                     <div class="pull-right">
                         <div class="btn-group">
-                            <button class="btn btn-success waves-effect m-b-5">
+                            <button class="btn btn-success waves-effect m-b-5"
+                                    data-toggle="modal"
+                                    data-target="#create-edit-health-provider-modal"
+                                    data-backdrop="false"
+                                    id="new-health-provider-button"
+                            >
                                 <i class="fa fa-plus m-r-5 btn-fa"></i>
                                 <span> {{ $t('New Provider') }}</span>
                             </button>
@@ -259,28 +262,20 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Joe Stick</td>
-                                        <td>Primary</td>
-                                        <td>123-384-4444</td>
-                                        <td>123 State st Watertown, NY 12003</td>
-                                        <td>call for any questions</td>
-                                        <td class="text-center">
-                                            <a class="btn btn-primary btn-xs" href="" title="Edit"><i class="fa fa-pencil"></i></a>
-                                            <a class="btn btn-danger btn-xs" href="" title="Delete"><i class="fa fa-trash-o"></i></a>
+                                    <tr v-for="health_provider in child.health_providers">
+                                        <td>{{ health_provider.id }}</td>
+                                        <td>{{ health_provider.name }}</td>
+                                        <td>{{ health_provider.role.name }}</td>
+                                        <td>{{ health_provider.address.phone }}</td>
+                                        <td>
+                                            {{ health_provider.address.address_line_1 }} <br />
+                                            {{ health_provider.address.address_line_2 }} <br v-if="health_provider.address.address_line_2"/>
+                                            {{ health_provider.address.city.name }}, {{ health_provider.address.state.name }} {{ health_provider.address.zip_code.zip_code }}
                                         </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Eric Mind</td>
-                                        <td>Allergist</td>
-                                        <td>233-488-4444</td>
-                                        <td>123 State st City town, NY 2388</td>
-                                        <td></td>
+                                        <td>{{ health_provider.remarks }}</td>
                                         <td class="text-center">
-                                            <a class="btn btn-primary btn-xs" href="" title="Edit"><i class="fa fa-pencil"></i></a>
-                                            <a class="btn btn-danger btn-xs" href="" title="Delete"><i class="fa fa-trash-o"></i></a>
+                                            <a class="btn btn-primary btn-xs" v-on:click="editHealthProvider(health_provider)" title="Edit"><i class="fa fa-pencil"></i></a>
+                                            <a class="btn btn-danger btn-xs" title="Delete" v-on:click.prevent="deleteHealthProvider(health_provider.id)"><i class="fa fa-trash-o"></i></a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -295,5 +290,53 @@
 </template>
 
 <script>
-    export default {}
+    export default {
+        methods: {
+            deleteEmergencyContact: function (id) {
+                this.$http.delete('/api/children/' + this.child.id + '/emergency-contacts/' + id)
+                    .then(response => {
+                        this.$noty.success(response.data.message);
+                        this.child.emergency_contacts = this.child.emergency_contacts.filter(x => x.id != id);
+                    })
+                    .catch(error => {
+                        if (error.response.status == 403) {
+                            this.$noty.error(this.$t('This child is inactive and read-only.'));
+                        } else if (error.response.status == 422) {
+                            for (var key in error.response.data) {
+                                this.$noty.error(error.response.data[key]);
+                            }
+                        } else {
+                            alert("Something went wrong. Please reload the page and try again.");
+                        }
+                    });
+            },
+            deleteHealthProvider: function (id) {
+                this.$http.delete('/api/children/' + this.child.id + '/health-providers/' + id)
+                    .then(response => {
+                        this.$noty.success(response.data.message);
+                        this.child.health_providers = this.child.health_providers.filter(x => x.id != id);
+                    })
+                    .catch(error => {
+                        if (error.response.status == 403) {
+                            this.$noty.error(this.$t('This child is inactive and read-only.'));
+                        } else if (error.response.status == 422) {
+                            for (var key in error.response.data) {
+                                this.$noty.error(error.response.data[key]);
+                            }
+                        } else {
+                            alert("Something went wrong. Please reload the page and try again.");
+                        }
+                    });
+            },
+            editEmergencyContact: function(emergency_contact) {
+                window.bus.$emit('editEmergencyContact', emergency_contact);
+                $('#new-emergency-contact-button').click();
+            },
+            editHealthProvider: function(health_provider) {
+                window.bus.$emit('editHealthProvider', health_provider);
+                $('#new-health-provider-button').click();
+            },
+        },
+        props: ['child']
+    }
 </script>

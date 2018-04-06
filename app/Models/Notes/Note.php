@@ -2,6 +2,7 @@
 
 namespace App\Models\Notes;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use function str_limit;
@@ -102,5 +103,22 @@ class Note extends Model
     public function getShortBodyAttribute($value)
     {
         return str_limit($this->body, 500);
+    }
+
+    /**
+     * Query scope for where is assigned to staff member
+     *
+     * @param Builder $query
+     * @param int $id
+     */
+    public function scopeWhereChildId(Builder $query, $id)
+    {
+        $query->distinct()->select($this->getTable() . '.*')
+            ->join(
+                'notes_to_children',
+                'notes_to_children.note_id',
+                '=',
+                $this->getTable() . '.id'
+            )->where('notes_to_children.child_id', $id);
     }
 }

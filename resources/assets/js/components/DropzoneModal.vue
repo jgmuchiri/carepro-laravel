@@ -43,14 +43,14 @@
             onStateChanged(enter) {
                 this.color = enter ? '#0000FF' : '#FF0000';
             },
-            onUpload(file) {
-                this.files.push(file);
+            onUpload(response, file) {
+                this.files.push(response);
+                this.$emit('upload', response, file)
             },
             onError(response) {
                 this.$noty.error(this.$t('Failed to upload file. Please make sure it is an image.'));
             },
         },
-
         components: {
             Dropzone,
         },

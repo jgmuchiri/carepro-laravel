@@ -101,7 +101,19 @@ class ChildrenController extends Controller
             'status',
             'groups',
             'parents.user.address',
-            'pickupUsers.relation'
+            'pickupUsers.relation',
+            'emergencyContacts.address',
+            'emergencyContacts.address.city',
+            'emergencyContacts.address.state',
+            'emergencyContacts.address.zipCode',
+            'emergencyContacts.address.country',
+            'emergencyContacts.relation',
+            'healthProviders.address',
+            'healthProviders.address.city',
+            'healthProviders.address.state',
+            'healthProviders.address.zipCode',
+            'healthProviders.address.country',
+            'healthProviders.role'
         ])->findOrFail($id);
         $this->authorize('show', $child);
 
@@ -209,6 +221,12 @@ class ChildrenController extends Controller
     public function update(UpdateChildRequest $request, $id)
     {
         $child = Child::findOrFail($id);
+        $status = Status::find($request->input('status_id'));
+
+        if ($status->name == 'Active') {
+            $child->status->name = 'Active';
+        }
+
         $this->authorize('update', $child);
 
         $child->fill([
@@ -223,23 +241,25 @@ class ChildrenController extends Controller
         ]);
 
         if (!empty($request->file('photo_uri'))) {
-            $photo_uri = Storage::disk('public')
-                ->putFile('children-images/original', $request->file('photo_uri'), 'public');
-            //get the saved photo name
-            $photo_name = basename($photo_uri);
+            $photo_uri = $child->photo;
+            Storage::disk('public')->putFileAs('children-images/original', $request->file('photo_uri'),
+                $photo_uri);
+
             //retrieve the image
-            $file = Storage::get('public/children-images/original/' . $photo_name);
+            $file = Storage::get('public/children-images/original/' . $photo_uri);
             //resize image
             $photo_thumb = Image::make($file)->resize(100, 100)->stream();
             //move the resized image to the childrens folder.
-            $path = Storage::disk('public')->put('children-images/' . $photo_name, $photo_thumb);
-            //generate resized image path
-            $thumb_path = 'children-images/' . $photo_name;
-
-            $child->photo = $thumb_path;
+            $path = Storage::disk('public')->put($photo_uri, $photo_thumb);
         }
 
         $child->save();
+        $child->load([
+            'status',
+            'groups',
+            'parents.user.address',
+            'pickupUsers.relation'
+        ]);
 
         return response()->json(
             ['child' => $child, 'message' => __('Successfully saved child.')]
@@ -320,6 +340,28 @@ class ChildrenController extends Controller
     }
 
     /**
+     * Unassigns a child from the group
+     *
+     * @param int $child_id
+     * @param int $group_id
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function unassignGroup($child_id, $group_id)
+    {
+        $child = Child::findOrFail($child_id);
+        $this->authorize('update', $child);
+
+        $child->groups()->detach($group_id);
+        $child->load('groups');
+
+        return response()->json([
+            'groups' => $child->groups,
+            'message' => __('Successfully saved child.')
+        ]);
+    }
+
+    /**
      * Updates a child status
      *
      * @param int $id
@@ -336,7 +378,6 @@ class ChildrenController extends Controller
         $child->status()->associate($status);
         $child->save();
 
-        return redirect()->route('children.index')
-            ->with(['successes' => new MessageBag([__('Successfully saved child.')])]);
+        return response()->json(['message' => new MessageBag([__('Successfully saved child.')])]);
     }
 }

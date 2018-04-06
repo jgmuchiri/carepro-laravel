@@ -37,7 +37,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <textarea v-model="note.body" rows="3" class="form-control input-lg" :placeholder="$t('Type your message here')"></textarea>
+                                <wysiwyg v-model="note.body"></wysiwyg>
                             </div>
                         </div>
                     </div>
@@ -58,6 +58,7 @@
 </template>
 
 <script>
+    import "vue-wysiwyg/dist/vueWysiwyg.css";
     export default {
         data() {
             return {
@@ -89,7 +90,9 @@
                     this.switchView('NoteIndex');
                 })
                 .catch(error => {
-                    if (error.response.status == 422) {
+                    if (error.response.status == 403) {
+                        this.$noty.error(this.$t('This child is inactive and read-only.'));
+                    } else if (error.response.status == 422) {
                         for (var key in error.response.data) {
                             this.$noty.error(error.response.data[key]);
                         }

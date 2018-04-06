@@ -89,7 +89,7 @@ class ChildPolicy
      */
     public function update(User $user, Child $child)
     {
-        if (!$child->is_active) {
+        if (!$child->is_active || $child->status->name == 'Inactive') {
             return false;
         }
 

@@ -16,7 +16,9 @@ import Locales from './vue-i18n-locales.generated.js';
 import Vue from 'vue';
 import VueNoty from 'vuejs-noty';
 import wysiwyg from "vue-wysiwyg";
-Vue.use(wysiwyg, {});
+Vue.use(wysiwyg, {
+    hideModules: { "image": true }
+});
 
 window.bus = new Vue();
 
@@ -46,7 +48,7 @@ Vue.component('CreateEditGroupModal', require('./components/Groups/CreateEditMod
 Vue.component('GroupMassAssign', require('./components/Groups/MassAssign.vue'));
 Vue.component('draggable', require('vuedraggable'));
 Vue.component('CreateStaffModal', require('./components/StaffMembers/CreateModal'));
-Vue.component('CreateParentModal', require('./components/Parents/CreateModal'));
+Vue.component('CreateEditParentModal', require('./components/Parents/CreateEditModal'));
 Vue.component('CreateChildModal', require('./components/Children/CreateModal'));
 Vue.component('AssignChildrenModal', require('./components/Parents/AssignChildrenModal'));
 Vue.component('AddToGroupModal', require('./components/Groups/AddToGroupModal.vue'));
@@ -63,6 +65,9 @@ Vue.component('ChildrenAttachParentModal', require('./components/Children/Attach
 Vue.component('ChildrenAttachGroupModal', require('./components/Children/AttachGroupModal.vue'));
 Vue.component('DropzoneModal', require('./components/DropzoneModal.vue'));
 Vue.component('CreateEditPickupUserModal', require('./components/Children/Tabs/CreateEditPickupUserModal.vue'));
+Vue.component('ToggleCheckInModal', require('./components/Children/ToggleCheckInModal.vue'));
+Vue.component('CreateEditEmergencyContactModal', require('./components/Children/CreateEditEmergencyContactModal.vue'));
+Vue.component('CreateEditHealthProviderModal', require('./components/Children/CreateEditHealthProviderModal.vue'));
 
 Vue.mixin({
     methods: {

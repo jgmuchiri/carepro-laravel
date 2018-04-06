@@ -27,9 +27,15 @@ Route::group(['middleware' => ['auth:api', 'subscribed']], function() {
         ->name('children.assign-parents');
     Route::post('children/{id}/assign-groups', 'ChildrenController@assignGroups')
         ->name('children.assign-groups');
-    Route::resource('children/{id}/notes', 'NotesController', ['only' => ['store', 'index']]);
+    Route::resource('children/{id}/notes', 'NotesController', ['only' => ['store', 'index', 'destroy']]);
     Route::resource('children/{id}/photos', 'ChildPhotosController', ['only' => ['store', 'index']]);
     Route::resource('children/{id}/pickup-users', 'PickupUsersController', ['only' => ['store', 'update', 'destroy']]);
+    Route::resource('children/{id}/emergency-contacts', 'EmergencyContactsController', ['only' => ['store', 'update', 'destroy']]);
+    Route::resource('children/{id}/health-providers', 'HealthProvidersController', ['only' => ['store', 'update', 'destroy']]);
+    Route::get('children/{id}/activate', 'ChildrenController@activate')->name('children.activate');
+    Route::get('children/{id}/deactivate', 'ChildrenController@deactivate')->name('children.deactivate');
+    Route::post('children/{id}/toggle-check-in', 'AttendanceController@toggleCheckIn')->name('children.toggle-check-in');
+    Route::delete('children/{child_id}/groups/{group_id}', 'ChildrenController@unassignGroup')->name('children.groups.delete');
     Route::resource('children', 'ChildrenController', ['only' => ['index', 'create', 'store', 'show', 'edit', 'update']]);
 
     Route::put('staff/{staff_id}/add-to-group', 'StaffController@addToGroup')->name('staff.add-to-group');

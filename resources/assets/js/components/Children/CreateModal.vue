@@ -135,7 +135,7 @@
             window.bus.$on('parentRegistered', function(parent) {
                 self.parents.push(parent);
                 self.child.parents.push(parent.id);
-                $('#create-parent-modal').modal('hide');
+                $('#create-edit-parent-modal').modal('hide');
                 $('#create-child-modal').modal('show');
             });
         },
@@ -177,7 +177,7 @@
             storeChild: function() {
                 if (!this.parents.length && this.is_not_parent) {
                     $('#create-child-modal').modal('hide');
-                    $('#create-parent-modal').modal('show');
+                    $('#create-edit-parent-modal').modal('show');
                     return;
                 }
 
@@ -204,7 +204,9 @@
                         this.$noty.success(response.data.message);
                     })
                     .catch(error => {
-                        if (error.response.status == 422) {
+                        if (error.response.status == 403) {
+                            this.$noty.error(this.$t('This child is inactive and read-only.'));
+                        } else if (error.response.status == 422) {
                             for (var key in error.response.data) {
                                 this.$noty.error(error.response.data[key]);
                             }

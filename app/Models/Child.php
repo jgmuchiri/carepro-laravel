@@ -72,7 +72,11 @@ class Child extends Model
         'date_of_birth'
     ];
 
-    protected $appends = ['full_photo_uri', 'full_photo_uri_original'];
+    protected $appends = [
+        'full_photo_uri',
+        'full_photo_uri_original',
+        'is_checked_in'
+    ];
 
     /**
      * Relationship to this child's parents
@@ -147,6 +151,36 @@ class Child extends Model
     public function pickupUsers()
     {
         return $this->hasMany(\App\Models\PickupUsers\PickupUser::class, 'child_id');
+    }
+
+    /**
+     * Relationship to attendance
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function attendance()
+    {
+        return $this->hasMany(\App\Models\Attendance::class, 'child_id');
+    }
+
+    /**
+     * Relationship to emergency contacts
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function emergencyContacts()
+    {
+        return $this->hasMany(\App\Models\EmergencyContact::class, 'child_id');
+    }
+
+    /**
+     * Relationship to health providers
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function healthProviders()
+    {
+        return $this->hasMany(\App\Models\HealthProviders\HealthProvider::class, 'child_id');
     }
 
     /**
@@ -348,5 +382,16 @@ class Child extends Model
         $file_name = array_pop($split_uri);
         $full_uri = implode('/', $split_uri) . '/original/' . $file_name;
         return asset('storage/' . $full_uri);
+    }
+
+    public function getIsCheckedInAttribute()
+    {
+        $attendance = $this->attendance()->onlyLastRecord()->first();
+
+        if ($attendance == null || $attendance->check_out_date != null) {
+            return false;
+        }
+
+        return true;
     }
 }

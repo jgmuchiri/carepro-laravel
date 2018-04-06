@@ -27,14 +27,14 @@
                             <lightbox
                                     :thumbnail="current_photo.full_photo_uri"
                                     :images="movePhotoToFront(photosUriArray, current_photo.full_photo_uri_original)"
-                                    @load="imageLoaded"
                             ></lightbox>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <DropzoneModal :url="'/api/children/' + this.child.id + '/photos'"></DropzoneModal>
+        <DropzoneModal :url="'/api/children/' + this.child.id + '/photos'"
+            @upload="imageUploaded"></DropzoneModal>
     </div>
 </template>
 
@@ -59,18 +59,24 @@
         {
             return {
                 photos: [],
-                imagesLoadedCount: 0
             }
         },
         methods: {
-            imageLoaded: function() {
-                this.imagesLoadedCount++;
-                if (this.imagesLoadedCount == this.photos.length) {
-
-                }
-            },
             movePhotoToFront: function (array, element) {
                 return [].concat([element], array.filter(e => e !== element));
+            },
+            imageUploaded: function(response, file) {
+                var todayKey = window.moment().format('YYYY-MM-DD');
+                var todayArrayIndex = this.photos.findIndex(e => e.key == todayKey);
+                if (todayArrayIndex >= 0) {
+                    this.photos[todayArrayIndex].values = this.movePhotoToFront(
+                        this.photos[todayArrayIndex].values,
+                        response.data.photo
+                    );
+                    return;
+                }
+
+                this.photos = [].concat([{ key: todayKey, values: [response.data.photo]}], this.photos);
             }
         },
         props: ['child']

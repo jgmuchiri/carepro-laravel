@@ -47,20 +47,24 @@
                                 </router-link>
                             </div>
                             <div class="col-xs-6">
-                                <a class="mb-sm btn btn-primary btn-quick" href="#">Check-out</a>
+                                <a :class="getCheckInCheckOutButtonClass(child)"
+                                   v-on:click="openToggleCheckInModal(child)"
+                                >{{ child.is_checked_in ? 'Check-out' : 'Check-in' }}</a>
                             </div>
-                            <!-- TODO: Uncomment when this is implemented dynamically
-                            <div class="col-xs-6">
-                                <a class="mb-sm btn btn-success btn-quick" href="#">Check-in</a>
-                            </div> -->
                         </div>
                     </div>
                 </div>
                 <!-- END widget-->
             </div>
+            <a id="open-toggle-checkin-modal"
+               class="hidden"
+               data-toggle="modal"
+               data-target="#toggleCheckInModal"
+               data-backdrop="false"></a>
         </div>
-        <CreateParentModal></CreateParentModal>
+        <CreateEditParentModal></CreateEditParentModal>
         <CreateChildModal v-on:createChild="addChild"></CreateChildModal>
+        <ToggleCheckInModal v-if="children.length"></ToggleCheckInModal>
     </div>
 </template>
 
@@ -75,6 +79,17 @@
                 .catch(error => {
                     alert("Something went wrong. Please try reloading the page");
                 });
+
+            var self = this;
+            window.bus.$on('toggleChildCheckIn', function(child_id) {
+                self.children.map(function(child) {
+                    if (child.id == child_id) {
+                        child.is_checked_in = !child.is_checked_in;
+                    }
+
+                    return child;
+                });
+            });
         },
         data() {
             return {
@@ -84,7 +99,21 @@
         methods: {
             addChild: function(child) {
                 this.children.push(child);
-            }
+            },
+            getCheckInCheckOutButtonClass: function(child) {
+                var return_string = 'mb-sm btn btn-quick ';
+                if (child.is_checked_in) {
+                    return_string += 'btn-primary'
+                } else {
+                    return_string += 'btn-success';
+                }
+
+                return return_string;
+            },
+            openToggleCheckInModal: function(child) {
+                window.bus.$emit('openToggleCheckinModal', child);
+                $('#open-toggle-checkin-modal').click();
+            },
         }
     }
 </script>

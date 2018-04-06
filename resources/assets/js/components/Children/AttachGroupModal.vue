@@ -74,7 +74,9 @@
                         this.$noty.success(response.data.message);
                     })
                     .catch(error => {
-                        if (error.response.status == 422) {
+                        if (error.response.status == 403) {
+                            this.$noty.error(this.$t('This child is inactive and read-only.'));
+                        } else if (error.response.status == 422) {
                             for (var key in error.response.data) {
                                 this.$noty.error(error.response.data[key]);
                             }

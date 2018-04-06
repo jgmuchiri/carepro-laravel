@@ -152,7 +152,9 @@
                             <td>{{ group.name }}</td>
                             <td>{{ group.short_description }}</td>
                             <td class="text-center">
-                                <a class="btn btn-danger btn-xs" href="" title="Delete"><i class="fa fa-trash-o"></i></a>
+                                <a class="btn btn-danger btn-xs" v-on:click.prevent="unassignGroup(group.id)" title="Delete">
+                                    <i class="fa fa-trash-o"></i>
+                                </a>
                             </td>
                         </tr>
                     </tbody>
@@ -177,6 +179,15 @@
                             <i class="fa fa-plus m-r-5 btn-fa"></i>
                             <span> {{ $t('Assign Parent/Guardian') }}</span>
                         </button>
+                        <button class="hide"
+                                data-toggle="modal"
+                                data-target="#create-edit-parent-modal"
+                                data-backdrop="false"
+                                id="edit-parent-button"
+                        >
+                            <i class="fa fa-plus m-r-5 btn-fa"></i>
+                            <span> {{ $t('New Authorization') }}</span>
+                        </button>
                     </div>
                 </div>
                 <h3>{{ $t('Parents/Guardians') }}</h3>
@@ -190,7 +201,7 @@
                                 <p class="h4 text-bold mb0">{{ parent.user.name }}</p>
                                 <p class="h4 text-bold mb0">{{ parent.user.email }}</p>
                                 <p>{{ parent.user.address.phone }}</p>
-                                <button class="btn btn-success btn-oval" type="button">{{ $t('Edit') }}</button>
+                                <button v-on:click="editParent(parent.id)"class="btn btn-success btn-oval" type="button">{{ $t('Edit') }}</button>
                             </div>
                         </div>
                     </div>
@@ -215,7 +226,7 @@
                         </button>
                     </div>
                 </div>
-                <h3>{{ $t('Authorised Pick Up Users') }}</h3>
+                <h3>{{ $t('Authorized Pick Up Users') }}</h3>
             </div>
             <div class="child-parent">
                 <div class="row">
@@ -248,6 +259,20 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-row text-center">
+                    <div class="col-md-12">
+                        <button v-if="child.status.name == 'Active'" type="submit" v-on:click.prevent="toggleChildActivation" class="btn btn-danger wave-effect m-b-5">
+                            <i class="fa fa-trash m-r-5 btn-fa"></i>
+                            <span> {{ $t('Deactivate Child')}}</span>
+                        </button>
+                        <button v-else type="submit" v-on:click.prevent="toggleChildActivation" class="btn btn-primary wave-effect m-b-5">
+                            <i class="fa fa-plus m-r-5 btn-fa"></i>
+                            <span> {{ $t('Activate Child')}}</span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -287,7 +312,9 @@
                         this.child.pickup_users = this.child.pickup_users.filter(x => x.id != id);
                     })
                     .catch(error => {
-                        if (error.response.status == 422) {
+                        if (error.response.status == 403) {
+                           this.$noty.error(this.$t('This child is inactive and read-only.'));
+                        } else if (error.response.status == 422) {
                             for (var key in error.response.data) {
                                 this.$noty.error(error.response.data[key]);
                             }
@@ -320,11 +347,17 @@
 
                 this.$http.post('/api/children/' + this.child.id, formData)
                     .then(response => {
-                        this.$emit('childEdited', response.data.child);
+                        var child = response.data.child;
+                        child.photo += '?date=' + window.moment().toISOString();
+                        child.full_photo_uri += '?date=' + window.moment().toISOString();
+                        child.full_photo_uri_original += '?date=' + window.moment().toISOString();
+                        window.bus.$emit('childEdited', child);
                         this.$noty.success(response.data.message);
                     })
                     .catch(error => {
-                        if (error.response.status == 422) {
+                        if (error.response.status == 403) {
+                            this.$noty.error(this.$t('This child is inactive and read-only.'));
+                        } else if (error.response.status == 422) {
                             for (var key in error.response.data) {
                                 this.$noty.error(error.response.data[key]);
                             }
@@ -333,12 +366,71 @@
                         }
                     });
             },
+            editParent: function(id) {
+                window.bus.$emit('editParent', id);
+                $('#edit-parent-button').click();
+            },
             editPickupUser: function(pickup_user) {
                 $('#new-pickup-user-button').click();
                 window.bus.$emit('editPickupUser', pickup_user);
             },
             clearPickupUserModal: function() {
                 window.bus.$emit('clearPickupUserModal');
+            },
+            toggleChildActivation: function() {
+                if (this.child.status.name == 'Active') {
+                    this.$http.get('/api/children/' + this.child.id + '/deactivate')
+                        .then(response => {
+                            this.$noty.success(response.data.message);
+                            this.child.status.name = 'Inactive';
+                        })
+                        .catch(error => {
+                            if (error.response.status == 403) {
+                                this.$noty.error(this.$t('This child is inactive and read-only.'));
+                            } else if (error.response.status == 422) {
+                                for (var key in error.response.data) {
+                                    this.$noty.error(error.response.data[key]);
+                                }
+                            } else {
+                                alert("Something went wrong. Please reload the page and try again.");
+                            }
+                        });
+                } else {
+                    this.$http.get('/api/children/' + this.child.id + '/activate')
+                        .then(response => {
+                            this.$noty.success(response.data.message);
+                            this.child.status.name = 'Active';
+                        })
+                        .catch(error => {
+                            if (error.response.status == 403) {
+                                this.$noty.error(this.$t('This child is inactive and read-only.'));
+                            } else if (error.response.status == 422) {
+                                for (var key in error.response.data) {
+                                    this.$noty.error(error.response.data[key]);
+                                }
+                            } else {
+                                alert("Something went wrong. Please reload the page and try again.");
+                            }
+                        });
+                }
+            },
+            unassignGroup: function (group_id) {
+                this.$http.delete('/api/children/' + this.child.id + '/groups/' + group_id)
+                    .then(response => {
+                        this.$emit('attachGroupsToChild', response.data.groups);
+                        this.$noty.success(response.data.message);
+                    })
+                    .catch(error => {
+                        if (error.response.status == 403) {
+                            this.$noty.error(this.$t('This child is inactive and read-only.'));
+                        } else if (error.response.status == 422) {
+                            for (var key in error.response.data) {
+                                this.$noty.error(error.response.data[key]);
+                            }
+                        } else {
+                            alert("Something went wrong. Please reload the page and try again.");
+                        }
+                    });
             }
         },
         props: ['child']
