@@ -17,3 +17,4 @@ composer.lock
 /public/js/app.*.js
 *.lock
 .composer.lock
+package-lock.json
