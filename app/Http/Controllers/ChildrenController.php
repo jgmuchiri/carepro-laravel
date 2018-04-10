@@ -163,17 +163,14 @@ class ChildrenController extends Controller
     public function store(SaveChildRequest $request)
     {
         $this->authorize('store', Child::class);
-        $photo_uri = Storage::disk('public')->putFile('children-images/original', $request->file('photo_uri'), 'public');
-        //get the saved photo name
-        $photo_name = basename($photo_uri);
-        //retrieve the image
-        $file = Storage::get('public/children-images/original/'.$photo_name);
-        //resize image
-        $photo_thumb = Image::make($file)->resize(100, 100)->stream();
-        //move the resized image to the childrens folder.
-        $path = Storage::disk('public')->put('children-images/'.$photo_name, $photo_thumb);
-        //generate resized image path
-        $thumb_path = 'children-images/'.$photo_name;
+        $imagename = time().'.'.$request->photo_uri->getClientOriginalExtension();
+        $originalimage = Image::make($request->photo_uri->getRealPath());
+        Storage::disk('public')->put('children-images/original/'.$imagename, (string)$originalimage->stream());
+
+        $originalimage->resize(100, 100);
+        Storage::disk('public')->put('children-images/'.$imagename,(string)$originalimage->stream());
+
+        $thumb_path = 'children-images/'.$imagename;
 
         if ($request->user()->role->name == Role::PARENT_ROLE) {
             $status_id = Status::whereName('Pending Approval')->first()->id;
@@ -241,16 +238,14 @@ class ChildrenController extends Controller
         ]);
 
         if (!empty($request->file('photo_uri'))) {
-            $photo_uri = $child->photo;
-            Storage::disk('public')->putFileAs('children-images/original', $request->file('photo_uri'),
-                $photo_uri);
+            $imagename = time().'.'.$request->photo_uri->getClientOriginalExtension();
+            $originalimage = Image::make($request->photo_uri->getRealPath());
+            Storage::disk('public')->put('children-images/original/'.$imagename, (string)$originalimage->stream());
 
-            //retrieve the image
-            $file = Storage::get('public/children-images/original/' . $photo_uri);
-            //resize image
-            $photo_thumb = Image::make($file)->resize(100, 100)->stream();
-            //move the resized image to the childrens folder.
-            $path = Storage::disk('public')->put($photo_uri, $photo_thumb);
+            $originalimage->resize(100, 100);
+            Storage::disk('public')->put('children-images/'.$imagename,(string)$originalimage->stream());
+
+            $child->photo = 'children-images/'.$imagename;
         }
 
         $child->save();
