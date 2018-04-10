@@ -114,14 +114,6 @@
                 <table class="table table-bordered table-hover" >
                     <thead>
                         <tr>
-                            <th data-check-all width="3">
-                                <div class="checkbox c-checkbox" data-toggle="tooltip" data-title="Check All">
-                                    <label>
-                                        <input type="checkbox">
-                                        <span class="fa fa-check"></span>
-                                    </label>
-                                </div>
-                            </th>
                             <th>{{ $t('Name') }}</th>
                             <th>{{ $t('Description') }}</th>
                             <th class="text-center">{{ $t('Actions') }}</th>
@@ -129,14 +121,6 @@
                     </thead>
                     <tbody>
                         <tr v-for="group in child.groups">
-                            <td>
-                                <div class="checkbox c-checkbox">
-                                    <label>
-                                        <input type="checkbox">
-                                        <span class="fa fa-check"></span>
-                                    </label>
-                                </div>
-                            </td>
                             <td>{{ group.name }}</td>
                             <td>{{ group.short_description }}</td>
                             <td class="text-center">
