@@ -234,7 +234,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" style="padding-bottom:10px;">
                 <div class="form-row text-center">
                     <div class="col-md-12">
                         <button v-if="child.status.name == 'Active'" type="submit" v-on:click.prevent="toggleChildActivation" class="btn btn-danger wave-effect m-b-5">
