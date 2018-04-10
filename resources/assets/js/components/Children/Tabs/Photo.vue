@@ -96,7 +96,6 @@
             },
 
             vsuccess(file, response) {
-                console.log("success")
                 this.getPhotos()
             },
 
