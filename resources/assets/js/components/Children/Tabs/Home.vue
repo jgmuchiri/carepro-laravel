@@ -27,24 +27,13 @@
                 <div class="panel-body">
                     <form v-on:submit.prevent="save">
                         <div class="row">
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-8">
                                 <input id="name"
                                     class="form-control input-lg"
-                                    :placeholder="$t('Apartment, suite, unit, building, floor, etc.')"
+                                    :placeholder="$t('Child Name')"
                                     name="name"
                                     type="text"
-                                    v-model="child.name"
-                                >
-                            </div>
-                            <div class="form-group col-md-4">
-                                <input class="form-control input-lg" name="ssn" type="text" v-model="child.ssn">
-                            </div>
-                            <div class="form-group col-md-4">
-                                <select id="status" class="form-control input-lg" v-model="child.status_id" required>
-                                    <option v-for="status in statuses" v-bind:value="status.id">
-                                        {{ status.name_label }}
-                                    </option>
-                                </select>
+                                    v-model="child.name">
                             </div>
                         </div>
 
@@ -52,7 +41,7 @@
                             <div class="col-md-8">
                                 <div class="row">
                                     <div class="form-group col-md-6">
-                                        <input id="name" class="form-control input-lg" name="name" type="text" v-model="child.name">
+                                        <input class="form-control input-lg" name="ssn" type="text" v-model="child.ssn">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <select required class="form-control input-lg" v-model="child.gender_id">
@@ -64,12 +53,11 @@
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-md-6">
-                                        <input id="name"
-                                            class="form-control input-lg"
-                                            :placeholder="$t('Apartment, suite, unit, building, floor, etc.')"
-                                            name="name"
-                                            type="text"
-                                            v-model="child.name">
+                                        <select id="status" class="form-control input-lg" v-model="child.status_id" required>
+                                            <option v-for="status in statuses" v-bind:value="status.id">
+                                                {{ status.name_label }}
+                                            </option>
+                                        </select>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <select required class="form-control input-lg" v-model="child.blood_type_id">
