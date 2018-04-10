@@ -33,22 +33,35 @@
                 </div>
             </div>
         </div>
-        <DropzoneModal :url="'/api/children/' + this.child.id + '/photos'"
-            @upload="imageUploaded"></DropzoneModal>
+        <!-- <DropzoneModal :url="'/api/children/' + this.child.id + '/photos'"
+            @upload="imageUploaded"></DropzoneModal> -->
+        <div class="modal fade" id="dropzone-modal" tabindex="-1" role="dialog" aria-labelledby="dropzone-modal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="dropzone-modal">{{ $t('Upload Photos') }}</h4>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <vue-dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions" @vdropzone-success="vsuccess"></vue-dropzone>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
+    import vue2Dropzone from 'vue2-dropzone'
     export default {
         created()
         {
-            this.$http.get('/api/children/' + this.child.id + '/photos')
-                .then(response => {
-                    this.photos = response.data.photos;
-                })
-                .catch(error => {
-                    alert("Something went wrong. Please try reloading the page");
-                });
+            this.getPhotos()
         },
         computed: {
             photosUriArray: function () {
@@ -59,25 +72,40 @@
         {
             return {
                 photos: [],
+                dropzoneOptions: {
+                  url: this.url,
+                  thumbnailWidth: 150,
+                  maxFilesize: 0.5,
+                  headers: { "X-CSRF-TOKEN": window.Laravel.csrfToken }
+              }
             }
         },
         methods: {
+            getPhotos: function() {
+                this.$http.get('/api/children/' + this.child.id + '/photos')
+                .then(response => {
+                    this.photos = response.data.photos;
+                })
+                .catch(error => {
+                    alert("Something went wrong. Please try reloading the page");
+                });
+            },
+
             movePhotoToFront: function (array, element) {
                 return [].concat([element], array.filter(e => e !== element));
             },
-            imageUploaded: function(response, file) {
-                var todayKey = window.moment().format('YYYY-MM-DD');
-                var todayArrayIndex = this.photos.findIndex(e => e.key == todayKey);
-                if (todayArrayIndex >= 0) {
-                    this.photos[todayArrayIndex].values = this.movePhotoToFront(
-                        this.photos[todayArrayIndex].values,
-                        response.data.photo
-                    );
-                    return;
-                }
 
-                this.photos = [].concat([{ key: todayKey, values: [response.data.photo]}], this.photos);
+            vsuccess(file, response) {
+                console.log("success")
+                this.getPhotos()
+            },
+
+            url: function() {
+                return '/api/children/' + this.child.id + '/photos'
             }
+        },
+        components: {
+            vueDropzone: vue2Dropzone
         },
         props: ['child']
     }

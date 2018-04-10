@@ -163,6 +163,7 @@ class ChildrenController extends Controller
     public function store(SaveChildRequest $request)
     {
         $this->authorize('store', Child::class);
+
         $imagename = time().'.'.$request->photo_uri->getClientOriginalExtension();
         $originalimage = Image::make($request->photo_uri->getRealPath());
         Storage::disk('public')->put('children-images/original/'.$imagename, (string)$originalimage->stream());

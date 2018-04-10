@@ -56,7 +56,7 @@ class ChildPhotosController extends Controller
         //retrieve the image
         $file = Storage::get('public/children-images/original/' . $photo_name);
         //resize image
-        $photo_thumb = Image::make($file)->resize(100, 100)->stream();
+        $photo_thumb = Image::make($file)->resize(200, 200)->stream();
         //move the resized image to the childrens folder.
         $path = Storage::disk('public')->put('children-images/' . $photo_name, $photo_thumb);
         //generate resized image path

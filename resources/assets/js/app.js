@@ -63,7 +63,6 @@ Vue.component('ChildrenBillingTab', require('./components/Children/Tabs/Billing.
 Vue.component('ChildrenHealthTab', require('./components/Children/Tabs/Health.vue'));
 Vue.component('ChildrenAttachParentModal', require('./components/Children/AttachParentModal.vue'));
 Vue.component('ChildrenAttachGroupModal', require('./components/Children/AttachGroupModal.vue'));
-Vue.component('DropzoneModal', require('./components/DropzoneModal.vue'));
 Vue.component('CreateEditPickupUserModal', require('./components/Children/Tabs/CreateEditPickupUserModal.vue'));
 Vue.component('ToggleCheckInModal', require('./components/Children/ToggleCheckInModal.vue'));
 Vue.component('CreateEditEmergencyContactModal', require('./components/Children/CreateEditEmergencyContactModal.vue'));
