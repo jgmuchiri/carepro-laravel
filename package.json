@@ -24,6 +24,7 @@
     "moment": "^2.19.1",
     "vue-pure-lightbox": "^2.1.4",
     "vue-wysiwyg": "^1.4.1",
+    "vue2-dropzone": "^3.1.0",
     "vuejs-noty": "^0.1.2"
   }
 }
