@@ -29,12 +29,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr v-for="attendance in attendances">
                                 <td>1</td>
-                                <td>10 October 2017</td>
-                                <td>10:00 AM</td>
-                                <td>05:00 PM</td>
-                                <td>Jamie Jones</td>
+                                <td>{{ attendance.check_in_date | moment("Do MMMM YYYY") }}</td>
+                                <td>{{ attendance.check_in_date | moment("h:mm A") }}</td>
+                                <td v-if="attendance.check_out_date">{{ attendance.check_out_date | moment("h:mm A") }}</td>
+                                <td v-else><span style="background-color: #0d97c5;" class="badge badge-primary">Still checked in</span></td>
+                                <td v-if="attendance.check_out_parent_id">{{ attendance.check_out_parent.name}}</td>
+                                <td v-else-if="attendance.check_out_pickup_user_id">{{ attendance.check_out_pickup_user.name}}</td>
+                                <td v-else><span style="background-color: #0d97c5;" class="badge badge-primary">not picked up yet</span></td>
                                 <td>No</td>
                             </tr>
                         </tbody>
@@ -47,5 +50,28 @@
 </template>
 
 <script>
-    export default {}
+    export default {
+        data() {
+            return {
+                attendances: []
+            }
+        },
+
+        created() {
+            this.getAttendance()
+        },
+
+        methods: {
+            getAttendance: function() {
+                this.$http.get('/api/children/attendance/' + this.child.id)
+                .then(response => {
+                    this.attendances = response.data;
+                })
+                .catch(error => {
+                    alert("Something went wrong. Please try reloading the page");
+                });
+            },
+        },
+        props: ['child']
+    }
 </script>

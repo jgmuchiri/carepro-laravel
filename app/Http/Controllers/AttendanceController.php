@@ -10,6 +10,18 @@ use Illuminate\Support\MessageBag;
 
 class AttendanceController extends Controller
 {
+    /**
+     * return all attendance for child
+     * @param  [int] $id [child id]
+     * @return [type]     [description]
+     */
+    public function index($id)
+    {
+        $attendance = Attendance::where('child_id', $id)->with('checkOutParent', 'checkOutPickupUser')->get();
+
+        return $attendance;
+    }
+
     public function toggleCheckIn(Request $request, $id)
     {
         $child = Child::with([
