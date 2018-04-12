@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "moment": "^2.19.1",
+    "vue-moment": "^3.2.0",
     "vue-pure-lightbox": "^2.1.4",
     "vue-wysiwyg": "^1.4.1",
     "vue2-dropzone": "^3.1.0",

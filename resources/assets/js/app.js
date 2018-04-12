@@ -26,6 +26,7 @@ Vue.use(VueNoty);
 Vue.use(VueRouter);
 Vue.use(VueI18n);
 Vue.use(Lightbox)
+Vue.use(require('vue-moment'))
 
 Vue.prototype.$http = axios;
 
