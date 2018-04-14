@@ -68,6 +68,8 @@ Vue.component('CreateEditPickupUserModal', require('./components/Children/Tabs/C
 Vue.component('ToggleCheckInModal', require('./components/Children/ToggleCheckInModal.vue'));
 Vue.component('CreateEditEmergencyContactModal', require('./components/Children/CreateEditEmergencyContactModal.vue'));
 Vue.component('CreateEditHealthProviderModal', require('./components/Children/CreateEditHealthProviderModal.vue'));
+Vue.component('Medications', require('./components/Children/modals/Medications.vue'));
+Vue.component('AllergiesModal', require('./components/Children/modals/Allergies.vue'));
 
 Vue.mixin({
     methods: {
