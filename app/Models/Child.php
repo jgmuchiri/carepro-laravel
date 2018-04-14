@@ -164,6 +164,16 @@ class Child extends Model
     }
 
     /**
+     * Relationship to allergies
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function allergies()
+    {
+        return $this->hasMany(\App\Models\Allergy::class, 'child_id');
+    }
+
+    /**
      * Relationship to medication
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
