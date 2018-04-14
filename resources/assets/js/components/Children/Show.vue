@@ -107,6 +107,7 @@
                 v-if="child.id && currentView == 'ChildrenHealthTab'"
         ></CreateEditHealthProviderModal>
         <Medications :child_id="child.id" v-if="child.id && currentView == 'ChildrenHealthTab'"></Medications>
+        <AllergiesModal :child_id="child.id" v-if="child.id && currentView == 'ChildrenHealthTab'"></AllergiesModal>
     </div>
 </template>
 
@@ -145,6 +146,36 @@
 
             window.bus.$on('medicationRecordCreated', function(medication) {
                 self.child.medication.push(medication);
+            });
+
+            window.bus.$on('medicationRecordEdited', function(medication) {
+                self.child.medication = self.child.medication.map(x => {
+                    if (x.id == medication.id)
+                    {
+                        return medication;
+                    }
+                    else
+                    {
+                        return x;
+                    }
+                });
+            });
+
+            window.bus.$on('allergyRecordCreated', function(allergy) {
+                self.child.allergies.push(allergy);
+            });
+
+            window.bus.$on('allergyRecordEdited', function(allergy) {
+                self.child.allergies = self.child.allergies.map(x => {
+                    if (x.id == allergy.id)
+                    {
+                        return allergy;
+                    }
+                    else
+                    {
+                        return x;
+                    }
+                });
             });
 
             window.bus.$on('healthProviderCreated', function(health_provider) {

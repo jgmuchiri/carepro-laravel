@@ -35,7 +35,7 @@
                     <!-- START Language list-->
                     <div class="pull-right">
                         <div class="btn-group">
-                            <button class="btn btn-success waves-effect m-b-5" data-toggle="modal" data-target="#medications-tab" data-backdrop="false" id="new-health-provider-button">
+                            <button class="btn btn-success waves-effect m-b-5" data-toggle="modal" data-target="#medications-tab" data-backdrop="false" id="new-medication-button">
                                 <i class="fa fa-plus m-r-5 btn-fa"></i>
                                 <span>{{ $t('New Medication') }}</span>
                             </button>
@@ -63,11 +63,11 @@
                                         <td>1</td>
                                         <td>{{ medication.name }}</td>
                                         <td>{{ medication.frequency }}</td>
-                                        <td>10 October 2017</td>
-                                        <td>15 October 2017</td>
+                                        <td>{{ medication.start | moment("Do MMMM YYYY") }}</td>
+                                        <td>{{ medication.stop | moment("Do MMMM YYYY") }}</td>
                                         <td class="text-center">
-                                            <a class="btn btn-primary btn-xs" href="" title="Edit"><i class="fa fa-pencil"></i></a>
-                                            <a class="btn btn-danger btn-xs" href="" title="Delete"><i class="fa fa-trash-o"></i></a>
+                                            <a class="btn btn-primary btn-xs" v-on:click="editMedication(medication)" title="Edit"><i class="fa fa-pencil"></i></a>
+                                            <a class="btn btn-danger btn-xs" v-on:click.prevent="deleteMedication(medication.id)" title="Delete"><i class="fa fa-trash-o"></i></a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -90,7 +90,7 @@
                     <!-- START Language list-->
                     <div class="pull-right">
                         <div class="btn-group">
-                            <button class="btn btn-success waves-effect m-b-5">
+                            <button class="btn btn-success waves-effect m-b-5" data-toggle="modal" id="new-allergy-button" data-target="#allergies-tab" data-backdrop="false">
                                 <i class="fa fa-plus m-r-5 btn-fa"></i>
                                 <span>{{ $t('Add Allergy') }}</span>
                             </button>
@@ -101,7 +101,7 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <!-- START table-responsive-->
-                        <div class="table-responsive">
+                        <div v-if="child.allergies.length" class="table-responsive">
                             <table class="table table-striped table-bordered table-hover">
                                 <thead>
                                     <tr>
@@ -115,22 +115,30 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    <tr v-for="allergy in child.allergies">
                                         <td>1</td>
-                                        <td>Pea Nuts</td>
-                                        <td>Anaphlytic shock</td>
-                                        <td>Epipen Injection</td>
-                                        <td>10 October 2017</td>
-                                        <td>15 October 2017</td>
+                                        <td>{{ allergy.name }}</td>
+                                        <td>{{ allergy.remarks }}</td>
+                                        <td>{{ allergy.treatment }}</td>
+                                        <td>{{ allergy.date_first_noted | moment("Do MMMM YYYY") }}</td>
+                                        <td>{{ allergy.last_event_date | moment("Do MMMM YYYY") }}</td>
                                         <td class="text-center">
-                                            <a class="btn btn-primary btn-xs" href="" title="Edit"><i class="fa fa-pencil"></i></a>
-                                            <a class="btn btn-danger btn-xs" href="" title="Delete"><i class="fa fa-trash-o"></i></a>
+                                            <a class="btn btn-primary btn-xs" v-on:click="editAllergy(allergy)" title="Edit"><i class="fa fa-pencil"></i></a>
+                                            <a class="btn btn-danger btn-xs" v-on:click.prevent="deleteAllergy(allergy.id)" title="Delete"><i class="fa fa-trash-o"></i></a>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                         <!-- END table-responsive-->
+                        <div v-else class="text-center">
+                            <p>There are no Allergy records</p>
+                             <div class="btn-group">
+                                <button class="btn btn-success waves-effect m-b-5" data-toggle="modal" data-target="#allergies-tab" data-backdrop="false" id="new-health-provider-button">
+                                    <span>{{ $t('Add First Allergy Record') }}</span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -343,6 +351,100 @@
             editHealthProvider: function(health_provider) {
                 window.bus.$emit('editHealthProvider', health_provider);
                 $('#new-health-provider-button').click();
+            },
+
+            editAllergy: function(allergy) {
+                window.bus.$emit('editAllergy', allergy);
+                $('#new-allergy-button').click();
+            },
+
+            deleteAllergy: function (id) {
+                let self = this
+                this.$swal({
+
+                    title: 'Are you sure?',
+                    text: 'You will not be able to recover this Allergy record!',
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, delete it!',
+                    cancelButtonText: 'No, keep it'
+                })
+
+                .then(function(result) {
+                    axios.delete('/api/children/' + self.child.id + '/allergy/' + id)
+                    .then(response => {
+                        self.child.allergies = self.child.allergies.filter(x => x.id != id);
+                         self.$swal(
+                            'Deleted!',
+                            response.data.message,
+                            'success'
+                          );
+                    })
+                    .catch(function (error) {
+                        self.$swal(
+                            'Something went Wrong',
+                            'Allergy record could not be deleted! :)',
+                            'error'
+                        );
+                    });
+
+                    }, function(dismiss) {
+                        if (dismiss === 'cancel') {
+                          self.$swal(
+                            'Cancelled',
+                            'Your Allergy record is safe :)',
+                            'error'
+                          );
+                        }
+                    }
+                );
+            },
+
+            editMedication: function(medication) {
+                window.bus.$emit('editMedication', medication);
+                $('#new-medication-button').click();
+            },
+
+            deleteMedication: function (id) {
+                let self = this
+                this.$swal({
+
+                    title: 'Are you sure?',
+                    text: 'You will not be able to recover this Medication record!',
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, delete it!',
+                    cancelButtonText: 'No, keep it'
+                })
+
+                .then(function(result) {
+                    axios.delete('/api/children/' + self.child.id + '/medication/' + id)
+                    .then(response => {
+                        self.child.medication = self.child.medication.filter(x => x.id != id);
+                         self.$swal(
+                            'Deleted!',
+                            response.data.message,
+                            'success'
+                          );
+                    })
+                    .catch(function (error) {
+                        self.$swal(
+                            'Something went Wrong',
+                            'Medication record could not be deleted! :)',
+                            'error'
+                        );
+                    });
+
+                    }, function(dismiss) {
+                        if (dismiss === 'cancel') {
+                          self.$swal(
+                            'Cancelled',
+                            'Your Medication record is safe :)',
+                            'error'
+                          );
+                        }
+                    }
+                );
             },
         },
         props: ['child']
