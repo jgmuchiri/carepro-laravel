@@ -17,7 +17,7 @@ class AttendanceController extends Controller
      */
     public function index($id)
     {
-        $attendance = Attendance::where('child_id', $id)->with('checkOutParent', 'checkOutPickupUser')->get();
+        $attendance = Attendance::where('child_id', $id)->with('checkOutParent', 'checkOutPickupUser')->latest()->get();
 
         return $attendance;
     }
