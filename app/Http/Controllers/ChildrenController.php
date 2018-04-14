@@ -16,6 +16,7 @@ use App\Models\Permissions\Permission;
 use App\Models\Permissions\Role;
 use App\Models\Religion;
 use App\Models\Status;
+use App\Models\medication;
 use App\Services\MailService;
 use Auth;
 use Illuminate\Http\Request;
@@ -113,7 +114,8 @@ class ChildrenController extends Controller
             'healthProviders.address.state',
             'healthProviders.address.zipCode',
             'healthProviders.address.country',
-            'healthProviders.role'
+            'healthProviders.role',
+            'medication'
         ])->findOrFail($id);
         $this->authorize('show', $child);
 
@@ -168,7 +170,7 @@ class ChildrenController extends Controller
         $originalimage = Image::make($request->photo_uri->getRealPath());
         Storage::disk('public')->put('children-images/original/'.$imagename, (string)$originalimage->stream());
 
-        $originalimage->resize(100, 100);
+        $originalimage->resize(200, 200);
         Storage::disk('public')->put('children-images/'.$imagename,(string)$originalimage->stream());
 
         $thumb_path = 'children-images/'.$imagename;
@@ -243,7 +245,7 @@ class ChildrenController extends Controller
             $originalimage = Image::make($request->photo_uri->getRealPath());
             Storage::disk('public')->put('children-images/original/'.$imagename, (string)$originalimage->stream());
 
-            $originalimage->resize(100, 100);
+            $originalimage->resize(200, 200);
             Storage::disk('public')->put('children-images/'.$imagename,(string)$originalimage->stream());
 
             $child->photo = 'children-images/'.$imagename;
