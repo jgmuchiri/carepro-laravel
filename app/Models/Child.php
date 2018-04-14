@@ -164,6 +164,16 @@ class Child extends Model
     }
 
     /**
+     * Relationship to medication
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function medication()
+    {
+        return $this->hasMany(\App\Models\Medication::class, 'child_id');
+    }
+
+    /**
      * Relationship to emergency contacts
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
