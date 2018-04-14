@@ -15,6 +15,7 @@ import VueI18n from 'vue-i18n';
 import Locales from './vue-i18n-locales.generated.js';
 import Vue from 'vue';
 import VueNoty from 'vuejs-noty';
+import VueSweetAlert from 'vue-sweetalert';
 import wysiwyg from "vue-wysiwyg";
 Vue.use(wysiwyg, {
     hideModules: { "image": true }
@@ -26,6 +27,7 @@ Vue.use(VueNoty);
 Vue.use(VueRouter);
 Vue.use(VueI18n);
 Vue.use(Lightbox)
+Vue.use(VueSweetAlert);
 Vue.use(require('vue-moment'))
 
 Vue.prototype.$http = axios;
