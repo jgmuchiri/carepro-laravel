@@ -16,7 +16,7 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 <!-- START table-responsive-->
-                <div class="table-responsive">
+                <div v-if="attendances.length" class="table-responsive">
                     <table class="table table-striped table-bordered table-hover">
                         <thead>
                             <tr>
@@ -44,6 +44,9 @@
                     </table>
                 </div>
                 <!-- END table-responsive-->
+                <div v-else class="text-center">
+                    <p>There are no Attendance records!</p>
+                </div>
             </div>
         </div>
     </div>
@@ -63,7 +66,7 @@
 
         methods: {
             getAttendance: function() {
-                this.$http.get('/api/children/attendance/' + this.child.id)
+                this.$http.get('/api/children/' + this.child.id + '/attendance')
                 .then(response => {
                     this.attendances = response.data;
                 })
