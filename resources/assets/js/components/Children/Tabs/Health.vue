@@ -35,7 +35,7 @@
                     <!-- START Language list-->
                     <div class="pull-right">
                         <div class="btn-group">
-                            <button class="btn btn-success waves-effect m-b-5">
+                            <button class="btn btn-success waves-effect m-b-5" data-toggle="modal" data-target="#medications-tab" data-backdrop="false" id="new-health-provider-button">
                                 <i class="fa fa-plus m-r-5 btn-fa"></i>
                                 <span>{{ $t('New Medication') }}</span>
                             </button>
@@ -46,7 +46,7 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <!-- START table-responsive-->
-                        <div class="table-responsive">
+                        <div v-if="child.medication.length" class="table-responsive">
                             <table class="table table-striped table-bordered table-hover">
                                 <thead>
                                     <tr>
@@ -59,10 +59,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    <tr v-for="medication in child.medication">
                                         <td>1</td>
-                                        <td>Tylenol(Acetaminophen)</td>
-                                        <td>1 tab(200mg) Every 6 hours</td>
+                                        <td>{{ medication.name }}</td>
+                                        <td>{{ medication.frequency }}</td>
                                         <td>10 October 2017</td>
                                         <td>15 October 2017</td>
                                         <td class="text-center">
@@ -74,6 +74,14 @@
                             </table>
                         </div>
                         <!-- END table-responsive-->
+                        <div v-else class="text-center">
+                            <p>There are no Medication records</p>
+                             <div class="btn-group">
+                                <button class="btn btn-success waves-effect m-b-5" data-toggle="modal" data-target="#medications-tab" data-backdrop="false" id="new-health-provider-button">
+                                    <span>{{ $t('Add First Medication Record') }}</span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

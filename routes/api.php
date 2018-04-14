@@ -42,5 +42,7 @@ Route::group(['middleware' => ['auth:api', 'subscribed']], function() {
     Route::put('staff/{staff_id}/update-password', 'StaffController@updatePassword')->name('staff.update-password');
     Route::resource('staff', 'StaffController', ['only' => ['index', 'store', 'update', 'edit']]);
 
-    Route::get('children/attendance/{id}', 'AttendanceController@index');
+    Route::get('children/{id}/attendance', 'AttendanceController@index');
+    Route::get('children/{id}/medication', 'MedicationController@index');
+    Route::post('children/{id}/medication', 'MedicationController@store');
 });

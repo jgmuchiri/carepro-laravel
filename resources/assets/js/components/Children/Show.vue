@@ -106,6 +106,7 @@
                 :child_id="child.id"
                 v-if="child.id && currentView == 'ChildrenHealthTab'"
         ></CreateEditHealthProviderModal>
+        <Medications :child_id="child.id" v-if="child.id && currentView == 'ChildrenHealthTab'"></Medications>
     </div>
 </template>
 
@@ -140,6 +141,10 @@
 
             window.bus.$on('emergencyContactCreated', function(emergency_contact) {
                 self.child.emergency_contacts.push(emergency_contact);
+            });
+
+            window.bus.$on('medicationRecordCreated', function(medication) {
+                self.child.medication.push(medication);
             });
 
             window.bus.$on('healthProviderCreated', function(health_provider) {
