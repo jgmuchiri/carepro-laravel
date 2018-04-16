@@ -160,7 +160,7 @@ class Child extends Model
      */
     public function attendance()
     {
-        return $this->hasMany(\App\Models\Attendance::class, 'child_id');
+        return $this->hasMany(\App\Models\Attendance::class, 'child_id')->latest();
     }
 
     /**
@@ -170,7 +170,17 @@ class Child extends Model
      */
     public function allergies()
     {
-        return $this->hasMany(\App\Models\Allergy::class, 'child_id');
+        return $this->hasMany(\App\Models\Allergy::class, 'child_id')->latest();
+    }
+
+    /**
+     * Relationship to food_preferences
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function food_preferences()
+    {
+        return $this->hasMany(\App\Models\FoodPreference::class, 'child_id')->latest();
     }
 
     /**
@@ -180,7 +190,7 @@ class Child extends Model
      */
     public function medication()
     {
-        return $this->hasMany(\App\Models\Medication::class, 'child_id');
+        return $this->hasMany(\App\Models\Medication::class, 'child_id')->latest();
     }
 
     /**
