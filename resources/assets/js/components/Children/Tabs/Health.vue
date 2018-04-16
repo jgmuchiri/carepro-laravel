@@ -59,8 +59,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="medication in child.medication">
-                                        <td>1</td>
+                                    <tr v-for="(medication, index) in child.medication">
+                                        <td>{{ number(index) }}</td>
                                         <td>{{ medication.name }}</td>
                                         <td>{{ medication.frequency }}</td>
                                         <td>{{ medication.start | moment("Do MMMM YYYY") }}</td>
@@ -115,8 +115,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="allergy in child.allergies">
-                                        <td>1</td>
+                                    <tr v-for="(allergy, index) in child.allergies">
+                                        <td>{{ number(index) }}</td>
                                         <td>{{ allergy.name }}</td>
                                         <td>{{ allergy.remarks }}</td>
                                         <td>{{ allergy.treatment }}</td>
@@ -147,7 +147,7 @@
                     <!-- START Language list-->
                     <div class="pull-right">
                         <div class="btn-group">
-                            <button class="btn btn-success waves-effect m-b-5">
+                            <button class="btn btn-success waves-effect m-b-5" data-toggle="modal" data-target="#preferences-tab" data-backdrop="false" id="new-preferences-button">
                                 <i class="fa fa-plus m-r-5 btn-fa"></i>
                                 <span>{{ $t('Add a Preference') }}</span>
                             </button>
@@ -158,7 +158,7 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <!-- START table-responsive-->
-                        <div class="table-responsive">
+                        <div v-if="child.food_preferences.length" class="table-responsive">
                             <table class="table table-striped table-bordered table-hover">
                                 <thead>
                                     <tr>
@@ -170,20 +170,28 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Cheese Sandwich</td>
-                                        <td>Use wheat bread</td>
-                                        <td>Lunch</td>
+                                    <tr v-for="(preference, index) in child.food_preferences">
+                                        <td>{{ number(index) }}</td>
+                                        <td>{{ preference.name }}</td>
+                                        <td>{{ preference.remarks }}</td>
+                                        <td>{{ preference.preffered_time }}</td>
                                         <td class="text-center">
-                                            <a class="btn btn-primary btn-xs" href="" title="Edit"><i class="fa fa-pencil"></i></a>
-                                            <a class="btn btn-danger btn-xs" href="" title="Delete"><i class="fa fa-trash-o"></i></a>
+                                            <a class="btn btn-primary btn-xs" v-on:click="editFoodpreference(preference)" title="Edit"><i class="fa fa-pencil"></i></a>
+                                            <a class="btn btn-danger btn-xs" v-on:click.prevent="deleteFoodpreference(preference.id)" title="Delete"><i class="fa fa-trash-o"></i></a>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                         <!-- END table-responsive-->
+                        <div v-else class="text-center">
+                            <p>There are no Food Preference records</p>
+                             <div class="btn-group">
+                                <button class="btn btn-success waves-effect m-b-5" data-toggle="modal" data-target="#preferences-tab" data-backdrop="false" id="new-health-provider-button">
+                                    <span>{{ $t('Add First Food Preference') }}</span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -445,6 +453,57 @@
                         }
                     }
                 );
+            },
+
+            editFoodpreference: function(preference) {
+                window.bus.$emit('editFoodPreference', preference);
+                $('#new-preferences-button').click();
+            },
+
+            deleteFoodpreference: function (id) {
+                let self = this
+                this.$swal({
+
+                    title: 'Are you sure?',
+                    text: 'You will not be able to recover this Food Preference record!',
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, delete it!',
+                    cancelButtonText: 'No, keep it'
+                })
+
+                .then(function(result) {
+                    axios.delete('/api/children/' + self.child.id + '/foodpreference/' + id)
+                    .then(response => {
+                        self.child.food_preferences = self.child.food_preferences.filter(x => x.id != id);
+                         self.$swal(
+                            'Deleted!',
+                            response.data.message,
+                            'success'
+                          );
+                    })
+                    .catch(function (error) {
+                        self.$swal(
+                            'Something went Wrong',
+                            'Food Preference record could not be deleted! :)',
+                            'error'
+                        );
+                    });
+
+                    }, function(dismiss) {
+                        if (dismiss === 'cancel') {
+                          self.$swal(
+                            'Cancelled',
+                            'Your Food Preference record is safe :)',
+                            'error'
+                          );
+                        }
+                    }
+                );
+            },
+
+            number: function(index) {
+                return index + 1
             },
         },
         props: ['child']

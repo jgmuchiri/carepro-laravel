@@ -116,7 +116,8 @@ class ChildrenController extends Controller
             'healthProviders.address.country',
             'healthProviders.role',
             'medication',
-            'allergies'
+            'allergies',
+            'food_preferences'
         ])->findOrFail($id);
         $this->authorize('show', $child);
 

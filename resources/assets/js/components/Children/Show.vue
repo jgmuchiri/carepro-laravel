@@ -108,6 +108,7 @@
         ></CreateEditHealthProviderModal>
         <Medications :child_id="child.id" v-if="child.id && currentView == 'ChildrenHealthTab'"></Medications>
         <AllergiesModal :child_id="child.id" v-if="child.id && currentView == 'ChildrenHealthTab'"></AllergiesModal>
+        <FoodPreferencesModal :child_id="child.id" v-if="child.id && currentView == 'ChildrenHealthTab'"></FoodPreferencesModal>
     </div>
 </template>
 
@@ -145,7 +146,7 @@
             });
 
             window.bus.$on('medicationRecordCreated', function(medication) {
-                self.child.medication.push(medication);
+                self.loadChild()
             });
 
             window.bus.$on('medicationRecordEdited', function(medication) {
@@ -162,7 +163,7 @@
             });
 
             window.bus.$on('allergyRecordCreated', function(allergy) {
-                self.child.allergies.push(allergy);
+                self.loadChild()
             });
 
             window.bus.$on('allergyRecordEdited', function(allergy) {
@@ -170,6 +171,23 @@
                     if (x.id == allergy.id)
                     {
                         return allergy;
+                    }
+                    else
+                    {
+                        return x;
+                    }
+                });
+            });
+
+            window.bus.$on('preferenceRecordCreated', function(preference) {
+                self.loadChild()
+            });
+
+            window.bus.$on('preferenceRecordEdited', function(preference) {
+                self.child.food_preferences = self.child.food_preferences.map(x => {
+                    if (x.id == preference.id)
+                    {
+                        return preference;
                     }
                     else
                     {
