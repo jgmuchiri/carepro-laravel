@@ -52,4 +52,8 @@ Route::group(['middleware' => ['auth:api', 'subscribed']], function() {
     Route::post('children/{id}/allergy', 'AllergyController@store');
     Route::patch('children/{id}/allergy/{allergy_id}', 'AllergyController@update');
     Route::delete('children/{id}/allergy/{allergy_id}', 'AllergyController@destroy');
+    //food preferences
+    Route::post('children/{id}/foodpreference', 'FoodpreferenceController@store');
+    Route::patch('children/{id}/foodpreference/{preference_id}', 'FoodpreferenceController@update');
+    Route::delete('children/{id}/foodpreference/{preference_id}', 'FoodpreferenceController@destroy');
 });
