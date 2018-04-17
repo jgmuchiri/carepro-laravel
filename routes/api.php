@@ -56,4 +56,10 @@ Route::group(['middleware' => ['auth:api', 'subscribed']], function() {
     Route::post('children/{id}/foodpreference', 'FoodpreferenceController@store');
     Route::patch('children/{id}/foodpreference/{preference_id}', 'FoodpreferenceController@update');
     Route::delete('children/{id}/foodpreference/{preference_id}', 'FoodpreferenceController@destroy');
+    //invoices
+    Route::get('/children/invoice/status', 'InvoiceController@status');
+    Route::get('children/{id}/invoice', 'InvoiceController@index');
+    Route::post('children/{id}/invoice', 'InvoiceController@store');
+    Route::patch('children/{id}/invoice/{invoice_id}', 'InvoiceController@update');
+    Route::delete('children/{id}/invoice/{invoice_id}', 'InvoiceController@destroy');
 });

@@ -473,7 +473,7 @@
                 })
 
                 .then(function(result) {
-                    axios.delete('/api/children/' + self.child.id + '/foodpreference/' + id)
+                    axios.delete('/api/children/' + self.child.id + '/invoice/' + id)
                     .then(response => {
                         self.child.food_preferences = self.child.food_preferences.filter(x => x.id != id);
                          self.$swal(
