@@ -81,10 +81,10 @@
                                     <td class="text-center">
                                         <a class="btn btn-success btn-xs" title="Edit"><i class="fa fa-credit-card"></i></a>
                                         <a class="btn btn-primary btn-xs" v-on:click="editInvoice(invoice)" title="Edit"><i class="fa fa-pencil"></i></a>
+                                        <a :href="'/children/' + child.id + '/invoice/' + invoice.id" class="btn btn-success btn-xs" target="_blank" title="Download Invoice"><i class="fa fa-download"></i></a>
                                         <a class="btn btn-danger btn-xs" v-on:click="deleteInvoice(invoice.id)" title="Delete"><i class="fa fa-trash-o"></i></a>
                                     </td>
                                 </tr>
-
                             </tbody>
                         </table>
                     </div>
@@ -316,6 +316,7 @@
                 this.edit = true
                 $('#billing-index').hide();
                 $('#invoice-create').show();
+                this.updateTotal()
 
             },
 
@@ -326,6 +327,16 @@
                 //     self.invoice.subtotal = parseFloat(self.invoice.subtotal) + parseFloat(self.invoice.invoiceitems[index].total)
                 //     console.log(self.invoice.subtotal)
                 // }
+                self.updateTotal()
+            },
+
+            updateTotal: function() {
+                let self = this
+                self.invoice.subtotal = '0'
+                for(var index = 0; index < self.invoice.invoiceitems.length; index++) {
+                    self.invoice.subtotal = parseFloat(self.invoice.subtotal) + parseFloat(self.invoice.invoiceitems[index].total)
+                    self.invoice.amount = self.invoice.subtotal
+                }
             },
 
             addRow() {

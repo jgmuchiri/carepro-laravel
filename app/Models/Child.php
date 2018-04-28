@@ -144,6 +144,16 @@ class Child extends Model
     }
 
     /**
+     * Relationship to this child's invoice
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function invoice()
+    {
+        return $this->hasMany(\App\Models\Invoice::class, 'child_id');
+    }
+
+    /**
      * Relationship to this child's pickup users
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

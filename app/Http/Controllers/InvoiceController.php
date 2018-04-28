@@ -131,6 +131,13 @@ class InvoiceController extends Controller
         ]);
 
         $invoice = Invoice::find($id);
+        $invoiceitems = collect(InvoiceItem::where('invoice_id', $id)->pluck('id'));
+        // if (array_has($invoiceitems, '4')) {
+        //     return 'true';
+        // } else {
+        //     return 'false';
+        // }
+        //return $invoiceitems->search(5);
         $invoice->due_date = $request->due_date;
         $invoice->invoice_terms = $request->invoice_terms;
         $invoice->amount = $request->amount;
@@ -158,7 +165,13 @@ class InvoiceController extends Controller
                 $invoiceItem->total = $value['total'];
                 $invoiceItem->invoice_id = $invoice->id;
                 $invoiceItem->save();
+                $index = $invoiceitems->search($value['id']);
+                $invoiceitems->pull($index);
             }
+        }
+        foreach ($invoiceitems as $key => $value) {
+            $invoiceItem = InvoiceItem::find($value);
+            $invoiceItem->delete();
         }
 
         return response()->json([

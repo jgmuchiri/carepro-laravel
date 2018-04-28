@@ -15,6 +15,7 @@ use App\Models\Groups\Group;
 use App\Models\Permissions\Permission;
 use App\Models\Permissions\Role;
 use App\Models\Religion;
+use App\Models\Invoice\Invoice;
 use App\Models\Status;
 use App\Models\medication;
 use App\Services\MailService;
@@ -24,7 +25,8 @@ use Illuminate\Http\Response;
 use Illuminate\Support\MessageBag;
 use Storage;
 use Image;
-
+use PDF;
+use Dompdf\Dompdf;
 
 class ChildrenController extends Controller
 {
@@ -379,5 +381,26 @@ class ChildrenController extends Controller
         $child->save();
 
         return response()->json(['message' => new MessageBag([__('Successfully saved child.')])]);
+    }
+
+    public function invoice($id, $invoice_id)
+    {
+        $invoice = Invoice::where('id', $invoice_id)->with('invoiceitems')->first();
+        $child = Child::with('parents', 'parents.user')->where('id',$id)->first();
+        //dd($child->user);
+        $view = view('invoices.invoice')->withChild($child)->withInvoice($invoice);
+        // instantiate and use the dompdf class
+        $dompdf = new Dompdf();
+        $dompdf->set_base_path(public_path());
+        $dompdf->loadHtml($view);
+
+        // (Optional) Setup the paper size and orientation
+        $dompdf->setPaper('A3', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser
+        $dompdf->stream();
     }
 }
