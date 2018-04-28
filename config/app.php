@@ -188,6 +188,7 @@ return [
         MartinLindhe\VueInternationalizationGenerator\GeneratorProvider::class,
         PassportServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -255,6 +256,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Currency' => \Torann\Currency\Facades\Currency::class,
         'Image' => Intervention\Image\Facades\Image::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ],
 
     'languages' => env('LANGUAGES', 'US'),
