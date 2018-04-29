@@ -177,6 +177,13 @@
 <script src="{{ url('website/js/jquery-ui-1.12.1.custom.min.js') }}" type="text/javascript"></script>
 <script src="{{ url('website/js/popper.js') }}" type="text/javascript"></script>
 <script src="{{ url('website/js/bootstrap.min.js') }}" type="text/javascript"></script>
+<script src="{{ url('website/js/demo.js') }}"></script>
+<!--  Plugins for presentation page -->
+<script src="{{ url('website/js/presentation-page/main.js') }}"></script>
+
+<!-- Sharrre plugin -->
+<script src="{{ url('website/js/presentation-page/jquery.sharrre.js') }}"></script>
 <script src="{{ url('website/js/fe-app.js') }}"></script>
+
 
 </html>
