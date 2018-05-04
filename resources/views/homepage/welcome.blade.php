@@ -237,15 +237,15 @@
 
 				<div class="row">
 					<div class="col-md-2 ml-auto">
-						<div class="testimonials-people">
-							<img class="left-first-person add-animation" src="website/img/placeholder.jpg" alt=""/>
-							<img class="left-second-person add-animation" src="website/img/placeholder.jpg" alt=""/>
-							<img class="left-third-person add-animation" src="website/img/placeholder.jpg" alt=""/>
-							<img class="left-fourth-person add-animation" src="website/img/placeholder.png" alt=""/>
-							<img class="left-fifth-person add-animation" src="website/img/placeholder.jpg" alt=""/>
-							<img class="left-sixth-person add-animation" src="website/img/placeholder.jpg" alt=""/>
-						</div>
-					</div>
+		                <div class="testimonials-people">
+		                    <img class="left-first-person add-animation" src="website/img/128.jpg" alt="" />
+		                    <img class="left-second-person add-animation" src="website/img/129.jpg" alt="" />
+		                    <img class="left-third-person add-animation" src="website/img/130.jpg" alt="" />
+		                    <img class="left-fourth-person add-animation" src="website/img/132.png" alt="" />
+		                    <img class="left-fifth-person add-animation" src="website/img/133.jpg" alt="" />
+		                    <img class="left-sixth-person add-animation" src="website/img/134.jpg" alt="" />
+		                </div>
+		            </div>
 
 					<div class="col-md-6">
 						<div class="page-carousel">
@@ -260,7 +260,7 @@
 									<div class="carousel-item active">
 										<div class="card card-testimonial card-plain">
 											<div class="card-avatar">
-												<img class="img" src="website/img/placeholder.jpg"/>
+												<img class="img" src="website/img/129.jpg" />
 											</div>
 											<div class="card-body">
 												<h5 class="card-description">
@@ -284,6 +284,55 @@
 
 										</div>
 									</div>
+									 <div class="carousel-item">
+		                                <div class="card card-testimonial card-plain">
+		                                    <div class="card-avatar">
+		                                        <img class="img" src="website/img/134.jpg" />
+		                                    </div>
+		                                    <div class="card-body">
+		                                        <h5 class="card-description">
+		                                        "Love the shapes and color palette on this one! Perfect for one of my pet projects!"
+		                                        </h5>
+		                                        <div class="card-footer">
+		                                            <h4 class="card-title">Robin Leysen</h4>
+		                                            <h6 class="card-category">Web Developer</h6>
+		                                            <div class="card-stars">
+		                                                <i class="fa fa-star" aria-hidden="true"></i>
+		                                                <i class="fa fa-star" aria-hidden="true"></i>
+		                                                <i class="fa fa-star" aria-hidden="true"></i>
+		                                                <i class="fa fa-star" aria-hidden="true"></i>
+		                                                <i class="fa fa-star" aria-hidden="true"></i>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+
+		                                </div>
+		                            </div>
+
+		                            <div class="carousel-item">
+		                                <div class="card card-testimonial card-plain">
+		                                    <div class="card-avatar">
+		                                        <img class="img" src="website/img/129.jpg" />
+		                                    </div>
+		                                    <div class="card-body">
+		                                        <h5 class="card-description">
+		                                        "Love it. Use it for prototypes and along with Paper Dashboard."
+		                                        </h5>
+		                                        <div class="card-footer">
+		                                            <h4 class="card-title">Cristi Jora</h4>
+		                                            <h6 class="card-category">Web Developer</h6>
+		                                            <div class="card-stars">
+		                                                <i class="fa fa-star" aria-hidden="true"></i>
+		                                                <i class="fa fa-star" aria-hidden="true"></i>
+		                                                <i class="fa fa-star" aria-hidden="true"></i>
+		                                                <i class="fa fa-star" aria-hidden="true"></i>
+		                                                <i class="fa fa-star" aria-hidden="true"></i>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+
+		                                </div>
+		                            </div>
 
 								</div>
 								<a class="left carousel-control carousel-control-prev"
@@ -300,15 +349,15 @@
 						</div>
 					</div>
 					<div class="col-md-2 mr-auto">
-						<div class="testimonials-people">
-							<img class="right-first-person add-animation" src="website/img/placeholder.jpeg" alt=""/>
-							<img class="right-second-person add-animation" src="website/img/placeholder.jpg" alt=""/>
-							<img class="right-third-person add-animation" src="website/img/placeholder.png" alt=""/>
-							<img class="right-fourth-person add-animation" src="website/img/placeholder.jpg" alt=""/>
-							<img class="right-fifth-person add-animation" src="website/img/placeholder.jpg" alt=""/>
-							<img class="right-sixth-person add-animation" src="website/img/placeholder.jpg" alt=""/>
-						</div>
-					</div>
+		                <div class="testimonials-people">
+		                    <img class="right-first-person add-animation" src="website/img/135.jpeg" alt="" />
+		                    <img class="right-second-person add-animation" src="website/img/129.jpg" alt="" />
+		                    <img class="right-third-person add-animation" src="website/img/132.png" alt="" />
+		                    <img class="right-fourth-person add-animation" src="website/img/130.jpg" alt="" />
+		                    <img class="right-fifth-person add-animation" src="website/img/133.jpg" alt="" />
+		                    <img class="right-sixth-person add-animation" src="website/img/134.jpg" alt="" />
+		                </div>
+		            </div>
 				</div>
 			</div>
 			<div class="our-clients">

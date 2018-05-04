@@ -15,7 +15,9 @@ use App\Models\Groups\Group;
 use App\Models\Permissions\Permission;
 use App\Models\Permissions\Role;
 use App\Models\Religion;
+use App\Models\Invoice\Invoice;
 use App\Models\Status;
+use App\Models\medication;
 use App\Services\MailService;
 use Auth;
 use Illuminate\Http\Request;
@@ -23,7 +25,8 @@ use Illuminate\Http\Response;
 use Illuminate\Support\MessageBag;
 use Storage;
 use Image;
-
+use PDF;
+use Dompdf\Dompdf;
 
 class ChildrenController extends Controller
 {
@@ -113,7 +116,10 @@ class ChildrenController extends Controller
             'healthProviders.address.state',
             'healthProviders.address.zipCode',
             'healthProviders.address.country',
-            'healthProviders.role'
+            'healthProviders.role',
+            'medication',
+            'allergies',
+            'food_preferences'
         ])->findOrFail($id);
         $this->authorize('show', $child);
 
@@ -167,7 +173,7 @@ class ChildrenController extends Controller
         $originalimage = Image::make($request->photo_uri->getRealPath());
         Storage::disk('public')->put('children-images/original/'.$imagename, (string)$originalimage->stream());
 
-        $originalimage->resize(100, 100);
+        $originalimage->resize(200, 200);
         Storage::disk('public')->put('children-images/'.$imagename,(string)$originalimage->stream());
 
         $thumb_path = 'children-images/'.$imagename;
@@ -242,7 +248,7 @@ class ChildrenController extends Controller
             $originalimage = Image::make($request->photo_uri->getRealPath());
             Storage::disk('public')->put('children-images/original/'.$imagename, (string)$originalimage->stream());
 
-            $originalimage->resize(100, 100);
+            $originalimage->resize(200, 200);
             Storage::disk('public')->put('children-images/'.$imagename,(string)$originalimage->stream());
 
             $child->photo = 'children-images/'.$imagename;
@@ -374,5 +380,26 @@ class ChildrenController extends Controller
         $child->save();
 
         return response()->json(['message' => new MessageBag([__('Successfully saved child.')])]);
+    }
+
+    public function invoice($id, $invoice_id)
+    {
+        $invoice = Invoice::where('id', $invoice_id)->with('invoiceitems')->first();
+        $child = Child::with('parents', 'parents.user')->where('id',$id)->first();
+        //dd($child->user);
+        $view = view('invoices.invoice')->withChild($child)->withInvoice($invoice);
+        // instantiate and use the dompdf class
+        $dompdf = new Dompdf();
+        $dompdf->set_base_path(public_path());
+        $dompdf->loadHtml($view);
+
+        // (Optional) Setup the paper size and orientation
+        $dompdf->setPaper('A3', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser
+        $dompdf->stream();
     }
 }

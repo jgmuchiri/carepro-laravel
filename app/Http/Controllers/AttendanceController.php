@@ -7,9 +7,73 @@ use App\Models\Child;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\MessageBag;
+use Dompdf\Dompdf;
 
 class AttendanceController extends Controller
 {
+    /**
+     * return all attendance for child
+     * @param  [int] $id [child id]
+     * @return [type]     [description]
+     */
+    public function index(Request $request, $id)
+    {
+        if (!is_null($request->from)) {
+            $from = \Carbon\Carbon::createFromFormat('Y-m-d', $request->from);
+            $attendance = Attendance::where('child_id', $id)->with('checkOutParent', 'checkOutPickupUser')->where('created_at', '>=', $from)->latest()->get();
+        } elseif (!is_null($request->to)) {
+            $to = \Carbon\Carbon::createFromFormat('Y-m-d', $request->to);
+            $attendance = Attendance::where('child_id', $id)->with('checkOutParent', 'checkOutPickupUser')->where('created_at', '<=', $to)->latest()->get();
+        } elseif (!is_null($request->to) && !is_null($request->from)) {
+            $from = \Carbon\Carbon::createFromFormat('Y-m-d', $request->from);
+            $to = \Carbon\Carbon::createFromFormat('Y-m-d', $request->to);
+            $attendance = Attendance::where('child_id', $id)->with('checkOutParent', 'checkOutPickupUser')->where('created_at', '<=', $to)->orWhere('created_at', '>=', $from)->latest()->get();
+        } else {
+            $attendance = Attendance::where('child_id', $id)->with('checkOutParent', 'checkOutPickupUser')->latest()->get();
+        }
+
+        return $attendance;
+    }
+
+     /**
+     * return all attendance for child
+     * @param  [int] $id [child id]
+     * @return [type]     [description]
+     */
+    public function print(Request $request, $id)
+    {
+        $child = Child::find($id);
+        if (!is_null($request->from)) {
+            $from = \Carbon\Carbon::createFromFormat('Y-m-d', $request->from);
+            $attendance = Attendance::where('child_id', $id)->with('checkOutParent', 'checkOutPickupUser')->where('created_at', '>=', $from)->latest()->get();
+        } elseif (!is_null($request->to)) {
+            $to = \Carbon\Carbon::createFromFormat('Y-m-d', $request->to);
+            $attendance = Attendance::where('child_id', $id)->with('checkOutParent', 'checkOutPickupUser')->where('created_at', '<=', $to)->latest()->get();
+        } elseif (!is_null($request->to) && !is_null($request->from)) {
+            $from = \Carbon\Carbon::createFromFormat('Y-m-d', $request->from);
+            $to = \Carbon\Carbon::createFromFormat('Y-m-d', $request->to);
+            $attendance = Attendance::where('child_id', $id)->with('checkOutParent', 'checkOutPickupUser')->where('created_at', '<=', $to)->orWhere('created_at', '>=', $from)->latest()->get();
+        } else {
+            $attendance = Attendance::where('child_id', $id)->with('checkOutParent', 'checkOutPickupUser')->latest()->get();
+        }
+
+        $view = view('pdf.attendance')->withAttendance($attendance)->withChild($child);
+        // instantiate and use the dompdf class
+        $dompdf = new Dompdf();
+        $dompdf->set_base_path(public_path());
+        $dompdf->loadHtml($view);
+
+        // (Optional) Setup the paper size and orientation
+        $dompdf->setPaper('A3', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser
+        $dompdf->stream();
+
+    }
+
     public function toggleCheckIn(Request $request, $id)
     {
         $child = Child::with([

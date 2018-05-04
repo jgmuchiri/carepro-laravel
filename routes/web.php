@@ -47,6 +47,9 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::get('/account/profile', 'AccountsController@showProfile')->name('account.profile');
 
+    Route::get('/children/{id}/invoice/{invoice_id}', 'ChildrenController@invoice');
+    Route::get('children/{id}/attendance/print', 'AttendanceController@print');
+
     Route::group(
         [
             'namespace' => 'Admin',

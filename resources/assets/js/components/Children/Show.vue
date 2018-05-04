@@ -106,6 +106,9 @@
                 :child_id="child.id"
                 v-if="child.id && currentView == 'ChildrenHealthTab'"
         ></CreateEditHealthProviderModal>
+        <Medications :child_id="child.id" v-if="child.id && currentView == 'ChildrenHealthTab'"></Medications>
+        <AllergiesModal :child_id="child.id" v-if="child.id && currentView == 'ChildrenHealthTab'"></AllergiesModal>
+        <FoodPreferencesModal :child_id="child.id" v-if="child.id && currentView == 'ChildrenHealthTab'"></FoodPreferencesModal>
     </div>
 </template>
 
@@ -140,6 +143,57 @@
 
             window.bus.$on('emergencyContactCreated', function(emergency_contact) {
                 self.child.emergency_contacts.push(emergency_contact);
+            });
+
+            window.bus.$on('medicationRecordCreated', function(medication) {
+                self.loadChild()
+            });
+
+            window.bus.$on('medicationRecordEdited', function(medication) {
+                self.child.medication = self.child.medication.map(x => {
+                    if (x.id == medication.id)
+                    {
+                        return medication;
+                    }
+                    else
+                    {
+                        return x;
+                    }
+                });
+            });
+
+            window.bus.$on('allergyRecordCreated', function(allergy) {
+                self.loadChild()
+            });
+
+            window.bus.$on('allergyRecordEdited', function(allergy) {
+                self.child.allergies = self.child.allergies.map(x => {
+                    if (x.id == allergy.id)
+                    {
+                        return allergy;
+                    }
+                    else
+                    {
+                        return x;
+                    }
+                });
+            });
+
+            window.bus.$on('preferenceRecordCreated', function(preference) {
+                self.loadChild()
+            });
+
+            window.bus.$on('preferenceRecordEdited', function(preference) {
+                self.child.food_preferences = self.child.food_preferences.map(x => {
+                    if (x.id == preference.id)
+                    {
+                        return preference;
+                    }
+                    else
+                    {
+                        return x;
+                    }
+                });
             });
 
             window.bus.$on('healthProviderCreated', function(health_provider) {

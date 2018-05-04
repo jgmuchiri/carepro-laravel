@@ -41,4 +41,25 @@ Route::group(['middleware' => ['auth:api', 'subscribed']], function() {
     Route::put('staff/{staff_id}/add-to-group', 'StaffController@addToGroup')->name('staff.add-to-group');
     Route::put('staff/{staff_id}/update-password', 'StaffController@updatePassword')->name('staff.update-password');
     Route::resource('staff', 'StaffController', ['only' => ['index', 'store', 'update', 'edit']]);
+
+    Route::get('children/{id}/attendance', 'AttendanceController@index');
+    //medication
+    Route::get('children/{id}/medication', 'MedicationController@index');
+    Route::post('children/{id}/medication', 'MedicationController@store');
+    Route::patch('children/{id}/medication/{medication_id}', 'MedicationController@update');
+    Route::delete('children/{id}/medication/{medication_id}', 'MedicationController@destroy');
+    //allergies
+    Route::post('children/{id}/allergy', 'AllergyController@store');
+    Route::patch('children/{id}/allergy/{allergy_id}', 'AllergyController@update');
+    Route::delete('children/{id}/allergy/{allergy_id}', 'AllergyController@destroy');
+    //food preferences
+    Route::post('children/{id}/foodpreference', 'FoodpreferenceController@store');
+    Route::patch('children/{id}/foodpreference/{preference_id}', 'FoodpreferenceController@update');
+    Route::delete('children/{id}/foodpreference/{preference_id}', 'FoodpreferenceController@destroy');
+    //invoices
+    Route::get('/children/invoice/status', 'InvoiceController@status');
+    Route::get('children/{id}/invoice', 'InvoiceController@index');
+    Route::post('children/{id}/invoice', 'InvoiceController@store');
+    Route::patch('children/{id}/invoice/{invoice_id}', 'InvoiceController@update');
+    Route::delete('children/{id}/invoice/{invoice_id}', 'InvoiceController@destroy');
 });

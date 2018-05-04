@@ -15,6 +15,7 @@ import VueI18n from 'vue-i18n';
 import Locales from './vue-i18n-locales.generated.js';
 import Vue from 'vue';
 import VueNoty from 'vuejs-noty';
+import VueSweetAlert from 'vue-sweetalert';
 import wysiwyg from "vue-wysiwyg";
 Vue.use(wysiwyg, {
     hideModules: { "image": true }
@@ -26,6 +27,8 @@ Vue.use(VueNoty);
 Vue.use(VueRouter);
 Vue.use(VueI18n);
 Vue.use(Lightbox)
+Vue.use(VueSweetAlert);
+Vue.use(require('vue-moment'))
 
 Vue.prototype.$http = axios;
 
@@ -67,6 +70,9 @@ Vue.component('CreateEditPickupUserModal', require('./components/Children/Tabs/C
 Vue.component('ToggleCheckInModal', require('./components/Children/ToggleCheckInModal.vue'));
 Vue.component('CreateEditEmergencyContactModal', require('./components/Children/CreateEditEmergencyContactModal.vue'));
 Vue.component('CreateEditHealthProviderModal', require('./components/Children/CreateEditHealthProviderModal.vue'));
+Vue.component('Medications', require('./components/Children/modals/Medications.vue'));
+Vue.component('AllergiesModal', require('./components/Children/modals/Allergies.vue'));
+Vue.component('FoodPreferencesModal', require('./components/Children/modals/Preferences.vue'));
 
 Vue.mixin({
     methods: {

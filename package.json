@@ -21,7 +21,9 @@
   },
   "dependencies": {
     "moment": "^2.19.1",
+    "vue-moment": "^3.2.0",
     "vue-pure-lightbox": "^2.1.4",
+    "vue-sweetalert": "^0.1.18",
     "vue-wysiwyg": "^1.4.1",
     "vue2-dropzone": "^3.1.0",
     "vuejs-noty": "^0.1.2"

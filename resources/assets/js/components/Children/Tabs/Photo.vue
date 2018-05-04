@@ -19,11 +19,10 @@
         <hr>
         <div class="panel panel-default">
             <div class="panel-body">
-                <div class="media-box-body" v-for="photo_group in photos">
+                <div v-for="photo_group in photos">
                     <h4 class="media-box-heading">{{ formatDate(createMomentDate(photo_group.key)) }}</h4>
-                    <div class="grid">
-                        <div class="grid-sizer"></div>
-                        <div class="grid-item" v-for="current_photo in photo_group.values">
+                    <div class="row-masonry row-masonry-md-4 row-masonry-sm-2">
+                        <div class="col-masonry" v-for="current_photo in photo_group.values">
                             <lightbox
                                     :thumbnail="current_photo.full_photo_uri"
                                     :images="movePhotoToFront(photosUriArray, current_photo.full_photo_uri_original)"
