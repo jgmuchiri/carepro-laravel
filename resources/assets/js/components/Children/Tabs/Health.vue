@@ -7,25 +7,25 @@
             <li class="active">
                 <a href="#medications" data-toggle="tab" aria-expanded="false">
                     <span class="visible-xs"><img src="/assets/img/icons/med.jpg"></span>
-                    <span class="hidden-xs"><img src="/assets/img/icons/med.jpg">{{ $t('Medications') }}</span>
+                    <span class="hidden-xs"><img src="/assets/img/icons/med.jpg" class="tab-img">{{ $t('Medications') }}</span>
                 </a>
             </li>
             <li class="">
                 <a href="#allergies" data-toggle="tab" aria-expanded="true">
                     <span class="visible-xs"><img src="/assets/img/icons/al.png"></span>
-                    <span class="hidden-xs"><img src="/assets/img/icons/al.png">{{ $t('Allergies') }}</span>
+                    <span class="hidden-xs"><img src="/assets/img/icons/al.png" class="tab-img">{{ $t('Allergies') }}</span>
                 </a>
             </li>
             <li>
                 <a href="#food" data-toggle="tab" aria-expanded="false">
                     <span class="visible-xs"><img src="/assets/img/icons/food.png"></span>
-                    <span class="hidden-xs"><img src="/assets/img/icons/food.png">{{ $t('Food Preferences') }}</span>
+                    <span class="hidden-xs"><img src="/assets/img/icons/food.png" class="tab-img">{{ $t('Food Preferences') }}</span>
                 </a>
             </li>
             <li>
                 <a href="#contacts" data-toggle="tab" aria-expanded="false">
                     <span class="visible-xs"><img src="/assets/img/icons/contact.png"></span>
-                    <span class="hidden-xs"><img src="/assets/img/icons/contact.png">{{ $t('Contacts') }}</span>
+                    <span class="hidden-xs"><img src="/assets/img/icons/contact.png" class="tab-img">{{ $t('Contacts') }}</span>
                 </a>
             </li>
         </ul>
