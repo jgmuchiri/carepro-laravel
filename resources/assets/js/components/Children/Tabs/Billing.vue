@@ -22,8 +22,8 @@
                             <div class="input-group">
                                 <input class="input-sm form-control" type="text" :placeholder="$t('Search')">
                                 <span class="input-group-btn">
-                        <button class="btn btn-sm btn-default" type="button">{{ $t('Search') }}</button>
-                     </span>
+                                    <button class="btn btn-sm btn-default" type="button">{{ $t('Search') }}</button>
+                                 </span>
                             </div>
                         </div>
                         <div class="col-lg-5"></div>
