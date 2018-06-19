@@ -193,97 +193,7 @@
 	<aside class="aside">
 		<!-- START Sidebar (left)-->
 		<div class="aside-inner">
-			<nav class="sidebar" data-sidebar-anyclick-close="">
-				<!-- START sidebar nav-->
-				<ul class="nav">
-					<!-- Iterates over all sidebar items-->
-					<li class="nav-heading ">
-						<span data-localize="sidebar.heading.HEADER">Main Navigation</span>
-					</li>
-					<li class="{{ $route_name == "home" ? 'active  bg-warning' : '' }}">
-						<a href="{{ url('/home') }}" title="@lang('Dashboard')">
-							<img src="{{ url('assets/vendor/icon-pack-1/svg/home-icon.png') }}" width="36" height="36"/>
-							<span data-localize="sidebar.nav.DASHBOARD">@lang('Dashboard')</span>
-						</a>
-					</li>
-					<li class="@if($route_name=="children") active  bg-warning @endif">
-						<a href="{{ url('/children') }}" title="@lang('Children')">
-							<img src="{{ url('assets/vendor/icon-pack-1/svg/child.svg') }}" width="36" height="36"/>
-							<span data-localize="sidebar.nav.WIDGETS">@lang('Children')</span>
-						</a>
-					</li>
-					@can('edit', \App\Models\ChildParent::class)
-						<li class="{{ $route_name == 'parents.index' ? "active  bg-warning": "" }}">
-							<a href="/parents" title="@lang('Parents')">
-								<img src="{{ url('assets/vendor/icon-pack-1/svg/couple.png') }}" width="36"
-									 height="36"/>
-								<span data-localize="sidebar.nav.WIDGETS">@lang('Parents')</span>
-							</a>
-						</li>
-					@endcan
-
-					@can('edit', \App\Models\Staff::class)
-						<li class="{{ url() == '/staff' ? "active  bg-warning": ""}}">
-							<a href="/staff" title="@lang('Staff Members')">
-								<img src="{{ url('assets/vendor/icon-pack-1/svg/telemarketer.png') }}" width="36"
-									 height="36"/>
-								<span data-localize="sidebar.nav.WIDGETS">@lang('Staff Members')</span>
-							</a>
-						</li>
-					@endcan
-
-					<li class=" ">
-						<a href="" title="Billing">
-							<img src="{{ url('assets/vendor/icon-pack-1/svg/billing.png') }}" width="36" height="36"/>
-							<span data-localize="sidebar.nav.WIDGETS">Billing</span>
-						</a>
-					</li>
-
-					@can('showGeneric', \App\Models\Groups\Group::class)
-						<li class="{{ $route_name == 'groups.index' ? "active  bg-warning": "" }}">
-							<a href="/groups" title="@lang('Groups')">
-								<img src="{{ url('assets/vendor/icon-pack-1/svg/group.png') }}" width="36" height="36"/>
-								<span data-localize="sidebar.nav.WIDGETS">@lang('Groups')</span>
-							</a>
-						</li>
-					@endcan
-
-					<li class=" ">
-						<a href="#admins" class="accordion-toggle collapsed" title="Admin" data-toggle="collapse">
-							<img src="{{ url('assets/vendor/icon-pack-1/svg/admin.png') }}" width="36" height="36"/>
-							<span data-localize="sidebar.nav.form.FORM">Admin</span>
-						</a>
-						<ul class="nav sidebar-subnav collapse" id="admins">
-							<li class="sidebar-subnav-header">Forms</li>
-							<li class=" ">
-								<a href="" title="Settings">
-									<span data-localize="sidebar.nav.form.SETTINGS">Settings</span>
-								</a>
-							</li>
-							<li class=" ">
-								<a href="" title="Users">
-									<span data-localize="sidebar.nav.form.USERS">Users</span>
-								</a>
-							</li>
-							<li class=" ">
-								<a href="" title="Roles & Permissions">
-									<span>Roles & Permissions</span>
-								</a>
-							</li>
-							<li class=" ">
-								<a href="" title="Subcriptions">
-									<span>Subcriptions</span>
-								</a>
-							</li>
-						</ul>
-					</li>
-				</ul>
-				<div class="help-box">
-					<h5 class="visible-lg text-muted m-t-0">A&M Digital Technlogies</h5>
-					<h5 class="text-muted m-t-0">&copy; 2017 All Rights Reserved</h5>
-				</div>
-				<!-- END sidebar nav-->
-			</nav>
+			<side-nav></side-nav>
 		</div>
 
 		<!-- END Sidebar (left)-->
@@ -333,9 +243,9 @@
 <script src="{{ url('assets/vendor/matchMedia/matchMedia.js') }}"></script>
 <script src="{{mix('/js/app.js')}}"></script>
 <!-- JQUERY-->
-<!-- <script src="{{ url('assets/vendor/jquery/dist/jquery.js') }}"></script> -->
+ {{-- <script src="{{ url('assets/vendor/jquery/dist/jquery.js') }}"></script> --}}
 <!-- BOOTSTRAP-->
-<!-- <script src="{{ url('assets/vendor/bootstrap/dist/js/bootstrap.js') }}"></script> -->
+{{-- <script src="{{ url('assets/vendor/bootstrap/dist/js/bootstrap.js') }}"></script> --}}
 <!-- STORAGE API-->
 <script src="{{ url('assets/vendor/jQuery-Storage-API/jquery.storageapi.js') }}"></script>
 <!-- JQUERY EASING-->
