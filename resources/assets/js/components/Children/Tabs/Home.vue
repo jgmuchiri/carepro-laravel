@@ -232,8 +232,13 @@
                             </div>
                         </div>
                     </div>
+                    <div class="text-center" v-if="!child.pickup_users.length">
+                        <h4>{{ $t('No authorised Pick Up Users yet') }}</h4>
+                        <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#create-edit-pickup-user-modal" data-backdrop="false" title="">{{ $t('New Authorization') }}</button>
+                    </div>
                 </div>
             </div>
+            <hr>
             <div class="row" style="padding-bottom:10px;">
                 <div class="form-row text-center">
                     <div class="col-md-12">

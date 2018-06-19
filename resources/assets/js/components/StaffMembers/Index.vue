@@ -37,51 +37,60 @@
              </div>
           </div>
        </div>
-       <!-- START table-responsive-->
-       <div class="table-responsive">
-          <table class="table table-bordered table-hover" id="table-ext-1">
-             <thead>
-                <tr>
-                   <th data-check-all>
-                      <div class="checkbox c-checkbox" data-toggle="tooltip" data-title="Check All">
-                         <label>
-                            <input type="checkbox">
-                            <span class="fa fa-check"></span>
-                         </label>
-                      </div>
-                   </th>
-                   <th>Picture</th>
-                   <th>{{ $t('Name') }}</th>
-                   <th>{{ $t('Email') }}</th>
-                   <th>{{ $t('Phone') }}</th>
-                </tr>
-             </thead>
-             <tbody>
-                <tr v-for="staff_member in staff">
-                   <td>
-                      <div class="checkbox c-checkbox">
-                         <label>
-                            <input type="checkbox">
-                            <span class="fa fa-check"></span>
-                         </label>
-                      </div>
-                   </td>
-                   <td>
-                      <div class="media">
-                         <img class="img-responsive img-circle" :src="staff_member.full_photo_uri" alt="Image">
-                      </div>
-                   </td>
-                   <td>
-                        <router-link :to="{ name: 'staff.edit', params: { staff_id: staff_member.id }}">
-                            {{ staff_member.user.name }}
-                        </router-link>
-                   </td>
-                   <td>{{ staff_member.user.email }}</td>
-                   <td>{{ staff_member.user.address.phone }}</td>
-                </tr>
-
-             </tbody>
-          </table>
+       <div class="panel-body">
+         <!-- START table-responsive-->
+         <div v-if="staff.length" class="table-responsive">
+            <table class="table table-bordered table-hover" id="table-ext-1">
+               <thead>
+                  <tr>
+                     <th data-check-all>
+                        <div class="checkbox c-checkbox" data-toggle="tooltip" data-title="Check All">
+                           <label>
+                              <input type="checkbox">
+                              <span class="fa fa-check"></span>
+                           </label>
+                        </div>
+                     </th>
+                     <th>Picture</th>
+                     <th>{{ $t('Name') }}</th>
+                     <th>{{ $t('Email') }}</th>
+                     <th>{{ $t('Phone') }}</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr v-for="staff_member in staff">
+                     <td>
+                        <div class="checkbox c-checkbox">
+                           <label>
+                              <input type="checkbox">
+                              <span class="fa fa-check"></span>
+                           </label>
+                        </div>
+                     </td>
+                     <td>
+                        <div class="media">
+                           <img class="img-responsive img-circle" :src="staff_member.full_photo_uri" alt="Image">
+                        </div>
+                     </td>
+                     <td>
+                          <router-link :to="{ name: 'staff.edit', params: { staff_id: staff_member.id }}">
+                              {{ staff_member.user.name }}
+                          </router-link>
+                     </td>
+                     <td>{{ staff_member.user.email }}</td>
+                     <td>{{ staff_member.user.address.phone }}</td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+         <div v-else class="text-center">
+            <p>We couldn't find any Staff Member records</p>
+            <div class="btn-group">
+                <button class="btn btn-success waves-effect m-b-5" data-toggle="modal" data-target="#create-staff-modal" data-backdrop="false">
+                    <span>{{ $t('Register first Staff Member') }}</span>
+                </button>
+            </div>
+         </div>
        </div>
     </div>
     <CreateStaffModal v-on:staffRegistered="addStaff"></CreateStaffModal>

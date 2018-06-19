@@ -216,7 +216,7 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <!-- START table-responsive-->
-                        <div class="table-responsive">
+                        <div v-if="child.emergency_contacts.length" class="table-responsive">
                             <table class="table table-striped table-bordered table-hover">
                                 <thead>
                                     <tr>
@@ -248,6 +248,14 @@
                             </table>
                         </div>
                         <!-- END table-responsive-->
+                        <div v-else class="text-center">
+                            <p>There are no Emergency Contact records</p>
+                             <div class="btn-group">
+                                <button class="btn btn-success waves-effect m-b-5" data-toggle="modal" data-target="#create-edit-emergency-contact-modal" data-backdrop="false">
+                                    <span>{{ $t('Add First Emergency Contact') }}</span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -272,7 +280,7 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <!-- START table-responsive-->
-                        <div class="table-responsive">
+                        <div v-if="child.health_providers.length" class="table-responsive">
                             <table class="table table-striped table-bordered table-hover">
                                 <thead>
                                     <tr>
@@ -306,6 +314,14 @@
                             </table>
                         </div>
                         <!-- END table-responsive-->
+                        <div v-else class="text-center">
+                            <p>There are no Health Provider records</p>
+                             <div class="btn-group">
+                                <button class="btn btn-success waves-effect m-b-5" data-toggle="modal" data-target="#create-edit-health-provider-modal" data-backdrop="false">
+                                    <span>{{ $t('Add First Health Provider') }}</span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

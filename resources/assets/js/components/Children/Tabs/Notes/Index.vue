@@ -60,8 +60,11 @@
                         </div>
                     </div>
                 </div>
+                <div v-if="!notes.length" class="text-center">
+                    <p>We couldn't find any Notes</p>
+                </div>
             </div>
-            <div class="panel-footer">
+            <div v-if="notes.length" class="panel-footer">
                 <div class="pagination">
                     <button class="btn btn-default" @click="loadNotes(pagination.prev_page_url)"
                         :disabled="!pagination.prev_page_url">
