@@ -16,10 +16,29 @@ import Locales from './vue-i18n-locales.generated.js';
 import Vue from 'vue';
 import VueNoty from 'vuejs-noty';
 import VueSweetAlert from 'vue-sweetalert';
+import NProgress from 'nprogress'
 import wysiwyg from "vue-wysiwyg";
 Vue.use(wysiwyg, {
     hideModules: { "image": true }
 });
+
+axios.interceptors.request.use(function (config) {
+    NProgress.start()
+    return config
+}, function (errot) {
+    console.error(error)
+    NProgress.done()
+    return Promise.reject(error)
+})
+
+axios.interceptors.response.use(function (response) {
+    NProgress.done()
+    return response
+}, function (error) {
+    console.error(error)
+    NProgress.done()
+    return Promise.reject(error)
+})
 
 window.bus = new Vue();
 
@@ -47,6 +66,7 @@ const routes = [
     { path: '/children/:child_id', name: 'children.show', component: require('./components/Children/Show.vue'), props: true}
 ];
 
+Vue.component('side-nav', require('./layouts/SideNav.vue'));
 Vue.component('CreateEditGroupModal', require('./components/Groups/CreateEditModal.vue'));
 Vue.component('GroupMassAssign', require('./components/Groups/MassAssign.vue'));
 Vue.component('draggable', require('vuedraggable'));
@@ -123,6 +143,7 @@ const i18n = new VueI18n({
  */
 
 const router = new VueRouter({
+    linkActiveClass: 'active',
     mode: 'history',
     routes: routes
 });
