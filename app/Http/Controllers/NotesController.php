@@ -21,15 +21,22 @@ class NotesController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index(Request $request, $id)
     {
-        $notes = Note::with([
-            'type',
-            'createdByUser',
-            'children',
-            'location',
-            'incidentType'
-        ])->orderByDesc('created_at')->whereChildId($id)->paginate(2);
+        if (!is_null($request->note_type)) {
+            $notes = Note::where('note_type_id', $request->note_type)
+                ->with(['type', 'createdByUser', 'children', 'location', 'incidentType' ])
+                ->where(function ($q) use ($request) {
+                    $q->where('title', 'LIKE', '%' . $request->search . '%');
+                    $q->orWhere('body', 'LIKE', '%' . $request->search . '%');
+                })
+                ->orderByDesc('created_at')->paginate(2);
+        } else {
+            $notes = Note::with(['type', 'createdByUser', 'children', 'location', 'incidentType' ])
+                ->orWhere('title', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('body', 'LIKE', '%' . $request->search . '%')
+                ->orderByDesc('created_at')->paginate(2);
+        }
 
         return response()->json(compact('notes'));
     }
