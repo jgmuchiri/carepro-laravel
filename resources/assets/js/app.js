@@ -71,6 +71,7 @@ const routes = [
 ];
 
 Vue.component('side-nav', require('./layouts/SideNav.vue'));
+Vue.component('pagination-component', require('./components/PaginationComponent.vue'));
 Vue.component('CreateEditGroupModal', require('./components/Groups/CreateEditModal.vue'));
 Vue.component('GroupMassAssign', require('./components/Groups/MassAssign.vue'));
 Vue.component('draggable', require('vuedraggable'));
