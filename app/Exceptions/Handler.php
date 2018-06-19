@@ -57,7 +57,10 @@ class Handler extends ExceptionHandler
     protected function unauthenticated($request, AuthenticationException $exception)
     {
         if ($request->expectsJson()) {
-            return response()->json(['error' => 'Unauthenticated.'], 401);
+            return response()->json([
+                'error' => 'Unauthenticated.',
+                'status_code' => '401'
+            ], 401);
         }
 
         if ($request->url() == route('daycare.create')) {
