@@ -8984,7 +8984,7 @@ ul>li, ol>li {
   0%   { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
-
+.disabled { pointer-events: none; }
 .tab-img {
     padding-right: 5px;
 }
