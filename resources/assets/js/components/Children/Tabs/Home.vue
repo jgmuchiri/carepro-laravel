@@ -2,12 +2,12 @@
     <div>
         <div class="row">
             <div class="col-md-4">
-                <p class="child-alert child-danger">3 {{ $t('Known Allergies') }}</p>
+                <p class="child-alert child-danger">{{ child.allergies.length }} {{ $t('Known Allergies') }}</p>
                 <p class="child-alert child-info">$244 {{ $t('due') }}</p>
             </div>
             <div class="col-md-4">
                 <p class="child-alert child-success">2 {{ $t('Incidents reported') }}</p>
-                <p class="child-alert child-warning">5 {{ $t('medications') }}</p>
+                <p class="child-alert child-warning">{{ child.medication.length }} {{ $t('medications') }}</p>
             </div>
             <div class="col-md-4">
                 <p class="child-alert child-success">20 {{ $t('Notes') }}</p>
