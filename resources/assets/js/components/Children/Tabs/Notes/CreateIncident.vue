@@ -68,29 +68,29 @@
                             <div class="form-group">
                                 <textarea v-model="note.remarks" rows="3" class="form-control input-lg" :placeholder="$t('Remarks')"></textarea>
                             </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <input style="display:none;" id="upload" name="photo" type="file" multiple @change="onFileChange"/>
-                                    <div class="panel widget child-upload">
-                                        <div class="panel-body text-center">
-                                            <div class="child-btn-fa">
-                                                <a id="upload_link"><i class="fa fa-upload"></i></a>
-                                            </div>
-                                            <p><span>{{ $t('Upload Incident Images') }}</span></p>
-                                        </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input style="display:none;" id="upload" name="photo[]" type="file" multiple @change="onFileChange"/>
+                            <div class="panel widget child-upload">
+                                <div class="panel-body text-center">
+                                    <div class="child-btn-fa">
+                                        <a id="upload_link"><i class="fa fa-upload"></i></a>
                                     </div>
+                                    <p><span>{{ $t('Upload Incident Images') }}</span></p>
                                 </div>
                             </div>
-                            <div class="row text-center">
-                                <div class="col-md-6">
-                                    <button class="btn btn-danger waves-effect m-b-5" v-on:click.prevent="switchView('NoteIndex')">
-                                        <span>{{ $t('Cancel') }}</span>
-                                    </button>
-                                </div>
-                                <div class="col-md-6">
-                                    <button class="btn btn-success waves-effect m-b-5"><span>{{ $t('Save') }}</span></button>
-                                </div>
-                            </div>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-md-6">
+                            <button class="btn btn-danger waves-effect m-b-5" v-on:click.prevent="switchView('NoteIndex')">
+                                <span>{{ $t('Cancel') }}</span>
+                            </button>
+                        </div>
+                        <div class="col-md-6">
+                            <button class="btn btn-success waves-effect m-b-5"><span>{{ $t('Save') }}</span></button>
                         </div>
                     </div>
                 </form>
@@ -123,7 +123,11 @@
             },
             onFileChange: function(event) {
                 for(var key in event.target.files){
-                    this.photo_uris = event.target.files[key];
+                    this.note.photo_uris = event.target.files[key];
+                }
+                console.log(this.note.photo_uris)
+                for(var key in this.note.photo_uris){
+                    console.log(this.note.photo_uris[key].name)
                 }
             },
             storeNote: function() {
