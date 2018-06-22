@@ -121,7 +121,7 @@
 <script>
     export default {
         created() {
-            this.$http.get('/api/addresses/countries')
+            axios.get('/api/addresses/countries')
                 .then(response => {
                     this.countries = response.data.countries;
                 })
@@ -131,31 +131,33 @@
 
             var self = this;
             window.bus.$on('editParent', function(id) {
-                this.$http.get('/api/parents/' + id)
-                    .then(response => {
-                        self.parent = {
-                            id: response.data.parent.id,
-                            name: response.data.parent.user.name,
-                            email: response.data.parent.user.email,
-                            password: '',
-                            confirm_password: '',
-                            photo_uri: null,
-                            dob: response.data.parent.date_of_birth,
-                            pin: response.data.parent.pin,
-                            is_primary: response.data.parent.is_primary,
-                            address_line_1: response.data.parent.user.address.address_line_1,
-                            address_line_2: response.data.parent.user.address.address_line_2,
-                            city: response.data.parent.user.address.city.name,
-                            state: response.data.parent.user.address.state.name,
-                            zip_code: response.data.parent.user.address.zip_code.zip_code,
-                            country: response.data.parent.user.address.country.id,
-                            phone: response.data.parent.user.address.phone
-                        }
+                axios.get('/api/parents/' + id)
+                .then(response => {
+                    self.parent = {
+                        id: response.data.parent.id,
+                        name: response.data.parent.user.name,
+                        email: response.data.parent.user.email,
+                        password: '',
+                        confirm_password: '',
+                        photo_uri: null,
+                        dob: response.data.parent.date_of_birth,
+                        pin: response.data.parent.pin,
+                        is_primary: response.data.parent.is_primary,
+                        address_line_1: response.data.parent.user.address.address_line_1,
+                        address_line_2: response.data.parent.user.address.address_line_2,
+                        city: response.data.parent.user.address.city.name,
+                        state: response.data.parent.user.address.state.name,
+                        zip_code: response.data.parent.user.address.zip_code.zip_code,
+                        country: response.data.parent.user.address.country.id,
+                        phone: response.data.parent.user.address.phone
+                    }
+                    $('#create-edit-parent-modal').modal({
+                      backdrop: false
                     })
-                    .catch(error => {
-                        console.log(error);
-                        alert("Something went wrong. Please try reloading the page");
-                    });
+                })
+                .catch(error => {
+                    this.$noty.error(error.response.data.message);
+                });
             });
         },
         data() {
@@ -216,7 +218,7 @@
                 formData.append('country', this.parent.country);
                 formData.append('phone', this.parent.phone);
 
-                this.$http.post('/api/parents', formData)
+                axios.post('/api/parents', formData)
                     .then(response => {
                         this.$emit('parentRegistered', response.data.parent);
                         window.bus.$emit('parentRegistered', response.data.parent);
@@ -230,7 +232,7 @@
                                 this.$noty.error(error.response.data[key]);
                             }
                         } else {
-                            alert("Something went wrong. Please reload the page and try again.");
+                            this.$noty.error(error.response.data.message);
                         }
                     });
             },
@@ -256,7 +258,7 @@
                     formData.append('photo_uri', this.parent.photo_uri);
                 }
 
-                this.$http.post('/api/parents/' + this.parent.id, formData)
+                axios.post('/api/parents/' + this.parent.id, formData)
                     .then(response => {
                         this.$emit('parentEdited', response.data.parent);
                         window.bus.$emit('parentEdited', response.data.parent);
@@ -270,7 +272,7 @@
                                 this.$noty.error(error.response.data[key]);
                             }
                         } else {
-                            alert("Something went wrong. Please reload the page and try again.");
+                            this.$noty.error(error.response.data.message);
                         }
                     });
             }
