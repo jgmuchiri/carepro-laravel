@@ -55,6 +55,7 @@
                      <th>{{ $t('Name') }}</th>
                      <th>{{ $t('Email') }}</th>
                      <th>{{ $t('Phone') }}</th>
+                     <th>{{$t('Actions')}}</th>
                   </tr>
                </thead>
                <tbody>
@@ -72,13 +73,14 @@
                            <img class="img-responsive img-circle" :src="staff_member.full_photo_uri" alt="Image">
                         </div>
                      </td>
-                     <td>
-                          <router-link :to="{ name: 'staff.edit', params: { staff_id: staff_member.id }}">
-                              {{ staff_member.user.name }}
-                          </router-link>
-                     </td>
+                     <td>{{ staff_member.user.name }}</td>
                      <td>{{ staff_member.user.email }}</td>
                      <td>{{ staff_member.user.address.phone }}</td>
+                     <td class="text-center">
+                          <router-link class="mb-sm btn btn-success btn-xs" :to="{ name: 'staff.edit', params: { staff_id: staff_member.id }}">
+                              View
+                          </router-link>
+                      </td>
                   </tr>
                </tbody>
             </table>
@@ -101,7 +103,7 @@
     export default {
         created()
         {
-            this.$http.get('/api/staff')
+            axios.get('/api/staff')
                 .then(response => {
                     this.staff = response.data.staff;
                     this.can_create_staff = response.data.can_create_staff
