@@ -150,7 +150,7 @@
 					<li>
 						<a href="#">
 							<em class="icon-basket visible-xs"></em>
-							<span class="visible-lg visible-md">Upgrade</span>
+							<span class="visible-lg visible-md">@lang('Upgrade')</span>
 						</a>
 					</li>
 					<li>
@@ -183,7 +183,7 @@
 					<input class="form-control" type="text" placeholder="Type and hit enter ...">
 					<div class="fa fa-times form-control-feedback" data-search-dismiss=""></div>
 				</div>
-				<button class="hidden btn btn-default" type="submit">Submit</button>
+				<button class="hidden btn btn-default" type="submit">@lang('Submit')</button>
 			</form>
 			<!-- END Search form-->
 		</nav>

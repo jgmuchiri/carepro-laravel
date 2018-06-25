@@ -2,6 +2,7 @@
 
 namespace App\Models\Addresses;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -145,17 +146,19 @@ class Address extends Model
 
         $country = Country::find($data['country']);
 
-        $this->fill([
+        $user = User::find($data['user_id']);
+        $address = $this->find($user->address_id);
+        $address->fill([
             'address_line_1' => $data['address_line_1'],
             'address_line_2' => $data['address_line_2'],
             'phone' => $data['phone']
         ]);
 
-        $this->city()->associate($city);
-        $this->state()->associate($state);
-        $this->zipCode()->associate($zip_code);
-        $this->country()->associate($country);
+        $address->city()->associate($city);
+        $address->state()->associate($state);
+        $address->zipCode()->associate($zip_code);
+        $address->country()->associate($country);
 
-        $this->save();
+        $address->save();
     }
 }

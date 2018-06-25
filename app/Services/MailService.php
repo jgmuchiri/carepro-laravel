@@ -4,8 +4,8 @@ namespace App\Services;
 
 use App\Models\Staff;
 use App\User;
-use Config;
-use Mail;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Mail;
 
 class MailService
 {
@@ -21,7 +21,19 @@ class MailService
             ['confirmation_code' => $user->confirmation_code],
             function ($m) use ($user) {
                 $m->from(Config::get('mail.from.address'), Config::get('mail.from.name'));
-                $m->to($user->email, $user->name)->subject('Verify your email address');
+                $m->to($user->email, $user->name)->subject(__('Verify your email address'));
+            }
+        );
+    }
+
+    public static function notifyUserAccountChange($user)
+    {
+        Mail::send(
+            'emails.accounts-changed',
+            ['confirmation_code' => $user->confirmation_code],
+            function ($m) use ($user) {
+                $m->from(Config::get('mail.from.address'), Config::get('mail.from.name'));
+                $m->to($user->email, $user->name)->subject(__("Your account was recently updated"));
             }
         );
     }
@@ -46,7 +58,7 @@ class MailService
             [],
             function ($m) use ($to) {
                 $m->from(Config::get('mail.from.address'), Config::get('mail.from.name'));
-                $m->to($to['emails']->toArray(), $to['names']->toArray())->subject('Verify your email address');
+                $m->to($to['emails']->toArray(), $to['names']->toArray())->subject(__('Verify your email address'));
             }
         );
     }

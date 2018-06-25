@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SaveDaycareRequest;
 use App\Models\Addresses\Address;
 use App\Models\Daycare;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Stripe\Account;
 use Stripe\Stripe;
@@ -30,7 +30,8 @@ class DaycaresController extends Controller
      */
     public function create()
     {
-        return view('daycares.create');
+        $user = Auth::user();
+        return view('daycares.create',compact('user'));
     }
 
     /**
@@ -62,7 +63,8 @@ class DaycaresController extends Controller
 
         $exploded_name = explode(' ', $user->name);
 
-        try {
+        $dob = explode('-',$request->date_of_birth);
+            try {
             Stripe::setApiKey(Config::get('services.stripe.secret'));
             $account = Account::create(
                 [
@@ -93,11 +95,11 @@ class DaycaresController extends Controller
                             'state' => $address->state->name
                         ],
                         'dob' => array(
-                            'day' => '',
-                            'month' => '',
-                            'year' => '',
+                            'day' => $dob[2],
+                            'month' => $dob[1],
+                            'year' => $dob[0],
                         ),
-                        'ssn_last_4' => '',
+                        'ssn_last_4' => $user->ssn_last_four,
                     ],
                     'tos_acceptance' => array(
                         'date' => time(),
@@ -113,8 +115,11 @@ class DaycaresController extends Controller
         } catch (\Exception $exception) {
             Log::error('Failed to create managed account for user id: ' . $user->id .
                 '. Message: ' . $exception->getMessage());
+            echo $exception->getMessage();
+            echo __('Go back and try again');
+           // return redirect()->back()->withInput();
         }
-
-        return redirect('/home');
+        echo __('Please follow instructions received on the email.');
+        //return redirect('/home');
     }
 }

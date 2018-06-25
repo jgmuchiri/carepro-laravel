@@ -26,7 +26,7 @@ class PagesController extends Controller
             'message' => 'required|max:1500'
         ];
         if(!empty($request->fname)){
-            session(['alert'=>'You must verify you are human. Capcha incorrect','alert-level'=>'danger']);
+            session(['alert'=>__('You must verify you are human. Captcha incorrect'),'alert-level'=>'danger']);
             return redirect()->back()->withInput()->exceptInput('recaptcha','captcha');
         }
         $validator = Validator::make($request->all(), $rules);
@@ -43,7 +43,7 @@ class PagesController extends Controller
             $m->to(config('mail.from.address'),config('app.name'))->subject(config('app.name').' Website contact');
         });
 
-        session(['alert'=>'Thank you! We will get back with you shortly.','alert-level'=>'success']);
+        session(['alert'=>__('Thank you! We will get back with you shortly'),'alert-level'=>'success']);
         return redirect()->back();
     }
 }

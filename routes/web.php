@@ -45,7 +45,17 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/register/resend-verification-email', 'Auth\VerificationController@resendVerificationEmail')
         ->name('auth.resend-verification');
 
-    Route::get('/account/profile', 'AccountsController@showProfile')->name('account.profile');
+
+    Route::group(
+        [
+            'prefix' => 'account',
+            'middleware' => 'auth'
+        ],
+        function() {
+            Route::get('/account/profile', 'AccountsController@showProfile')->name('account.profile');
+            Route::post('/account/profile', 'AccountsController@updateProfile')->name('account.profile.update');
+        }
+    );
 
     Route::get('/children/{id}/invoice/{invoice_id}', 'ChildrenController@invoice');
     Route::get('children/{id}/attendance/print', 'AttendanceController@print');

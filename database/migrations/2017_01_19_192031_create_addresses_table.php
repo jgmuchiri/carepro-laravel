@@ -17,7 +17,7 @@ class CreateAddressesTable extends Migration
             $table->increments('id');
             $table->string('address_line_1');
             $table->string('address_line_2')->nullable();
-            $table->string('phone', 10);
+            $table->string('phone')->nullable();
             $table->integer('city_id', false, true);
             $table->foreign('city_id')->references('id')->on('cities');
             $table->integer('state_id', false, true);

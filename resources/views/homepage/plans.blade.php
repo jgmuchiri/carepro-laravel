@@ -4,7 +4,7 @@
 <div class="wrapper">
 	<div class="pricing-4 section section-gray">
 		<div class="container">
-			<h3 class="text-center">Plans & Pricing</h3>
+			<h3 class="text-center">@lang('Plans & Pricing')</h3>
 			<div class="row bs-wizard hidden-xs" style="border-bottom:0;">
 
 				<div class="col-4 bs-wizard-step active">
@@ -15,7 +15,7 @@
 						<div class="progress-bar"></div>
 					</div>
 					<a href="#" class="bs-wizard-dot"></a>
-					<div class="bs-wizard-info text-center">Plan</div>
+					<div class="bs-wizard-info text-center">@lang('Plan')</div>
 				</div>
 
 				<div class="col-4 bs-wizard-step disabled"><!-- complete -->
@@ -26,7 +26,7 @@
 						<div class="progress-bar"></div>
 					</div>
 					<a href="#" class="bs-wizard-dot"></a>
-					<div class="bs-wizard-info text-center">User Registration</div>
+					<div class="bs-wizard-info text-center">@lang('User Registration')</div>
 				</div>
 
 				<div class="col-4 bs-wizard-step disabled">
@@ -37,7 +37,7 @@
 						<div class="progress-bar"></div>
 					</div>
 					<a href="#" class="bs-wizard-dot"></a>
-					<div class="bs-wizard-info text-center">Daycare Registration</div>
+					<div class="bs-wizard-info text-center">@lang('Daycare Registration')</div>
 				</div>
 			</div>
 			<div class="space-top"></div>
@@ -67,7 +67,7 @@
 									@if ($plans->where('name', 'Standard')->first()->has_invoice_due_alert_to_parents)
 										@lang('Invoice due alerts to parents')
 									@else
-										<strike>@lang('Invoice due alerts to parents')</strike>
+										<span class="strike">@lang('Invoice due alerts to parents')</span>
 									@endif
 								</li>
 							</ul>
@@ -101,7 +101,7 @@
 									@if ($plans->where('name', 'Professional')->first()->has_invoice_due_alert_to_parents)
 										@lang('Invoice due alerts to parents')
 									@else
-										<strike>@lang('Invoice due alerts to parents')</strike>
+										<span class="strike">@lang('Invoice due alerts to parents')</span>
 									@endif
 								</li>
 							</ul>
@@ -135,7 +135,7 @@
 									@if ($plans->where('name', 'Premium')->first()->has_invoice_due_alert_to_parents)
 										@lang('Invoice due alerts to parents')
 									@else
-										<strike>@lang('Invoice due alerts to parents')</strike>
+										<span class="strike">@lang('Invoice due alerts to parents')</span>
 									@endif
 								</li>
 							</ul>

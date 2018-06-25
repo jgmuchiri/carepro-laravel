@@ -44,6 +44,6 @@ class SettingsController extends Controller
         $plan->save();
 
         return redirect()->back()
-            ->with(['successes' => new MessageBag(['Successfully updated plan ' . $plan->name . '.'])]);
+            ->with(['successes' => new MessageBag([__('Successfully updated plan ',$plan->name)])]);
     }
 }

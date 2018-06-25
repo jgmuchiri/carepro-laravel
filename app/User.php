@@ -63,6 +63,10 @@ class User extends Authenticatable
     {
         return $this->belongsTo(\App\Models\Addresses\Address::class);
     }
+    function zipCode(){
+        $zc = $this->getAttribute('zip_code_id');
+        return $zc;
+    }
 
     /**
      * Relationship to the trial plan selected for this user. Since all trials are

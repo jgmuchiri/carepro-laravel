@@ -12,7 +12,7 @@
                     </div>
                     <div class="progress"><div class="progress-bar"></div></div>
                     <a href="#" class="bs-wizard-dot"></a>
-                    <div class="bs-wizard-info text-center">Plan</div>
+                    <div class="bs-wizard-info text-center">@lang('Plan')</div>
                 </div>
 
                 <div class="col-4 bs-wizard-step active"><!-- complete -->
@@ -21,7 +21,7 @@
                     </div>
                     <div class="progress"><div class="progress-bar"></div></div>
                     <a href="#" class="bs-wizard-dot"></a>
-                    <div class="bs-wizard-info text-center">User Registration</div>
+                    <div class="bs-wizard-info text-center">@lang('User Registration')</div>
                 </div>
 
                 <div class="col-4 bs-wizard-step disabled">
@@ -30,7 +30,7 @@
                     </div>
                     <div class="progress"><div class="progress-bar"></div></div>
                     <a href="#" class="bs-wizard-dot"></a>
-                    <div class="bs-wizard-info text-center">Daycare Registration</div>
+                    <div class="bs-wizard-info text-center">@lang('Daycare Registration')</div>
                 </div>
             </div>
             <div class="row">
@@ -46,7 +46,7 @@
                         <div class="row">
                             <div class="col-sm-6">
                                <div class="form-group">
-                                    <label for="name" class="control-label">Name *</label>
+                                    <label for="name" class="control-label">@lang("Name") *</label>
                                     <input id="name" class="form-control" required="" autofocus="" name="name" type="text" value="{{ old('name') }}">
                                     @if ($errors->has('name'))
                                         <span class="help-block">
@@ -57,7 +57,7 @@
                             </div>
                             <div class="col-sm-6">
                                <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
-                                    <label for="email" class="control-label">E-Mail Address *</label>
+                                    <label for="email" class="control-label">@lang("E-Mail Address") *</label>
                                     <input id="email" class="form-control" required="" name="email" type="email" value="{{ old('email') }}">
                                     @if ($errors->has('email'))
                                         <span class="help-block has-danger">
@@ -71,7 +71,7 @@
                         <div class="row">
                             <div class="col-sm-6">
                                <div class="form-group{{ $errors->has('password') ? ' has-danger' : '' }}">
-                                    <label for="password" class="control-label">Password *</label>
+                                    <label for="password" class="control-label">@lang("Password") *</label>
                                     <input class="form-control" id="password" required="" name="password" type="password" value="{{ old('password') }}">
                                     @if ($errors->has('password'))
                                         <span class="help-block has-danger">
@@ -82,7 +82,7 @@
                             </div>
                             <div class="col-sm-6">
                                <div class="form-group{{ $errors->has('password_confirmation') ? ' has-danger' : '' }}">
-                                    <label for="password-confim" class="control-label">Confirm Password *</label>
+                                    <label for="password-confim" class="control-label">@lang("Confirm Password") *</label>
                                     <input id="password-confirm" class="form-control" required="" name="password_confirmation" type="password" value="{{ old('password_confirmation') }}">
                                     @if ($errors->has('password_confirmation'))
                                         <span class="help-block has-danger">
