@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SaveDaycareRequest;
 use App\Models\Addresses\Address;
 use App\Models\Daycare;
-use Config;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Stripe\Account;
 use Stripe\Stripe;
 
@@ -66,10 +67,11 @@ class DaycaresController extends Controller
             $account = Account::create(
                 [
                     "country" => "US",
-                    "managed" => true,
                     'business_name' => $daycare->name,
                     'email' => $user->email,
+                    "type" => "custom",
                     'legal_entity' => [
+                        'type'=>'company',
                         'address' => [
                             'city' => $address->city->name,
                             'country' => $address->country->abbreviation,
@@ -82,16 +84,25 @@ class DaycaresController extends Controller
                         'business_tax_id' => $daycare->employee_tax_identifier,
                         'first_name' => $exploded_name[0],
                         'last_name' => (!empty($exploded_name[1]) ? $exploded_name[1] : null),
-                        'type' => 'company',
                         'personal_address' => [
                             'city' => $user->address->city->name,
                             'country' => $user->address->country->abbreviation,
-                            'line1' => $user->address->line1,
-                            'line2' => $user->address->line2,
-                            'postal_code' => $address->zipCode->name,
+                            'line1' => $user->address->address_line_1,
+                            'line2' => $user->address->address_line_1,
+                            'postal_code' => $address->zipCode->zip_code,
                             'state' => $address->state->name
-                        ]
-                    ]
+                        ],
+                        'dob' => array(
+                            'day' => '',
+                            'month' => '',
+                            'year' => '',
+                        ),
+                        'ssn_last_4' => '',
+                    ],
+                    'tos_acceptance' => array(
+                        'date' => time(),
+                        'ip' => $_SERVER['REMOTE_ADDR']
+                    ),
                 ]
             );
 
@@ -100,7 +111,7 @@ class DaycaresController extends Controller
             $user->stripe_publishable_key = $account->keys['publishable'];
             $user->save();
         } catch (\Exception $exception) {
-            \Log::error('Failed to create managed account for user id: ' . $user->id .
+            Log::error('Failed to create managed account for user id: ' . $user->id .
                 '. Message: ' . $exception->getMessage());
         }
 

@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SaveChildPhotoRequest;
 use App\Models\Child;
 use App\Models\Photo;
-use Image;
-use Storage;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
 
 class ChildPhotosController extends Controller
 {
