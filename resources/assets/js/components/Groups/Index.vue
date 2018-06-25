@@ -37,47 +37,57 @@
              </div>
           </div>
        </div>
-       <!-- START table-responsive-->
-       <div class="table-responsive">
-          <table class="table table-bordered table-hover" >
-             <thead>
-                <tr>
-                    <th data-check-all width="3">
-                      <div class="checkbox c-checkbox" data-toggle="tooltip" data-title="Check All">
-                         <label>
-                            <input type="checkbox">
-                            <span class="fa fa-check"></span>
-                         </label>
-                      </div>
-                    </th>
-                    <th>{{$t('Name')}}</th>
-                    <th>{{$t('Description')}}</th>
-                    <th>{{$t('# of Children')}}</th>
-                    <th>{{$t('# of Staff')}}</th>
-                </tr>
-             </thead>
-             <tbody>
-                <tr v-for="group in groups">
-                    <td>
-                      <div class="checkbox c-checkbox">
-                         <label>
-                            <input type="checkbox">
-                            <span class="fa fa-check"></span>
-                         </label>
-                      </div>
-                    </td>
-                    <td>
-                        <router-link :to="{ name: 'groups.show', params: { group_id: group.id }}">
-                            {{group.name}}
-                        </router-link>
-                    </td>
-                    <td>{{group.short_description}}</td>
-                    <td>{{group.staff_count}}</td>
-                    <td>{{group.children_count}}</td>
-                </tr>
+       <div class="panel-body">
+         <!-- START table-responsive-->
+         <div v-if="groups.length" class="table-responsive">
+            <table class="table table-bordered table-hover" >
+               <thead>
+                  <tr>
+                      <th data-check-all width="3">
+                        <div class="checkbox c-checkbox" data-toggle="tooltip" data-title="Check All">
+                           <label>
+                              <input type="checkbox">
+                              <span class="fa fa-check"></span>
+                           </label>
+                        </div>
+                      </th>
+                      <th>{{$t('Name')}}</th>
+                      <th>{{$t('Description')}}</th>
+                      <th>{{$t('# of Children')}}</th>
+                      <th>{{$t('# of Staff')}}</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr v-for="group in groups">
+                      <td>
+                        <div class="checkbox c-checkbox">
+                           <label>
+                              <input type="checkbox">
+                              <span class="fa fa-check"></span>
+                           </label>
+                        </div>
+                      </td>
+                      <td>
+                          <router-link :to="{ name: 'groups.show', params: { group_id: group.id }}">
+                              {{group.name}}
+                          </router-link>
+                      </td>
+                      <td>{{group.short_description}}</td>
+                      <td>{{group.staff_count}}</td>
+                      <td>{{group.children_count}}</td>
+                  </tr>
 
-             </tbody>
-          </table>
+               </tbody>
+            </table>
+         </div>
+         <div v-else class="text-center">
+            <p>We couldn't find any Group records</p>
+            <div class="btn-group">
+                <button class="btn btn-success waves-effect m-b-5" data-toggle="modal" data-target="#createEditGroup" data-backdrop="false">
+                    <span>{{ $t('Create first Group') }}</span>
+                </button>
+            </div>
+         </div>
        </div>
     </div>
     <CreateEditGroupModal v-on:createGroup="addGroup"></CreateEditGroupModal>

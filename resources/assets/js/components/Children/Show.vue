@@ -259,6 +259,11 @@
                 self.child.is_checked_in = !self.child.is_checked_in;
             });
         },
+
+        mounted() {
+            $('.modal ').insertAfter($('#app'));
+        },
+
         data() {
             return {
                 child: {

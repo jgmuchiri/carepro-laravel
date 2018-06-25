@@ -1,7 +1,9 @@
 <template>
 
  <div class="content-wrapper">
-    <div class="content-heading"></div>
+    <div class="content-heading">
+      Dashboard
+    </div>
     <!-- END widgets box-->
     <div class="row">
        <!-- START dashboard main content-->

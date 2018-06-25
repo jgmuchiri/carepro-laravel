@@ -10,6 +10,8 @@ use App\Models\Notes\Note;
 use App\Models\Notes\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Mail\NotesEmail;
+use Illuminate\Support\Facades\Mail;
 use Image;
 use Storage;
 
@@ -21,15 +23,22 @@ class NotesController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index(Request $request, $id)
     {
-        $notes = Note::with([
-            'type',
-            'createdByUser',
-            'children',
-            'location',
-            'incidentType'
-        ])->orderByDesc('created_at')->whereChildId($id)->paginate(2);
+        if (!is_null($request->note_type)) {
+            $notes = Note::where('note_type_id', $request->note_type)
+                ->with(['type', 'createdByUser', 'children', 'location', 'incidentType' ])
+                ->where(function ($q) use ($request) {
+                    $q->where('title', 'LIKE', '%' . $request->search . '%');
+                    $q->orWhere('body', 'LIKE', '%' . $request->search . '%');
+                })
+                ->orderByDesc('created_at')->paginate(2);
+        } else {
+            $notes = Note::with(['type', 'createdByUser', 'children', 'location', 'incidentType' ])
+                ->orWhere('title', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('body', 'LIKE', '%' . $request->search . '%')
+                ->orderByDesc('created_at')->paginate(3);
+        }
 
         return response()->json(compact('notes'));
     }
@@ -130,9 +139,11 @@ class NotesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, $note_id)
     {
-        //
+        $note = Note::where('id', $note_id)->with(['location', 'type', 'photos', 'incidentType', 'createdByUser'])->get();
+
+        return $note;
     }
 
     /**
@@ -174,5 +185,25 @@ class NotesController extends Controller
         $note->delete();
 
         return response()->json(['message' => __('Note successfully deleted.')]);
+    }
+
+    /**
+     * send note to email
+     *
+     * @param int $child_id
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function emailNote(Request $request, $id, $note_id)
+    {
+        $note = Note::where('id', $note_id)->with(['location', 'type', 'photos', 'incidentType', 'createdByUser'])->first();
+
+        Mail::to($request->user())->send(new NotesEmail($note));
+
+        return response()->json([
+            'status' => 'okay',
+            'status_code' => '200',
+            'message' => 'Note has been emailed!',
+        ], 200);
     }
 }

@@ -7,8 +7,7 @@
                     <button class="btn btn-success waves-effect m-b-5"
                             data-toggle="modal"
                             data-target="#dropzone-modal"
-                            data-backdrop="false"
-                    >
+                            data-backdrop="false">
                         <i class="fa fa-camera m-r-5 btn-fa"></i>
                         <span> {{ $t('Upload') }}</span>
                     </button>
@@ -30,6 +29,15 @@
                         </div>
                     </div>
                 </div>
+                <div v-if="!photos.length" class="text-center">
+                    <p>We couldn't find any Photos</p>
+                    <div class="btn-group">
+                        <button class="btn btn-success waves-effect m-b-5" data-toggle="modal" data-target="#dropzone-modal" data-backdrop="false">
+                            <i class="fa fa-camera m-r-5 btn-fa"></i>
+                            <span> {{ $t('Upload') }}</span>
+                        </button>
+                    </div>
+                 </div>
             </div>
         </div>
         <!-- <DropzoneModal :url="'/api/children/' + this.child.id + '/photos'"

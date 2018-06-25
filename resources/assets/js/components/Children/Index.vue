@@ -14,7 +14,7 @@
         <!-- END widgets box-->
         <div class="row">
             <!-- START dashboard main content-->
-            <div class="col-lg-4" v-for="child in children">
+            <div class="col-lg-3" v-for="child in children">
                 <!-- START widget-->
                 <div class="panel panel-primary" id="panelDemo8">
                     <div class="panel-heading pnl-child-hd">
@@ -42,7 +42,7 @@
                     <div class="panel-footer">
                         <div class="row row-table text-center">
                             <div class="col-xs-6">
-                                <router-link class="mb-sm btn btn-success btn-quick" :to="{ name: 'children.show', params: { child_id: child.id }}">
+                                <router-link class="mb-sm btn btn-success" :to="{ name: 'children.show', params: { child_id: child.id }}">
                                     View
                                 </router-link>
                             </div>
@@ -101,7 +101,7 @@
                 this.children.push(child);
             },
             getCheckInCheckOutButtonClass: function(child) {
-                var return_string = 'mb-sm btn btn-quick ';
+                var return_string = 'mb-sm btn ';
                 if (child.is_checked_in) {
                     return_string += 'btn-primary'
                 } else {

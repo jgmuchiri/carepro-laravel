@@ -22,8 +22,8 @@
                             <div class="input-group">
                                 <input class="input-sm form-control" type="text" :placeholder="$t('Search')">
                                 <span class="input-group-btn">
-                        <button class="btn btn-sm btn-default" type="button">{{ $t('Search') }}</button>
-                     </span>
+                                    <button class="btn btn-sm btn-default" type="button">{{ $t('Search') }}</button>
+                                 </span>
                             </div>
                         </div>
                         <div class="col-lg-5"></div>
@@ -37,8 +37,8 @@
                                     <option value="3">{{ $t('Delete') }}</option>
                                 </select>
                                 <span class="input-group-btn">
-                        <button class="btn btn-sm btn-default">{{ $t('Apply') }}</button>
-                     </span>
+                                    <button class="btn btn-sm btn-default">{{ $t('Apply') }}</button>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -89,7 +89,7 @@
                         </table>
                     </div>
                     <div v-else class="text-center">
-                        <p>There are no Invoice records</p>
+                        <p>We couldn't find any Invoice records</p>
                     </div>
                 </div>
             </div>
