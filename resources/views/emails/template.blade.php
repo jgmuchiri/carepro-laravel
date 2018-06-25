@@ -1,506 +1,402 @@
-<!DOCTYPE html>
-<html lang="it">
+<!doctype html>
+<html>
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <title>{{\Config::get('app.name')}}</title><!--
-COLORE INTENSE  #9C010F
-COLORE LIGHT #EDE8DA
-TESTO LIGHT #3F3D33
-TESTO INTENSE #ffffff
-
- -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <style type="text/css">
-        @import url(http://fonts.googleapis.com/css?family=Droid+Sans);
-
-        body {
-            -webkit-font-smoothing: antialiased;
-            -webkit-text-size-adjust: none;
-            font-size: 16px;
-            margin: 0 auto;
-            background: transparent;
-            color: #332;
-            font-family: 'Droid Sans', 'Helvetica Neue', 'Arial', 'sans-serif' !important;
-            padding: 10px;
-        }
-
-        .callout {
-            margin-bottom: 20px;
-            padding: 20px;
-            border-left: 3px solid #eeeeee;
-        }
-
-        .callout h4 {
-            margin-top: 0;
-            margin-bottom: 5px;
-        }
-
-        .callout p:last-child {
-            margin-bottom: 0;
-        }
-
-        .callout-danger {
-            background-color: #fdf7f7;
-            border-color: #ebccd1;
-        }
-
-        .callout-danger h4 {
-            color: #a94442;
-        }
-
-        .callout-warning {
-            background-color: #faf8f0;
-            border-color: #faebcc;
-        }
-
-        .callout-warning h4 {
-            color: #8a6d3b;
-        }
-
-        .callout-info {
-            background-color: #f4f8fa;
-            border-color: #bce8f1;
-        }
-
-        .callout-info h4 {
-            color: #31708f;
-        }
-
-        .callout-success {
-            background-color: #f9fdf7;
-            border-color: #d6e9c6;
-        }
-
-        .callout-success h4 {
-            color: #3c763d;
-        }
-
-        #ko_onecolumnBlock_4 .textintenseStyle a, #ko_onecolumnBlock_4 .textintenseStyle a:link, #ko_onecolumnBlock_4 .textintenseStyle a:visited, #ko_onecolumnBlock_4 .textintenseStyle a:hover {
-            color: #fff;
-            text-decoration: none;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        #ko_onecolumnBlock_4 .textlightStyle a:visited, #ko_onecolumnBlock_4 .textlightStyle a:hover {
-            color: #3f3d33;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        #ko_twocolumnBlock_8 .textsmallintenseStyle a, #ko_twocolumnBlock_8 .textsmallintenseStyle a:link, #ko_twocolumnBlock_8 .textsmallintenseStyle a:visited, #ko_twocolumnBlock_8 .textsmallintenseStyle a:hover {
-            color: #fff;
-            text-decoration: none;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        #ko_twocolumnBlock_8 .textsmalllightStyle a:visited, #ko_twocolumnBlock_8 .textsmalllightStyle a:hover {
-            color: #3f3d33;
-            text-decoration: none;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        #ko_compactarticleBlock_6 .articletextintenseStyle a:visited, #ko_compactarticleBlock_6 .articletextintenseStyle a:hover {
-            color: #fff;
-            text-decoration: none;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        #ko_compactarticleBlock_6 .articletextlightStyle a, #ko_compactarticleBlock_6 .articletextlightStyle a:link, #ko_compactarticleBlock_6 .articletextlightStyle a:visited, #ko_compactarticleBlock_6 .articletextlightStyle a:hover {
-            color: #3f3d33;
-            text-decoration: none;
-            text-decoration: none;
-            font-weight: bold;
-        }</style>
-    <style type="text/css">
-        /* CLIENT-SPECIFIC STYLES */
-        #outlook a {
-            padding: 0;
-        }
-
-        /* Force Outlook to provide a "view in browser" message */
-        .ReadMsgBody {
-            width: 100%;
-        }
-
-        .ExternalClass {
-            width: 100%;
-        }
-
-        /* Force Hotmail to display emails at full width */
-        .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {
-            line-height: 100%;
-        }
-
-        /* Force Hotmail to display normal line spacing */
-        body, table, td, a {
-            -webkit-text-size-adjust: 100%;
-            -ms-text-size-adjust: 100%;
-        }
-
-        /* Prevent WebKit and Windows mobile changing default text sizes */
-        table, td {
-            mso-table-lspace: 0pt;
-            mso-table-rspace: 0pt;
-        }
-
-        /* Remove spacing between tables in Outlook 2007 and up */
+    <meta name="viewport" content="width=device-width"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>{{\Config::get('app.name')}}</title>
+    <style>
+        /* -------------------------------------
+            GLOBAL RESETS
+        ------------------------------------- */
         img {
+            border: none;
             -ms-interpolation-mode: bicubic;
+            max-width: 100%;
         }
 
-        /* Allow smoother rendering of resized image in Internet Explorer */
-
-        /* RESET STYLES */
         body {
+            background-color: #f6f6f6;
+            font-family: sans-serif;
+            -webkit-font-smoothing: antialiased;
+            font-size: 14px;
+            line-height: 1.4;
             margin: 0;
             padding: 0;
-        }
-
-        img {
-            border: 0;
-            height: auto;
-            line-height: 100%;
-            outline: none;
-            text-decoration: none;
+            -ms-text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%;
         }
 
         table {
-            border-collapse: collapse !important;
+            border-collapse: separate;
+            mso-table-lspace: 0pt;
+            mso-table-rspace: 0pt;
+            width: 100%;
         }
 
-        body {
-            height: 100% !important;
-            margin: 0;
-            padding: 0;
-            width: 100% !important;
+        table td {
+            font-family: sans-serif;
+            font-size: 14px;
+            vertical-align: top;
         }
 
-        /* iOS BLUE LINKS */
-        .appleBody a {
-            color: #68440a;
-            text-decoration: none;
+        /* -------------------------------------
+            BODY & CONTAINER
+        ------------------------------------- */
+
+        .body {
+            background-color: #f6f6f6;
+            width: 100%;
         }
 
-        .appleFooter a {
+        .container {
+            display: block;
+            Margin: 0 auto !important;
+            /* makes it centered */
+            max-width: 580px;
+            padding: 10px;
+            width: 580px;
+        }
+
+        .content {
+            box-sizing: border-box;
+            display: block;
+            Margin: 0 auto;
+            max-width: 580px;
+            padding: 10px;
+        }
+
+        /* -------------------------------------
+            HEADER, FOOTER, MAIN
+        ------------------------------------- */
+        .main {
+            background: #ffffff;
+            border-radius: 3px;
+            width: 100%;
+        }
+
+        .wrapper {
+            box-sizing: border-box;
+            padding: 20px;
+        }
+
+        .content-block {
+            padding-bottom: 10px;
+            padding-top: 10px;
+        }
+
+        .footer {
+            clear: both;
+            Margin-top: 10px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .footer td,
+        .footer p,
+        .footer span,
+        .footer a {
             color: #999999;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        /* -------------------------------------
+            TYPOGRAPHY
+        ------------------------------------- */
+        h1,
+        h2,
+        h3,
+        h4 {
+            color: #000000;
+            font-family: sans-serif;
+            font-weight: 400;
+            line-height: 1.4;
+            margin: 0;
+            Margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 35px;
+            font-weight: 300;
+            text-align: center;
+            text-transform: capitalize;
+        }
+
+        p,
+        ul,
+        ol {
+            font-family: sans-serif;
+            font-size: 14px;
+            font-weight: normal;
+            margin: 0;
+            Margin-bottom: 15px;
+        }
+
+        p li,
+        ul li,
+        ol li {
+            list-style-position: inside;
+            margin-left: 5px;
+        }
+
+        a {
+            color: #3498db;
+            text-decoration: underline;
+        }
+
+        /* -------------------------------------
+            BUTTONS
+        ------------------------------------- */
+        .btn {
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .btn > tbody > tr > td {
+            padding-bottom: 15px;
+        }
+
+        .btn table {
+            width: auto;
+        }
+
+        .btn table td {
+            background-color: #ffffff;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .btn a {
+            background-color: #ffffff;
+            border: solid 1px #3498db;
+            border-radius: 5px;
+            box-sizing: border-box;
+            color: #3498db;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 14px;
+            font-weight: bold;
+            margin: 0;
+            padding: 12px 25px;
+            text-decoration: none;
+            text-transform: capitalize;
+        }
+
+        .btn-primary table td {
+            background-color: #3498db;
+        }
+
+        .btn-primary a {
+            background-color: #3498db;
+            border-color: #3498db;
+            color: #ffffff;
+        }
+
+        /* -------------------------------------
+            OTHER STYLES THAT MIGHT BE USEFUL
+        ------------------------------------- */
+        .last {
+            margin-bottom: 0;
+        }
+
+        .first {
+            margin-top: 0;
+        }
+
+        .align-center {
+            text-align: center;
+        }
+
+        .align-right {
+            text-align: right;
+        }
+
+        .align-left {
+            text-align: left;
+        }
+
+        .clear {
+            clear: both;
+        }
+
+        .mt0 {
+            margin-top: 0;
+        }
+
+        .mb0 {
+            margin-bottom: 0;
+        }
+
+        .preheader {
+            color: transparent;
+            display: none;
+            height: 0;
+            max-height: 0;
+            max-width: 0;
+            opacity: 0;
+            overflow: hidden;
+            mso-hide: all;
+            visibility: hidden;
+            width: 0;
+        }
+
+        .powered-by a {
             text-decoration: none;
         }
 
-        /* MOBILE STYLES */
-        @media screen and (max-width: 525px) {
+        hr {
+            border: 0;
+            border-bottom: 1px solid #f6f6f6;
+            Margin: 20px 0;
+        }
 
-            /* ALLOWS FOR FLUID TABLES */
-            table[class="wrapper"] {
-                width: 100% !important;
-                min-width: 0 !important;
+        /* -------------------------------------
+            RESPONSIVE AND MOBILE FRIENDLY STYLES
+        ------------------------------------- */
+        @media only screen and (max-width: 620px) {
+            table[class=body] h1 {
+                font-size: 28px !important;
+                margin-bottom: 10px !important;
             }
 
-            /* USE THESE CLASSES TO HIDE CONTENT ON MOBILE */
-            td[class="mobile-hide"] {
-                display: none;
-            }
-
-            img[class="mobile-hide"] {
-                display: none !important;
-            }
-
-            img[class="img-max"] {
-                width: 100% !important;
-                max-width: 100% !important;
-                height: auto !important;
-            }
-
-            /* FULL-WIDTH TABLES */
-            table[class="responsive-table"] {
-                width: 100% !important;
-            }
-
-            /* UTILITY CLASSES FOR ADJUSTING PADDING ON MOBILE */
-            td[class="padding"] {
-                padding: 10px 5% 15px 5% !important;
-            }
-
-            td[class="padding-copy"] {
-                padding: 10px 5% 10px 5% !important;
-                text-align: center;
-            }
-
-            td[class="padding-meta"] {
-                padding: 30px 5% 0 5% !important;
-                text-align: center;
-            }
-
-            td[class="no-pad"] {
-                padding: 0 0 0 0 !important;
-            }
-
-            td[class="no-padding"] {
-                padding: 0 !important;
-            }
-
-            td[class="section-padding"] {
-                padding: 10px 15px 10px 15px !important;
-            }
-
-            td[class="section-padding-bottom-image"] {
-                padding: 10px 15px 0 15px !important;
-            }
-
-            /* ADJUST BUTTONS ON MOBILE */
-            td[class="mobile-wrapper"] {
-                padding: 10px 5% 15px 5% !important;
-            }
-
-            table[class="mobile-button-container"] {
-                margin: 0 auto;
-                width: 100% !important;
-            }
-
-            a[class="mobile-button"] {
-                width: 80% !important;
-                padding: 15px !important;
-                border: 0 !important;
+            table[class=body] p,
+            table[class=body] ul,
+            table[class=body] ol,
+            table[class=body] td,
+            table[class=body] span,
+            table[class=body] a {
                 font-size: 16px !important;
             }
 
+            table[class=body] .wrapper,
+            table[class=body] .article {
+                padding: 10px !important;
+            }
+
+            table[class=body] .content {
+                padding: 0 !important;
+            }
+
+            table[class=body] .container {
+                padding: 0 !important;
+                width: 100% !important;
+            }
+
+            table[class=body] .main {
+                border-left-width: 0 !important;
+                border-radius: 0 !important;
+                border-right-width: 0 !important;
+            }
+
+            table[class=body] .btn table {
+                width: 100% !important;
+            }
+
+            table[class=body] .btn a {
+                width: 100% !important;
+            }
+
+            table[class=body] .img-responsive {
+                height: auto !important;
+                max-width: 100% !important;
+                width: auto !important;
+            }
         }
+
+        /* -------------------------------------
+            PRESERVE THESE STYLES IN THE HEAD
+        ------------------------------------- */
+        @media all {
+            .ExternalClass {
+                width: 100%;
+            }
+
+            .ExternalClass,
+            .ExternalClass p,
+            .ExternalClass span,
+            .ExternalClass font,
+            .ExternalClass td,
+            .ExternalClass div {
+                line-height: 100%;
+            }
+
+            .apple-link a {
+                color: inherit !important;
+                font-family: inherit !important;
+                font-size: inherit !important;
+                font-weight: inherit !important;
+                line-height: inherit !important;
+                text-decoration: none !important;
+            }
+
+            .btn-primary table td:hover {
+                background-color: #34495e !important;
+            }
+
+            .btn-primary a:hover {
+                background-color: #34495e !important;
+                border-color: #34495e !important;
+            }
+        }
+
     </style>
 </head>
-<body style="margin: 0; padding: 0;" bgcolor="#ffffff" align="center">
-
-<!-- PREHEADER -->
-
-<table border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width: 530px;" id="ko_preheaderBlock_1">
-    <tbody>
+<body class="">
+<table border="0" cellpadding="0" cellspacing="0" class="body">
     <tr>
-        <td bgcolor="#3F3D33" class="mobile-hide">
-            <div align="center" style="padding: 0 15px 0 15px;">
-                <table border="0" cellpadding="0" cellspacing="0" width="500" style="min-width: 500px;" class="wrapper">
-                    <!--Preheade/view on web TEXT -->
-                    <tbody>
-                    <tr>
-                        <td style="padding: 10px 0 10px 0px;">
-                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                                <tbody>
-                                <tr>
-                                    <td bgcolor="#3F3D33" width="50%" align="left" class="mobile-hide">
-                                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                                            <tbody>
-                                            <tr>
-                                                <td align="left"
-                                                    style="padding: 0 0 5px 0; font-size: 12px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none;">
-                                                    <a style="color:#fff;" href="{{ route('login') }}">@lang('login')</a>
-                                                    {{-- TODO: Switch this to real URL when this route exists --}}|
-                                                    <a style="color:#fff;" href="{{url()->to('profile')}}">@lang('profile')</a>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
+        <td>&nbsp;</td>
+        <td class="container">
+            <div class="content">
+                <!-- START CENTERED WHITE CONTAINER -->
+                <span class="preheader">
 
-                                    <td bgcolor="#3F3D33" width="50%" align="right" class="mobile-hide">
-                                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                                            <tbody>
-                                            <tr>
-                                                <td align="right"
-                                                    style="padding: 0 0 5px 0; font-size: 12px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none;">
-                                                    {{-- TODO: Switch this to real URL when this route exists --}}|
-                                                    <a href="{{url()->to('login')}}" style="color: #ffffff;"
-                                                       target="_new"><span><span style="text-decoration: underline;">@lang('my account')</span><br
-                                                                    data-mce-bogus="1"></span></a></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
+                </span>
+
+                <table>
+                    <tr>
+                        <td><img style="width:200px" src="{{ route('index') }}/img/logo.png"></td>
+                    </tr>
+                </table>
+                <table class="main">
+                    <tr>
+                        <td class="wrapper">
+                            <table border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td>
+                                        @yield('header')
+                                        <br/>
+                                        @yield('content')
                                     </td>
                                 </tr>
-                                </tbody>
                             </table>
                         </td>
                     </tr>
-                    </tbody>
+
+                    <!-- END MAIN CONTENT AREA -->
                 </table>
+
+                <!-- START FOOTER -->
+                <div class="footer">
+                    <table border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td class="content-block">
+                                <span class="apple-link">
+                                   {{ \Config::get('app.name') }}
+                                </span>
+                                <br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="content-block powered-by">
+                                {{ URL()->to('/') }}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </td>
+        <td>&nbsp;</td>
     </tr>
-    </tbody>
-</table>
-<table border="0" cellpadding="0" cellspacing="0" width="100%" id="ko_imageBlock_3">
-    <tbody>
-    <tr class="row-a">
-        <td align="center" class="no-pad"
-            style="padding-top: 0px; padding-left: 15px; padding-bottom: 0px; padding-right: 15px;">
-            <table border="0" cellpadding="0" cellspacing="0" width="500" class="responsive-table">
-                <tbody>
-                <tr>
-                    <td>
-                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                            <tbody>
-                            <tr>
-                                <td>
-                                    <!-- HERO IMAGE -->
-                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                        <tbody>
-                                        <tr>
-                                            <td class="no-padding">
-                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                    <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <a style="color: #ffffff;text-decoration: none;"
-                                                               target="_new" href="{{ route('index') }}">
-                                                                <img width="auto"
-                                                                     border="0"
-                                                                     alt="my account"
-                                                                     class="img-max"
-                                                                     style="display: block; padding: 0; color: #3F3D33; text-decoration: none; font-family: Helvetica, Arial, sans-serif; font-size: 16px;"
-                                                                     src="{{ route('index') }}/img/logo.png">
-
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </td>
-    </tr>
-    </tbody>
-</table>
-<table border="0" cellpadding="0" cellspacing="0" width="100%" id="ko_onecolumnBlock_4">
-    <tbody>
-    <tr class="row-a">
-        <td bgcolor="#eeece1" align="center" class="section-padding"
-            style="padding-top: 30px; padding-left: 15px; padding-bottom: 30px; padding-right: 15px;">
-            <table border="0" cellpadding="0" cellspacing="0" width="500" class="responsive-table">
-                <tbody>
-                <tr>
-                    <td>
-                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                            <tbody>
-                            <tr>
-                                <td>
-                                    <!-- COPY -->
-                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                        <tbody>
-                                        <tr>
-                                            <td align="center" class="padding-copy"
-                                                style="font-size: 25px; font-family: Helvetica, Arial, sans-serif; color: #3F3D33; padding-top: 0px;">
-                                                @yield('header')
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="padding-copy textlightStyle"
-                                                style="padding: 20px 0 0 0; font-size: 16px; line-height: 25px; font-family: Helvetica, Arial, sans-serif; color: #3F3D33;">
-                                                @yield('content')
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <!-- BULLETPROOF BUTTON -->
-                                    <table width="100%" border="0" cellspacing="0" cellpadding="0"
-                                           class="mobile-button-container">
-                                        <tbody>
-                                        <tr>
-                                            <td align="center" style="padding: 25px 0 0 0;" class="padding-copy">
-                                                <table border="0" cellspacing="0" cellpadding="0"
-                                                       class="responsive-table">
-                                                    <tbody>
-                                                    <tr>
-                                                        <td align="center">
-                                                           {{----}}
-                                                        </td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </td>
-    </tr>
-    </tbody>
-</table>
-<table border="0" cellpadding="0" cellspacing="0" width="100%" id="ko_compactarticleBlock_6">
-    <tbody>
-    <tr class="row-a">
-        <td bgcolor="#974806" align="center" class="section-padding" style="padding: 0 15px 0 15px;">
-            <p></p>
-        </td>
-    </tr>
-    </tbody>
-</table>
-<!-- FOOTER -->
-<table border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width: 500px;" id="ko_footerBlock_2">
-    <tbody>
-    <tr>
-        <td bgcolor="#ffffff" align="center">
-            <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
-                <tbody>
-                <tr>
-                    <td style="padding: 20px 0 20px 0px;">
-                        <!-- UNSUBSCRIBE COPY -->
-                        <table width="500" border="0" cellspacing="0" cellpadding="0" align="center"
-                               class="responsive-table">
-                            <tbody>
-                            <tr>
-                                <td align="center" valign="middle"
-                                    style="font-size: 12px; line-height: 18px; font-family: Helvetica, Arial, sans-serif; color: #3F3D33;">
-                                    {{--<span class="appleFooter" style="color: #3F3D33;">Main address and city</span><br><a--}}
-                                    {{--class="original-only" href="%5Bprofile_link%5D"--}}
-                                    {{--style="color: #3F3D33; text-decoration: none;" target="_new">Unsubscribe</a><span--}}
-                                    {{--class="original-only"--}}
-                                    {{--style="font-family: Arial, sans-serif; font-size: 12px; color: #444444;">���|���</span><a--}}
-                                    {{--href="%5Bshow_link%5D" style="color: #3F3D33; text-decoration: none;"--}}
-                                    {{--target="_new">View on web browser</a>--}}
-                                </td>
-                            </tr>
-                            <tr style="text-align: center;">
-                                <td>
-                                    <a target="_new" href="{{ route('index') }}">
-                                        <img border="0"
-                                             hspace="0"
-                                             vspace="0"
-                                             src="{{ route('index') }}/img/logo.png"
-                                             alt=" {{ \Config::get('app.name') }}"
-                                             style="margin-top: 10px;"></a>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </td>
-    </tr>
-    </tbody>
 </table>
 </body>
 </html>
