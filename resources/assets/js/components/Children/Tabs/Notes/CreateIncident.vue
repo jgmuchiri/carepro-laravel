@@ -31,6 +31,9 @@
                         <div class="form-group col-md-6">
                             <input id="title" class="form-control input-lg" :placeholder="$t('Title')" v-model="note.title" type="text">
                         </div>
+                        <div class="form-group col-md-6">
+                            <input id="date" class="form-control input-lg" :placeholder="$t('Title')"  type="date">
+                        </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
