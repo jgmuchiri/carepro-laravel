@@ -20,6 +20,7 @@
     "vuedraggable": "^2.14.1"
   },
   "dependencies": {
+    "jquery-datetimepicker": "^2.5.20",
     "moment": "^2.19.1",
     "nprogress": "^0.2.0",
     "vue-moment": "^3.2.0",
