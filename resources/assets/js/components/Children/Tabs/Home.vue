@@ -151,22 +151,13 @@
                             <i class="fa fa-plus m-r-5 btn-fa"></i>
                             <span> {{ $t('Assign Parent/Guardian') }}</span>
                         </button>
-                        <button class="hide"
-                                data-toggle="modal"
-                                data-target="#create-edit-parent-modal"
-                                data-backdrop="false"
-                                id="edit-parent-button"
-                        >
-                            <i class="fa fa-plus m-r-5 btn-fa"></i>
-                            <span> {{ $t('New Authorization') }}</span>
-                        </button>
                     </div>
                 </div>
                 <h3>{{ $t('Parents/Guardians') }}</h3>
             </div>
             <div class="child-parent">
                 <div class="row">
-                    <div class="col-md-offset-1 col-md-4" v-for="parent in child.parents">
+                    <div class="col-lg-offset-1 col-lg-4 col-md-6" v-for="parent in child.parents">
                         <div class="panel b text-center">
                             <div class="panel-body">
                                 <img class="img-circle thumb64" :src="parent.full_photo_uri">
@@ -234,7 +225,7 @@
                     </div>
                     <div class="text-center" v-if="!child.pickup_users.length">
                         <h4>{{ $t('No authorised Pick Up Users yet') }}</h4>
-                        <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#create-edit-pickup-user-modal" data-backdrop="false" title="">{{ $t('New Authorization') }}</button>
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#create-edit-pickup-user-modal" data-backdrop="false" title="">{{ $t('New Authorization') }}</button>
                     </div>
                 </div>
             </div>
@@ -345,7 +336,7 @@
             },
             editParent: function(id) {
                 window.bus.$emit('editParent', id);
-                $('#edit-parent-button').click();
+                // $('#edit-parent-button').click();
             },
             editPickupUser: function(pickup_user) {
                 $('#new-pickup-user-button').click();

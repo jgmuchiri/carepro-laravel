@@ -55,7 +55,7 @@
                             <th>{{ $t('Name') }}</th>
                             <th>Phone</th>
                             <th>Email</th>
-                            <th>Action</th>
+                            <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>

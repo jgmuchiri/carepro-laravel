@@ -79,7 +79,7 @@
                 }
             },
             storeGroup: function() {
-                this.$http.post('/api/groups', {
+                axios.post('/api/groups', {
                     name: this.group.name,
                     short_description: this.group.short_description,
                     children: this.group.assigned_children.map(x => x.id),
@@ -103,7 +103,7 @@
                     });
             },
             updateGroup: function() {
-                this.$http.put('/api/groups/' + this.edit_group.id, {
+                axios.put('/api/groups/' + this.edit_group.id, {
                     name: this.group.name,
                     short_description: this.group.short_description,
                     children: this.group.assigned_children.map(x => x.id),

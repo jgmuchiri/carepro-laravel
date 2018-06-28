@@ -55,6 +55,7 @@
                       <th>{{$t('Description')}}</th>
                       <th>{{$t('# of Children')}}</th>
                       <th>{{$t('# of Staff')}}</th>
+                      <th>{{$t('Actions')}}</th>
                   </tr>
                </thead>
                <tbody>
@@ -67,14 +68,15 @@
                            </label>
                         </div>
                       </td>
-                      <td>
-                          <router-link :to="{ name: 'groups.show', params: { group_id: group.id }}">
-                              {{group.name}}
-                          </router-link>
-                      </td>
+                      <td>{{group.name}}</td>
                       <td>{{group.short_description}}</td>
                       <td>{{group.staff_count}}</td>
                       <td>{{group.children_count}}</td>
+                      <td class="text-center">
+                          <router-link class="mb-sm btn btn-success btn-xs" :to="{ name: 'groups.show', params: { group_id: group.id }}">
+                              View
+                          </router-link>
+                      </td>
                   </tr>
 
                </tbody>
@@ -98,7 +100,7 @@
     export default {
         created()
         {
-            this.$http.get('/api/groups')
+            axios.get('/api/groups')
                 .then(response => {
                     this.groups = response.data.groups;
                 })
