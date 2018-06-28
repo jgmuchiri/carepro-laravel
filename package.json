@@ -13,20 +13,20 @@
     "cross-env": "^3.2.3",
     "jquery": "^3.1.1",
     "laravel-mix": "^0.8.3",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.10",
     "vue": "^2.1.10",
-    "vue-i18n": "^7.2.0",
+    "vue-i18n": "^7.8.1",
     "vue-router": "^2.7.0",
     "vuedraggable": "^2.14.1"
   },
   "dependencies": {
-    "moment": "^2.19.1",
+    "moment": "^2.22.2",
     "nprogress": "^0.2.0",
     "vue-moment": "^3.2.0",
     "vue-pure-lightbox": "^2.1.4",
     "vue-sweetalert": "^0.1.18",
-    "vue-wysiwyg": "^1.4.1",
-    "vue2-dropzone": "^3.1.0",
+    "vue-wysiwyg": "^1.7.2",
+    "vue2-dropzone": "^3.2.2",
     "vuejs-noty": "^0.1.2"
   }
 }
