@@ -14,7 +14,7 @@
         <!-- END widgets box-->
         <div class="row">
             <!-- START dashboard main content-->
-            <div class="col-lg-3" v-for="child in children">
+            <div class="col-lg-3 col-md-6" v-for="child in children">
                 <!-- START widget-->
                 <div class="panel panel-primary" id="panelDemo8">
                     <div class="panel-heading pnl-child-hd">
@@ -24,13 +24,10 @@
                     </div>
                     <div class="panel-body">
                         <div class="row row-table">
-                            <div class="col-xs-6 text-center">
-                                <lightbox
-                                        :thumbnail="child.full_photo_uri"
-                                        :images="[child.full_photo_uri_original]"
-                                ></lightbox>
+                            <div class="col-sm-6 col-xs-6 col-md-6 text-center">
+                                <img :src="child.full_photo_uri" class="img-responsive">
                             </div>
-                            <div class="col-xs-6">
+                            <div class="col-sm-6 col-xs-6 col-md-6">
                                 <h3 class="mt0">{{ child.dob }}</h3>
                                 <h3 class="mt0">{{ child.ssn }}</h3>
                                 <h3 v-if="child.status == 'Pending Approval'" class="mt0 text-warning">{{ child.status.name_label }}</h3>
