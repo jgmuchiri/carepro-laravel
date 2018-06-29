@@ -29,6 +29,7 @@ Route::group(['middleware' => ['auth:api', 'subscribed']], function () {
         ->name('children.assign-groups');
     Route::resource('children/{id}/notes', 'NotesController', ['only' => ['store', 'index', 'show', 'destroy']]);
     Route::post('children/{id}/notes/{note_id}/email', 'NotesController@emailNote');
+    Route::post('children/{id}/notes/{note_id}/photos', 'NotesController@addPhotos');
     Route::resource('children/{id}/photos', 'ChildPhotosController', ['only' => ['store', 'index']]);
     Route::resource('children/{id}/pickup-users', 'PickupUsersController', ['only' => ['store', 'update', 'destroy']]);
     Route::resource('children/{id}/emergency-contacts', 'EmergencyContactsController', ['only' => ['store', 'update', 'destroy']]);

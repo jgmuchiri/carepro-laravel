@@ -32,25 +32,15 @@ class NotesController extends Controller
                     $q->where('title', 'LIKE', '%' . $request->search . '%');
                     $q->orWhere('body', 'LIKE', '%' . $request->search . '%');
                 })
-                ->orderByDesc('created_at')->paginate(2);
+                ->orderByDesc('created_at')->paginate(4);
         } else {
             $notes = Note::with(['type', 'createdByUser', 'children', 'location', 'incidentType' ])
                 ->orWhere('title', 'LIKE', '%' . $request->search . '%')
                 ->orWhere('body', 'LIKE', '%' . $request->search . '%')
-                ->orderByDesc('created_at')->paginate(3);
+                ->orderByDesc('created_at')->paginate(4);
         }
 
         return response()->json(compact('notes'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -60,8 +50,27 @@ class NotesController extends Controller
      * @param  SaveNoteRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($id, SaveNoteRequest $request)
+    public function store(Request $request, $id)
     {
+        if ($request->note_type == 'General') {
+            $this->validate($request, [
+                'title' => 'required|max:255|string',
+                'body' => 'required|string',
+            ]);
+        } else {
+            $this->validate($request, [
+                'title' => 'required|max:255|string',
+                'body' => 'required|string',
+                'witnesses' => 'max:8000|string|nullable',
+                'action_taken' => 'string|nullable',
+                'remarks' => 'string|nullable',
+                'location' => 'required|string|nullable|max:255',
+                'incident_type' => 'required|string|nullable|max:255',
+                'photo_uris.*' => 'image|max:5000',
+                'incident_time' => 'required|date'
+            ]);
+        }
+
         $child = Child::findOrFail($id);
         $this->authorize('update', $child);
 
@@ -100,6 +109,24 @@ class NotesController extends Controller
 
         $note->children()->save($child);
 
+        $note->load([
+            'type',
+            'createdByUser',
+            'children',
+            'location',
+            'incidentType'
+        ]);
+
+        return response()->json([
+            'note' => $note,
+            'message' => __('Successfully created note.')
+        ], 201);
+    }
+
+    public function addPhotos(Request $request, $child_id, $note_id)
+    {
+        $note = Note::find($note_id);
+
         if (!empty($request->file('photo_uris'))) {
             foreach ($request->file('photo_uris') as $photo) {
                 $photo_uri = Storage::disk('public')
@@ -119,20 +146,10 @@ class NotesController extends Controller
             }
         }
 
-        $note->load([
-            'type',
-            'createdByUser',
-            'children',
-            'location',
-            'incidentType'
-        ]);
-
-        return response()->json(
-            ['note' => $note, 'message' => __('Successfully created note.')],
-            201
-        );
+        return response()->json([
+            'message' => __('Successfully created note.')
+        ], 201);
     }
-
     /**
      * Display the specified resource.
      *
@@ -144,17 +161,6 @@ class NotesController extends Controller
         $note = Note::where('id', $note_id)->with(['location', 'type', 'photos', 'incidentType', 'createdByUser'])->get();
 
         return $note;
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**

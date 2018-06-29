@@ -28,6 +28,7 @@ class CreateNotesTable extends Migration
             $table->foreign('note_type_id')->references('id')->on('note_types');
             $table->integer('incident_type_id')->unsigned()->nullable();
             $table->foreign('incident_type_id')->references('id')->on('incident_types');
+            $table->timestamp('incident_time')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
