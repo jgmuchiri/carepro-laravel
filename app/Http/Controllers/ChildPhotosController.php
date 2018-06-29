@@ -30,8 +30,9 @@ class ChildPhotosController extends Controller
         })->toArray();
 
         $formatted_array = [];
+        $index = 0;
         foreach ($photos as $key => $photo_group) {
-            $formatted_array[] = ['key' => $key, 'values' => $photo_group];
+            $formatted_array[] = ['key' => $key, 'index' => null, 'values' => $photo_group];
         }
 
         return response()->json(['photos' => $formatted_array]);

@@ -18,15 +18,11 @@
         <hr>
         <div class="panel panel-default">
             <div class="panel-body">
-                <div v-for="photo_group in photos">
+                <div v-for="(photo_group, index) in photos">
                     <h4 class="media-box-heading">{{ formatDate(createMomentDate(photo_group.key)) }}</h4>
-                    <div class="row-masonry row-masonry-md-4 row-masonry-sm-2">
-                        <div class="col-masonry" v-for="current_photo in photo_group.values">
-                            <lightbox
-                                    :thumbnail="current_photo.full_photo_uri"
-                                    :images="movePhotoToFront(photosUriArray, current_photo.full_photo_uri_original)"
-                            ></lightbox>
-                        </div>
+                    <div id="app">
+                      <img class="image" v-for="(image, i) in photo_group.values" :src="image.full_photo_uri" @click="photo_group.index = i">
+                      <vue-gallery-slideshow :images="photoUrlArray(photo_group.values, photo_group.values.length)" :index="photo_group.index" @close="index = null"></vue-gallery-slideshow>
                     </div>
                 </div>
                 <div v-if="!photos.length" class="text-center">
@@ -65,18 +61,19 @@
 
 <script>
     import vue2Dropzone from 'vue2-dropzone'
+    import VueGallerySlideshow from 'vue-gallery-slideshow'
     export default {
-        created()
-        {
+        created() {
             this.getPhotos()
+            this.createIndex()
         },
+
         computed: {
             photosUriArray: function () {
                 return [].concat.apply([], this.photos.map(x => x.values.map(y => y.full_photo_uri_original)));
             }
         },
-        data()
-        {
+        data() {
             return {
                 photos: [],
                 dropzoneOptions: {
@@ -98,8 +95,12 @@
                 });
             },
 
-            movePhotoToFront: function (array, element) {
-                return [].concat([element], array.filter(e => e !== element));
+            photoUrlArray: function(photos, length) {
+                var images = []
+                for (var i = 0; i < length; i++) {
+                    images.push(photos[i].full_photo_uri_original);
+                }
+                return images
             },
 
             vsuccess(file, response) {
@@ -111,7 +112,8 @@
             }
         },
         components: {
-            vueDropzone: vue2Dropzone
+            vueDropzone: vue2Dropzone,
+            VueGallerySlideshow
         },
         props: ['child']
     }

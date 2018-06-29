@@ -47,13 +47,13 @@
                 </div>
             </div>
             <div class="panel-body">
-                <div class="media-box-body" v-for="note in notes">
+                <div class="media-box-body" style="padding-bottom:5px;" v-for="note in notes">
                     <div class="row">
                         <div class="col-md-11">
-                            <h4 :class="'media-box-heading ' + note.type.name.toLowerCase()">
+                            <h5 :class="'media-box-heading ' + note.type.name.toLowerCase()">
                                 {{ formatDate(note.created_at) }} | {{ note.type.name_label }}
-                            </h4>
-                            <h3 v-on:click="viewNote(note.id)" style="cursor: pointer;"><strong>{{ note.title }}</strong></h3>
+                            </h5>
+                            <h3 v-on:click="viewNote(note.id)" style="cursor: pointer;margin-top:0px;margin-bottom:0px;"><strong>{{ note.title }}</strong></h3>
                         </div>
                         <div class="col-md-1">
                             <a href="javascript:void(0);" v-on:click.prevent="deleteNote(note.id)"><i class="fa fa-trash-o" style="color: red; font-size: 16pt;"></i></a>
@@ -128,6 +128,10 @@
                         <p v-html="note.witnesses"></p>
                         <h4>Remarks:</h4>
                         <p v-html="note.remarks"></p>
+                        <div v-if="note.photos.length" id="app">
+                          <h4>Photos:</h4>
+                          <img class="image" v-for="(image, i) in note.photos" :src="image.full_photo_uri" @click="index = i">
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -138,6 +142,8 @@
             </div>
         </div>
     </div>
+    <!-- gallery goes here so as not to appear inside modal -->
+    <vue-gallery-slideshow :images="photoUrlArray(note.photos, note.photos.length)" :index="index" @close="index = null"></vue-gallery-slideshow>
     <div class="modal fade" id="emailNote" tabindex="-1" role="dialog" aria-labelledby="emailNote">
         <div class="modal-dialog" role="document" style="padding-top:150px;">
             <div class="modal-content">
@@ -171,7 +177,11 @@
 </template>
 
 <script>
+    import VueGallerySlideshow from 'vue-gallery-slideshow'
     export default {
+        components: {
+            VueGallerySlideshow
+        },
         created()
         {
             this.getNotes();
@@ -183,6 +193,7 @@
         },
         data() {
             return {
+                index: null,
                 notes: [],
                 pagination: {},
                 note: this.noteData(),
@@ -267,6 +278,14 @@
                 .catch(function (error) {
                     this.$noty.error(error.response.data.message)
                 });
+            },
+
+            photoUrlArray: function(photos, length) {
+                var images = []
+                for (var i = 0; i < length; i++) {
+                    images.push(photos[i].full_photo_uri_original);
+                }
+                return images
             },
 
             switchView: function (view)
