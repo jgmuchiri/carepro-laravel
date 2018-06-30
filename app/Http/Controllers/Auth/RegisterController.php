@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Addresses\Address;
 use App\Models\Permissions\Role;
 use App\Models\Subscriptions\Plan;
@@ -96,7 +97,7 @@ class RegisterController extends Controller
         $user = new User([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+            'password' => Hash::make($data['password']),
             'confirmation_code' => str_random(30)
         ]);
 
