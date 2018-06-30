@@ -18,7 +18,7 @@ return [
     'description' => env('APP_DESCRIPTION', 'Daycare Management System'),
     'google-analytics' => env('GOOGLE_ANALYTICS'),
     'phone' => env('PHONE'),
-    'email'=>env('EMAIL','test@example'),
+    'email'=>env('EMAIL', 'test@example'),
     'address' => array(
         'street1' => env('STREET1'),
         'street2' => env('STREET2'),
@@ -180,9 +180,7 @@ return [
         /*
          * Package Service Providers...
          */
-        Laravel\Tinker\TinkerServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
-        Laravel\Cashier\CashierServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         \Torann\Currency\CurrencyServiceProvider::class,
         MartinLindhe\VueInternationalizationGenerator\GeneratorProvider::class,

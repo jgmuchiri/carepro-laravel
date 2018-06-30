@@ -4,11 +4,14 @@
 /storage/*.key
 /vendor
 /.idea
+/.vscode
 Homestead.json
 Homestead.yaml
 .env
 /.vagrant
 Vagrantfile
+npm-debug.log
+yarn-error.log
 /storage/debugbar
 /storage/app/public
 

@@ -16,11 +16,6 @@ Route::get('/', 'PagesController@index')->name('index');
 Auth::routes();
 Route::get('/register/verify/{confirmationCode}', 'Auth\VerificationController@verify')->name('auth.verify');
 
-Route::post(
-    'stripe/webhook',
-    '\Laravel\Cashier\Http\Controllers\WebhookController@handleWebhook'
-);
-
 Route::get('/plans', 'SubscriptionController@showPlans')->name('plans');
 Route::get('/contact', 'PagesController@contact')->name('contact');
 Route::post('/contact', 'PagesController@contactUs')->name('contact.us');
@@ -28,7 +23,7 @@ Route::post('/contact', 'PagesController@contactUs')->name('contact.us');
 Route::get('/subscribe/{plan_name}/start-free-trial', 'SubscriptionController@subscribeToTrial')
     ->name('subscriptions.subscribe-to-trial');
 
-Route::group(['middleware' => 'auth'], function() {
+Route::group(['middleware' => 'auth'], function () {
     Route::get('/subscribe', 'SubscriptionController@showBilling')->name('subscriptions.subscribe');
 
     Route::post('/subscribe', 'SubscriptionController@subscribe')->name('subscriptions.subscribe');
@@ -56,7 +51,7 @@ Route::group(['middleware' => 'auth'], function() {
             'prefix' => 'admin',
             'middleware' => 'can:update,App\Models\Subscriptions\Plan'
         ],
-        function() {
+        function () {
             Route::get('settings', 'SettingsController@edit')->name('admin.settings.edit');
             Route::post('settings/{id}', 'SettingsController@update')->name('admin.settings.update');
         }

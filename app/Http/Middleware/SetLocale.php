@@ -5,7 +5,6 @@ namespace App\Http\Middleware;
 use App;
 use Closure;
 use Config;
-use Laravel\Cashier\Cashier;
 
 class SetLocale
 {
@@ -32,7 +31,6 @@ class SetLocale
         }
 
         App::setLocale($language);
-        Cashier::useCurrency($currency);
 
         return $next($request);
     }
