@@ -69,7 +69,9 @@ class DaycaresController extends Controller
                     "managed" => true,
                     'business_name' => $daycare->name,
                     'email' => $user->email,
+                    'type'=>"custom",
                     'legal_entity' => [
+                        'type' => 'company',
                         'address' => [
                             'city' => $address->city->name,
                             'country' => $address->country->abbreviation,
@@ -82,7 +84,6 @@ class DaycaresController extends Controller
                         'business_tax_id' => $daycare->employee_tax_identifier,
                         'first_name' => $exploded_name[0],
                         'last_name' => (!empty($exploded_name[1]) ? $exploded_name[1] : null),
-                        'type' => 'company',
                         'personal_address' => [
                             'city' => $user->address->city->name,
                             'country' => $user->address->country->abbreviation,

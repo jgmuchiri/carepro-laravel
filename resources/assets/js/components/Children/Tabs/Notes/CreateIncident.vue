@@ -20,62 +20,94 @@
                 <form v-on:submit.prevent="storeNote">
                     <div class="row">
                         <div class="form-group col-md-6">
-                            <input id="title" class="form-control input-lg" :placeholder="$t('Title')" v-model="note.title" type="text" v-bind:class="{ 'parsley-error': errors.title }">
-                            <ul v-if="errors.title" class="parsley-errors-list filled"><li class="parsley-required">{{errors.title[0]}}</li></ul>
+                            <input id="title" class="form-control input-lg" :placeholder="$t('Title')"
+                                   v-model="note.title" type="text" v-bind:class="{ 'parsley-error': errors.title }">
+                            <ul v-if="errors.title" class="parsley-errors-list filled">
+                                <li class="parsley-required">{{errors.title[0]}}</li>
+                            </ul>
                         </div>
                         <div class="form-group col-md-6">
-                           <datetime type="datetime" v-model="note.incident_time" placeholder="incident time" input-class="form-control input-lg"></datetime>
-                           <ul v-if="errors.incident_time" class="parsley-errors-list filled"><li class="parsley-required">{{errors.incident_time[0]}}</li></ul>
+                            <datetime type="datetime" v-model="note.incident_time" placeholder="incident time"
+                                      input-class="form-control input-lg"></datetime>
+                            <ul v-if="errors.incident_time" class="parsley-errors-list filled">
+                                <li class="parsley-required">{{errors.incident_time[0]}}</li>
+                            </ul>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
-                            <input class="form-control input-lg" :placeholder="$t('Location')" v-model="note.location" type="text" v-bind:class="{ 'parsley-error': errors.location }">
-                            <ul v-if="errors.location" class="parsley-errors-list filled"><li class="parsley-required">{{errors.location[0]}}</li></ul>
+                            <input class="form-control input-lg" :placeholder="$t('Location')" v-model="note.location"
+                                   type="text" v-bind:class="{ 'parsley-error': errors.location }">
+                            <ul v-if="errors.location" class="parsley-errors-list filled">
+                                <li class="parsley-required">{{errors.location[0]}}</li>
+                            </ul>
                         </div>
                         <div class="form-group col-md-6">
-                            <input class="form-control input-lg" :placeholder="$t('Incident type(fall/bruise/sickness/etc)')" v-model="note.incident_type" type="text" v-bind:class="{ 'parsley-error': errors.incident_type }">
-                            <ul v-if="errors.incident_type" class="parsley-errors-list filled"><li class="parsley-required">{{errors.incident_type[0]}}</li></ul>
+                            <input class="form-control input-lg"
+                                   :placeholder="$t('Incident type(fall/bruise/sickness/etc)')"
+                                   v-model="note.incident_type" type="text"
+                                   v-bind:class="{ 'parsley-error': errors.incident_type }">
+                            <ul v-if="errors.incident_type" class="parsley-errors-list filled">
+                                <li class="parsley-required">{{errors.incident_type[0]}}</li>
+                            </ul>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <textarea v-model="note.body" style="overflow-x: hidden;" rows="3" class="form-control input-lg" :placeholder="$t('Description')" v-bind:class="{ 'parsley-error': errors.body }"></textarea>
-                                <ul v-if="errors.body" class="parsley-errors-list filled"><li class="parsley-required">{{errors.body[0]}}</li></ul>
+                                <textarea v-model="note.body" style="overflow-x: hidden;" rows="3"
+                                          class="form-control input-lg" :placeholder="$t('Description')"
+                                          v-bind:class="{ 'parsley-error': errors.body }"></textarea>
+                                <ul v-if="errors.body" class="parsley-errors-list filled">
+                                    <li class="parsley-required">{{errors.body[0]}}</li>
+                                </ul>
                             </div>
-                         </div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <textarea v-model="note.action_taken" style="overflow-x: hidden;" rows="3" class="form-control input-lg" :placeholder="$t('Actions Taken')" v-bind:class="{ 'parsley-error': errors.action_taken }"></textarea>
-                                <ul v-if="errors.action_taken" class="parsley-errors-list filled"><li class="parsley-required">{{errors.action_taken[0]}}</li></ul>
+                                <textarea v-model="note.action_taken" style="overflow-x: hidden;" rows="3"
+                                          class="form-control input-lg" :placeholder="$t('Actions Taken')"
+                                          v-bind:class="{ 'parsley-error': errors.action_taken }"></textarea>
+                                <ul v-if="errors.action_taken" class="parsley-errors-list filled">
+                                    <li class="parsley-required">{{errors.action_taken[0]}}</li>
+                                </ul>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <textarea v-model="note.witnesses" rows="3" class="form-control input-lg" :placeholder="$t('Witnesses(include their contact number)')" v-bind:class="{ 'parsley-error': errors.witnesses }"></textarea>
-                                <ul v-if="errors.witnesses" class="parsley-errors-list filled"><li class="parsley-required">{{errors.witnesses[0]}}</li></ul>
+                                <textarea v-model="note.witnesses" rows="3" class="form-control input-lg"
+                                          :placeholder="$t('Witnesses(include their contact number)')"
+                                          v-bind:class="{ 'parsley-error': errors.witnesses }"></textarea>
+                                <ul v-if="errors.witnesses" class="parsley-errors-list filled">
+                                    <li class="parsley-required">{{errors.witnesses[0]}}</li>
+                                </ul>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <textarea v-model="note.remarks" rows="3" class="form-control input-lg" :placeholder="$t('Remarks')" v-bind:class="{ 'parsley-error': errors.remarks }"></textarea>
-                                <ul v-if="errors.remarks" class="parsley-errors-list filled"><li class="parsley-required">{{errors.remarks[0]}}</li></ul>
+                                <textarea v-model="note.remarks" rows="3" class="form-control input-lg"
+                                          :placeholder="$t('Remarks')"
+                                          v-bind:class="{ 'parsley-error': errors.remarks }"></textarea>
+                                <ul v-if="errors.remarks" class="parsley-errors-list filled">
+                                    <li class="parsley-required">{{errors.remarks[0]}}</li>
+                                </ul>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <vue-dropzone ref="imagedropzone" id="dropzone" :options="dropzoneOptions" @vdropzone-success="uploadSuccess"></vue-dropzone>
+                            <vue-dropzone ref="imagedropzone" id="dropzone" :options="dropzoneOptions"
+                                          @vdropzone-success="uploadSuccess"></vue-dropzone>
                         </div>
                     </div>
                     <div class="row text-center" style="padding-top:15px;">
                         <div class="col-md-6">
-                            <button class="btn btn-danger waves-effect m-b-5" v-on:click.prevent="switchView('NoteIndex')">
+                            <button class="btn btn-danger waves-effect m-b-5"
+                                    v-on:click.prevent="switchView('NoteIndex')">
                                 <span>{{ $t('Cancel') }}</span>
                             </button>
                         </div>
@@ -91,6 +123,7 @@
 
 <script>
     import vue2Dropzone from 'vue2-dropzone'
+
     export default {
         components: {
             vueDropzone: vue2Dropzone
@@ -108,7 +141,7 @@
                     paramName: 'photo_uris',
                     parallelUploads: 15,
                     maxFilesize: 2.0,
-                    headers: { "X-CSRF-TOKEN": window.Laravel.csrfToken }
+                    headers: {"X-CSRF-TOKEN": window.Laravel.csrfToken}
                 }
             }
         },
@@ -133,27 +166,27 @@
                 }
             },
 
-            storeNote: function() {
+            storeNote: function () {
                 axios.post('/api/children/' + this.child.id + '/notes', this.note)
-                .then(response => {
-                    this.note.id = response.data.note.id
-                    this.$emit('noteCreated', response.data.note);
-                    window.bus.$emit('noteCreated', response.data.note);
-                    this.$noty.success(response.data.message);
-                    this.$noty.warning("Hey!Incident Images are still Uploading, please do not move away from this page!!", {
-                        timeout: false,
-                        layout: 'topRight'
+                    .then(response => {
+                        this.note.id = response.data.note.id
+                        this.$emit('noteCreated', response.data.note);
+                        window.bus.$emit('noteCreated', response.data.note);
+                        this.$noty.success(response.data.message);
+                        this.$noty.warning("Hey!Incident Images are still Uploading, please do not move away from this page!!", {
+                            timeout: false,
+                            layout: 'topRight'
+                        })
+                        this.$refs.imagedropzone.processQueue()
                     })
-                    this.$refs.imagedropzone.processQueue()
-                })
-                .catch(error => {
-                    if (error.response.status == 403) {
-                        this.$noty.error(this.$t('This child is inactive and read-only.'));
-                    } else {
-                        this.errors = error.response.data
-                        this.$noty.error('You have some errors in your inputs!')
-                    }
-                });
+                    .catch(error => {
+                        if (error.response.status == 403) {
+                            this.$noty.error(this.$t('This child is inactive and read-only.'));
+                        } else {
+                            this.errors = error.response.data
+                            this.$noty.error('You have some errors in your inputs!')
+                        }
+                    });
             },
 
             uploadSuccess(file, response) {
@@ -162,12 +195,11 @@
                 this.switchView('NoteIndex')
             },
 
-            url: function() {
+            url: function () {
                 return '/api/children/' + this.child.id + '/notes/' + this.note.id + '/photos'
             },
 
-            switchView: function (view)
-            {
+            switchView: function (view) {
                 this.generateNewIncidentNote();
                 this.$emit('viewSwitched', view);
             }
