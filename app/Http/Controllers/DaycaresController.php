@@ -41,35 +41,38 @@ class DaycaresController extends Controller
      */
     public function store(SaveDaycareRequest $request)
     {
+        $user = $request->user();
+
         $address = Address::createFromRawInput($request->only(
-            ['address_line_1', 'address_line_2', 'zip_code', 'state', 'city', 'country', 'phone']
+            'address_line_1',
+            'address_line_2',
+            'zip_code',
+            'state',
+            'city',
+            'country',
+            'phone'
         ));
 
-        $daycare = new Daycare([
-            'name' => $request->input('name'),
-            'employee_tax_identifier' => $request->input('employee_tax_identifier')]
-        );
-
-        $user = $request->user();
-        $daycare->address()->associate($address);
-        $daycare->owner()->associate($user);
-
+        $daycare = new Daycare;
+        $daycare->name = $request->name;
+        $daycare->employee_tax_identifier = $request->employee_tax_identifier;
+        $daycare->address_id = $address->id;
+        $daycare->owner_user_id = $user->id;
         $daycare->save();
 
-        $user->daycare()->associate($daycare);
+        $user->daycare_id = $daycare->id;
         $user->save();
 
         $exploded_name = explode(' ', $user->name);
 
         try {
-            Stripe::setApiKey(Config::get('services.stripe.secret'));
-            $account = Account::create(
+            \Stripe\Stripe::setApiKey(Config::get('services.stripe.secret'));
+            $account = \Stripe\Account::create(
                 [
                     "country" => "US",
-                    "managed" => true,
+                    "type" => "custom",
                     'business_name' => $daycare->name,
                     'email' => $user->email,
-                    'type'=>"custom",
                     'legal_entity' => [
                         'type' => 'company',
                         'address' => [
