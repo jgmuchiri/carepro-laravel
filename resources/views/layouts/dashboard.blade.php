@@ -204,7 +204,7 @@
 	<section>
 		<!-- Page content-->
 		@if(!empty($user) && $user->confirmed === false)
-			<div class="callout callout-danger text-center text-danger">
+			<div class="callout callout-danger text-center text-danger" style="padding-top:80px;">
 				<i style="font-size:60px;" class="fa fa-exclamation-triangle"></i>
 				<h5 class="">
 					@lang('Your account is not confirmed yet.')
