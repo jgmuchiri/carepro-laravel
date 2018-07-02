@@ -1,506 +1,396 @@
-<!DOCTYPE html>
-<html lang="it">
+<!doctype html>
+<html>
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <title>{{\Config::get('app.name')}}</title><!--
-COLORE INTENSE  #9C010F
-COLORE LIGHT #EDE8DA
-TESTO LIGHT #3F3D33
-TESTO INTENSE #ffffff
+	<meta name="viewport" content="width=device-width"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>{{\Config::get('app.name')}}</title>
+	<style>
+		/* -------------------------------------
+			GLOBAL RESETS
+		------------------------------------- */
+		img {
+			border: none;
+			-ms-interpolation-mode: bicubic;
+			max-width: 100%;
+		}
 
- -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <style type="text/css">
-        @import url(http://fonts.googleapis.com/css?family=Droid+Sans);
+		body {
+			background-color: #f6f6f6;
+			font-family: sans-serif;
+			-webkit-font-smoothing: antialiased;
+			font-size: 14px;
+			line-height: 1.4;
+			margin: 0;
+			padding: 0;
+			-ms-text-size-adjust: 100%;
+			-webkit-text-size-adjust: 100%;
+		}
 
-        body {
-            -webkit-font-smoothing: antialiased;
-            -webkit-text-size-adjust: none;
-            font-size: 16px;
-            margin: 0 auto;
-            background: transparent;
-            color: #332;
-            font-family: 'Droid Sans', 'Helvetica Neue', 'Arial', 'sans-serif' !important;
-            padding: 10px;
-        }
+		table {
+			border-collapse: separate;
+			mso-table-lspace: 0pt;
+			mso-table-rspace: 0pt;
+			width: 100%;
+		}
 
-        .callout {
-            margin-bottom: 20px;
-            padding: 20px;
-            border-left: 3px solid #eeeeee;
-        }
+		table td {
+			font-family: sans-serif;
+			font-size: 14px;
+			vertical-align: top;
+		}
 
-        .callout h4 {
-            margin-top: 0;
-            margin-bottom: 5px;
-        }
+		/* -------------------------------------
+			BODY & CONTAINER
+		------------------------------------- */
 
-        .callout p:last-child {
-            margin-bottom: 0;
-        }
+		.body {
+			background-color: #f6f6f6;
+			width: 100%;
+		}
 
-        .callout-danger {
-            background-color: #fdf7f7;
-            border-color: #ebccd1;
-        }
+		.container {
+			display: block;
+			Margin: 0 auto !important;
+			/* makes it centered */
+			max-width: 580px;
+			padding: 10px;
+			width: 580px;
+		}
 
-        .callout-danger h4 {
-            color: #a94442;
-        }
+		.content {
+			box-sizing: border-box;
+			display: block;
+			Margin: 0 auto;
+			max-width: 580px;
+			padding: 10px;
+		}
 
-        .callout-warning {
-            background-color: #faf8f0;
-            border-color: #faebcc;
-        }
+		/* -------------------------------------
+			HEADER, FOOTER, MAIN
+		------------------------------------- */
+		.main {
+			background: #ffffff;
+			border-radius: 3px;
+			width: 100%;
+		}
 
-        .callout-warning h4 {
-            color: #8a6d3b;
-        }
+		.wrapper {
+			box-sizing: border-box;
+			padding: 20px;
+		}
 
-        .callout-info {
-            background-color: #f4f8fa;
-            border-color: #bce8f1;
-        }
+		.content-block {
+			padding-bottom: 10px;
+			padding-top: 10px;
+		}
 
-        .callout-info h4 {
-            color: #31708f;
-        }
+		.footer {
+			clear: both;
+			Margin-top: 10px;
+			text-align: center;
+			width: 100%;
+		}
 
-        .callout-success {
-            background-color: #f9fdf7;
-            border-color: #d6e9c6;
-        }
+		.footer td,
+		.footer p,
+		.footer span,
+		.footer a {
+			color: #999999;
+			font-size: 12px;
+			text-align: center;
+		}
 
-        .callout-success h4 {
-            color: #3c763d;
-        }
+		/* -------------------------------------
+			TYPOGRAPHY
+		------------------------------------- */
+		h1,
+		h2,
+		h3,
+		h4 {
+			color: #000000;
+			font-family: sans-serif;
+			font-weight: 400;
+			line-height: 1.4;
+			margin: 0;
+			Margin-bottom: 30px;
+		}
 
-        #ko_onecolumnBlock_4 .textintenseStyle a, #ko_onecolumnBlock_4 .textintenseStyle a:link, #ko_onecolumnBlock_4 .textintenseStyle a:visited, #ko_onecolumnBlock_4 .textintenseStyle a:hover {
-            color: #fff;
-            text-decoration: none;
-            text-decoration: none;
-            font-weight: bold;
-        }
+		h1 {
+			font-size: 35px;
+			font-weight: 300;
+			text-align: center;
+			text-transform: capitalize;
+		}
 
-        #ko_onecolumnBlock_4 .textlightStyle a:visited, #ko_onecolumnBlock_4 .textlightStyle a:hover {
-            color: #3f3d33;
-            text-decoration: none;
-            font-weight: bold;
-        }
+		p,
+		ul,
+		ol {
+			font-family: sans-serif;
+			font-size: 14px;
+			font-weight: normal;
+			margin: 0;
+			Margin-bottom: 15px;
+		}
 
-        #ko_twocolumnBlock_8 .textsmallintenseStyle a, #ko_twocolumnBlock_8 .textsmallintenseStyle a:link, #ko_twocolumnBlock_8 .textsmallintenseStyle a:visited, #ko_twocolumnBlock_8 .textsmallintenseStyle a:hover {
-            color: #fff;
-            text-decoration: none;
-            text-decoration: none;
-            font-weight: bold;
-        }
+		p li,
+		ul li,
+		ol li {
+			list-style-position: inside;
+			margin-left: 5px;
+		}
 
-        #ko_twocolumnBlock_8 .textsmalllightStyle a:visited, #ko_twocolumnBlock_8 .textsmalllightStyle a:hover {
-            color: #3f3d33;
-            text-decoration: none;
-            text-decoration: none;
-            font-weight: bold;
-        }
+		a {
+			color: #3498db;
+			text-decoration: underline;
+		}
 
-        #ko_compactarticleBlock_6 .articletextintenseStyle a:visited, #ko_compactarticleBlock_6 .articletextintenseStyle a:hover {
-            color: #fff;
-            text-decoration: none;
-            text-decoration: none;
-            font-weight: bold;
-        }
+		/* -------------------------------------
+			BUTTONS
+		------------------------------------- */
+		.btn {
+			box-sizing: border-box;
+			width: 100%;
+		}
 
-        #ko_compactarticleBlock_6 .articletextlightStyle a, #ko_compactarticleBlock_6 .articletextlightStyle a:link, #ko_compactarticleBlock_6 .articletextlightStyle a:visited, #ko_compactarticleBlock_6 .articletextlightStyle a:hover {
-            color: #3f3d33;
-            text-decoration: none;
-            text-decoration: none;
-            font-weight: bold;
-        }</style>
-    <style type="text/css">
-        /* CLIENT-SPECIFIC STYLES */
-        #outlook a {
-            padding: 0;
-        }
+		.btn > tbody > tr > td {
+			padding-bottom: 15px;
+		}
 
-        /* Force Outlook to provide a "view in browser" message */
-        .ReadMsgBody {
-            width: 100%;
-        }
+		.btn table {
+			width: auto;
+		}
 
-        .ExternalClass {
-            width: 100%;
-        }
+		.btn table td {
+			background-color: #ffffff;
+			border-radius: 5px;
+			text-align: center;
+		}
 
-        /* Force Hotmail to display emails at full width */
-        .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {
-            line-height: 100%;
-        }
+		.btn a {
+			background-color: #ffffff;
+			border: solid 1px #3498db;
+			border-radius: 5px;
+			box-sizing: border-box;
+			color: #3498db;
+			cursor: pointer;
+			display: inline-block;
+			font-size: 14px;
+			font-weight: bold;
+			margin: 0;
+			padding: 12px 25px;
+			text-decoration: none;
+			text-transform: capitalize;
+		}
 
-        /* Force Hotmail to display normal line spacing */
-        body, table, td, a {
-            -webkit-text-size-adjust: 100%;
-            -ms-text-size-adjust: 100%;
-        }
+		.btn-primary table td {
+			background-color: #3498db;
+		}
 
-        /* Prevent WebKit and Windows mobile changing default text sizes */
-        table, td {
-            mso-table-lspace: 0pt;
-            mso-table-rspace: 0pt;
-        }
+		.btn-primary a {
+			background-color: #3498db;
+			border-color: #3498db;
+			color: #ffffff;
+		}
 
-        /* Remove spacing between tables in Outlook 2007 and up */
-        img {
-            -ms-interpolation-mode: bicubic;
-        }
+		/* -------------------------------------
+			OTHER STYLES THAT MIGHT BE USEFUL
+		------------------------------------- */
+		.last {
+			margin-bottom: 0;
+		}
 
-        /* Allow smoother rendering of resized image in Internet Explorer */
+		.first {
+			margin-top: 0;
+		}
 
-        /* RESET STYLES */
-        body {
-            margin: 0;
-            padding: 0;
-        }
+		.align-center {
+			text-align: center;
+		}
 
-        img {
-            border: 0;
-            height: auto;
-            line-height: 100%;
-            outline: none;
-            text-decoration: none;
-        }
+		.align-right {
+			text-align: right;
+		}
 
-        table {
-            border-collapse: collapse !important;
-        }
+		.align-left {
+			text-align: left;
+		}
 
-        body {
-            height: 100% !important;
-            margin: 0;
-            padding: 0;
-            width: 100% !important;
-        }
+		.clear {
+			clear: both;
+		}
 
-        /* iOS BLUE LINKS */
-        .appleBody a {
-            color: #68440a;
-            text-decoration: none;
-        }
+		.mt0 {
+			margin-top: 0;
+		}
 
-        .appleFooter a {
-            color: #999999;
-            text-decoration: none;
-        }
+		.mb0 {
+			margin-bottom: 0;
+		}
 
-        /* MOBILE STYLES */
-        @media screen and (max-width: 525px) {
+		.preheader {
+			color: transparent;
+			display: none;
+			height: 0;
+			max-height: 0;
+			max-width: 0;
+			opacity: 0;
+			overflow: hidden;
+			mso-hide: all;
+			visibility: hidden;
+			width: 0;
+		}
 
-            /* ALLOWS FOR FLUID TABLES */
-            table[class="wrapper"] {
-                width: 100% !important;
-                min-width: 0 !important;
-            }
+		.powered-by a {
+			text-decoration: none;
+		}
 
-            /* USE THESE CLASSES TO HIDE CONTENT ON MOBILE */
-            td[class="mobile-hide"] {
-                display: none;
-            }
+		hr {
+			border: 0;
+			border-bottom: 1px solid #f6f6f6;
+			Margin: 20px 0;
+		}
 
-            img[class="mobile-hide"] {
-                display: none !important;
-            }
+		/* -------------------------------------
+			RESPONSIVE AND MOBILE FRIENDLY STYLES
+		------------------------------------- */
+		@media only screen and (max-width: 620px) {
+			table[class=body] h1 {
+				font-size: 28px !important;
+				margin-bottom: 10px !important;
+			}
 
-            img[class="img-max"] {
-                width: 100% !important;
-                max-width: 100% !important;
-                height: auto !important;
-            }
+			table[class=body] p,
+			table[class=body] ul,
+			table[class=body] ol,
+			table[class=body] td,
+			table[class=body] span,
+			table[class=body] a {
+				font-size: 16px !important;
+			}
 
-            /* FULL-WIDTH TABLES */
-            table[class="responsive-table"] {
-                width: 100% !important;
-            }
+			table[class=body] .wrapper,
+			table[class=body] .article {
+				padding: 10px !important;
+			}
 
-            /* UTILITY CLASSES FOR ADJUSTING PADDING ON MOBILE */
-            td[class="padding"] {
-                padding: 10px 5% 15px 5% !important;
-            }
+			table[class=body] .content {
+				padding: 0 !important;
+			}
 
-            td[class="padding-copy"] {
-                padding: 10px 5% 10px 5% !important;
-                text-align: center;
-            }
+			table[class=body] .container {
+				padding: 0 !important;
+				width: 100% !important;
+			}
 
-            td[class="padding-meta"] {
-                padding: 30px 5% 0 5% !important;
-                text-align: center;
-            }
+			table[class=body] .main {
+				border-left-width: 0 !important;
+				border-radius: 0 !important;
+				border-right-width: 0 !important;
+			}
 
-            td[class="no-pad"] {
-                padding: 0 0 0 0 !important;
-            }
+			table[class=body] .btn table {
+				width: 100% !important;
+			}
 
-            td[class="no-padding"] {
-                padding: 0 !important;
-            }
+			table[class=body] .btn a {
+				width: 100% !important;
+			}
 
-            td[class="section-padding"] {
-                padding: 10px 15px 10px 15px !important;
-            }
+			table[class=body] .img-responsive {
+				height: auto !important;
+				max-width: 100% !important;
+				width: auto !important;
+			}
+		}
 
-            td[class="section-padding-bottom-image"] {
-                padding: 10px 15px 0 15px !important;
-            }
+		/* -------------------------------------
+			PRESERVE THESE STYLES IN THE HEAD
+		------------------------------------- */
+		@media all {
+			.ExternalClass {
+				width: 100%;
+			}
 
-            /* ADJUST BUTTONS ON MOBILE */
-            td[class="mobile-wrapper"] {
-                padding: 10px 5% 15px 5% !important;
-            }
+			.ExternalClass,
+			.ExternalClass p,
+			.ExternalClass span,
+			.ExternalClass font,
+			.ExternalClass td,
+			.ExternalClass div {
+				line-height: 100%;
+			}
 
-            table[class="mobile-button-container"] {
-                margin: 0 auto;
-                width: 100% !important;
-            }
+			.apple-link a {
+				color: inherit !important;
+				font-family: inherit !important;
+				font-size: inherit !important;
+				font-weight: inherit !important;
+				line-height: inherit !important;
+				text-decoration: none !important;
+			}
 
-            a[class="mobile-button"] {
-                width: 80% !important;
-                padding: 15px !important;
-                border: 0 !important;
-                font-size: 16px !important;
-            }
+			.btn-primary table td:hover {
+				background-color: #34495e !important;
+			}
 
-        }
-    </style>
+			.btn-primary a:hover {
+				background-color: #34495e !important;
+				border-color: #34495e !important;
+			}
+		}
+	</style>
 </head>
-<body style="margin: 0; padding: 0;" bgcolor="#ffffff" align="center">
-
-<!-- PREHEADER -->
-
-<table border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width: 530px;" id="ko_preheaderBlock_1">
-    <tbody>
-    <tr>
-        <td bgcolor="#3F3D33" class="mobile-hide">
-            <div align="center" style="padding: 0 15px 0 15px;">
-                <table border="0" cellpadding="0" cellspacing="0" width="500" style="min-width: 500px;" class="wrapper">
-                    <!--Preheade/view on web TEXT -->
-                    <tbody>
-                    <tr>
-                        <td style="padding: 10px 0 10px 0px;">
-                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                                <tbody>
-                                <tr>
-                                    <td bgcolor="#3F3D33" width="50%" align="left" class="mobile-hide">
-                                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                                            <tbody>
-                                            <tr>
-                                                <td align="left"
-                                                    style="padding: 0 0 5px 0; font-size: 12px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none;">
-                                                    <a style="color:#fff;" href="{{ route('login') }}">@lang('login')</a>
-                                                    {{-- TODO: Switch this to real URL when this route exists --}}|
-                                                    <a style="color:#fff;" href="{{url()->to('profile')}}">@lang('profile')</a>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-
-                                    <td bgcolor="#3F3D33" width="50%" align="right" class="mobile-hide">
-                                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                                            <tbody>
-                                            <tr>
-                                                <td align="right"
-                                                    style="padding: 0 0 5px 0; font-size: 12px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none;">
-                                                    {{-- TODO: Switch this to real URL when this route exists --}}|
-                                                    <a href="{{url()->to('login')}}" style="color: #ffffff;"
-                                                       target="_new"><span><span style="text-decoration: underline;">@lang('my account')</span><br
-                                                                    data-mce-bogus="1"></span></a></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </td>
-    </tr>
-    </tbody>
-</table>
-<table border="0" cellpadding="0" cellspacing="0" width="100%" id="ko_imageBlock_3">
-    <tbody>
-    <tr class="row-a">
-        <td align="center" class="no-pad"
-            style="padding-top: 0px; padding-left: 15px; padding-bottom: 0px; padding-right: 15px;">
-            <table border="0" cellpadding="0" cellspacing="0" width="500" class="responsive-table">
-                <tbody>
-                <tr>
-                    <td>
-                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                            <tbody>
-                            <tr>
-                                <td>
-                                    <!-- HERO IMAGE -->
-                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                        <tbody>
-                                        <tr>
-                                            <td class="no-padding">
-                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                    <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <a style="color: #ffffff;text-decoration: none;"
-                                                               target="_new" href="{{ route('index') }}">
-                                                                <img width="auto"
-                                                                     border="0"
-                                                                     alt="my account"
-                                                                     class="img-max"
-                                                                     style="display: block; padding: 0; color: #3F3D33; text-decoration: none; font-family: Helvetica, Arial, sans-serif; font-size: 16px;"
-                                                                     src="{{ route('index') }}/img/logo.png">
-
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </td>
-    </tr>
-    </tbody>
-</table>
-<table border="0" cellpadding="0" cellspacing="0" width="100%" id="ko_onecolumnBlock_4">
-    <tbody>
-    <tr class="row-a">
-        <td bgcolor="#eeece1" align="center" class="section-padding"
-            style="padding-top: 30px; padding-left: 15px; padding-bottom: 30px; padding-right: 15px;">
-            <table border="0" cellpadding="0" cellspacing="0" width="500" class="responsive-table">
-                <tbody>
-                <tr>
-                    <td>
-                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                            <tbody>
-                            <tr>
-                                <td>
-                                    <!-- COPY -->
-                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                        <tbody>
-                                        <tr>
-                                            <td align="center" class="padding-copy"
-                                                style="font-size: 25px; font-family: Helvetica, Arial, sans-serif; color: #3F3D33; padding-top: 0px;">
-                                                @yield('header')
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="padding-copy textlightStyle"
-                                                style="padding: 20px 0 0 0; font-size: 16px; line-height: 25px; font-family: Helvetica, Arial, sans-serif; color: #3F3D33;">
-                                                @yield('content')
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <!-- BULLETPROOF BUTTON -->
-                                    <table width="100%" border="0" cellspacing="0" cellpadding="0"
-                                           class="mobile-button-container">
-                                        <tbody>
-                                        <tr>
-                                            <td align="center" style="padding: 25px 0 0 0;" class="padding-copy">
-                                                <table border="0" cellspacing="0" cellpadding="0"
-                                                       class="responsive-table">
-                                                    <tbody>
-                                                    <tr>
-                                                        <td align="center">
-                                                           {{----}}
-                                                        </td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </td>
-    </tr>
-    </tbody>
-</table>
-<table border="0" cellpadding="0" cellspacing="0" width="100%" id="ko_compactarticleBlock_6">
-    <tbody>
-    <tr class="row-a">
-        <td bgcolor="#974806" align="center" class="section-padding" style="padding: 0 15px 0 15px;">
-            <p></p>
-        </td>
-    </tr>
-    </tbody>
-</table>
-<!-- FOOTER -->
-<table border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width: 500px;" id="ko_footerBlock_2">
-    <tbody>
-    <tr>
-        <td bgcolor="#ffffff" align="center">
-            <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
-                <tbody>
-                <tr>
-                    <td style="padding: 20px 0 20px 0px;">
-                        <!-- UNSUBSCRIBE COPY -->
-                        <table width="500" border="0" cellspacing="0" cellpadding="0" align="center"
-                               class="responsive-table">
-                            <tbody>
-                            <tr>
-                                <td align="center" valign="middle"
-                                    style="font-size: 12px; line-height: 18px; font-family: Helvetica, Arial, sans-serif; color: #3F3D33;">
-                                    {{--<span class="appleFooter" style="color: #3F3D33;">Main address and city</span><br><a--}}
-                                    {{--class="original-only" href="%5Bprofile_link%5D"--}}
-                                    {{--style="color: #3F3D33; text-decoration: none;" target="_new">Unsubscribe</a><span--}}
-                                    {{--class="original-only"--}}
-                                    {{--style="font-family: Arial, sans-serif; font-size: 12px; color: #444444;">���|���</span><a--}}
-                                    {{--href="%5Bshow_link%5D" style="color: #3F3D33; text-decoration: none;"--}}
-                                    {{--target="_new">View on web browser</a>--}}
-                                </td>
-                            </tr>
-                            <tr style="text-align: center;">
-                                <td>
-                                    <a target="_new" href="{{ route('index') }}">
-                                        <img border="0"
-                                             hspace="0"
-                                             vspace="0"
-                                             src="{{ route('index') }}/img/logo.png"
-                                             alt=" {{ \Config::get('app.name') }}"
-                                             style="margin-top: 10px;"></a>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </td>
-    </tr>
-    </tbody>
+<body class="">
+<table border="0" cellpadding="0" cellspacing="0" class="body">
+	<tr>
+		<td>&nbsp;</td>
+		<td class="container">
+			<div class="content">
+				<span class="preheader"></span>
+				<table style="background: #eaeaea;">
+					<tr>
+						<td>
+							<img src="data:image/png;base64,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"
+								 data-filename="logo.png" style="width: 156px;">
+						</td>
+					</tr>
+				</table>
+				<table class="main">
+					<tr>
+						<td class="wrapper">
+							<table border="0" cellpadding="0" cellspacing="0">
+								<tr>
+									<td>
+										@yield('header')
+										<br/>
+										@yield('content')
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+				<div class="footer">
+					<table border="0" cellpadding="0" cellspacing="0">
+						<tr>
+							<td class="content-block">
+                                <span class="apple-link">
+                                   {{ \Config::get('app.name') }}
+                                </span>
+								<br>
+							</td>
+						</tr>
+						<tr>
+							<td class="content-block powered-by">
+								{{ URL()->to('/') }}
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</td>
+		<td>&nbsp;</td>
+	</tr>
 </table>
 </body>
 </html>
