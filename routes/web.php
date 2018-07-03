@@ -11,18 +11,19 @@
 |
 */
 
+//front-end plans..
 Route::get('/', 'PagesController@index')->name('index');
-
 Auth::routes();
 Route::get('/register/verify/{confirmationCode}', 'Auth\VerificationController@verify')->name('auth.verify');
 
-Route::get('/plans', 'SubscriptionController@showPlans')->name('plans');
+Route::get('/plans', 'PagesController@plans')->name('plans');
 Route::get('/contact', 'PagesController@contact')->name('contact');
 Route::post('/contact', 'PagesController@contactUs')->name('contact.us');
 
 Route::get('/subscribe/{plan_name}/start-free-trial', 'SubscriptionController@subscribeToTrial')
     ->name('subscriptions.subscribe-to-trial');
 
+//backend routes
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/subscribe', 'SubscriptionController@showBilling')->name('subscriptions.subscribe');
 
@@ -60,7 +61,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('invoices', 'InvoicesController@index')->name('invoices.index');
     Route::get('invoices/{id}/downlaod', 'InvoicesController@download')->name('invoices.download');
 
-    Route::get('{any?}', function () {
-        return view('layouts.dashboard');
-    })->where('any', '.*');
+    Route::get('{any?}', 'PagesController@dashboard')->where('any', '.*');
 });

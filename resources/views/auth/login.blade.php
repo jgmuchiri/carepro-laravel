@@ -1,45 +1,42 @@
-@extends('layouts.logged-out')
+@extends('frontend.layouts.app')
 
 @section('content')
-<div class="wrapper">
-    <div class="full-screen register main">
-        <div class="section">
-            <div class="row" id="pwd-container">
-                
-                <div class="col-md-4 offset-md-4">
-                  <section class="login-form">
-                    <form method="post" action="{{ route('login') }}" role="login">
-                      <img src="assets/img/logo.png" class="img-responsive" alt="" />
-                      {{ csrf_field() }}
-                      <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
-                         <input type="email" name="email" placeholder="Email" required class="form-control input-lg" />
-                        @if ($errors->has('email'))
-                            <span class="help-block has-danger">
-                                <strong>{{ $errors->first('email') }}</strong>
-                            </span>
-                        @endif 
-                      </div>
 
-                      <div class="form-group {{ $errors->has('password') ? ' has-danger' : '' }}">
-                          <input type="password" class="form-control input-lg" name="password" id="password" placeholder="Password" required="" />
-                         @if ($errors->has('password'))
-                            <span class="help-block has-danger">
-                                <strong>{{ $errors->first('password') }}</strong>
-                            </span>
-                        @endif
+<div class="section-empty section-item">
+    <div class="container content">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 login-box shadow-1 ">
+              <div class="text-center">
+                <h2 style="padding-bottom:15px;">login</h2>
+              </div>
+              <form action="" class="form-box" action="{{ route('login') }}" method="post">
+                {{ csrf_field() }}
+                  <div class="row">
+                      <div class="col-md-12">
+                          <p>Email</p>
+                          <input name="email" placeholder="Email" type="text" class="form-control form-value">
+                          @if ($errors->has('email'))
+                              <span class="help-block has-error">
+                                  <small>{{ $errors->first('email') }}</small>
+                              </span>
+                          @endif
+                          <hr class="space xs" />
+                          <p>Password</p>
+                          <input name="password" id="password" placeholder="Password" type="password" class="form-control form-value">
+                          @if ($errors->has('password'))
+                              <span class="help-block has-error">
+                                  <small>{{ $errors->first('password') }}</small>
+                              </span>
+                          @endif
+                          <hr class="space s" />
+                          <button type="submit" class="anima-button btn-sm btn"><i class="fa fa-sign-in"></i>Login</button>
+                          <div>
+                            <a href="{{ route('password.request') }}" style="float:right;">@lang('Forgot Your Password')?</a>
+                          </div>
                       </div>
-                                          
-                      <button type="submit" name="go" class="btn btn-lg btn-primary btn-block">@lang('Login')</button>
-                      <div>
-                        <a href="{{ route('password.request') }}">@lang('Forgot Your Password')?</a>
-                      </div>
-                      
-                    </form>
-                  </section>  
                   </div>
-                                    
-
-              </div>            
+              </form>
+            </div>
         </div>
     </div>
 </div>

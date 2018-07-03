@@ -122,7 +122,7 @@
 							<div class="card-body">
 								<h6 class="card-category text-primary">@lang('STANDARD')</h6>
 								<small>14 @lang('days FREE trial')*</small>
-								<h1 class="card-title">{{ currency(10.00, 'USD', true) }}
+								<h1 class="card-title">{{ currency(10.00, 'USD', Laravel\Cashier\Cashier::usesCurrency(), true) }}
 									<small>/@lang('mo')</small>
 								</h1>
 								<ul>
@@ -156,7 +156,7 @@
 							<div class="card-body">
 								<h6 class="card-category text-success">@lang('PROFESSIONAL')</h6>
 								<small>14 @lang('days FREE trial')*</small>
-								<h1 class="card-title">{{ currency(20.00, 'USD', true) }}
+								<h1 class="card-title">{{ currency(20.00, 'USD', Laravel\Cashier\Cashier::usesCurrency(), true) }}
 									<small>/@lang('mo')</small>
 								</h1>
 								<ul>
@@ -190,7 +190,7 @@
 							<div class="card-body">
 								<h6 class="card-category text-primary">@lang('PREMIUM')</h6>
 								<small>14 @lang('days FREE trial')*</small>
-								<h1 class="card-title">{{ currency(35.00, 'USD', true) }}
+								<h1 class="card-title">{{ currency(35.00, 'USD', Laravel\Cashier\Cashier::usesCurrency(), true) }}
 									<small>/@lang('mo')</small>
 								</h1>
 								<ul>
