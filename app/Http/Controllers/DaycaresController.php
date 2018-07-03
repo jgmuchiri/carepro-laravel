@@ -6,6 +6,7 @@ use App\Http\Requests\SaveDaycareRequest;
 use App\Models\Addresses\Address;
 use App\Models\Daycare;
 use Config;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Stripe\Account;
 use Stripe\Stripe;
@@ -43,25 +44,43 @@ class DaycaresController extends Controller
     {
         $user = $request->user();
 
-        $address = Address::createFromRawInput($request->only(
-            'address_line_1',
-            'address_line_2',
-            'zip_code',
-            'state',
-            'city',
-            'country',
-            'phone'
-        ));
+        if (is_null($user->daycare_id)) {
+            $address = Address::createFromRawInput($request->only(
+                'address_line_1',
+                'address_line_2',
+                'zip_code',
+                'state',
+                'city',
+                'country',
+                'phone'
+            ));
 
-        $daycare = new Daycare;
-        $daycare->name = $request->name;
-        $daycare->employee_tax_identifier = $request->employee_tax_identifier;
-        $daycare->address_id = $address->id;
-        $daycare->owner_user_id = $user->id;
-        $daycare->save();
+            $daycare = new Daycare;
+            $daycare->name = $request->name;
+            $daycare->employee_tax_identifier = $request->employee_tax_identifier;
+            $daycare->address_id = $address->id;
+            $daycare->owner_user_id = $user->id;
+            $daycare->trial_ends_at = Carbon::now()->addDays(14);
+            $daycare->save();
 
-        $user->daycare_id = $daycare->id;
-        $user->save();
+            $user->daycare_id = $daycare->id;
+            $user->save();
+        } else {
+            $daycare = Daycare::find($user->daycare_id);
+            $daycare->name = $request->name;
+            $daycare->employee_tax_identifier = $request->employee_tax_identifier;
+            $daycare->trial_ends_at = Carbon::now()->addDays(14);
+            $daycare->save();
+            $address = Address::find($daycare->address_id);
+            $address->phone = $request->phone;
+            $address->phone = $request->country;
+            $address->phone = $request->city;
+            $address->phone = $request->state;
+            $address->phone = $request->zip_code;
+            $address->phone = $request->address_line_1;
+            $address->phone = $request->address_line_2;
+            $address->save();
+        }
 
         $exploded_name = explode(' ', $user->name);
 
@@ -99,13 +118,16 @@ class DaycaresController extends Controller
                 ]
             );
 
-            $user->stripe_managed_account_id = $account->id;
-            $user->stripe_secret_key = $account->keys['secret'];
-            $user->stripe_publishable_key = $account->keys['publishable'];
-            $user->save();
+            $managed_account = $daycare->managed_account()->create([
+                'stripe_managed_account_id' => $account->id,
+                'stripe_secret_key' =>$account->keys['secret'],
+                'stripe_publishable_key' =>$account->keys['publishable'],
+            ]);
         } catch (\Exception $exception) {
+            $error = $exception->getMessage();
             \Log::error('Failed to create managed account for user id: ' . $user->id .
-                '. Message: ' . $exception->getMessage());
+                '. Message: ' . $error);
+            return redirect()->back()->withErrors(['error' => $error])->withInput($request->all());
         }
 
         return redirect('/home');

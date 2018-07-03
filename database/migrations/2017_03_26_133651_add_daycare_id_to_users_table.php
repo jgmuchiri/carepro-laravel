@@ -14,7 +14,7 @@ class AddDaycareIdToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('daycare_id', false, true)->nullable();
+            $table->integer('daycare_id', false, true)->after('address_id')->nullable();
             $table->foreign('daycare_id')->references('id')->on('daycares');
         });
     }

@@ -58,9 +58,9 @@ class RegisterController extends Controller
      */
     public function showRegistrationForm(Request $request)
     {
-        if (!$request->session()->has('trial_plan')) {
-            return redirect()->route('plans');
-        }
+        // if (!$request->session()->has('trial_plan')) {
+        //     return redirect()->route('plans');
+        // }
 
         return view('auth.register');
     }
@@ -109,14 +109,14 @@ class RegisterController extends Controller
         $role = Role::whereName(Role::TENANT_ROLE)->first();
         $user->roles()->sync([$role->id]);
 
-        $plan = Plan::whereName(session('trial_plan'))->first();
+        // $plan = Plan::whereName(session('trial_plan'))->first();
 
-        if (empty($plan)) {
-            return redirect()->route('plans')->withErrors(__('You must select a plan before registering.'));
-        }
+        // if (empty($plan)) {
+        //     return redirect()->route('plans')->withErrors(__('You must select a plan before registering.'));
+        // }
 
-        $user->trial_ends_at = Carbon::now()->addDays(14);
-        $user->trialPlan()->associate($plan);
+        // $user->trial_ends_at = Carbon::now()->addDays(14);
+        // $user->trialPlan()->associate($plan);
         $user->save();
         $this->redirectTo = route('daycare.create');
 

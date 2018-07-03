@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AlterUsersTableAddStripeManagedAccountColumns extends Migration
+class CreateDaycareManagedAccountsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,14 @@ class AlterUsersTableAddStripeManagedAccountColumns extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::create('daycare_managed_accounts', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('daycare_id', false, true)->unique();
+            $table->foreign('daycare_id')->references('id')->on('daycares');
             $table->string('stripe_managed_account_id')->nullable();
             $table->string('stripe_secret_key')->nullable();
             $table->string('stripe_publishable_key')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -27,8 +31,6 @@ class AlterUsersTableAddStripeManagedAccountColumns extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['stripe_managed_account_id', 'stripe_secret_key', 'stripe_publishable_key']);
-        });
+        Schema::dropIfExists('daycare_managed_accounts');
     }
 }

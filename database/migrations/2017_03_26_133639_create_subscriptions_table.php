@@ -15,8 +15,8 @@ class CreateSubscriptionsTable extends Migration
     {
         Schema::create('subscriptions', function ($table) {
             $table->increments('id');
-            $table->integer('user_id', false, true);
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->integer('daycare_id', false, true);
+            $table->foreign('daycare_id')->references('id')->on('daycares');
             $table->string('name');
             $table->string('stripe_id');
             $table->string('stripe_plan');

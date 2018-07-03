@@ -22,11 +22,12 @@ class DaycareHasActiveSubscription
             return $next($request);
         }
 
-        $owner = $request->user()->daycare->owner;
+        $daycare = $request->user()->daycare;
+        $due_date = Carbon::parse($daycare->trial_ends_at);
         if (
-            (empty($owner->trial_ends_at) || $owner->trial_ends_at->lt(Carbon::now())) &&
-            !$owner->subscribed('main') &&
-            !$owner->onGenericTrial()
+            (empty($daycare->trial_ends_at) || $due_date->lt(Carbon::now()->toDateTimeString())) &&
+            !$daycare->subscribed('main') &&
+            !$daycare->onGenericTrial()
         ) {
             return redirect('/home')
                 ->withErrors([

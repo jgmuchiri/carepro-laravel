@@ -21,6 +21,10 @@ class CreateDaycaresTable extends Migration
             $table->string('employee_tax_identifier');
             $table->integer('owner_user_id', false, true);
             $table->foreign('owner_user_id')->references('id')->on('users');
+            $table->string('stripe_id')->nullable();
+            $table->string('card_brand')->nullable();
+            $table->string('card_last_four')->nullable();
+            $table->timestamp('trial_ends_at')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

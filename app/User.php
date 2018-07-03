@@ -63,18 +63,6 @@ class User extends Authenticatable
     }
 
     /**
-     * Relationship to the trial plan selected for this user. Since all trials are
-     * the same, this is mostly used just so when they click to subscribe they don't have to reselect
-     * the plan.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function trialPlan()
-    {
-        return $this->belongsTo(\App\Models\Subscriptions\Plan::class, 'trial_plan_id');
-    }
-
-    /**
      * Relationship to the daycare this user belongs to
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
