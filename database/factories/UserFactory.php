@@ -19,5 +19,13 @@ $factory->define(App\User::class, function (Faker $faker) {
         'email' => $faker->unique()->safeEmail,
         'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
         'remember_token' => str_random(10),
+        'address_id' => function () {
+            return factory(App\Models\Addresses\Address::class)->create()->id;
+        },
+        'daycare_id' => function () {
+            return App\Models\Daycare::all()->random()->id;
+        },
+        'confirmed' => true,
+        'confirmation_code' => str_random(20),
     ];
 });
