@@ -4,7 +4,7 @@
             <!-- START Language list-->
             <div class="pull-right">
                 <div class="btn-group">
-                    <button class="btn btn-success waves-effect m-b-5"
+                    <button class="btn btn-success waves-effect m-b-5" v-bind:class="{ disabled: loading }"
                             id="incident-back-btn"
                             v-on:click="switchView('NoteIndex')">
                         <i class="fa fa-chevron-left m-r-5 btn-fa"></i>
@@ -106,13 +106,13 @@
                     </div>
                     <div class="row text-center" style="padding-top:15px;">
                         <div class="col-md-6">
-                            <button class="btn btn-danger waves-effect m-b-5"
+                            <button class="btn btn-danger waves-effect m-b-5" v-bind:class="{ disabled: loading }"
                                     v-on:click.prevent="switchView('NoteIndex')">
                                 <span>{{ $t('Cancel') }}</span>
                             </button>
                         </div>
                         <div class="col-md-6">
-                            <button class="btn btn-success waves-effect m-b-5"><span>{{ $t('Save') }}</span></button>
+                            <button class="btn btn-success waves-effect m-b-5" v-bind:class="{ disabled: loading }"><span>{{ $t('Save') }}</span></button>
                         </div>
                     </div>
                 </form>
@@ -133,6 +133,7 @@
             return {
                 note: this.generateNewIncidentNote(),
                 errors: [],
+                loading: false,
                 dropzoneOptions: {
                     url: this.url,
                     thumbnailWidth: 150,
@@ -167,6 +168,7 @@
             },
 
             storeNote: function () {
+                this.loading = true
                 axios.post('/api/children/' + this.child.id + '/notes', this.note)
                     .then(response => {
                         this.note.id = response.data.note.id
@@ -180,16 +182,18 @@
                         this.$refs.imagedropzone.processQueue()
                     })
                     .catch(error => {
+                        this.loading = false
                         if (error.response.status == 403) {
                             this.$noty.error(this.$t('This child is inactive and read-only.'));
                         } else {
-                            this.errors = error.response.data
+                            this.errors = error.response.data.errors
                             this.$noty.error('You have some errors in your inputs!')
                         }
                     });
             },
 
             uploadSuccess(file, response) {
+                this.loading = false
                 this.$noty.success('Incident Images have been uploaded succesfully!')
                 this.note = this.generateNewIncidentNote()
                 this.switchView('NoteIndex')
