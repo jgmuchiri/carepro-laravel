@@ -40,7 +40,7 @@
                             </div>
                             <div class="form-group col-sm-6">
                                 <label>{{ $t('Blood Group') }}*</label>
-                                <select id="blood_type" class="form-control" v-model="child.blood_type" required>
+                                <select id="blood_type" class="form-control" v-model="child.blood_type">
                                     <option v-for="blood_type in blood_types" v-bind:value="blood_type.id">
                                         {{ blood_type.blood_type_label }}
                                     </option>
@@ -66,7 +66,7 @@
                         <div class="row">
                             <div class="form-group col-sm-6">
                                 <label>{{ $t('Religion') }}*</label>
-                                <select id="religion" class="form-control" v-model="child.religion" required>
+                                <select id="religion" class="form-control" v-model="child.religion">
                                     <option v-for="religion in religions" v-bind:value="religion.id">
                                         {{ religion.name_label }}
                                     </option>
@@ -74,7 +74,7 @@
                             </div>
                             <div class="form-group col-sm-6">
                                 <label>{{ $t('Ethnicity') }}*</label>
-                                <select id="ethnicity" class="form-control" v-model="child.ethnicity" required>
+                                <select id="ethnicity" class="form-control" v-model="child.ethnicity">
                                     <option v-for="ethnicity in ethnicities" v-bind:value="ethnicity.id">
                                         {{ ethnicity.name_label }}
                                     </option>
@@ -207,11 +207,11 @@
                         if (error.response.status == 403) {
                             this.$noty.error(this.$t('This child is inactive and read-only.'));
                         } else if (error.response.status == 422) {
-                            for (var key in error.response.data) {
-                                this.$noty.error(error.response.data[key]);
+                            for (var key in error.response.data.errors) {
+                                this.$noty.error(error.response.data.errors[key]);
                             }
                         } else {
-                            alert("Something went wrong. Please reload the page and try again.");
+                            this.$noty.error(error.response.data.message);
                         }
                     });
             }

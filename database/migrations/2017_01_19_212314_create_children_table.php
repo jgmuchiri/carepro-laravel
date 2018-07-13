@@ -21,7 +21,7 @@ class CreateChildrenTable extends Migration
             $table->date('dob');
             $table->tinyInteger('gender_id', false, true);
             $table->foreign('gender_id')->references('id')->on('genders');
-            $table->tinyInteger('blood_type_id', false, true);
+            $table->tinyInteger('blood_type_id', false, true)->nullable();
             $table->foreign('blood_type_id')->references('id')->on('blood_types');
             $table->integer('pin');
             $table->string('photo', 255)->nullable();
