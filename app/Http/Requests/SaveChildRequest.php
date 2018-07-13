@@ -50,10 +50,10 @@ class SaveChildRequest extends FormRequest
                 'dob' => 'required|date|before:today',
                 'photo_uri' => 'required|image|max:5000',
                 'gender' => 'required|exists:genders,id',
-                'blood_type' => 'required|exists:blood_types,id',
+                'blood_type' => 'nullable|exists:blood_types,id',
                 'pin' => 'required|numeric',
-                'religion' => 'required|exists:religions,id',
-                'ethnicity' => 'required|exists:ethnicities,id',
+                'religion' => 'nullable|exists:religions,id',
+                'ethnicity' => 'nullable|exists:ethnicities,id',
             ]
         );
 
@@ -69,17 +69,15 @@ class SaveChildRequest extends FormRequest
     {
         $validator->after(function ($validator) {
             $daycare = $this->user()->daycare;
-            $owner = $daycare->owner;
             $child_count = Child::whereDaycareId($daycare->id)->count();
-            if ($owner->onGenericTrial() && !$owner->subscribed('main') && $child_count > 9)
-            {
-                $validator->errors()->add('generic', __('This daycare is at the max number of children for its plan. Please ask the owner to upgrade their account.'));
+            if ($daycare->onGenericTrial() && !$daycare->subscribed('main') && $child_count > 9) {
+                $validator->errors()->add('generic', __('This daycare is at the max number of children for its plan. Please ask the daycare to upgrade their account.'));
             }
 
-            if ($owner->subscribed('main')) {
-                $plan = Plan::whereName($owner->subscription('main')->stripe_plan)->first();
+            if ($daycare->subscribed('main')) {
+                $plan = Plan::whereName($daycare->subscription('main')->stripe_plan)->first();
                 if ($child_count >= $plan->number_of_children_allowed) {
-                    $validator->errors()->add('generic', __('This daycare is at the max number of children for its plan. Please ask the owner to upgrade their account.'));
+                    $validator->errors()->add('generic', __('This daycare is at the max number of children for its plan. Please ask the daycare to upgrade their account.'));
                 }
             }
         });
