@@ -21,6 +21,7 @@
                         <router-link :to="{ name: 'children.show', params: { child_id: child.id }}">
                             {{ child.name}}
                         </router-link>
+                        <Countdown v-if="child.is_checked_in" :date="child.checked_in_time"></Countdown>
                     </div>
                     <div class="panel-body">
                         <div class="row row-table">
@@ -53,6 +54,14 @@
                 </div>
                 <!-- END widget-->
             </div>
+            <div v-if="!children.length"  class="text-center" style="padding-top:30px;">
+                <p>We couldn't find any Children records</p>
+                 <div class="btn-group">
+                    <button class="btn btn-success waves-effect m-b-5" data-toggle="modal" data-target="#create-child-modal" data-backdrop="false">
+                        <span>{{ $t('Add First Child Record') }}</span>
+                    </button>
+                </div>
+            </div>
             <a id="open-toggle-checkin-modal"
                class="hidden"
                data-toggle="modal"
@@ -67,15 +76,14 @@
 
 <script>
     export default {
-        created()
-        {
-            this.$http.get('/api/children')
-                .then(response => {
-                    this.children = response.data.children;
-                })
-                .catch(error => {
-                    alert("Something went wrong. Please try reloading the page");
-                });
+        created() {
+            axios.get('/api/children')
+            .then(response => {
+                this.children = response.data.children;
+            })
+            .catch(error => {
+                alert("Something went wrong. Please try reloading the page");
+            });
 
             var self = this;
             window.bus.$on('toggleChildCheckIn', function(child_id) {
@@ -83,7 +91,6 @@
                     if (child.id == child_id) {
                         child.is_checked_in = !child.is_checked_in;
                     }
-
                     return child;
                 });
             });
@@ -100,7 +107,7 @@
             getCheckInCheckOutButtonClass: function(child) {
                 var return_string = 'mb-sm btn ';
                 if (child.is_checked_in) {
-                    return_string += 'btn-primary'
+                    return_string += 'btn-danger'
                 } else {
                     return_string += 'btn-success';
                 }
@@ -108,8 +115,18 @@
                 return return_string;
             },
             openToggleCheckInModal: function(child) {
-                window.bus.$emit('openToggleCheckinModal', child);
-                $('#open-toggle-checkin-modal').click();
+                var parents
+                var pickupusers
+                axios.get('/api/children/' + child.id + '/all-pickup-users')
+                .then(response => {
+                    parents = response.data.parents;
+                    pickupusers = response.data.pickupusers;
+                    window.bus.$emit('openToggleCheckinModal', child, parents, pickupusers);
+                    $('#open-toggle-checkin-modal').click();
+                })
+                .catch(error => {
+                    alert("Something went wrong. Please try reloading the page");
+                });
             },
         }
     }

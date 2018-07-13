@@ -6,21 +6,32 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
+                    <h4 class="modal-title" id="myModalLabel">{{ child.is_checked_in ? 'check out' : 'check in' }}</h4>
                 </div>
 
                 <form v-on:submit.prevent="save">
                     <div class="modal-body">
+                        <div class="row">
+                            <div v-for="user in parents" class="col-sm-6 col-xs-6 col-md-4 text-center">
+                                <input type="radio" v-bind:id="user.id" class="input-hidden" v-bind:value="user.id" v-model="parent.parent_id" @change="clearPickupuser"/>
+                                <label v-bind:for="user.id">
+                                  <img class="center-block img-responsive img-thumbnail" :src="user.full_photo_uri" :alt="user.name"/>
+                                  <p style="padding-top:10px;">{{ user.user.name }}</p>
+                                </label>
+                            </div>
+                            <div v-for="user in pickupusers" class="col-sm-6 col-xs-6 col-md-4 text-center">
+                                <input type="radio" v-bind:id="user.email" class="input-hidden" v-bind:value="user.id" v-model="parent.pickupuser_id" @change="clearParent"/>
+                                <label v-bind:for="user.email">
+                                  <img class="center-block img-responsive img-thumbnail" :src="user.full_photo_uri" :alt="user.name" />
+                                  <p style="padding-top:10px;">{{ user.name }}</p>
+                                </label>
+                            </div>
+                        </div>
                         <template v-if="state == 'Pin'">
-                            <p class="text-center">{{ $t('Enter the pickup person\'s pin number') }}</p>
-                            <input type="text" class="form-control" v-model="pin" />
-                        </template>
-                        <template v-if="state == 'Confirm'">
-                            <p class="text-center">{{ $t('Are you sure?') }}</p>
-                            <p class="text-center">{{ $t('You are about to ' + (child.is_checked_in ? 'checkout' : 'check in') + ' a child.')}}</p>
-                        </template>
-                        <template v-if="state == 'Success'">
-                            <p class="text-center">{{ $t('Child has been ' + (child.is_checked_in ? 'checked in.' : 'checked out.')) }}</p>
-                            <p class="text-center">{{ $t((child.is_checked_in ? 'Check In ' : 'Checkout ')) }} {{ this.getDate() }}</p>
+                            <div v-if="parent.parent_id || parent.pickupuser_id">
+                                <p class="text-center">{{ $t('Enter the pickup person\'s pin number') }}</p>
+                                <input type="text" class="form-control" v-model="parent.pin" required/>
+                            </div>
                         </template>
                     </div>
                     <div class="modal-footer">
@@ -37,48 +48,96 @@
     export default {
         created() {
             var self = this;
-            window.bus.$on('openToggleCheckinModal', function(child) {
+            window.bus.$on('openToggleCheckinModal', function(child, parents, pickupusers) {
                 self.child = child;
+                self.parents = parents;
+                self.pickupusers = pickupusers;
                 self.state = 'Pin';
-                self.pin = null;
+                self.parent.parent_id = '';
+                self.parent.pin = null;
             });
         },
         data() {
              return {
-                 pin: null,
-                 state: 'Pin',
-                 child: {}
+                state: 'Pin',
+                child: {},
+                parents: [],
+                pickupusers: [],
+                parent: {
+                    parent_id: '',
+                    pickupuser_id: '',
+                    pin: null,
+                }
              };
         },
         methods: {
             save: function() {
-                if (this.state != 'Confirm') {
-                    this.state = 'Confirm';
-                    return;
-                }
+                let self = this
+                this.$swal({
 
-                this.$http.post('/api/children/' + this.child.id + '/toggle-check-in', {
-                    pin: this.pin
+                    title: 'Are you sure?',
+                    text: 'You are about to ' + (this.child.is_checked_in ? 'checkout' : 'check in') + ' a child.',
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, ' + (this.child.is_checked_in ? 'Checkout' : 'Check in'),
+                    cancelButtonText: 'No, cancel please'
                 })
+
+                .then(function(result) {
+                    axios.post('/api/children/' + self.child.id + '/toggle-check-in', self.parent)
                     .then(response => {
-                        window.bus.$emit('toggleChildCheckIn',this.child.id);
-                        this.state = 'Success'
+                        window.bus.$emit('toggleChildCheckIn',self.child.id);
+                        self.$swal(
+                            'Success!',
+                            self.$t('Child has been ' + (self.child.is_checked_in ? 'checked in.' : 'checked out.') + '<br>' + (self.child.is_checked_in ? 'Check In ' : 'Checkout ') + '' +self.getDate()),
+                            'success'
+                        );
+                        $('#toggleCheckInModal').hide()
                     })
                     .catch(error => {
                         if (error.response.status == 403) {
-                            this.$noty.error(this.$t('This child is inactive and read-only.'));
-                        } else if (error.response.status == 422) {
-                            for (var key in error.response.data) {
-                                this.$noty.error(error.response.data[key]);
-                            }
-                            this.state = 'Pin';
+                            self.$swal(
+                                'Something went Wrong',
+                                self.$t('This child is inactive and read-only.'),
+                                'error'
+                            );
                         } else {
-                            alert("Something went wrong. Please reload the page and try again.");
+                            self.$swal(
+                                'error',
+                                error.response.data.message[0],
+                                'error'
+                            );
                         }
                     });
+
+                    }, function(dismiss) {
+                        if (dismiss === 'cancel') {
+                          self.$swal(
+                            'Cancelled',
+                            self.$t('Child has not been ' + (self.child.is_checked_in ? 'checked in.' : 'checked out.')),
+                            'error'
+                          );
+                        }
+                        $('#toggleCheckInModal').hide()
+                    }
+                );
             },
             getDate: function() {
                 return window.moment().format('dddd, D MMM YYYY @ hh:mm a');
+            },
+
+            clearParent: function() {
+                this.parent.parent_id = ''
+            },
+
+            clearPickupuser: function() {
+                this.parent.pickupuser_id = ''
+            },
+
+            cancel: function() {
+                this.parents = []
+                this.parent.pin = ''
+                this.parent.parent_id = ''
             }
         }
     }

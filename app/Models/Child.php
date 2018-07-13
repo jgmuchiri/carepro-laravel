@@ -75,7 +75,8 @@ class Child extends Model
     protected $appends = [
         'full_photo_uri',
         'full_photo_uri_original',
-        'is_checked_in'
+        'is_checked_in',
+        'checked_in_time'
     ];
 
     /**
@@ -235,7 +236,8 @@ class Child extends Model
             $date_difference_results = self::query()
                 ->selectRaw(
                     'YEAR(MAX(created_at)) - YEAR(MIN(created_at)) - (DATE_FORMAT(MAX(created_at), \'%m%d\') < DATE_FORMAT(MIN(created_at), \'%m%d\')) AS \'difference\',
-                    MIN(created_at) as \'first_date\'')
+                    MIN(created_at) as \'first_date\''
+                )
                 ->first();
             $filter = $date_difference_results->difference > 0 ? 'yearly' : 'monthly';
             $is_returning_all_records = true;
@@ -267,9 +269,9 @@ class Child extends Model
 
         foreach ($results as $result) {
             $date = null;
-            if ($filter == "monthly"){
+            if ($filter == "monthly") {
                 $date = Carbon::create(null, $result->month)->startOfMonth()->startOfDay();
-            } elseif ($filter == "yearly"){
+            } elseif ($filter == "yearly") {
                 $date = Carbon::create($result->year)->startOfMonth()->startOfDay();
             }
 
@@ -331,7 +333,8 @@ class Child extends Model
             'children_to_parents',
             'children_to_parents.child_id',
             '=',
-            $this->getTable() . '.id')
+            $this->getTable() . '.id'
+            )
             ->join('parents', 'parents.id', '=', 'children_to_parents.parent_id')
             ->join('users', 'users.id', '=', 'parents.user_id')
             ->where('users.daycare_id', '=', $daycare_id);
@@ -350,7 +353,8 @@ class Child extends Model
                 'children_to_parents',
                 'children_to_parents.child_id',
                 '=',
-                $this->getTable() . '.id')
+                $this->getTable() . '.id'
+            )
             ->join('parents', 'parents.id', '=', 'children_to_parents.parent_id')
             ->where('parents.user_id', '=', $user_id);
     }
@@ -433,5 +437,14 @@ class Child extends Model
         }
 
         return true;
+    }
+
+    public function getCheckedInTimeAttribute()
+    {
+        $attendance = $this->attendance()->onlyLastRecord()->first();
+
+        if (!is_null($attendance)) {
+            return strtotime($attendance->check_in_date);
+        }
     }
 }

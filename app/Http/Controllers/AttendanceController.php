@@ -35,11 +35,11 @@ class AttendanceController extends Controller
         return $attendance;
     }
 
-     /**
-     * return all attendance for child
-     * @param  [int] $id [child id]
-     * @return [type]     [description]
-     */
+    /**
+    * return all attendance for child
+    * @param  [int] $id [child id]
+    * @return [type]     [description]
+    */
     public function print(Request $request, $id)
     {
         $child = Child::find($id);
@@ -71,7 +71,6 @@ class AttendanceController extends Controller
 
         // Output the generated PDF to Browser
         $dompdf->stream();
-
     }
 
     public function toggleCheckIn(Request $request, $id)
@@ -89,23 +88,24 @@ class AttendanceController extends Controller
         $pickup_parent = null;
         $pickup_user = null;
         $pin = $request->input('pin');
-        foreach ($child->parents as $parent) {
-            if ($parent->pin == $pin) {
-                $pickup_parent = $parent;
-                break;
+        if (!is_null($request->parent_id)) {
+            foreach ($child->parents as $parent) {
+                if ($parent->pin == $pin && $parent->id == $request->parent_id) {
+                    $pickup_parent = $parent;
+                    break;
+                }
             }
         }
-
-        if ($pickup_parent == null) {
+        if (!is_null($request->pickupuser_id)) {
             foreach ($child->pickupUsers as $current_pickup_user) {
-                if ($current_pickup_user->pin == $pin) {
+                if ($current_pickup_user->pin == $pin && $current_pickup_user->id == $request->pickupuser_id) {
                     $pickup_user = $current_pickup_user;
                 }
             }
         }
 
         if ($pickup_user == null && $pickup_parent == null) {
-            return response()->json(new MessageBag(['pin' => __('Pin does not match user.')]), 422);
+            return response()->json(new MessageBag(['message' => __('Pin does not match user.')]), 422);
         }
 
         $attendance = null;

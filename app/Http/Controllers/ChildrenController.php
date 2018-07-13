@@ -175,7 +175,7 @@ class ChildrenController extends Controller
         Storage::disk('public')->put('children-images/original/'.$imagename, (string)$originalimage->stream());
 
         $originalimage->resize(200, 200);
-        Storage::disk('public')->put('children-images/'.$imagename,(string)$originalimage->stream());
+        Storage::disk('public')->put('children-images/'.$imagename, (string)$originalimage->stream());
 
         $thumb_path = 'children-images/'.$imagename;
 
@@ -250,7 +250,7 @@ class ChildrenController extends Controller
             Storage::disk('public')->put('children-images/original/'.$imagename, (string)$originalimage->stream());
 
             $originalimage->resize(200, 200);
-            Storage::disk('public')->put('children-images/'.$imagename,(string)$originalimage->stream());
+            Storage::disk('public')->put('children-images/'.$imagename, (string)$originalimage->stream());
 
             $child->photo = 'children-images/'.$imagename;
         }
@@ -386,7 +386,7 @@ class ChildrenController extends Controller
     public function invoice($id, $invoice_id)
     {
         $invoice = Invoice::where('id', $invoice_id)->with('invoiceitems')->first();
-        $child = Child::with('parents', 'parents.user')->where('id',$id)->first();
+        $child = Child::with('parents', 'parents.user')->where('id', $id)->first();
         //dd($child->user);
         $view = view('invoices.invoice')->withChild($child)->withInvoice($invoice);
         // instantiate and use the dompdf class
@@ -402,5 +402,16 @@ class ChildrenController extends Controller
 
         // Output the generated PDF to Browser
         $dompdf->stream();
+    }
+
+    public function getParents(Request $request, $id)
+    {
+        $parents = Child::find($id)->parents()->with('user')->get();
+        $pickupusers = Child::find($id)->pickupUsers()->get();
+
+        return response()->json([
+            'parents' => $parents,
+            'pickupusers' => $pickupusers,
+        ], 200);
     }
 }
