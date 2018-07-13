@@ -39,7 +39,7 @@
                 </div>
             </div>
             <!-- START table-responsive-->
-            <div class="table-responsive">
+            <div v-if="parents.length" class="table-responsive">
                 <table class="table table-bordered table-hover" id="table-ext-1">
                     <thead>
                         <tr>
@@ -84,6 +84,14 @@
                         </tr>
                     </tbody>
                 </table>
+            </div>
+            <div v-else class="text-center" style="padding-top:30px;padding-bottom:30px;">
+                <p>We couldn't find any Parent records</p>
+                 <div class="btn-group">
+                    <button class="btn btn-success waves-effect m-b-5" data-toggle="modal" data-target="#create-edit-parent-modal" data-backdrop="false">
+                        <span>{{ $t('Add First Parent Record') }}</span>
+                    </button>
+                </div>
             </div>
         </div>
         <CreateEditParentModal v-on:parentRegistered="addParent"></CreateEditParentModal>
