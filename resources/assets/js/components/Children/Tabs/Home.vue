@@ -193,25 +193,16 @@
             </div>
             <div class="child-parent">
                 <div class="row">
-                    <div class="col-md-6" v-for="pickup_user in child.pickup_users">
-                        <div class="panel panel-primary">
+                    <div class="col-lg-offset-1 col-lg-4 col-md-6" v-for="pickup_user in child.pickup_users">
+                        <div class="panel b text-center">
                             <div class="panel-body">
-                                <div class="row row-table">
-                                    <div class="col-xs-5 text-center">
-                                        <img :src="pickup_user.full_photo_uri" :alt="$t('User Image')"/>
-                                    </div>
-                                    <div class="col-xs-7">
-                                        <h3 class="mt0">{{ pickup_user.name }}</h3>
-                                        <ul class="list-unstyled">
-                                            <li class="mb-sm"><em class="fa fa-envelope fa-fw"></em>{{ pickup_user.email }}</li>
-                                            <li class="mb-sm"><em class="fa fa-phone fa-fw"></em>{{ pickup_user.phone }}</li>
-                                            <li class="mb-sm"><em class="fa fa-key fa-fw"></em>{{ pickup_user.pin }}</li><li class="mb-sm">
-                                            <em class="fa fa-check-circle-o fa-fw"></em>{{ pickup_user.relation.name }}</li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                                <div class="text-center">
+                                <img class="img-circle thumb64" :src="pickup_user.full_photo_uri" :alt="$t('User Image')">
+                                <p class="h4 text-bold mb0">{{ pickup_user.name }}</p>
+                                <p class="h4 text-bold mb0"><em class="fa fa-envelope fa-fw"></em> {{ pickup_user.email }}</p>
+                                <p class="h4 text-bold mb0"><em class="fa fa-phone fa-fw"></em> {{ pickup_user.phone }}</p>
+                                <p class="h4 text-bold mb0"><em class="fa fa-key fa-fw"></em> {{ pickup_user.pin }}</p>
+                                <p class="h4 text-bold mb0"><em class="fa fa-check-circle-o fa-fw"></em> {{ pickup_user.relation.name }}</p>
+                                <div class="text-center" style="padding-top:15px;">
                                     <a class="btn btn-success btn-oval"
                                        v-on:click="editPickupUser(pickup_user)">
                                         <i class="fa fa-pencil"></i>
@@ -222,10 +213,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="text-center" v-if="!child.pickup_users.length">
-                        <h4>{{ $t('No authorised Pick Up Users yet') }}</h4>
-                        <button class="btn btn-primary" data-toggle="modal" data-target="#create-edit-pickup-user-modal" data-backdrop="false" title="">{{ $t('New Authorization') }}</button>
                     </div>
                 </div>
             </div>

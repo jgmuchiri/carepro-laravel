@@ -30,7 +30,7 @@
                                     <p class="child-alert child-warning">4 Medications</p>
                                 </div>
                                 <div class="col-md-6">
-                                    <p class="child-alert child-success">1 Child Registered</p>
+                                    <p class="child-alert child-success">{{ parent.children.length + (parent.children.length > 1 ? ' Children' : ' Child')}} Registered</p>
                                 </div>
                                 <div class="col-md-6">
                                     <p class="child-alert child-warning">2 incidents Reported</p>
@@ -139,7 +139,7 @@
                                                 <div class="panel widget child-upload">
                                                     <div class="panel-body text-center">
                                                         <div class="child-btn-fa">
-                                                            <a href="" id="upload_link" title="">
+                                                            <a href="" v-on:click.prevent="uploadLink" title="">
                                                                 <i class="fa fa-upload"></i>
                                                             </a>
                                                         </div>
@@ -203,11 +203,6 @@
                 alert("Something went wrong. Please try reloading the page");
             });
 
-            $(document).on('click', '#upload_link', function(e) {
-                e.preventDefault();
-                $("#upload:hidden").trigger('click');
-            });
-
             $("input[type=hidden]").bind("change", function() {
                 console.log('change');
                 var file = $('#upload').val();
@@ -231,6 +226,10 @@
         },
 
         methods: {
+            uploadLink: function() {
+                $("#upload:hidden").trigger('click');
+            },
+
             getParent: function() {
                 this.$http.get('/api/parents/' + this.parent_id)
                 .then(response => {
