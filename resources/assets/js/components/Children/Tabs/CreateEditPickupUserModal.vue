@@ -116,8 +116,8 @@
                         })
                         .catch(error => {
                             if (error.response.status == 422) {
-                                for (var key in error.response.data) {
-                                    this.notifyError(error.response.data[key]);
+                                for (var key in error.response.data.errors) {
+                                    this.$noty.error(error.response.data.errors[key]);
                                 }
                             } else {
                                 alert("Something went wrong. Please reload the page and try again.");
@@ -131,7 +131,9 @@
                 formData.append('phone', this.user.phone);
                 formData.append('pin', this.user.pin);
                 formData.append('relation', this.user.relation);
-                formData.append('photo_uri', this.user.photo_uri);
+                if (this.photo_uri) {
+                    formData.append('photo_uri', this.user.photo_uri);
+                }
                 formData.append('_method', 'PUT');
 
                 this.$http.post('/api/children/' + this.child_id + '/pickup-users/' + this.user.id, formData)
@@ -145,9 +147,9 @@
                         if (error.response.status == 403) {
                             this.$noty.error(this.$t('This child is inactive and read-only.'));
                         } else if (error.response.status == 422) {
-                            for (var key in error.response.data) {
-                                this.notifyError(error.response.data[key]);
-                            }
+                            for (var key in error.response.data.errors) {
+                                    this.$noty.error(error.response.data.errors[key]);
+                                }
                         } else {
                             alert("Something went wrong. Please reload the page and try again.");
                         }

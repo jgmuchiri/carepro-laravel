@@ -30,7 +30,7 @@ class PickupUsersController extends Controller
         //retrieve the image
         $file = Storage::get('public/children-images/pickup-users/original/'.$photo_name);
         //resize image
-        $photo_thumb = Image::make($file)->resize(100, 100)->stream();
+        $photo_thumb = Image::make($file)->resize(400, 400)->stream();
         //move the resized image to the childrens folder.
         $path = Storage::disk('public')->put('children-images/pickup-users/'.$photo_name, $photo_thumb);
         //generate resized image path
@@ -69,8 +69,16 @@ class PickupUsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(SavePickupUserRequest $request, $child_id, $id)
+    public function update(Request $request, $child_id, $id)
     {
+        $request->validate([
+            'name' => 'required|max:255|string',
+            'email' => 'required|max:255|string|email',
+            'phone' => 'required|max:20|string',
+            'pin' => 'required|max:50|string',
+            'photo_uri' => 'nullable|image|max:5000'
+        ]);
+
         $child = Child::findOrFail($child_id);
         $this->authorize('update', $child);
 
@@ -78,13 +86,16 @@ class PickupUsersController extends Controller
 
         if (!empty($request->file('photo_uri'))) {
             $photo_uri = $pickup_user->photo_uri;
-            Storage::disk('public')->putFileAs('children-images/pickup-users/original', $request->file('photo_uri'),
-                $photo_uri);
+            Storage::disk('public')->putFileAs(
+                'children-images/pickup-users/original',
+                $request->file('photo_uri'),
+                $photo_uri
+            );
 
             //retrieve the image
             $file = Storage::get('public/children-images/pickup-users/original/' . $photo_uri);
             //resize image
-            $photo_thumb = Image::make($file)->resize(100, 100)->stream();
+            $photo_thumb = Image::make($file)->resize(400, 400)->stream();
             //move the resized image to the childrens folder.
             $path = Storage::disk('public')->put($photo_uri, $photo_thumb);
         }
