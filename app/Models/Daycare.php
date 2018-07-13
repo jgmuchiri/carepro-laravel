@@ -16,6 +16,17 @@ class Daycare extends Model
     protected $fillable = ['name', 'employee_tax_identifier'];
 
     /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'trial_ends_at'
+    ];
+
+    /**
      * Relationship to the address for this daycare
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
