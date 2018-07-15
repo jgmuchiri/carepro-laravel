@@ -274,10 +274,8 @@
 <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
 <!-- =============== APP SCRIPTS ===============-->
-<script src="{{ url('assets/js/app.js') }}"></script>
-
-<script src="https://js.stripe.com/v2/"></script>
 <script src="https://js.stripe.com/v3/"></script>
+<script src="{{ url('assets/js/app.js') }}"></script>
 @include('partials.flash')
 @stack('scripts')
 @stack('modals')
