@@ -13,7 +13,7 @@
     <div class="panel panel-default">
        <div class="panel-heading">
            <div class="row">
-             <div class="col-lg-2">
+             <div class="col-md-4 col-lg-2">
                 <div class="input-group">
                    <input class="input-sm form-control" type="text" placeholder="Search">
                    <span class="input-group-btn">
@@ -21,8 +21,8 @@
                    </span>
                 </div>
              </div>
-             <div class="col-lg-8"></div>
-             <div class="col-lg-2">
+             <div class="col-md-4 col-lg-8"></div>
+             <div class="col-md-4 col-lg-2">
                 <div class="input-group pull-right">
                    <select class="input-sm form-control">
                       <option value="0">Bulk action</option>
