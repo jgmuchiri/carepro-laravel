@@ -14,7 +14,7 @@ class Invoice extends Model
      * @var array
      */
     protected $fillable = [
-        'due_date', 'invoice_terms', 'tax', 'invoice_status', 'amount'
+        'due_date', 'invoice_terms', 'tax', 'invoice_status', 'amount', 'daycare_id'
     ];
 
     /**
@@ -35,5 +35,13 @@ class Invoice extends Model
     public function invoicestatus()
     {
         return $this->belongsTo(InvoiceStatus::class, 'invoice_status');
+    }
+
+    /**
+     * Get the transactions for the invoice post.
+     */
+    public function transactions()
+    {
+        return $this->hasMany('App\Models\Transactions');
     }
 }

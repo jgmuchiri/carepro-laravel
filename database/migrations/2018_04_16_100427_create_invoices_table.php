@@ -19,10 +19,12 @@ class CreateInvoicesTable extends Migration
             $table->foreign('child_id')->references('id')->on('children');
             $table->date('due_date');
             $table->string('invoice_terms');
-             $table->integer('tax');
+            $table->integer('tax');
             $table->unsignedInteger('invoice_status');
             $table->foreign('invoice_status')->references('id')->on('invoice_statuses');
             $table->integer('amount');
+            $table->integer('daycare_id', false, true);
+            $table->foreign('daycare_id')->references('id')->on('daycares');
             $table->timestamps();
         });
     }

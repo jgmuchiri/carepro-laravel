@@ -14,4 +14,12 @@ class InvoiceItem extends Model
     protected $fillable = [
         'name', 'description', 'quantity', 'amount', 'total'
     ];
+
+    /**
+     * Get the invoice that owns the invoice items.
+     */
+    public function invoice()
+    {
+        return $this->belongsTo('App\Models\Invoice\Invoice');
+    }
 }
