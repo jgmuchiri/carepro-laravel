@@ -401,7 +401,7 @@ class ChildrenController extends Controller
         $dompdf->render();
 
         // Output the generated PDF to Browser
-        $dompdf->stream();
+        $dompdf->stream("invoice-".$invoice->id.".pdf", array( 'Attachment'=>0 ));
     }
 
     public function getParents(Request $request, $id)
