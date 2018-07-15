@@ -22,8 +22,10 @@ class DatabaseSeeder extends Seeder
         $this->call(GendersSeeder::class);
         $this->call(ReligionsSeeder::class);
         $this->call(StatusesSeeder::class);
+        $this->call(InvoiceStatusesTablesSeeder::class);
         $this->call(NoteTypesSeeder::class);
         $this->call(StaffTableSeeder::class);
         $this->call(ParentsTableSeeder::class);
+        $this->call(TransactionTypesTableSeeder::class);
     }
 }
