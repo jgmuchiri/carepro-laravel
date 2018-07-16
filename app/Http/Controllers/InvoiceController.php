@@ -224,7 +224,7 @@ class InvoiceController extends Controller
         $daycare = Daycare::find($invoice->daycare_id)->managed_account;
 
         try {
-            \Stripe\Stripe::setApiKey("sk_test_TyOdJR1FEUQjlyUf3U3pGKhA");
+            \Stripe\Stripe::setApiKey(Config::get('services.stripe.secret'));
             $charge = \Stripe\Charge::create(array(
                 "amount" => $invoice->amount,
                 "currency" => "usd",
