@@ -11,7 +11,7 @@ class ChildrensTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Child::class, 1)->create();
+        factory(App\Models\Child::class, 40)->create();
 
         $children = App\Models\Child::all();
         foreach ($children as $child) {
