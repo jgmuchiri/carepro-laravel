@@ -4,8 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
@@ -20,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'confirmation_code'
+        'name', 'email', 'password', 'confirmation_code',
     ];
 
     /**
@@ -29,7 +29,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'stripe_managed_account_id', 'stripe_secret_key', 'stripe_publishable_key'
+        'password', 'remember_token',
+        'stripe_managed_account_id', 'stripe_secret_key', 'stripe_publishable_key',
     ];
 
     /**
@@ -38,7 +39,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'confirmed' => 'boolean'
+        'confirmed' => 'boolean',
     ];
 
     /**
@@ -49,7 +50,7 @@ class User extends Authenticatable
     protected $dates = [
         'created_at',
         'updated_at',
-        'trial_ends_at'
+        'trial_ends_at',
     ];
 
     /**

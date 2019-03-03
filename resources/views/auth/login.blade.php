@@ -5,7 +5,7 @@
 <div class="section-empty section-item">
     <div class="container content">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2 login-box shadow-1 ">
+            <div class="col-md-6 col-md-offset-2 login-box shadow-1 ">
               <div class="text-center">
                 <h2 style="padding-bottom:15px;">login</h2>
               </div>
