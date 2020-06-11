@@ -10,6 +10,11 @@ TykCare is a daycare management SAAS application build on Laravel and VueJS
 - Parent access
 - Default starter website template
 
+## Dependencies
+
+- Stripe API Keys
+- Stripe Managed accounts
+
 ## Installation
 
 `composer install`
@@ -33,11 +38,6 @@ TykCare is a daycare management SAAS application build on Laravel and VueJS
 `php artisan storage:link`
 
 `php artisan vendor:publish`
-
-## Dependencies
-
-- Stripe API Keys
-- Stripe Managed accounts
 
 - Obtain Stripe API keys and add them to the `.env`
 
