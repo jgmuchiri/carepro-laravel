@@ -23,6 +23,11 @@ TykCare is a daycare management SAAS application build on Laravel and VueJS
 
 `npm run dev`
 
+- Copy `.env.example` to `.env`
+- Fill all necessary variables in the `.env`
+  - Obtain Stripe API keys and add them to the `.env`
+  - Add you mail server credentials on `.env'
+
 `php artisan key:generate`
 
 - IMPORTANT! Change your default email and password in `.env` file
@@ -38,8 +43,6 @@ TykCare is a daycare management SAAS application build on Laravel and VueJS
 `php artisan storage:link`
 
 `php artisan vendor:publish`
-
-- Obtain Stripe API keys and add them to the `.env`
 
 `php artisan serve`
 
