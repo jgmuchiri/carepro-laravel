@@ -8,6 +8,7 @@ TykCare is a daycare management SAAS application build on Laravel and VueJS
 - Daycare owner admin interface
 - Staff access
 - Parent access
+- Default starter website template
 
 ## Installation
 
