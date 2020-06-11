@@ -108,6 +108,7 @@ class DaycaresController extends Controller
                         // 'last_name' => (!empty($exploded_name[1]) ? $exploded_name[1] : null), 
                     ],
                     'business_type' => 'individual',
+                    'requested_capabilities'=>['card_payments','transfers'],
                     'individual' => [
                         'address'=>[
                             'city' => $user->address->city->name,

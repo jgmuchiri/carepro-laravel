@@ -241,7 +241,7 @@
 <script src="{{ url('assets/vendor/modernizr/modernizr.custom.js') }}"></script>
 <!-- MATCHMEDIA POLYFILL-->
 <script src="{{ url('assets/vendor/matchMedia/matchMedia.js') }}"></script>
-<script src="{{mix('/js/app.js')}}"></script>
+<script src="{{url('/js/app.js')}}"></script>
 <!-- JQUERY-->
  {{-- <script src="{{ url('assets/vendor/jquery/dist/jquery.js') }}"></script> --}}
 <!-- BOOTSTRAP-->
