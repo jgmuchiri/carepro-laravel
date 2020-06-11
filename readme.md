@@ -2,6 +2,13 @@
 
 TykCare is a daycare management SAAS application build on Laravel and VueJS
 
+## Features
+
+- Platform owner admin interface
+- Daycare owner admin interface
+- Staff access
+- Parent access
+
 ## Installation
 
 `composer install`
@@ -10,11 +17,15 @@ TykCare is a daycare management SAAS application build on Laravel and VueJS
 
 `npm run dev`
 
+`php artisan key:generate`
+
+- IMPORTANT! Change your default email and password in `.env` file
+
 `php artisan migrate --seed`
 
 `php artisan passport:install`
 
-`php artisan currency:manage add <currency>`
+`php artisan currency:manage add <currency>` example `php artisan currency:manage add USD`
 
 `php artisan currency:update.`
 
@@ -26,3 +37,9 @@ TykCare is a daycare management SAAS application build on Laravel and VueJS
 
 - Stripe API Keys
 - Stripe Managed accounts
+
+- Obtain Stripe API keys and add them to the `.env`
+
+`php artisan serve`
+
+- Register your first daycare

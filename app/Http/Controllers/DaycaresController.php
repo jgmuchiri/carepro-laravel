@@ -89,12 +89,12 @@ class DaycaresController extends Controller
             $account = \Stripe\Account::create(
                 [
                     "country" => "US",
-                    "type" => "custom",
-                    'business_name' => $daycare->name,
+                    "type" => "custom", 
                     'email' => $user->email,
-                    'legal_entity' => [
-                        'type' => 'company',
-                        'address' => [
+                    'business_profile' => [
+                        'name'=>$daycare->name,
+                        'product_description'=>'Daycare Services',
+                        'support_address' => [
                             'city' => $address->city->name,
                             'country' => $address->country->abbreviation,
                             'line1' => $address->address_line_1,
@@ -102,11 +102,14 @@ class DaycaresController extends Controller
                             'postal_code' => $address->zipCode->name,
                             'state' => $address->state->name
                         ],
-                        'phone_number' => $address->phone,
-                        'business_tax_id' => $daycare->employee_tax_identifier,
-                        'first_name' => $exploded_name[0],
-                        'last_name' => (!empty($exploded_name[1]) ? $exploded_name[1] : null),
-                        'personal_address' => [
+                        'support_phone' => $address->phone,
+                        // 'business_tax_id' => $daycare->employee_tax_identifier,
+                        // 'first_name' => $exploded_name[0],
+                        // 'last_name' => (!empty($exploded_name[1]) ? $exploded_name[1] : null), 
+                    ],
+                    'business_type' => 'individual',
+                    'individual' => [
+                        'address'=>[
                             'city' => $user->address->city->name,
                             'country' => $user->address->country->abbreviation,
                             'line1' => $user->address->line1,
@@ -114,7 +117,7 @@ class DaycaresController extends Controller
                             'postal_code' => $address->zipCode->name,
                             'state' => $address->state->name
                         ]
-                    ]
+                       ]
                 ]
             );
 
